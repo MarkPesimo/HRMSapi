@@ -4,8 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9f7ae9e13ab94f9da69277325398ffc5" Name="Diagram1" ZoomLevel="48">
+      <Diagram DiagramId="9f7ae9e13ab94f9da69277325398ffc5" Name="Diagram1" ZoomLevel="124">
         <EntityTypeShape EntityType="APWDBModel.Employee" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="APWDBModel.SYS_USER" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="false" />
+        <AssociationConnector Association="APWDBModel.FK_Employee_SYS_USER" />
+        <EntityTypeShape EntityType="APWDBModel.SYS_USER_GROUP" Width="2" PointX="3" PointY="5.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="APWDBModel.SYS_USER_GROUP_DET" Width="2" PointX="5.25" PointY="4.5" IsExpanded="false" />
+        <AssociationConnector Association="APWDBModel.FK_SYS_USER_GROUP_DET_SYS_USER" />
+        <AssociationConnector Association="APWDBModel.FK_SYS_USER_GROUP_SYS_USER" />
+        <AssociationConnector Association="APWDBModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" />
+        <EntityTypeShape EntityType="APWDBModel.sys_company" Width="1.5" PointX="3" PointY="0.75" IsExpanded="false" />
+        <AssociationConnector Association="APWDBModel.FK_sys_company_SYS_USER" />
+        <AssociationConnector Association="APWDBModel.FK_SYS_USER_GROUP_sys_company" />
+        <EntityTypeShape EntityType="APWDBModel.REC_USER_LOG" Width="1.5" PointX="5.375" PointY="0.75" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

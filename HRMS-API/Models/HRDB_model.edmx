@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="APWDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="APWDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Emp_ID" />
@@ -100,11 +100,175 @@
           <Property Name="func_id" Type="int" Nullable="false" />
           <Property Name="card_no_validity" Type="datetime" />
         </EntityType>
+        <EntityType Name="REC_USER_LOG">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sys_company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company_code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="company_name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="trunk_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="fax_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="TIN_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="CompanyWebsite" Type="nvarchar" MaxLength="500" />
+          <Property Name="CompanyLogo" Type="nvarchar" MaxLength="50" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_USER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="emp_id" Type="int" />
+          <Property Name="email_address" Type="nvarchar" MaxLength="150" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="appmodule_id" Type="int" Nullable="false" />
+          <Property Name="user_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="date_modified" Type="datetime" />
+          <Property Name="emp_name" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="SYS_USER_GROUP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group_code" Type="nvarchar" MaxLength="20" />
+          <Property Name="group_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="500" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="company_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_USER_GROUP_DET">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="user_type" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Employee_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sys_company_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="sys_company" Type="Self.sys_company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_company">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_DET_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="SYS_USER_GROUP_DET" Type="Self.SYS_USER_GROUP_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP_DET">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_DET_SYS_USER_GROUP">
+          <End Role="SYS_USER_GROUP" Type="Self.SYS_USER_GROUP" Multiplicity="1" />
+          <End Role="SYS_USER_GROUP_DET" Type="Self.SYS_USER_GROUP_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER_GROUP">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP_DET">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_sys_company">
+          <End Role="sys_company" Type="Self.sys_company" Multiplicity="1" />
+          <End Role="SYS_USER_GROUP" Type="Self.SYS_USER_GROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="SYS_USER_GROUP" Type="Self.SYS_USER_GROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="APWDBModelStoreContainer">
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_USER_LOG" EntityType="Self.REC_USER_LOG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_company" EntityType="Self.sys_company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_USER" EntityType="Self.SYS_USER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_USER_GROUP" EntityType="Self.SYS_USER_GROUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_USER_GROUP_DET" EntityType="Self.SYS_USER_GROUP_DET" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employee_SYS_USER" Association="Self.FK_Employee_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sys_company_SYS_USER" Association="Self.FK_sys_company_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="sys_company" EntitySet="sys_company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_DET_SYS_USER" Association="Self.FK_SYS_USER_GROUP_DET_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_USER_GROUP_DET" EntitySet="SYS_USER_GROUP_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" Association="Self.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP">
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+            <End Role="SYS_USER_GROUP_DET" EntitySet="SYS_USER_GROUP_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_sys_company" Association="Self.FK_SYS_USER_GROUP_sys_company">
+            <End Role="sys_company" EntitySet="sys_company" />
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_SYS_USER" Association="Self.FK_SYS_USER_GROUP_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="APWDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -202,10 +366,187 @@
           <Property Name="tax_percentage" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="func_id" Type="Int32" Nullable="false" />
           <Property Name="card_no_validity" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SYS_USER" Relationship="APWDBModel.FK_Employee_SYS_USER" FromRole="Employee" ToRole="SYS_USER" />
         </EntityType>
         <EntityContainer Name="APWDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="SYS_USER" EntityType="APWDBModel.SYS_USER" />
+          <AssociationSet Name="FK_Employee_SYS_USER" Association="APWDBModel.FK_Employee_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <EntitySet Name="SYS_USER_GROUP" EntityType="APWDBModel.SYS_USER_GROUP" />
+          <EntitySet Name="SYS_USER_GROUP_DET" EntityType="APWDBModel.SYS_USER_GROUP_DET" />
+          <AssociationSet Name="FK_SYS_USER_GROUP_DET_SYS_USER" Association="APWDBModel.FK_SYS_USER_GROUP_DET_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_USER_GROUP_DET" EntitySet="SYS_USER_GROUP_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_SYS_USER" Association="APWDBModel.FK_SYS_USER_GROUP_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" Association="APWDBModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP">
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+            <End Role="SYS_USER_GROUP_DET" EntitySet="SYS_USER_GROUP_DET" />
+          </AssociationSet>
+          <EntitySet Name="sys_company" EntityType="APWDBModel.sys_company" />
+          <AssociationSet Name="FK_sys_company_SYS_USER" Association="APWDBModel.FK_sys_company_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="sys_company" EntitySet="sys_company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_sys_company" Association="APWDBModel.FK_SYS_USER_GROUP_sys_company">
+            <End Role="sys_company" EntitySet="sys_company" />
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+          </AssociationSet>
+          <EntitySet Name="REC_USER_LOG" EntityType="APWDBModel.REC_USER_LOG" />
         </EntityContainer>
+        <EntityType Name="SYS_USER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emp_id" Type="Int32" />
+          <Property Name="email_address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="appmodule_id" Type="Int32" Nullable="false" />
+          <Property Name="user_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date_modified" Type="DateTime" Precision="3" />
+          <Property Name="emp_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="APWDBModel.FK_Employee_SYS_USER" FromRole="SYS_USER" ToRole="Employee" />
+          <NavigationProperty Name="SYS_USER_GROUP_DET" Relationship="APWDBModel.FK_SYS_USER_GROUP_DET_SYS_USER" FromRole="SYS_USER" ToRole="SYS_USER_GROUP_DET" />
+          <NavigationProperty Name="SYS_USER_GROUP" Relationship="APWDBModel.FK_SYS_USER_GROUP_SYS_USER" FromRole="SYS_USER" ToRole="SYS_USER_GROUP" />
+          <NavigationProperty Name="sys_company" Relationship="APWDBModel.FK_sys_company_SYS_USER" FromRole="SYS_USER" ToRole="sys_company" />
+        </EntityType>
+        <Association Name="FK_Employee_SYS_USER">
+          <End Type="APWDBModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="APWDBModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SYS_USER_GROUP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="group_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="company_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SYS_USER" Relationship="APWDBModel.FK_SYS_USER_GROUP_SYS_USER" FromRole="SYS_USER_GROUP" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_USER_GROUP_DET" Relationship="APWDBModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" FromRole="SYS_USER_GROUP" ToRole="SYS_USER_GROUP_DET" />
+          <NavigationProperty Name="sys_company" Relationship="APWDBModel.FK_SYS_USER_GROUP_sys_company" FromRole="SYS_USER_GROUP" ToRole="sys_company" />
+        </EntityType>
+        <EntityType Name="SYS_USER_GROUP_DET">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="user_type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="SYS_USER" Relationship="APWDBModel.FK_SYS_USER_GROUP_DET_SYS_USER" FromRole="SYS_USER_GROUP_DET" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_USER_GROUP" Relationship="APWDBModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" FromRole="SYS_USER_GROUP_DET" ToRole="SYS_USER_GROUP" />
+        </EntityType>
+        <Association Name="FK_SYS_USER_GROUP_DET_SYS_USER">
+          <End Type="APWDBModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="APWDBModel.SYS_USER_GROUP_DET" Role="SYS_USER_GROUP_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP_DET">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_SYS_USER">
+          <End Type="APWDBModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="APWDBModel.SYS_USER_GROUP" Role="SYS_USER_GROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_DET_SYS_USER_GROUP">
+          <End Type="APWDBModel.SYS_USER_GROUP" Role="SYS_USER_GROUP" Multiplicity="1" />
+          <End Type="APWDBModel.SYS_USER_GROUP_DET" Role="SYS_USER_GROUP_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER_GROUP">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP_DET">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="sys_company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company_code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="company_name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="trunk_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fax_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TIN_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CompanyWebsite" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyLogo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="country_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SYS_USER" Relationship="APWDBModel.FK_sys_company_SYS_USER" FromRole="sys_company" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_USER_GROUP" Relationship="APWDBModel.FK_SYS_USER_GROUP_sys_company" FromRole="sys_company" ToRole="SYS_USER_GROUP" />
+        </EntityType>
+        <Association Name="FK_sys_company_SYS_USER">
+          <End Type="APWDBModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="APWDBModel.sys_company" Role="sys_company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_company">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_sys_company">
+          <End Type="APWDBModel.sys_company" Role="sys_company" Multiplicity="1" />
+          <End Type="APWDBModel.SYS_USER_GROUP" Role="SYS_USER_GROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_USER_LOG">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -305,6 +646,75 @@
                 <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
                 <ScalarProperty Name="func_id" ColumnName="func_id" />
                 <ScalarProperty Name="card_no_validity" ColumnName="card_no_validity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_USER">
+            <EntityTypeMapping TypeName="APWDBModel.SYS_USER">
+              <MappingFragment StoreEntitySet="SYS_USER">
+                <ScalarProperty Name="emp_name" ColumnName="emp_name" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="appmodule_id" ColumnName="appmodule_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_USER_GROUP">
+            <EntityTypeMapping TypeName="APWDBModel.SYS_USER_GROUP">
+              <MappingFragment StoreEntitySet="SYS_USER_GROUP">
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="group_code" ColumnName="group_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_USER_GROUP_DET">
+            <EntityTypeMapping TypeName="APWDBModel.SYS_USER_GROUP_DET">
+              <MappingFragment StoreEntitySet="SYS_USER_GROUP_DET">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_company">
+            <EntityTypeMapping TypeName="APWDBModel.sys_company">
+              <MappingFragment StoreEntitySet="sys_company">
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="CompanyLogo" ColumnName="CompanyLogo" />
+                <ScalarProperty Name="CompanyWebsite" ColumnName="CompanyWebsite" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="TIN_no" ColumnName="TIN_no" />
+                <ScalarProperty Name="fax_no" ColumnName="fax_no" />
+                <ScalarProperty Name="trunk_no" ColumnName="trunk_no" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="company_code" ColumnName="company_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_USER_LOG">
+            <EntityTypeMapping TypeName="APWDBModel.REC_USER_LOG">
+              <MappingFragment StoreEntitySet="REC_USER_LOG">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

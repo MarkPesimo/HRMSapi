@@ -26,5 +26,10 @@ namespace HRMS_API.Models
         }
     
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<SYS_USER> SYS_USER { get; set; }
+        public virtual DbSet<SYS_USER_GROUP> SYS_USER_GROUP { get; set; }
+        public virtual DbSet<SYS_USER_GROUP_DET> SYS_USER_GROUP_DET { get; set; }
+        public virtual DbSet<sys_company> sys_company { get; set; }
+        public virtual DbSet<REC_USER_LOG> REC_USER_LOG { get; set; }
     }
 }

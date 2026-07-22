@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HRModel.ViewModel.Global;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -27,15 +28,15 @@ namespace HRMS_API.Helper
 
                 List<string> _secrets = new List<string>
                 {
-                    //SecretKeys.ISEARCH_TOKEN,
-                    //SecretKeys.HRMS_TOKEN,
-                    //SecretKeys.MIPAY_TOKEN,
-                    //SecretKeys.BCS_TOKEN,
-                    //SecretKeys.PORTAL_TOKEN,
-                    //SecretKeys.CAREERS_TOKEN,
-                    //SecretKeys.CLIENT_TOKEN,
-                    //SecretKeys.COOR_TOKEN,
-                    //SecretKeys.ACAP_TOKEN
+                    SecretKeys.ISEARCH_TOKEN,
+                    SecretKeys.HRMS_TOKEN,
+                    SecretKeys.MIPAY_TOKEN,
+                    SecretKeys.BCS_TOKEN,
+                    SecretKeys.PORTAL_TOKEN,
+                    SecretKeys.CAREERS_TOKEN,
+                    SecretKeys.CLIENT_TOKEN,
+                    SecretKeys.COOR_TOKEN,
+                    SecretKeys.ACAP_TOKEN
                 };
 
                 bool _found = false;

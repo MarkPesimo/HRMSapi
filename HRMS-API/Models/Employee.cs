@@ -104,5 +104,7 @@ namespace HRMS_API.Models
         public Nullable<decimal> tax_percentage { get; set; }
         public int func_id { get; set; }
         public Nullable<System.DateTime> card_no_validity { get; set; }
+    
+        public virtual SYS_USER SYS_USER { get; set; }
     }
 }
