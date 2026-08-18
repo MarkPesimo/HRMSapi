@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ac44f2c2e5624ec08007520427d074b6" Name="Diagram1" >
+        <EntityTypeShape EntityType="apwdbModel.Employee" Width="1.5" PointX="3.75" PointY="2" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.REC_USER_LOG" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.sys_company" Width="1.5" PointX="3.75" PointY="0.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.SYS_USER" Width="2.25" PointX="0.75" PointY="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.SYS_USER_GROUP" Width="2.375" PointX="6" PointY="1.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.SYS_USER_GROUP_DET" Width="2.25" PointX="9.125" PointY="1.375" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_sys_company_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_sys_company" />
+        <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
