@@ -1,5 +1,6 @@
 ﻿using HRModel.ViewModel.Global;
-using HRMS_API.Models;
+using HRMS.DB;
+//using HRMS_API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace HRMS_API.Repository
 {
     public class AccountRepository
     {
-        private APWDBEntities _conn { get; set; }
+        private apwdbEntities _conn { get; set; }
 
         public AccountRepository()
         {
-            if (_conn == null) { _conn = new APWDBEntities(); }
+            if (_conn == null) { _conn = new apwdbEntities(); }
            
         }
 

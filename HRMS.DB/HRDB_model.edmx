@@ -1,0 +1,744 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="apwdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Emp_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpType_ID" Type="int" Nullable="false" />
+          <Property Name="EmpRank_ID" Type="int" Nullable="false" />
+          <Property Name="Branch_ID" Type="int" Nullable="false" />
+          <Property Name="Department_ID" Type="int" Nullable="false" />
+          <Property Name="Position" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Shift_ID" Type="int" Nullable="false" />
+          <Property Name="PayrollGroup_ID" Type="int" />
+          <Property Name="SalaryType_ID" Type="int" />
+          <Property Name="Emp_No" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Middlename" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" />
+          <Property Name="Prov_Address" Type="nvarchar" MaxLength="250" />
+          <Property Name="Contact_No" Type="nvarchar" MaxLength="60" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="CivilStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="Companycode" Type="nvarchar" MaxLength="100" />
+          <Property Name="Citizenship" Type="nvarchar" MaxLength="50" />
+          <Property Name="Spouse" Type="nvarchar" MaxLength="50" />
+          <Property Name="Spouse_comp" Type="nvarchar" MaxLength="250" />
+          <Property Name="Spouse_address" Type="nvarchar" MaxLength="250" />
+          <Property Name="Religion" Type="nvarchar" MaxLength="250" />
+          <Property Name="Height" Type="nvarchar" MaxLength="50" />
+          <Property Name="Weight" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="Datehired" Type="datetime" />
+          <Property Name="Dateregular" Type="smalldatetime" />
+          <Property Name="Dateresigned" Type="smalldatetime" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="Birthplace" Type="nvarchar" MaxLength="150" />
+          <Property Name="TaxExemption" Type="nvarchar" MaxLength="50" />
+          <Property Name="Account_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tax_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="SSS_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="Philhealth_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pagibig_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="Contact_person" Type="nvarchar" MaxLength="250" />
+          <Property Name="Contact_Address" Type="nvarchar" MaxLength="250" />
+          <Property Name="Contact_relation" Type="nvarchar" MaxLength="250" />
+          <Property Name="Contact_Telno" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsOtRegular" Type="bit" Nullable="false" />
+          <Property Name="ActiveInactive" Type="smallint" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="MonthlySalary" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="RiceAllowance" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="MealAllowance" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AnnualTaxExcemp" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Allowance" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PagIbigCont" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Cola" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsIncludePayroll" Type="bit" />
+          <Property Name="ManualTaxDed" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CompID" Type="int" />
+          <Property Name="ImageFile" Type="varbinary(max)" />
+          <Property Name="ResignedRemarks" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Hobbies" Type="nvarchar" MaxLength="500" />
+          <Property Name="ContractStart" Type="datetime" />
+          <Property Name="ContractEnd" Type="datetime" />
+          <Property Name="CityID" Type="int" Nullable="false" />
+          <Property Name="ProvinceID" Type="int" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="pay_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="bank_id" Type="int" />
+          <Property Name="contracttype_id" Type="int" Nullable="false" />
+          <Property Name="employee_processingtype" Type="int" Nullable="false" />
+          <Property Name="car_allowance" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="commission" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="is_minimum" Type="bit" Nullable="false" />
+          <Property Name="employer_id" Type="int" Nullable="false" />
+          <Property Name="CTPA" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="SEA" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="ismanual_tax" Type="bit" Nullable="false" />
+          <Property Name="ismanual_pagibigcont" Type="bit" Nullable="false" />
+          <Property Name="ismanual_ssscont" Type="bit" Nullable="false" />
+          <Property Name="ismanual_philhealthcont" Type="bit" Nullable="false" />
+          <Property Name="sss_manualcont" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="philhealth_manualcont" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="date_modified" Type="smalldatetime" />
+          <Property Name="user_modified" Type="int" />
+          <Property Name="date_encoded" Type="smalldatetime" Nullable="false" />
+          <Property Name="is_confidential" Type="bit" Nullable="false" />
+          <Property Name="restday_id" Type="int" Nullable="false" />
+          <Property Name="card_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="with_VAT" Type="bit" Nullable="false" />
+          <Property Name="tax_percentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="func_id" Type="int" Nullable="false" />
+          <Property Name="card_no_validity" Type="datetime" />
+        </EntityType>
+        <EntityType Name="REC_USER_LOG">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sys_company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company_code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="company_name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="trunk_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="fax_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="TIN_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="CompanyWebsite" Type="nvarchar" MaxLength="500" />
+          <Property Name="CompanyLogo" Type="nvarchar" MaxLength="50" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_USER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="emp_id" Type="int" />
+          <Property Name="email_address" Type="nvarchar" MaxLength="150" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="appmodule_id" Type="int" Nullable="false" />
+          <Property Name="user_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="date_modified" Type="datetime" />
+          <Property Name="emp_name" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="SYS_USER_GROUP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group_code" Type="nvarchar" MaxLength="20" />
+          <Property Name="group_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="500" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="company_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_USER_GROUP_DET">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="user_type" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Employee_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sys_company_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="sys_company" Type="Self.sys_company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_company">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_DET_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="SYS_USER_GROUP_DET" Type="Self.SYS_USER_GROUP_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP_DET">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_DET_SYS_USER_GROUP">
+          <End Role="SYS_USER_GROUP" Type="Self.SYS_USER_GROUP" Multiplicity="1" />
+          <End Role="SYS_USER_GROUP_DET" Type="Self.SYS_USER_GROUP_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER_GROUP">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP_DET">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_sys_company">
+          <End Role="sys_company" Type="Self.sys_company" Multiplicity="1" />
+          <End Role="SYS_USER_GROUP" Type="Self.SYS_USER_GROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="SYS_USER_GROUP" Type="Self.SYS_USER_GROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="apwdbModelStoreContainer">
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_USER_LOG" EntityType="Self.REC_USER_LOG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_company" EntityType="Self.sys_company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_USER" EntityType="Self.SYS_USER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_USER_GROUP" EntityType="Self.SYS_USER_GROUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_USER_GROUP_DET" EntityType="Self.SYS_USER_GROUP_DET" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employee_SYS_USER" Association="Self.FK_Employee_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sys_company_SYS_USER" Association="Self.FK_sys_company_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="sys_company" EntitySet="sys_company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_DET_SYS_USER" Association="Self.FK_SYS_USER_GROUP_DET_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_USER_GROUP_DET" EntitySet="SYS_USER_GROUP_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" Association="Self.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP">
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+            <End Role="SYS_USER_GROUP_DET" EntitySet="SYS_USER_GROUP_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_sys_company" Association="Self.FK_SYS_USER_GROUP_sys_company">
+            <End Role="sys_company" EntitySet="sys_company" />
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_SYS_USER" Association="Self.FK_SYS_USER_GROUP_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="apwdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="apwdbEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Employees" EntityType="apwdbModel.Employee" />
+          <EntitySet Name="REC_USER_LOG" EntityType="apwdbModel.REC_USER_LOG" />
+          <EntitySet Name="sys_company" EntityType="apwdbModel.sys_company" />
+          <EntitySet Name="SYS_USER" EntityType="apwdbModel.SYS_USER" />
+          <EntitySet Name="SYS_USER_GROUP" EntityType="apwdbModel.SYS_USER_GROUP" />
+          <EntitySet Name="SYS_USER_GROUP_DET" EntityType="apwdbModel.SYS_USER_GROUP_DET" />
+          <AssociationSet Name="FK_Employee_SYS_USER" Association="apwdbModel.FK_Employee_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sys_company_SYS_USER" Association="apwdbModel.FK_sys_company_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="sys_company" EntitySet="sys_company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_sys_company" Association="apwdbModel.FK_SYS_USER_GROUP_sys_company">
+            <End Role="sys_company" EntitySet="sys_company" />
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_DET_SYS_USER" Association="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_USER_GROUP_DET" EntitySet="SYS_USER_GROUP_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_SYS_USER" Association="apwdbModel.FK_SYS_USER_GROUP_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" Association="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP">
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+            <End Role="SYS_USER_GROUP_DET" EntitySet="SYS_USER_GROUP_DET" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Emp_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpType_ID" Type="Int32" Nullable="false" />
+          <Property Name="EmpRank_ID" Type="Int32" Nullable="false" />
+          <Property Name="Branch_ID" Type="Int32" Nullable="false" />
+          <Property Name="Department_ID" Type="Int32" Nullable="false" />
+          <Property Name="Position" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_ID" Type="Int32" Nullable="false" />
+          <Property Name="PayrollGroup_ID" Type="Int32" />
+          <Property Name="SalaryType_ID" Type="Int32" />
+          <Property Name="Emp_No" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Middlename" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Prov_Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_No" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CivilStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Companycode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Citizenship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Spouse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Spouse_comp" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Spouse_address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Religion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Height" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Weight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Datehired" Type="DateTime" Precision="3" />
+          <Property Name="Dateregular" Type="DateTime" Precision="0" />
+          <Property Name="Dateresigned" Type="DateTime" Precision="0" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="Birthplace" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="TaxExemption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Account_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tax_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SSS_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Philhealth_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pagibig_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_person" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_relation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_Telno" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsOtRegular" Type="Boolean" Nullable="false" />
+          <Property Name="ActiveInactive" Type="Int16" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="MonthlySalary" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="RiceAllowance" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MealAllowance" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AnnualTaxExcemp" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Allowance" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PagIbigCont" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Cola" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsIncludePayroll" Type="Boolean" />
+          <Property Name="ManualTaxDed" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CompID" Type="Int32" />
+          <Property Name="ImageFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ResignedRemarks" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Hobbies" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ContractStart" Type="DateTime" Precision="3" />
+          <Property Name="ContractEnd" Type="DateTime" Precision="3" />
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <Property Name="ProvinceID" Type="Int32" Nullable="false" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="pay_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="bank_id" Type="Int32" />
+          <Property Name="contracttype_id" Type="Int32" Nullable="false" />
+          <Property Name="employee_processingtype" Type="Int32" Nullable="false" />
+          <Property Name="car_allowance" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="commission" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="is_minimum" Type="Boolean" Nullable="false" />
+          <Property Name="employer_id" Type="Int32" Nullable="false" />
+          <Property Name="CTPA" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="SEA" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ismanual_tax" Type="Boolean" Nullable="false" />
+          <Property Name="ismanual_pagibigcont" Type="Boolean" Nullable="false" />
+          <Property Name="ismanual_ssscont" Type="Boolean" Nullable="false" />
+          <Property Name="ismanual_philhealthcont" Type="Boolean" Nullable="false" />
+          <Property Name="sss_manualcont" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="philhealth_manualcont" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="date_modified" Type="DateTime" Precision="0" />
+          <Property Name="user_modified" Type="Int32" />
+          <Property Name="date_encoded" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="is_confidential" Type="Boolean" Nullable="false" />
+          <Property Name="restday_id" Type="Int32" Nullable="false" />
+          <Property Name="card_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="with_VAT" Type="Boolean" Nullable="false" />
+          <Property Name="tax_percentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="func_id" Type="Int32" Nullable="false" />
+          <Property Name="card_no_validity" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Employee_SYS_USER" FromRole="Employee" ToRole="SYS_USER" />
+        </EntityType>
+        <EntityType Name="REC_USER_LOG">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="sys_company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company_code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="company_name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="trunk_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fax_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TIN_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CompanyWebsite" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyLogo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="country_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_sys_company_SYS_USER" FromRole="sys_company" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_USER_GROUP" Relationship="apwdbModel.FK_SYS_USER_GROUP_sys_company" FromRole="sys_company" ToRole="SYS_USER_GROUP" />
+        </EntityType>
+        <EntityType Name="SYS_USER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emp_id" Type="Int32" />
+          <Property Name="email_address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="appmodule_id" Type="Int32" Nullable="false" />
+          <Property Name="user_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date_modified" Type="DateTime" Precision="3" />
+          <Property Name="emp_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.FK_Employee_SYS_USER" FromRole="SYS_USER" ToRole="Employee" />
+          <NavigationProperty Name="sys_company" Relationship="apwdbModel.FK_sys_company_SYS_USER" FromRole="SYS_USER" ToRole="sys_company" />
+          <NavigationProperty Name="SYS_USER_GROUP_DET" Relationship="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER" FromRole="SYS_USER" ToRole="SYS_USER_GROUP_DET" />
+          <NavigationProperty Name="SYS_USER_GROUP" Relationship="apwdbModel.FK_SYS_USER_GROUP_SYS_USER" FromRole="SYS_USER" ToRole="SYS_USER_GROUP" />
+        </EntityType>
+        <EntityType Name="SYS_USER_GROUP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="group_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="company_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="sys_company" Relationship="apwdbModel.FK_SYS_USER_GROUP_sys_company" FromRole="SYS_USER_GROUP" ToRole="sys_company" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_SYS_USER_GROUP_SYS_USER" FromRole="SYS_USER_GROUP" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_USER_GROUP_DET" Relationship="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" FromRole="SYS_USER_GROUP" ToRole="SYS_USER_GROUP_DET" />
+        </EntityType>
+        <EntityType Name="SYS_USER_GROUP_DET">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="user_type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER" FromRole="SYS_USER_GROUP_DET" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_USER_GROUP" Relationship="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" FromRole="SYS_USER_GROUP_DET" ToRole="SYS_USER_GROUP" />
+        </EntityType>
+        <Association Name="FK_Employee_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sys_company_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.sys_company" Role="sys_company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_company">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_sys_company">
+          <End Type="apwdbModel.sys_company" Role="sys_company" Multiplicity="1" />
+          <End Type="apwdbModel.SYS_USER_GROUP" Role="SYS_USER_GROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_DET_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.SYS_USER_GROUP_DET" Role="SYS_USER_GROUP_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP_DET">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.SYS_USER_GROUP" Role="SYS_USER_GROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_DET_SYS_USER_GROUP">
+          <End Type="apwdbModel.SYS_USER_GROUP" Role="SYS_USER_GROUP" Multiplicity="1" />
+          <End Type="apwdbModel.SYS_USER_GROUP_DET" Role="SYS_USER_GROUP_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER_GROUP">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP_DET">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="apwdbModelStoreContainer" CdmEntityContainer="apwdbEntities" >
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="apwdbModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="card_no_validity" ColumnName="card_no_validity" />
+                <ScalarProperty Name="func_id" ColumnName="func_id" />
+                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
+                <ScalarProperty Name="with_VAT" ColumnName="with_VAT" />
+                <ScalarProperty Name="card_number" ColumnName="card_number" />
+                <ScalarProperty Name="restday_id" ColumnName="restday_id" />
+                <ScalarProperty Name="is_confidential" ColumnName="is_confidential" />
+                <ScalarProperty Name="date_encoded" ColumnName="date_encoded" />
+                <ScalarProperty Name="user_modified" ColumnName="user_modified" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+                <ScalarProperty Name="philhealth_manualcont" ColumnName="philhealth_manualcont" />
+                <ScalarProperty Name="sss_manualcont" ColumnName="sss_manualcont" />
+                <ScalarProperty Name="ismanual_philhealthcont" ColumnName="ismanual_philhealthcont" />
+                <ScalarProperty Name="ismanual_ssscont" ColumnName="ismanual_ssscont" />
+                <ScalarProperty Name="ismanual_pagibigcont" ColumnName="ismanual_pagibigcont" />
+                <ScalarProperty Name="ismanual_tax" ColumnName="ismanual_tax" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="SEA" ColumnName="SEA" />
+                <ScalarProperty Name="CTPA" ColumnName="CTPA" />
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+                <ScalarProperty Name="is_minimum" ColumnName="is_minimum" />
+                <ScalarProperty Name="commission" ColumnName="commission" />
+                <ScalarProperty Name="car_allowance" ColumnName="car_allowance" />
+                <ScalarProperty Name="employee_processingtype" ColumnName="employee_processingtype" />
+                <ScalarProperty Name="contracttype_id" ColumnName="contracttype_id" />
+                <ScalarProperty Name="bank_id" ColumnName="bank_id" />
+                <ScalarProperty Name="pay_type" ColumnName="pay_type" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="ContractEnd" ColumnName="ContractEnd" />
+                <ScalarProperty Name="ContractStart" ColumnName="ContractStart" />
+                <ScalarProperty Name="Hobbies" ColumnName="Hobbies" />
+                <ScalarProperty Name="ResignedRemarks" ColumnName="ResignedRemarks" />
+                <ScalarProperty Name="ImageFile" ColumnName="ImageFile" />
+                <ScalarProperty Name="CompID" ColumnName="CompID" />
+                <ScalarProperty Name="ManualTaxDed" ColumnName="ManualTaxDed" />
+                <ScalarProperty Name="IsIncludePayroll" ColumnName="IsIncludePayroll" />
+                <ScalarProperty Name="Cola" ColumnName="Cola" />
+                <ScalarProperty Name="PagIbigCont" ColumnName="PagIbigCont" />
+                <ScalarProperty Name="Allowance" ColumnName="Allowance" />
+                <ScalarProperty Name="AnnualTaxExcemp" ColumnName="AnnualTaxExcemp" />
+                <ScalarProperty Name="MealAllowance" ColumnName="MealAllowance" />
+                <ScalarProperty Name="RiceAllowance" ColumnName="RiceAllowance" />
+                <ScalarProperty Name="MonthlySalary" ColumnName="MonthlySalary" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ActiveInactive" ColumnName="ActiveInactive" />
+                <ScalarProperty Name="IsOtRegular" ColumnName="IsOtRegular" />
+                <ScalarProperty Name="Contact_Telno" ColumnName="Contact_Telno" />
+                <ScalarProperty Name="Contact_relation" ColumnName="Contact_relation" />
+                <ScalarProperty Name="Contact_Address" ColumnName="Contact_Address" />
+                <ScalarProperty Name="Contact_person" ColumnName="Contact_person" />
+                <ScalarProperty Name="Pagibig_no" ColumnName="Pagibig_no" />
+                <ScalarProperty Name="Philhealth_no" ColumnName="Philhealth_no" />
+                <ScalarProperty Name="SSS_no" ColumnName="SSS_no" />
+                <ScalarProperty Name="Tax_no" ColumnName="Tax_no" />
+                <ScalarProperty Name="Account_no" ColumnName="Account_no" />
+                <ScalarProperty Name="TaxExemption" ColumnName="TaxExemption" />
+                <ScalarProperty Name="Birthplace" ColumnName="Birthplace" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Dateresigned" ColumnName="Dateresigned" />
+                <ScalarProperty Name="Dateregular" ColumnName="Dateregular" />
+                <ScalarProperty Name="Datehired" ColumnName="Datehired" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="Spouse_address" ColumnName="Spouse_address" />
+                <ScalarProperty Name="Spouse_comp" ColumnName="Spouse_comp" />
+                <ScalarProperty Name="Spouse" ColumnName="Spouse" />
+                <ScalarProperty Name="Citizenship" ColumnName="Citizenship" />
+                <ScalarProperty Name="Companycode" ColumnName="Companycode" />
+                <ScalarProperty Name="CivilStatus" ColumnName="CivilStatus" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Contact_No" ColumnName="Contact_No" />
+                <ScalarProperty Name="Prov_Address" ColumnName="Prov_Address" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Middlename" ColumnName="Middlename" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Emp_No" ColumnName="Emp_No" />
+                <ScalarProperty Name="SalaryType_ID" ColumnName="SalaryType_ID" />
+                <ScalarProperty Name="PayrollGroup_ID" ColumnName="PayrollGroup_ID" />
+                <ScalarProperty Name="Shift_ID" ColumnName="Shift_ID" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
+                <ScalarProperty Name="Branch_ID" ColumnName="Branch_ID" />
+                <ScalarProperty Name="EmpRank_ID" ColumnName="EmpRank_ID" />
+                <ScalarProperty Name="EmpType_ID" ColumnName="EmpType_ID" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_USER_LOG">
+            <EntityTypeMapping TypeName="apwdbModel.REC_USER_LOG">
+              <MappingFragment StoreEntitySet="REC_USER_LOG">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_company">
+            <EntityTypeMapping TypeName="apwdbModel.sys_company">
+              <MappingFragment StoreEntitySet="sys_company">
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="CompanyLogo" ColumnName="CompanyLogo" />
+                <ScalarProperty Name="CompanyWebsite" ColumnName="CompanyWebsite" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="TIN_no" ColumnName="TIN_no" />
+                <ScalarProperty Name="fax_no" ColumnName="fax_no" />
+                <ScalarProperty Name="trunk_no" ColumnName="trunk_no" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="company_code" ColumnName="company_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_USER">
+            <EntityTypeMapping TypeName="apwdbModel.SYS_USER">
+              <MappingFragment StoreEntitySet="SYS_USER">
+                <ScalarProperty Name="emp_name" ColumnName="emp_name" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="appmodule_id" ColumnName="appmodule_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_USER_GROUP">
+            <EntityTypeMapping TypeName="apwdbModel.SYS_USER_GROUP">
+              <MappingFragment StoreEntitySet="SYS_USER_GROUP">
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="group_code" ColumnName="group_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_USER_GROUP_DET">
+            <EntityTypeMapping TypeName="apwdbModel.SYS_USER_GROUP_DET">
+              <MappingFragment StoreEntitySet="SYS_USER_GROUP_DET">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
