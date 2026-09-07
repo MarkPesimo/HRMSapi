@@ -45,6 +45,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\Employees\EmployeeMonitoringViewModel.cs" />
+    <Compile Include="ViewModel\Employees\EmployeeProfile.cs" />
     <Compile Include="ViewModel\Global\ContextLoginUser_model.cs" />
     <Compile Include="ViewModel\Global\ICustomPrincipal.cs" />
     <Compile Include="ViewModel\Global\LoginModel.cs" />
