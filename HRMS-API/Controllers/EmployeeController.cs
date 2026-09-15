@@ -1,4 +1,5 @@
-﻿using HRModel.ViewModel.Global;
+﻿using HRModel.ViewModel.Employees;
+using HRModel.ViewModel.Global;
 using HRMS_API.Helper;
 using HRMS_API.Repository;
 using System;
@@ -14,26 +15,46 @@ namespace HRMS_API.Controllers
 
     public class EmployeeController : ApiController
     {
-        private EmployeeRepository employeerepository { get; set; }
+        private EmployeeRepository Employeerepository { get; set; }
 
         public EmployeeController()
         {
-            if (employeerepository == null) { employeerepository = new EmployeeRepository(); }
+            if (Employeerepository == null) { Employeerepository = new EmployeeRepository(); }
         }
 
-        [Route("api/Employee/GetEmployeeMonitoring")]
+        [Route("api/Employee/GetEmployeeMonitoring/{Keyword}/{ByClient}/{ClientID}/{PageNo}/{PageSize}/{CompanyID}")]
         [HttpGet]
-        public HttpResponseMessage GetEmployeeMonitoring()
+        public HttpResponseMessage GetEmployeeMonitoring(string Keyword, bool ByClient, int ClientID, int PageNo, int PageSize, int CompanyID)
         {
             try
             {
-                //LoginUser_model _loginuser_model = accountrepository.Get(Username, AppModuleId);
-                //if (_loginuser_model != null)
-                //{
-                return Request.CreateResponse(HttpStatusCode.OK, "Welcome");
-                //}
-                //else
-                //{ return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+                List<EmployeeMonitoringViewModel> _model =  Employeerepository.GetEmployeeMonitoring(Keyword, ByClient, ClientID, PageNo, PageSize, CompanyID);
+                if (_model != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/Employees/Profile/{Keyword}")]
+        [HttpGet]
+        public HttpResponseMessage GetPersonalInfo(string GUID)
+        {
+            try
+            {
+                EmployeeProfile _model = Employeerepository.GetEmployeeProfile(GUID);
+                if (_model != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
             }
             catch (Exception ex)
             {

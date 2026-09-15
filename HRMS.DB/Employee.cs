@@ -14,6 +14,12 @@ namespace HRMS.DB
     
     public partial class Employee
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Employee()
+        {
+            this.REC_CANDIDATE_EMPLOYEE_LINK = new HashSet<REC_CANDIDATE_EMPLOYEE_LINK>();
+        }
+    
         public int Emp_ID { get; set; }
         public int EmpType_ID { get; set; }
         public int EmpRank_ID { get; set; }
@@ -106,5 +112,7 @@ namespace HRMS.DB
         public Nullable<System.DateTime> card_no_validity { get; set; }
     
         public virtual SYS_USER SYS_USER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CANDIDATE_EMPLOYEE_LINK> REC_CANDIDATE_EMPLOYEE_LINK { get; set; }
     }
 }

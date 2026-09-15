@@ -21,6 +21,8 @@ namespace HRMS.DB
             this.sys_company = new HashSet<sys_company>();
             this.SYS_USER_GROUP_DET = new HashSet<SYS_USER_GROUP_DET>();
             this.SYS_USER_GROUP = new HashSet<SYS_USER_GROUP>();
+            this.REC_CANDIDATE = new HashSet<REC_CANDIDATE>();
+            this.REC_CANDIDATE_EMPLOYEE_LINK = new HashSet<REC_CANDIDATE_EMPLOYEE_LINK>();
         }
     
         public int id { get; set; }
@@ -42,5 +44,9 @@ namespace HRMS.DB
         public virtual ICollection<SYS_USER_GROUP_DET> SYS_USER_GROUP_DET { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SYS_USER_GROUP> SYS_USER_GROUP { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CANDIDATE> REC_CANDIDATE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CANDIDATE_EMPLOYEE_LINK> REC_CANDIDATE_EMPLOYEE_LINK { get; set; }
     }
 }

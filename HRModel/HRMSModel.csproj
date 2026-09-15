@@ -42,8 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\Employees\Education\EmployeeEducationModel.cs" />
     <Compile Include="ViewModel\Employees\EmployeeMonitoringViewModel.cs" />
     <Compile Include="ViewModel\Employees\EmployeeProfile.cs" />
     <Compile Include="ViewModel\Global\ContextLoginUser_model.cs" />

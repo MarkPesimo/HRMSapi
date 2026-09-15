@@ -11,6 +11,8 @@ namespace HRModel.ViewModel.Employees
     {
         public int RowNo { get; set; }
 
+        public string GUID { get; set; }
+       
         [Display(Name = "Employee ID")]
         public string EmployeeID { get; set; }
 

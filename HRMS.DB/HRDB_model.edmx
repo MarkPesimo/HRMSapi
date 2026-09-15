@@ -100,6 +100,98 @@
           <Property Name="func_id" Type="int" Nullable="false" />
           <Property Name="card_no_validity" Type="datetime" />
         </EntityType>
+        <EntityType Name="REC_CANDIDATE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="150" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="150" />
+          <Property Name="middle_name" Type="nvarchar" MaxLength="150" />
+          <Property Name="birthday" Type="date" Nullable="false" />
+          <Property Name="gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="civil_status" Type="nvarchar" MaxLength="50" />
+          <Property Name="mobile_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="file_status" Type="bit" />
+          <Property Name="usermodified" Type="int" />
+          <Property Name="date_modified" Type="datetime" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_encoded" Type="date" Nullable="false" />
+          <Property Name="position_applied" Type="nvarchar" MaxLength="100" />
+          <Property Name="height" Type="nvarchar" MaxLength="50" />
+          <Property Name="weight" Type="nvarchar" MaxLength="50" />
+          <Property Name="religion" Type="nvarchar" MaxLength="100" />
+          <Property Name="birth_place" Type="nvarchar" MaxLength="150" />
+          <Property Name="contact_no" Type="nvarchar" MaxLength="100" />
+          <Property Name="nationality" Type="nvarchar" MaxLength="50" />
+          <Property Name="email_address" Type="nvarchar" MaxLength="100" />
+          <Property Name="present_address" Type="nvarchar" MaxLength="500" />
+          <Property Name="city_id" Type="int" Nullable="false" />
+          <Property Name="provincial_address" Type="nvarchar" MaxLength="500" />
+          <Property Name="province_id" Type="int" Nullable="false" />
+          <Property Name="contact_person" Type="nvarchar" MaxLength="150" />
+          <Property Name="contact_person_contact" Type="nvarchar" MaxLength="100" />
+          <Property Name="contact_relation" Type="nvarchar" MaxLength="50" />
+          <Property Name="contact_address" Type="nvarchar" MaxLength="150" />
+          <Property Name="date_applied" Type="datetime" Nullable="false" />
+          <Property Name="is_convicted_of_felony" Type="bit" Nullable="false" />
+          <Property Name="conviction_details" Type="nvarchar" MaxLength="250" />
+          <Property Name="employment_availability" Type="int" />
+          <Property Name="hours_available" Type="int" />
+          <Property Name="with_previous_application" Type="bit" Nullable="false" />
+          <Property Name="previous_date_applied" Type="smalldatetime" />
+          <Property Name="how_referred_to_us" Type="nvarchar" MaxLength="500" />
+          <Property Name="referral_details" Type="nvarchar" MaxLength="150" />
+          <Property Name="change_employment_reason" Type="nvarchar" MaxLength="150" />
+          <Property Name="is_discharged_from_position" Type="bit" Nullable="false" />
+          <Property Name="contract_type_id" Type="int" Nullable="false" />
+          <Property Name="source_id" Type="int" Nullable="false" />
+          <Property Name="encoded_from" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="function_id" Type="int" Nullable="false" />
+          <Property Name="availability" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="about_candidate" Type="nvarchar(max)" />
+          <Property Name="current_position" Type="nvarchar" MaxLength="150" />
+          <Property Name="current_position_from" Type="date" />
+          <Property Name="current_position_to" Type="date" />
+          <Property Name="work_location_id" Type="int" Nullable="false" />
+          <Property Name="working_setup_id" Type="int" Nullable="false" />
+          <Property Name="asking_salary" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="asking_salary_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="industry_id" Type="int" Nullable="false" />
+          <Property Name="shift_desired" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="motivation_id" Type="int" Nullable="false" />
+          <Property Name="communication_skill" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="total_years_of_experience" Type="int" Nullable="false" />
+          <Property Name="ads_seen_id" Type="int" Nullable="false" />
+          <Property Name="created_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="guid" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CANDIDATE_EMPLOYEE_LINK">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="candidate_id" Type="int" Nullable="false" />
+          <Property Name="emp_id" Type="int" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="position" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="emptype_id" Type="int" Nullable="false" />
+          <Property Name="emprank_id" Type="int" Nullable="false" />
+          <Property Name="branch_id" Type="int" Nullable="false" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+          <Property Name="shift_id" Type="int" Nullable="false" />
+          <Property Name="salarytype_id" Type="int" Nullable="false" />
+          <Property Name="datehired" Type="datetime" Nullable="false" />
+          <Property Name="salary" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="datecreated" Type="datetime" Nullable="false" />
+          <Property Name="hire_status" Type="nvarchar" MaxLength="50" />
+          <Property Name="contract_start" Type="datetime" />
+          <Property Name="contract_end" Type="datetime" />
+          <Property Name="salary_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="allowance_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="REC_USER_LOG">
           <Key>
             <PropertyRef Name="id" />
@@ -164,6 +256,18 @@
           <Property Name="user_type" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
+        <Association Name=" FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE">
+          <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_EMPLOYEE_LINK" Type="Self.REC_CANDIDATE_EMPLOYEE_LINK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EMPLOYEE_LINK">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -173,6 +277,42 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_EMPLOYEE_LINK" Type="Self.REC_CANDIDATE_EMPLOYEE_LINK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EMPLOYEE_LINK">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_EMPLOYEE_LINK" Type="Self.REC_CANDIDATE_EMPLOYEE_LINK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EMPLOYEE_LINK">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -236,16 +376,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="USP_H_GET_EMPLOYEE_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
+          <Parameter Name="BY_CLIENT" Type="bit" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="PageNumber" Type="int" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="COMPANY_ID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="apwdbModelStoreContainer">
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CANDIDATE" EntityType="Self.REC_CANDIDATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CANDIDATE_EMPLOYEE_LINK" EntityType="Self.REC_CANDIDATE_EMPLOYEE_LINK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_USER_LOG" EntityType="Self.REC_USER_LOG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sys_company" EntityType="Self.sys_company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER" EntityType="Self.SYS_USER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP" EntityType="Self.SYS_USER_GROUP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP_DET" EntityType="Self.SYS_USER_GROUP_DET" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name=" FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE" Association="Self. FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employee_SYS_USER" Association="Self.FK_Employee_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1" Association="Self.FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER" Association="Self.FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_SYS_USER" Association="Self.FK_REC_CANDIDATE_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
           </AssociationSet>
           <AssociationSet Name="FK_sys_company_SYS_USER" Association="Self.FK_sys_company_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -302,6 +468,32 @@
           <AssociationSet Name="FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" Association="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP">
             <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
             <End Role="SYS_USER_GROUP_DET" EntitySet="SYS_USER_GROUP_DET" />
+          </AssociationSet>
+          <FunctionImport Name="USP_H_GET_EMPLOYEE_MONITORING" ReturnType="Collection(apwdbModel.USP_H_GET_EMPLOYEE_MONITORING_Result1)">
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
+            <Parameter Name="BY_CLIENT" Mode="In" Type="Boolean" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="PageNumber" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="COMPANY_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="REC_CANDIDATE" EntityType="apwdbModel.REC_CANDIDATE" />
+          <EntitySet Name="REC_CANDIDATE_EMPLOYEE_LINK" EntityType="apwdbModel.REC_CANDIDATE_EMPLOYEE_LINK" />
+          <AssociationSet Name="FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1" Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE" Association="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_SYS_USER" Association="apwdbModel.FK_REC_CANDIDATE_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER" Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Employee">
@@ -399,6 +591,7 @@
           <Property Name="func_id" Type="Int32" Nullable="false" />
           <Property Name="card_no_validity" Type="DateTime" Precision="3" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Employee_SYS_USER" FromRole="Employee" ToRole="SYS_USER" />
+          <NavigationProperty Name="REC_CANDIDATE_EMPLOYEE_LINK" Relationship="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1" FromRole="Employee" ToRole="REC_CANDIDATE_EMPLOYEE_LINK" />
         </EntityType>
         <EntityType Name="REC_USER_LOG">
           <Key>
@@ -446,6 +639,8 @@
           <NavigationProperty Name="sys_company" Relationship="apwdbModel.FK_sys_company_SYS_USER" FromRole="SYS_USER" ToRole="sys_company" />
           <NavigationProperty Name="SYS_USER_GROUP_DET" Relationship="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER" FromRole="SYS_USER" ToRole="SYS_USER_GROUP_DET" />
           <NavigationProperty Name="SYS_USER_GROUP" Relationship="apwdbModel.FK_SYS_USER_GROUP_SYS_USER" FromRole="SYS_USER" ToRole="SYS_USER_GROUP" />
+          <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.FK_REC_CANDIDATE_SYS_USER" FromRole="SYS_USER" ToRole="REC_CANDIDATE" />
+          <NavigationProperty Name="REC_CANDIDATE_EMPLOYEE_LINK" Relationship="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER" FromRole="SYS_USER" ToRole="REC_CANDIDATE_EMPLOYEE_LINK" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP">
           <Key>
@@ -544,6 +739,196 @@
             </Principal>
             <Dependent Role="SYS_USER_GROUP_DET">
               <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_H_GET_EMPLOYEE_MONITORING_Result">
+          <Property Type="Int32" Name="EmpID" Nullable="true" />
+          <Property Type="String" Name="EmpNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ClientName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Branch" Nullable="true" MaxLength="150" />
+          <Property Type="Boolean" Name="EmpStatus" Nullable="true" />
+          <Property Type="Boolean" Name="IsIncludePayroll" Nullable="true" />
+          <Property Type="Int32" Name="RankID" Nullable="true" />
+          <Property Type="String" Name="Position" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ContractType" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Department" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="Datehired" Nullable="true" />
+          <Property Type="String" Name="Paytype" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SourceType" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Cnt" Nullable="true" />
+          <Property Type="String" Name="EmployerName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="UserEncoded" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="DateEncoded" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_H_GET_EMPLOYEE_MONITORING_Result1">
+          <Property Type="Int32" Name="EmpID" Nullable="true" />
+          <Property Type="String" Name="EmpNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ClientName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Branch" Nullable="true" MaxLength="150" />
+          <Property Type="Boolean" Name="EmpStatus" Nullable="true" />
+          <Property Type="Boolean" Name="IsIncludePayroll" Nullable="true" />
+          <Property Type="Int32" Name="RankID" Nullable="true" />
+          <Property Type="String" Name="Position" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ContractType" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Department" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="Datehired" Nullable="true" />
+          <Property Type="String" Name="Paytype" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SourceType" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Cnt" Nullable="true" />
+          <Property Type="String" Name="EmployerName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="UserEncoded" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="DateEncoded" Nullable="true" />
+          <Property Type="String" Name="GU_ID" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <EntityType Name="REC_CANDIDATE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="last_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="first_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="middle_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="civil_status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mobile_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="file_status" Type="Boolean" />
+          <Property Name="usermodified" Type="Int32" />
+          <Property Name="date_modified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_encoded" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="position_applied" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="height" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="weight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="religion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="birth_place" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="contact_no" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email_address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="present_address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="city_id" Type="Int32" Nullable="false" />
+          <Property Name="provincial_address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="province_id" Type="Int32" Nullable="false" />
+          <Property Name="contact_person" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="contact_person_contact" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="contact_relation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contact_address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="date_applied" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="is_convicted_of_felony" Type="Boolean" Nullable="false" />
+          <Property Name="conviction_details" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="employment_availability" Type="Int32" />
+          <Property Name="hours_available" Type="Int32" />
+          <Property Name="with_previous_application" Type="Boolean" Nullable="false" />
+          <Property Name="previous_date_applied" Type="DateTime" Precision="0" />
+          <Property Name="how_referred_to_us" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="referral_details" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="change_employment_reason" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="is_discharged_from_position" Type="Boolean" Nullable="false" />
+          <Property Name="contract_type_id" Type="Int32" Nullable="false" />
+          <Property Name="source_id" Type="Int32" Nullable="false" />
+          <Property Name="encoded_from" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="function_id" Type="Int32" Nullable="false" />
+          <Property Name="availability" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="about_candidate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="current_position" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="current_position_from" Type="DateTime" Precision="0" />
+          <Property Name="current_position_to" Type="DateTime" Precision="0" />
+          <Property Name="work_location_id" Type="Int32" Nullable="false" />
+          <Property Name="working_setup_id" Type="Int32" Nullable="false" />
+          <Property Name="asking_salary" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="asking_salary_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="industry_id" Type="Int32" Nullable="false" />
+          <Property Name="shift_desired" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="motivation_id" Type="Int32" Nullable="false" />
+          <Property Name="communication_skill" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="total_years_of_experience" Type="Int32" Nullable="false" />
+          <Property Name="ads_seen_id" Type="Int32" Nullable="false" />
+          <Property Name="created_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="guid" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="REC_CANDIDATE_EMPLOYEE_LINK" Relationship="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE" FromRole="REC_CANDIDATE" ToRole="REC_CANDIDATE_EMPLOYEE_LINK" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CANDIDATE_SYS_USER" FromRole="REC_CANDIDATE" ToRole="SYS_USER" />
+        </EntityType>
+        <EntityType Name="REC_CANDIDATE_EMPLOYEE_LINK">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="candidate_id" Type="Int32" Nullable="false" />
+          <Property Name="emp_id" Type="Int32" Nullable="false" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="position" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="emptype_id" Type="Int32" Nullable="false" />
+          <Property Name="emprank_id" Type="Int32" Nullable="false" />
+          <Property Name="branch_id" Type="Int32" Nullable="false" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <Property Name="shift_id" Type="Int32" Nullable="false" />
+          <Property Name="salarytype_id" Type="Int32" Nullable="false" />
+          <Property Name="datehired" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="salary" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="datecreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="hire_status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contract_start" Type="DateTime" Precision="3" />
+          <Property Name="contract_end" Type="DateTime" Precision="3" />
+          <Property Name="salary_amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="allowance_amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1" FromRole="REC_CANDIDATE_EMPLOYEE_LINK" ToRole="Employee" />
+          <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE" FromRole="REC_CANDIDATE_EMPLOYEE_LINK" ToRole="REC_CANDIDATE" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER" FromRole="REC_CANDIDATE_EMPLOYEE_LINK" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1">
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_EMPLOYEE_LINK" Role="REC_CANDIDATE_EMPLOYEE_LINK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EMPLOYEE_LINK">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE">
+          <End Type="apwdbModel.REC_CANDIDATE" Role="REC_CANDIDATE" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_EMPLOYEE_LINK" Role="REC_CANDIDATE_EMPLOYEE_LINK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EMPLOYEE_LINK">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE" Role="REC_CANDIDATE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_EMPLOYEE_LINK" Role="REC_CANDIDATE_EMPLOYEE_LINK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EMPLOYEE_LINK">
+              <PropertyRef Name="userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -714,6 +1099,127 @@
                 <ScalarProperty Name="user_type" ColumnName="user_type" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_GET_EMPLOYEE_MONITORING" FunctionName="apwdbModel.Store.USP_H_GET_EMPLOYEE_MONITORING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_EMPLOYEE_MONITORING_Result1">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="EmpStatus" ColumnName="EmpStatus" />
+                <ScalarProperty Name="IsIncludePayroll" ColumnName="IsIncludePayroll" />
+                <ScalarProperty Name="RankID" ColumnName="RankID" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Datehired" ColumnName="Datehired" />
+                <ScalarProperty Name="Paytype" ColumnName="Paytype" />
+                <ScalarProperty Name="SourceType" ColumnName="SourceType" />
+                <ScalarProperty Name="Cnt" ColumnName="Cnt" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="UserEncoded" ColumnName="UserEncoded" />
+                <ScalarProperty Name="DateEncoded" ColumnName="DateEncoded" />
+                <ScalarProperty Name="GU_ID" ColumnName="GU_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="REC_CANDIDATE">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CANDIDATE">
+              <MappingFragment StoreEntitySet="REC_CANDIDATE">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="created_type" ColumnName="created_type" />
+                <ScalarProperty Name="ads_seen_id" ColumnName="ads_seen_id" />
+                <ScalarProperty Name="total_years_of_experience" ColumnName="total_years_of_experience" />
+                <ScalarProperty Name="communication_skill" ColumnName="communication_skill" />
+                <ScalarProperty Name="motivation_id" ColumnName="motivation_id" />
+                <ScalarProperty Name="shift_desired" ColumnName="shift_desired" />
+                <ScalarProperty Name="industry_id" ColumnName="industry_id" />
+                <ScalarProperty Name="asking_salary_type" ColumnName="asking_salary_type" />
+                <ScalarProperty Name="asking_salary" ColumnName="asking_salary" />
+                <ScalarProperty Name="working_setup_id" ColumnName="working_setup_id" />
+                <ScalarProperty Name="work_location_id" ColumnName="work_location_id" />
+                <ScalarProperty Name="current_position_to" ColumnName="current_position_to" />
+                <ScalarProperty Name="current_position_from" ColumnName="current_position_from" />
+                <ScalarProperty Name="current_position" ColumnName="current_position" />
+                <ScalarProperty Name="about_candidate" ColumnName="about_candidate" />
+                <ScalarProperty Name="availability" ColumnName="availability" />
+                <ScalarProperty Name="function_id" ColumnName="function_id" />
+                <ScalarProperty Name="encoded_from" ColumnName="encoded_from" />
+                <ScalarProperty Name="source_id" ColumnName="source_id" />
+                <ScalarProperty Name="contract_type_id" ColumnName="contract_type_id" />
+                <ScalarProperty Name="is_discharged_from_position" ColumnName="is_discharged_from_position" />
+                <ScalarProperty Name="change_employment_reason" ColumnName="change_employment_reason" />
+                <ScalarProperty Name="referral_details" ColumnName="referral_details" />
+                <ScalarProperty Name="how_referred_to_us" ColumnName="how_referred_to_us" />
+                <ScalarProperty Name="previous_date_applied" ColumnName="previous_date_applied" />
+                <ScalarProperty Name="with_previous_application" ColumnName="with_previous_application" />
+                <ScalarProperty Name="hours_available" ColumnName="hours_available" />
+                <ScalarProperty Name="employment_availability" ColumnName="employment_availability" />
+                <ScalarProperty Name="conviction_details" ColumnName="conviction_details" />
+                <ScalarProperty Name="is_convicted_of_felony" ColumnName="is_convicted_of_felony" />
+                <ScalarProperty Name="date_applied" ColumnName="date_applied" />
+                <ScalarProperty Name="contact_address" ColumnName="contact_address" />
+                <ScalarProperty Name="contact_relation" ColumnName="contact_relation" />
+                <ScalarProperty Name="contact_person_contact" ColumnName="contact_person_contact" />
+                <ScalarProperty Name="contact_person" ColumnName="contact_person" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="provincial_address" ColumnName="provincial_address" />
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
+                <ScalarProperty Name="present_address" ColumnName="present_address" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="nationality" ColumnName="nationality" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="birth_place" ColumnName="birth_place" />
+                <ScalarProperty Name="religion" ColumnName="religion" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="position_applied" ColumnName="position_applied" />
+                <ScalarProperty Name="date_encoded" ColumnName="date_encoded" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+                <ScalarProperty Name="usermodified" ColumnName="usermodified" />
+                <ScalarProperty Name="file_status" ColumnName="file_status" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="mobile_no" ColumnName="mobile_no" />
+                <ScalarProperty Name="civil_status" ColumnName="civil_status" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CANDIDATE_EMPLOYEE_LINK">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CANDIDATE_EMPLOYEE_LINK">
+              <MappingFragment StoreEntitySet="REC_CANDIDATE_EMPLOYEE_LINK">
+                <ScalarProperty Name="allowance_amount" ColumnName="allowance_amount" />
+                <ScalarProperty Name="salary_amount" ColumnName="salary_amount" />
+                <ScalarProperty Name="contract_end" ColumnName="contract_end" />
+                <ScalarProperty Name="contract_start" ColumnName="contract_start" />
+                <ScalarProperty Name="hire_status" ColumnName="hire_status" />
+                <ScalarProperty Name="datecreated" ColumnName="datecreated" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="datehired" ColumnName="datehired" />
+                <ScalarProperty Name="salarytype_id" ColumnName="salarytype_id" />
+                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="emprank_id" ColumnName="emprank_id" />
+                <ScalarProperty Name="emptype_id" ColumnName="emptype_id" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="candidate_id" ColumnName="candidate_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

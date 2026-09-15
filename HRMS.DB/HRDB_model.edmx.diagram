@@ -17,6 +17,12 @@
         <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE" Width="1.5" PointX="3.75" PointY="2.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE_EMPLOYEE_LINK" Width="1.5" PointX="3.75" PointY="3.625" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
