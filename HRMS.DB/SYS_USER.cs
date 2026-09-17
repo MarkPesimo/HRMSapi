@@ -23,6 +23,13 @@ namespace HRMS.DB
             this.SYS_USER_GROUP = new HashSet<SYS_USER_GROUP>();
             this.REC_CANDIDATE = new HashSet<REC_CANDIDATE>();
             this.REC_CANDIDATE_EMPLOYEE_LINK = new HashSet<REC_CANDIDATE_EMPLOYEE_LINK>();
+            this.EmployeeLeaveMonitorings = new HashSet<EmployeeLeaveMonitoring>();
+            this.P_Leave = new HashSet<P_Leave>();
+            this.REC_CLIENT = new HashSet<REC_CLIENT>();
+            this.EmployeeLoanMasters = new HashSet<EmployeeLoanMaster>();
+            this.LoanTypes = new HashSet<LoanType>();
+            this.Employee_Replacement_HD = new HashSet<Employee_Replacement_HD>();
+            this.Employee_Replacement_HD1 = new HashSet<Employee_Replacement_HD>();
         }
     
         public int id { get; set; }
@@ -48,5 +55,19 @@ namespace HRMS.DB
         public virtual ICollection<REC_CANDIDATE> REC_CANDIDATE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_CANDIDATE_EMPLOYEE_LINK> REC_CANDIDATE_EMPLOYEE_LINK { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeLeaveMonitoring> EmployeeLeaveMonitorings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<P_Leave> P_Leave { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CLIENT> REC_CLIENT { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeLoanMaster> EmployeeLoanMasters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LoanType> LoanTypes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_Replacement_HD> Employee_Replacement_HD { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_Replacement_HD> Employee_Replacement_HD1 { get; set; }
     }
 }
