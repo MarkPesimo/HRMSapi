@@ -4,57 +4,50 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ac44f2c2e5624ec08007520427d074b6" Name="Diagram1" ZoomLevel="71" >
-        <EntityTypeShape EntityType="apwdbModel.Employee" Width="1.5" PointX="3.75" PointY="2" IsExpanded="false" />
-        <EntityTypeShape EntityType="apwdbModel.REC_USER_LOG" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="apwdbModel.sys_company" Width="1.5" PointX="3.75" PointY="0.875" IsExpanded="false" />
-        <EntityTypeShape EntityType="apwdbModel.SYS_USER" Width="2.25" PointX="0.75" PointY="1.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="apwdbModel.SYS_USER_GROUP" Width="2.375" PointX="6" PointY="1.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="apwdbModel.SYS_USER_GROUP_DET" Width="2.25" PointX="9.125" PointY="1.375" IsExpanded="false" />
+      <Diagram DiagramId="ac44f2c2e5624ec08007520427d074b6" Name="Diagram1" >
+        <EntityTypeShape EntityType="apwdbModel.Employee" Width="1.5" PointX="6" PointY="7.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.REC_USER_LOG" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.sys_company" Width="1.5" PointX="3.75" PointY="3.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.SYS_USER" Width="2.25" PointX="0.75" PointY="5.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.SYS_USER_GROUP" Width="2.375" PointX="6" PointY="4.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.SYS_USER_GROUP_DET" Width="2.25" PointX="9.125" PointY="4.875" IsExpanded="false" />
         <AssociationConnector Association="apwdbModel.FK_Employee_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_sys_company_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_sys_company" />
         <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" />
-        <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE" Width="1.5" PointX="3.75" PointY="2.875" IsExpanded="false" />
-        <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE_EMPLOYEE_LINK" Width="1.5" PointX="3.75" PointY="3.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE" Width="2.125" PointX="3.75" PointY="5.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE_EMPLOYEE_LINK" Width="2.625" PointX="11.25" PointY="8.25" IsExpanded="false" />
         <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1" />
         <AssociationConnector Association="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE" />
         <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER" />
-        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT" Width="1.5" PointX="3.75" PointY="4.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.EmployeeLeaveMonitoring" Width="2.125" PointX="8.25" PointY="8.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.P_Leave" Width="1.5" PointX="8.25" PointY="3.25" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.FK_EmployeeLeaveMonitoring_Employee" />
+        <AssociationConnector Association="apwdbModel.FK_P_Leave_Employee" />
+        <AssociationConnector Association="apwdbModel.FK_EmployeeLeaveMonitoring_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_P_Leave_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT" Width="1.5" PointX="3.75" PointY="7" IsExpanded="false" />
         <AssociationConnector Association="apwdbModel.FK_Employee_REC_CLIENT" />
         <AssociationConnector Association="apwdbModel.FK_Employee_REC_CLIENT1" />
+        <AssociationConnector Association="apwdbModel.FK_EmployeeLeaveMonitoring_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.FK_P_Leave_REC_CLIENT" />
         <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_SYS_USER" />
-        <EntityTypeShape EntityType="apwdbModel.Department" Width="1.5" PointX="3.75" PointY="6.875" IsExpanded="false" />
-        <AssociationConnector Association="apwdbModel.C_FK_Employee_Department" />
-        <AssociationConnector Association="apwdbModel.FK_Department_SYS_USER" />
-        <EntityTypeShape EntityType="apwdbModel.Branch" Width="1.5" PointX="6" PointY="2.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="apwdbModel.REC_SOURCE_TYPE" Width="1.5" PointX="1.5" PointY="5.25" IsExpanded="false" />
-        <AssociationConnector Association="apwdbModel.C_FK_Branch_REC_CLIENT" />
-        <AssociationConnector Association="apwdbModel.C_FK_Branch_SYS_USER" />
-        <AssociationConnector Association="apwdbModel.C_FK_Employee_Branch" />
-        <AssociationConnector Association="apwdbModel.C_FK_Employee_REC_SOURCE_TYPE" />
-        <EntityTypeShape EntityType="apwdbModel.REC_CONTRACT_TYPE" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="false" />
-        <AssociationConnector Association="apwdbModel.C_FK_Employee_REC_CONTRACT_TYPE" />
-        <EntityTypeShape EntityType="apwdbModel.EmployeeType" Width="1.5" PointX="3.75" PointY="8.875" IsExpanded="false" />
-        <AssociationConnector Association="apwdbModel.C_FK_Employee_EmployeeType" />
-        <AssociationConnector Association="apwdbModel.FK_EmployeeType_SYS_USER" />
-        <EntityTypeShape EntityType="apwdbModel.EmployeeRank" Width="1.5" PointX="3.75" PointY="10.875" IsExpanded="false" />
-        <AssociationConnector Association="apwdbModel.C_FK_Employee_EmployeeRank" />
-        <AssociationConnector Association="apwdbModel.FK_EmployeeRank_SYS_USER" />
-        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_DEPARTMENT" Width="1.5" PointX="6" PointY="3.875" IsExpanded="false" />
-        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_Department" />
-        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_REC_CLIENT" />
-        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_DEPARTMENT_SYS_USER" />
-        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_SHIFT" Width="1.5" PointX="6" PointY="8.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="apwdbModel.Shift" Width="1.5" PointX="3.75" PointY="12.875" IsExpanded="false" />
-        <AssociationConnector Association="apwdbModel.C_FK_Employee_Shift1" />
-        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_SHIFT_REC_CLIENT" />
-        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_SHIFT_Shift" />
-        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_SHIFT_SYS_USER" />
-        <AssociationConnector Association="apwdbModel.FK_Shift_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.EmployeeLoanMaster" Width="2.375" PointX="8.25" PointY="6.75" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.FK_EmployeeLoanMaster_Employee" />
+        <AssociationConnector Association="apwdbModel.FK_EmployeeLoanMaster_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.LoanType" Width="1.5" PointX="3.75" PointY="8.125" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.C_FK_EmployeeLoanMaster_LoanType" />
+        <AssociationConnector Association="apwdbModel.FK_LoanType_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.Employee_Floating_Status" Width="2.5" PointX="3" PointY="10" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.FloatingReason" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.C_FK_Employee_Floating_Status_FloatingReason" />
+        <EntityTypeShape EntityType="apwdbModel.Employee_Replacement_HD" Width="2.5" PointX="12.25" PointY="3.5" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Replacement_HD_Employee" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Replacement_HD_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Replacement_HD_SYS_USER1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

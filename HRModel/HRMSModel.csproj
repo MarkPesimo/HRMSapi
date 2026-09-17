@@ -47,6 +47,9 @@
     <Compile Include="ViewModel\Employees\Education\EmployeeEducationModel.cs" />
     <Compile Include="ViewModel\Employees\EmployeeMonitoringViewModel.cs" />
     <Compile Include="ViewModel\Employees\EmployeeProfile.cs" />
+    <Compile Include="ViewModel\Floating\Floating_model.cs" />
+    <Compile Include="ViewModel\Floating\Replacement_model.cs" />
+    <Compile Include="ViewModel\Floating\EmployeeTransaction_model.cs" />
     <Compile Include="ViewModel\Global\ContextLoginUser_model.cs" />
     <Compile Include="ViewModel\Global\GlobalSearch_models.cs" />
     <Compile Include="ViewModel\Global\ICustomPrincipal.cs" />
@@ -54,6 +57,10 @@
     <Compile Include="ViewModel\Global\LoginUser_model.cs" />
     <Compile Include="ViewModel\Global\SecretKeys.cs" />
     <Compile Include="ViewModel\Global\Serialize_LoginUser_model.cs" />
+    <Compile Include="ViewModel\Leave\EmployeeLeaveBalanceMonitoring_model.cs" />
+    <Compile Include="ViewModel\Leave\Leave_model.cs" />
+    <Compile Include="ViewModel\Loan\Loan_model.cs" />
+    <Compile Include="ViewModel\Users\User_model.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
