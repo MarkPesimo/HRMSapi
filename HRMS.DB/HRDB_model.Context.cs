@@ -43,6 +43,15 @@ namespace HRMS.DB
         public virtual DbSet<Employee_Floating_Status> Employee_Floating_Status { get; set; }
         public virtual DbSet<FloatingReason> FloatingReasons { get; set; }
         public virtual DbSet<Employee_Replacement_HD> Employee_Replacement_HD { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<Branch> Branches { get; set; }
+        public virtual DbSet<REC_CONTRACT_TYPE> REC_CONTRACT_TYPE { get; set; }
+        public virtual DbSet<REC_SOURCE_TYPE> REC_SOURCE_TYPE { get; set; }
+        public virtual DbSet<EmployeeType> EmployeeTypes { get; set; }
+        public virtual DbSet<EmployeeRank> EmployeeRanks { get; set; }
+        public virtual DbSet<REC_CLIENT_DEPARTMENT> REC_CLIENT_DEPARTMENT { get; set; }
+        public virtual DbSet<REC_CLIENT_SHIFT> REC_CLIENT_SHIFT { get; set; }
+        public virtual DbSet<Shift> Shifts { get; set; }
     
         public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
         {
@@ -528,6 +537,181 @@ namespace HRMS.DB
                 new ObjectParameter("USER_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_EMPLOYEE_REPLACEMENT_HD", mODEParameter, iDParameter, eMPIDParameter, rEPLACEMENT_DATEParameter, rEMARKSParameter, fLOATING_IDParameter, sEPARATION_IDParameter, uSER_IDParameter, rETURN_ID);
+        }
+    
+        public virtual ObjectResult<USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result> USP_H_EMPLOYEE_TRANSACTION_MONITORING(Nullable<int> cLIENT_ID, string kEYWORD, Nullable<bool> bY_DATE, string sTAGE, Nullable<System.DateTime> fROM_DATE, Nullable<System.DateTime> tO_DATE, Nullable<bool> bY_CONTRACT_STATUS, Nullable<bool> cONTRACT_STATUS, Nullable<bool> bY_EMPLOYEE_TYPE, Nullable<int> eMPLOYEE_TYPE_ID, Nullable<bool> bY_USER_HIRED, Nullable<int> uSER_ID, Nullable<int> cOMPANY_ID)
+        {
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var kEYWORDParameter = kEYWORD != null ?
+                new ObjectParameter("KEYWORD", kEYWORD) :
+                new ObjectParameter("KEYWORD", typeof(string));
+    
+            var bY_DATEParameter = bY_DATE.HasValue ?
+                new ObjectParameter("BY_DATE", bY_DATE) :
+                new ObjectParameter("BY_DATE", typeof(bool));
+    
+            var sTAGEParameter = sTAGE != null ?
+                new ObjectParameter("STAGE", sTAGE) :
+                new ObjectParameter("STAGE", typeof(string));
+    
+            var fROM_DATEParameter = fROM_DATE.HasValue ?
+                new ObjectParameter("FROM_DATE", fROM_DATE) :
+                new ObjectParameter("FROM_DATE", typeof(System.DateTime));
+    
+            var tO_DATEParameter = tO_DATE.HasValue ?
+                new ObjectParameter("TO_DATE", tO_DATE) :
+                new ObjectParameter("TO_DATE", typeof(System.DateTime));
+    
+            var bY_CONTRACT_STATUSParameter = bY_CONTRACT_STATUS.HasValue ?
+                new ObjectParameter("BY_CONTRACT_STATUS", bY_CONTRACT_STATUS) :
+                new ObjectParameter("BY_CONTRACT_STATUS", typeof(bool));
+    
+            var cONTRACT_STATUSParameter = cONTRACT_STATUS.HasValue ?
+                new ObjectParameter("CONTRACT_STATUS", cONTRACT_STATUS) :
+                new ObjectParameter("CONTRACT_STATUS", typeof(bool));
+    
+            var bY_EMPLOYEE_TYPEParameter = bY_EMPLOYEE_TYPE.HasValue ?
+                new ObjectParameter("BY_EMPLOYEE_TYPE", bY_EMPLOYEE_TYPE) :
+                new ObjectParameter("BY_EMPLOYEE_TYPE", typeof(bool));
+    
+            var eMPLOYEE_TYPE_IDParameter = eMPLOYEE_TYPE_ID.HasValue ?
+                new ObjectParameter("EMPLOYEE_TYPE_ID", eMPLOYEE_TYPE_ID) :
+                new ObjectParameter("EMPLOYEE_TYPE_ID", typeof(int));
+    
+            var bY_USER_HIREDParameter = bY_USER_HIRED.HasValue ?
+                new ObjectParameter("BY_USER_HIRED", bY_USER_HIRED) :
+                new ObjectParameter("BY_USER_HIRED", typeof(bool));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var cOMPANY_IDParameter = cOMPANY_ID.HasValue ?
+                new ObjectParameter("COMPANY_ID", cOMPANY_ID) :
+                new ObjectParameter("COMPANY_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result>("USP_H_EMPLOYEE_TRANSACTION_MONITORING", cLIENT_IDParameter, kEYWORDParameter, bY_DATEParameter, sTAGEParameter, fROM_DATEParameter, tO_DATEParameter, bY_CONTRACT_STATUSParameter, cONTRACT_STATUSParameter, bY_EMPLOYEE_TYPEParameter, eMPLOYEE_TYPE_IDParameter, bY_USER_HIREDParameter, uSER_IDParameter, cOMPANY_IDParameter);
+        }
+    
+        public virtual int USP_H_MANAGE_EMPLOYEE_TRANSACTION(Nullable<int> iD, Nullable<int> cLIENT_ID, Nullable<int> eMP_ID, Nullable<System.DateTime> dATE_HIRED, Nullable<System.DateTime> cONTRACT_START, Nullable<System.DateTime> cONTRACT_END, Nullable<int> uSER_ID, string hIRE_TYPE, Nullable<int> jO_DET_ID, Nullable<bool> iS_HISTORY, Nullable<int> eMPLOYEE_TYPE_ID, string pOSITION, Nullable<System.DateTime> dATE_REGULAR, Nullable<int> dEPARTMENT_ID, Nullable<int> bRANCH_ID, Nullable<System.DateTime> dATE_RESIGNATION_SUBMITTED, Nullable<System.DateTime> dATE_SEPARATED, Nullable<int> sEPARATE_BY, Nullable<int> fLOATING_ID, Nullable<System.DateTime> dATE_INACTIVE, Nullable<System.DateTime> dATE_INACTIVE_CREATED, Nullable<int> iNACTIVE_BY, Nullable<int> sEPARATE_ID, Nullable<int> eMPLOYEE_RANK_ID, Nullable<int> sHIFT_ID, Nullable<int> mODE, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var eMP_IDParameter = eMP_ID.HasValue ?
+                new ObjectParameter("EMP_ID", eMP_ID) :
+                new ObjectParameter("EMP_ID", typeof(int));
+    
+            var dATE_HIREDParameter = dATE_HIRED.HasValue ?
+                new ObjectParameter("DATE_HIRED", dATE_HIRED) :
+                new ObjectParameter("DATE_HIRED", typeof(System.DateTime));
+    
+            var cONTRACT_STARTParameter = cONTRACT_START.HasValue ?
+                new ObjectParameter("CONTRACT_START", cONTRACT_START) :
+                new ObjectParameter("CONTRACT_START", typeof(System.DateTime));
+    
+            var cONTRACT_ENDParameter = cONTRACT_END.HasValue ?
+                new ObjectParameter("CONTRACT_END", cONTRACT_END) :
+                new ObjectParameter("CONTRACT_END", typeof(System.DateTime));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var hIRE_TYPEParameter = hIRE_TYPE != null ?
+                new ObjectParameter("HIRE_TYPE", hIRE_TYPE) :
+                new ObjectParameter("HIRE_TYPE", typeof(string));
+    
+            var jO_DET_IDParameter = jO_DET_ID.HasValue ?
+                new ObjectParameter("JO_DET_ID", jO_DET_ID) :
+                new ObjectParameter("JO_DET_ID", typeof(int));
+    
+            var iS_HISTORYParameter = iS_HISTORY.HasValue ?
+                new ObjectParameter("IS_HISTORY", iS_HISTORY) :
+                new ObjectParameter("IS_HISTORY", typeof(bool));
+    
+            var eMPLOYEE_TYPE_IDParameter = eMPLOYEE_TYPE_ID.HasValue ?
+                new ObjectParameter("EMPLOYEE_TYPE_ID", eMPLOYEE_TYPE_ID) :
+                new ObjectParameter("EMPLOYEE_TYPE_ID", typeof(int));
+    
+            var pOSITIONParameter = pOSITION != null ?
+                new ObjectParameter("POSITION", pOSITION) :
+                new ObjectParameter("POSITION", typeof(string));
+    
+            var dATE_REGULARParameter = dATE_REGULAR.HasValue ?
+                new ObjectParameter("DATE_REGULAR", dATE_REGULAR) :
+                new ObjectParameter("DATE_REGULAR", typeof(System.DateTime));
+    
+            var dEPARTMENT_IDParameter = dEPARTMENT_ID.HasValue ?
+                new ObjectParameter("DEPARTMENT_ID", dEPARTMENT_ID) :
+                new ObjectParameter("DEPARTMENT_ID", typeof(int));
+    
+            var bRANCH_IDParameter = bRANCH_ID.HasValue ?
+                new ObjectParameter("BRANCH_ID", bRANCH_ID) :
+                new ObjectParameter("BRANCH_ID", typeof(int));
+    
+            var dATE_RESIGNATION_SUBMITTEDParameter = dATE_RESIGNATION_SUBMITTED.HasValue ?
+                new ObjectParameter("DATE_RESIGNATION_SUBMITTED", dATE_RESIGNATION_SUBMITTED) :
+                new ObjectParameter("DATE_RESIGNATION_SUBMITTED", typeof(System.DateTime));
+    
+            var dATE_SEPARATEDParameter = dATE_SEPARATED.HasValue ?
+                new ObjectParameter("DATE_SEPARATED", dATE_SEPARATED) :
+                new ObjectParameter("DATE_SEPARATED", typeof(System.DateTime));
+    
+            var sEPARATE_BYParameter = sEPARATE_BY.HasValue ?
+                new ObjectParameter("SEPARATE_BY", sEPARATE_BY) :
+                new ObjectParameter("SEPARATE_BY", typeof(int));
+    
+            var fLOATING_IDParameter = fLOATING_ID.HasValue ?
+                new ObjectParameter("FLOATING_ID", fLOATING_ID) :
+                new ObjectParameter("FLOATING_ID", typeof(int));
+    
+            var dATE_INACTIVEParameter = dATE_INACTIVE.HasValue ?
+                new ObjectParameter("DATE_INACTIVE", dATE_INACTIVE) :
+                new ObjectParameter("DATE_INACTIVE", typeof(System.DateTime));
+    
+            var dATE_INACTIVE_CREATEDParameter = dATE_INACTIVE_CREATED.HasValue ?
+                new ObjectParameter("DATE_INACTIVE_CREATED", dATE_INACTIVE_CREATED) :
+                new ObjectParameter("DATE_INACTIVE_CREATED", typeof(System.DateTime));
+    
+            var iNACTIVE_BYParameter = iNACTIVE_BY.HasValue ?
+                new ObjectParameter("INACTIVE_BY", iNACTIVE_BY) :
+                new ObjectParameter("INACTIVE_BY", typeof(int));
+    
+            var sEPARATE_IDParameter = sEPARATE_ID.HasValue ?
+                new ObjectParameter("SEPARATE_ID", sEPARATE_ID) :
+                new ObjectParameter("SEPARATE_ID", typeof(int));
+    
+            var eMPLOYEE_RANK_IDParameter = eMPLOYEE_RANK_ID.HasValue ?
+                new ObjectParameter("EMPLOYEE_RANK_ID", eMPLOYEE_RANK_ID) :
+                new ObjectParameter("EMPLOYEE_RANK_ID", typeof(int));
+    
+            var sHIFT_IDParameter = sHIFT_ID.HasValue ?
+                new ObjectParameter("SHIFT_ID", sHIFT_ID) :
+                new ObjectParameter("SHIFT_ID", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_EMPLOYEE_TRANSACTION", iDParameter, cLIENT_IDParameter, eMP_IDParameter, dATE_HIREDParameter, cONTRACT_STARTParameter, cONTRACT_ENDParameter, uSER_IDParameter, hIRE_TYPEParameter, jO_DET_IDParameter, iS_HISTORYParameter, eMPLOYEE_TYPE_IDParameter, pOSITIONParameter, dATE_REGULARParameter, dEPARTMENT_IDParameter, bRANCH_IDParameter, dATE_RESIGNATION_SUBMITTEDParameter, dATE_SEPARATEDParameter, sEPARATE_BYParameter, fLOATING_IDParameter, dATE_INACTIVEParameter, dATE_INACTIVE_CREATEDParameter, iNACTIVE_BYParameter, sEPARATE_IDParameter, eMPLOYEE_RANK_IDParameter, sHIFT_IDParameter, mODEParameter, rET_ID);
+        }
+    
+        public virtual ObjectResult<USP_H_GET_CLIENTS_BY_COMPANY_Result> USP_H_GET_CLIENTS_BY_COMPANY(Nullable<int> company_id)
+        {
+            var company_idParameter = company_id.HasValue ?
+                new ObjectParameter("company_id", company_id) :
+                new ObjectParameter("company_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_CLIENTS_BY_COMPANY_Result>("USP_H_GET_CLIENTS_BY_COMPANY", company_idParameter);
         }
     }
 }

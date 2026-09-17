@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ac44f2c2e5624ec08007520427d074b6" Name="Diagram1" >
+      <Diagram DiagramId="ac44f2c2e5624ec08007520427d074b6" Name="Diagram1" ZoomLevel="72" >
         <EntityTypeShape EntityType="apwdbModel.Employee" Width="1.5" PointX="6" PointY="7.125" IsExpanded="false" />
         <EntityTypeShape EntityType="apwdbModel.REC_USER_LOG" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="apwdbModel.sys_company" Width="1.5" PointX="3.75" PointY="3.5" IsExpanded="false" />
@@ -48,6 +48,34 @@
         <AssociationConnector Association="apwdbModel.FK_Employee_Replacement_HD_Employee" />
         <AssociationConnector Association="apwdbModel.FK_Employee_Replacement_HD_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_Employee_Replacement_HD_SYS_USER1" />
+        <EntityTypeShape EntityType="apwdbModel.Department" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.C_FK_Employee_Department" />
+        <AssociationConnector Association="apwdbModel.FK_Department_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.Branch" Width="1.5" PointX="6" PointY="0.75" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.C_FK_Branch_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.C_FK_Branch_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.C_FK_Employee_Branch" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CONTRACT_TYPE" Width="1.5" PointX="6.375" PointY="9.875" />
+        <AssociationConnector Association="apwdbModel.C_FK_Employee_REC_CONTRACT_TYPE" />
+        <EntityTypeShape EntityType="apwdbModel.REC_SOURCE_TYPE" Width="1.5" PointX="0.75" PointY="6.875" />
+        <AssociationConnector Association="apwdbModel.C_FK_Employee_REC_SOURCE_TYPE" />
+        <EntityTypeShape EntityType="apwdbModel.EmployeeType" Width="1.5" PointX="3.75" PointY="11.25" />
+        <AssociationConnector Association="apwdbModel.C_FK_Employee_EmployeeType" />
+        <AssociationConnector Association="apwdbModel.FK_EmployeeType_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.EmployeeRank" Width="1.5" PointX="3.75" PointY="15.25" />
+        <AssociationConnector Association="apwdbModel.C_FK_Employee_EmployeeRank" />
+        <AssociationConnector Association="apwdbModel.FK_EmployeeRank_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_DEPARTMENT" Width="1.5" PointX="10.5" PointY="0.75" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_Department" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_DEPARTMENT_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_SHIFT" Width="1.5" PointX="6" PointY="13.25" />
+        <EntityTypeShape EntityType="apwdbModel.Shift" Width="1.5" PointX="3.75" PointY="19" />
+        <AssociationConnector Association="apwdbModel.C_FK_Employee_Shift1" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_SHIFT_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_SHIFT_Shift" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_SHIFT_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_Shift_SYS_USER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -128,5 +128,12 @@ namespace HRMS.DB
         public virtual ICollection<EmployeeLoanMaster> EmployeeLoanMasters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee_Replacement_HD> Employee_Replacement_HD { get; set; }
+        public virtual Department Department { get; set; }
+        public virtual Branch Branch { get; set; }
+        public virtual REC_CONTRACT_TYPE REC_CONTRACT_TYPE { get; set; }
+        public virtual REC_SOURCE_TYPE REC_SOURCE_TYPE { get; set; }
+        public virtual EmployeeType EmployeeType { get; set; }
+        public virtual EmployeeRank EmployeeRank { get; set; }
+        public virtual Shift Shift { get; set; }
     }
 }

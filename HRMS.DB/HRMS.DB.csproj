@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Branch.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Department.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Employee.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -57,6 +63,12 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="EmployeeLoanMaster.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeRank.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeType.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Employee_Floating_Status.cs">
@@ -99,7 +111,22 @@
     <Compile Include="REC_CLIENT.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_CLIENT_DEPARTMENT.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_SHIFT.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CONTRACT_TYPE.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_SOURCE_TYPE.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_USER_LOG.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Shift.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="sys_company.cs">
@@ -112,6 +139,12 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="SYS_USER_GROUP_DET.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_CLIENTS_BY_COMPANY_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_GET_EMPLOYEE_FILED_LEAVE_Result.cs">
