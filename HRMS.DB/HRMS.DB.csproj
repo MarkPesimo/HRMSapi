@@ -50,7 +50,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Branch.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Department.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Employee.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeRank.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeType.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="HRDB_model.Context.cs">
@@ -68,6 +80,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HRDB_model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="HRDB_model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="REC_CANDIDATE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
@@ -75,7 +92,25 @@
     <Compile Include="REC_CANDIDATE_EMPLOYEE_LINK.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_CLIENT.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_DEPARTMENT.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_SHIFT.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CONTRACT_TYPE.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_SOURCE_TYPE.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_USER_LOG.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Shift.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="sys_company.cs">
@@ -88,6 +123,12 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="SYS_USER_GROUP_DET.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_CLIENTS_BY_COMPANY_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_GET_EMPLOYEE_MONITORING_Result.cs">
@@ -119,7 +160,7 @@
     <Content Include="HRDB_model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HRDB_model.edmx</DependentUpon>
-      <LastGenOutput>HRDB_model.cs</LastGenOutput>
+      <LastGenOutput>HRDB_model1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,32 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="apwdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Branch_ID" />
+          </Key>
+          <Property Name="Branch_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Branch_Desc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="no_of_days" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="date_created" Type="smalldatetime" Nullable="false" />
+          <Property Name="region_name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="region_longitude" Type="decimal" Precision="18" Scale="8" />
+          <Property Name="region_latitude" Type="decimal" Precision="18" Scale="8" />
+          <Property Name="allowed_radius_meter" Type="int" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Dept_ID" />
+          </Key>
+          <Property Name="Dept_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dept_Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Emp_ID" />
@@ -100,6 +126,26 @@
           <Property Name="func_id" Type="int" Nullable="false" />
           <Property Name="card_no_validity" Type="datetime" />
         </EntityType>
+        <EntityType Name="EmployeeRank">
+          <Key>
+            <PropertyRef Name="EmpRank_ID" />
+          </Key>
+          <Property Name="EmpRank_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeRank" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Userid" Type="int" Nullable="false" />
+          <Property Name="Date_created" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeType">
+          <Key>
+            <PropertyRef Name="EmpType_ID" />
+          </Key>
+          <Property Name="EmpType_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpType_Desc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="REC_CANDIDATE">
           <Key>
             <PropertyRef Name="id" />
@@ -192,6 +238,84 @@
           <Property Name="salary_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="allowance_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="REC_CLIENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_name" Type="nvarchar" MaxLength="150" />
+          <Property Name="client_address" Type="nvarchar" MaxLength="250" />
+          <Property Name="contact_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="email_address" Type="nvarchar" MaxLength="150" />
+          <Property Name="contact_person" Type="nvarchar" MaxLength="150" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="1000" />
+          <Property Name="status" Type="bit" />
+          <Property Name="tin_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="industry_id" Type="int" Nullable="false" />
+          <Property Name="contact_title" Type="nvarchar" MaxLength="150" />
+          <Property Name="mobile_no" Type="nvarchar" MaxLength="150" />
+          <Property Name="date_encoded" Type="smalldatetime" />
+          <Property Name="website" Type="nvarchar" MaxLength="150" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="Vatable" Type="bit" Nullable="false" />
+          <Property Name="client_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="logofile" Type="varbinary(max)" />
+          <Property Name="zip_code" Type="nvarchar" MaxLength="10" />
+          <Property Name="sss_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="sss_br_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="pagibig_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="pagibig_br_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="philhealth_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="philhealth_br_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="company_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="is_withholding_tax" Type="bit" Nullable="false" />
+          <Property Name="withholding_tax_rate" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Vat_Type" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="billing_address" Type="nvarchar" MaxLength="250" />
+          <Property Name="employer_id" Type="int" Nullable="false" />
+          <Property Name="guid" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_DEPARTMENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="dept_code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_SHIFT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="shift_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CONTRACT_TYPE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="contract_type" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_SOURCE_TYPE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="source_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="bit" />
+        </EntityType>
         <EntityType Name="REC_USER_LOG">
           <Key>
             <PropertyRef Name="id" />
@@ -199,6 +323,28 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shift">
+          <Key>
+            <PropertyRef Name="Shift_ID" />
+          </Key>
+          <Property Name="Shift_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Shift_in" Type="smalldatetime" Nullable="false" />
+          <Property Name="Shift_out" Type="smalldatetime" Nullable="false" />
+          <Property Name="Grace_period" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="break_time_start" Type="datetime" Nullable="false" />
+          <Property Name="break_time_end" Type="datetime" Nullable="false" />
+          <Property Name="is_graveyard" Type="bit" Nullable="false" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+          <Property Name="grave_time_in" Type="datetime" />
+          <Property Name="grave_time_out" Type="datetime" />
+          <Property Name="is_halfday" Type="bit" Nullable="false" />
+          <Property Name="is_compress" Type="bit" Nullable="false" />
+          <Property Name="hours_worked" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="sys_company">
           <Key>
@@ -256,6 +402,114 @@
           <Property Name="user_type" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
+        <Association Name=" FK_Branch_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="Branch" Type="Self.Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Branch_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Branch" Type="Self.Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_Branch">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Branch_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Branch_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dept_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Department_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_EmployeeRank">
+          <End Role="EmployeeRank" Type="Self.EmployeeRank" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeRank">
+              <PropertyRef Name="EmpRank_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmpRank_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_EmployeeType">
+          <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmpType_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmpType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_REC_CONTRACT_TYPE">
+          <End Role="REC_CONTRACT_TYPE" Type="Self.REC_CONTRACT_TYPE" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CONTRACT_TYPE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="contracttype_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_REC_SOURCE_TYPE">
+          <End Role="REC_SOURCE_TYPE" Type="Self.REC_SOURCE_TYPE" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_SOURCE_TYPE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="employee_processingtype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_Shift1">
+          <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="Shift_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Shift_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name=" FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE">
           <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="1" />
           <End Role="REC_CANDIDATE_EMPLOYEE_LINK" Type="Self.REC_CANDIDATE_EMPLOYEE_LINK" Multiplicity="*" />
@@ -268,6 +522,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name=" FK_REC_CLIENT_DEPARTMENT_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="REC_CLIENT_DEPARTMENT" Type="Self.REC_CLIENT_DEPARTMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dept_ID" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_DEPARTMENT">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_CLIENT_DEPARTMENT_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="REC_CLIENT_DEPARTMENT" Type="Self.REC_CLIENT_DEPARTMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_DEPARTMENT">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_CLIENT_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_REC_CLIENT1">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -276,6 +602,30 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Employee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeRank_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="EmployeeRank" Type="Self.EmployeeRank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeRank">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeType_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeType">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
@@ -313,6 +663,66 @@
             </Principal>
             <Dependent Role="REC_CANDIDATE">
               <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_DEPARTMENT_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_CLIENT_DEPARTMENT" Type="Self.REC_CLIENT_DEPARTMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_DEPARTMENT">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_SHIFT_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="REC_CLIENT_SHIFT" Type="Self.REC_CLIENT_SHIFT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SHIFT">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_SHIFT_Shift">
+          <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
+          <End Role="REC_CLIENT_SHIFT" Type="Self.REC_CLIENT_SHIFT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="Shift_ID" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SHIFT">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_SHIFT_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_CLIENT_SHIFT" Type="Self.REC_CLIENT_SHIFT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SHIFT">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shift_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Shift" Type="Self.Shift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Shift">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -376,6 +786,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="USP_H_EMPLOYEE_TRANSACTION_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
+          <Parameter Name="BY_DATE" Type="bit" Mode="In" />
+          <Parameter Name="STAGE" Type="nvarchar" Mode="In" />
+          <Parameter Name="FROM_DATE" Type="date" Mode="In" />
+          <Parameter Name="TO_DATE" Type="date" Mode="In" />
+          <Parameter Name="BY_CONTRACT_STATUS" Type="bit" Mode="In" />
+          <Parameter Name="CONTRACT_STATUS" Type="bit" Mode="In" />
+          <Parameter Name="BY_EMPLOYEE_TYPE" Type="bit" Mode="In" />
+          <Parameter Name="EMPLOYEE_TYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="BY_USER_HIRED" Type="bit" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="COMPANY_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_GET_CLIENTS_BY_COMPANY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="company_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_H_GET_EMPLOYEE_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
           <Parameter Name="BY_CLIENT" Type="bit" Mode="In" />
@@ -384,22 +812,129 @@
           <Parameter Name="PageSize" Type="int" Mode="In" />
           <Parameter Name="COMPANY_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="USP_H_MANAGE_EMPLOYEE_TRANSACTION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="EMP_ID" Type="int" Mode="In" />
+          <Parameter Name="DATE_HIRED" Type="date" Mode="In" />
+          <Parameter Name="CONTRACT_START" Type="date" Mode="In" />
+          <Parameter Name="CONTRACT_END" Type="date" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="HIRE_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="JO_DET_ID" Type="int" Mode="In" />
+          <Parameter Name="IS_HISTORY" Type="bit" Mode="In" />
+          <Parameter Name="EMPLOYEE_TYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="POSITION" Type="nvarchar" Mode="In" />
+          <Parameter Name="DATE_REGULAR" Type="date" Mode="In" />
+          <Parameter Name="DEPARTMENT_ID" Type="int" Mode="In" />
+          <Parameter Name="BRANCH_ID" Type="int" Mode="In" />
+          <Parameter Name="DATE_RESIGNATION_SUBMITTED" Type="date" Mode="In" />
+          <Parameter Name="DATE_SEPARATED" Type="date" Mode="In" />
+          <Parameter Name="SEPARATE_BY" Type="int" Mode="In" />
+          <Parameter Name="FLOATING_ID" Type="int" Mode="In" />
+          <Parameter Name="DATE_INACTIVE" Type="date" Mode="In" />
+          <Parameter Name="DATE_INACTIVE_CREATED" Type="date" Mode="In" />
+          <Parameter Name="INACTIVE_BY" Type="int" Mode="In" />
+          <Parameter Name="SEPARATE_ID" Type="int" Mode="In" />
+          <Parameter Name="EMPLOYEE_RANK_ID" Type="int" Mode="In" />
+          <Parameter Name="SHIFT_ID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <EntityContainer Name="apwdbModelStoreContainer">
+          <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeRank" EntityType="Self.EmployeeRank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeType" EntityType="Self.EmployeeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE" EntityType="Self.REC_CANDIDATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE_EMPLOYEE_LINK" EntityType="Self.REC_CANDIDATE_EMPLOYEE_LINK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT" EntityType="Self.REC_CLIENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_DEPARTMENT" EntityType="Self.REC_CLIENT_DEPARTMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_SHIFT" EntityType="Self.REC_CLIENT_SHIFT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CONTRACT_TYPE" EntityType="Self.REC_CONTRACT_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_SOURCE_TYPE" EntityType="Self.REC_SOURCE_TYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_USER_LOG" EntityType="Self.REC_USER_LOG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shift" EntityType="Self.Shift" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sys_company" EntityType="Self.sys_company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER" EntityType="Self.SYS_USER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP" EntityType="Self.SYS_USER_GROUP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP_DET" EntityType="Self.SYS_USER_GROUP_DET" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name=" FK_Branch_REC_CLIENT" Association="Self. FK_Branch_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Branch" EntitySet="Branch" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Branch_SYS_USER" Association="Self. FK_Branch_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Branch" EntitySet="Branch" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_Branch" Association="Self. FK_Employee_Branch">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_Department" Association="Self. FK_Employee_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_EmployeeRank" Association="Self. FK_Employee_EmployeeRank">
+            <End Role="EmployeeRank" EntitySet="EmployeeRank" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_EmployeeType" Association="Self. FK_Employee_EmployeeType">
+            <End Role="EmployeeType" EntitySet="EmployeeType" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_REC_CONTRACT_TYPE" Association="Self. FK_Employee_REC_CONTRACT_TYPE">
+            <End Role="REC_CONTRACT_TYPE" EntitySet="REC_CONTRACT_TYPE" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_REC_SOURCE_TYPE" Association="Self. FK_Employee_REC_SOURCE_TYPE">
+            <End Role="REC_SOURCE_TYPE" EntitySet="REC_SOURCE_TYPE" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_Shift1" Association="Self. FK_Employee_Shift1">
+            <End Role="Shift" EntitySet="Shift" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
           <AssociationSet Name=" FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE" Association="Self. FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE">
             <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
             <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
           </AssociationSet>
+          <AssociationSet Name=" FK_REC_CLIENT_DEPARTMENT_Department" Association="Self. FK_REC_CLIENT_DEPARTMENT_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="REC_CLIENT_DEPARTMENT" EntitySet="REC_CLIENT_DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_CLIENT_DEPARTMENT_REC_CLIENT" Association="Self. FK_REC_CLIENT_DEPARTMENT_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_DEPARTMENT" EntitySet="REC_CLIENT_DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_CLIENT_SYS_USER" Association="Self. FK_REC_CLIENT_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_SYS_USER" Association="Self.FK_Department_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_REC_CLIENT" Association="Self.FK_Employee_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_REC_CLIENT1" Association="Self.FK_Employee_REC_CLIENT1">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employee_SYS_USER" Association="Self.FK_Employee_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeRank_SYS_USER" Association="Self.FK_EmployeeRank_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="EmployeeRank" EntitySet="EmployeeRank" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeType_SYS_USER" Association="Self.FK_EmployeeType_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="EmployeeType" EntitySet="EmployeeType" />
           </AssociationSet>
           <AssociationSet Name="FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1" Association="Self.FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1">
             <End Role="Employee" EntitySet="Employee" />
@@ -412,6 +947,26 @@
           <AssociationSet Name="FK_REC_CANDIDATE_SYS_USER" Association="Self.FK_REC_CANDIDATE_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_DEPARTMENT_SYS_USER" Association="Self.FK_REC_CLIENT_DEPARTMENT_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT_DEPARTMENT" EntitySet="REC_CLIENT_DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_SHIFT_REC_CLIENT" Association="Self.FK_REC_CLIENT_SHIFT_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_SHIFT" EntitySet="REC_CLIENT_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_SHIFT_Shift" Association="Self.FK_REC_CLIENT_SHIFT_Shift">
+            <End Role="Shift" EntitySet="Shift" />
+            <End Role="REC_CLIENT_SHIFT" EntitySet="REC_CLIENT_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_SHIFT_SYS_USER" Association="Self.FK_REC_CLIENT_SHIFT_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT_SHIFT" EntitySet="REC_CLIENT_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shift_SYS_USER" Association="Self.FK_Shift_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Shift" EntitySet="Shift" />
           </AssociationSet>
           <AssociationSet Name="FK_sys_company_SYS_USER" Association="Self.FK_sys_company_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -495,6 +1050,151 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
           </AssociationSet>
+          <FunctionImport Name="USP_H_EMPLOYEE_TRANSACTION_MONITORING" ReturnType="Collection(apwdbModel.USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result)">
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
+            <Parameter Name="BY_DATE" Mode="In" Type="Boolean" />
+            <Parameter Name="STAGE" Mode="In" Type="String" />
+            <Parameter Name="FROM_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="TO_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="BY_CONTRACT_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="CONTRACT_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="BY_EMPLOYEE_TYPE" Mode="In" Type="Boolean" />
+            <Parameter Name="EMPLOYEE_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_USER_HIRED" Mode="In" Type="Boolean" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="COMPANY_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="REC_CLIENT" EntityType="apwdbModel.REC_CLIENT" />
+          <AssociationSet Name="FK_Employee_REC_CLIENT" Association="apwdbModel.FK_Employee_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_REC_CLIENT1" Association="apwdbModel.FK_Employee_REC_CLIENT1">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CLIENT_SYS_USER" Association="apwdbModel.C_FK_REC_CLIENT_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+          </AssociationSet>
+          <FunctionImport Name="USP_H_GET_CLIENTS_BY_COMPANY" ReturnType="Collection(apwdbModel.USP_H_GET_CLIENTS_BY_COMPANY_Result)">
+          <Parameter Name="company_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Departments" EntityType="apwdbModel.Department" />
+          <AssociationSet Name="C_FK_Employee_Department" Association="apwdbModel.C_FK_Employee_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_SYS_USER" Association="apwdbModel.FK_Department_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <EntitySet Name="Branches" EntityType="apwdbModel.Branch" />
+          <EntitySet Name="REC_SOURCE_TYPE" EntityType="apwdbModel.REC_SOURCE_TYPE" />
+          <AssociationSet Name="C_FK_Branch_REC_CLIENT" Association="apwdbModel.C_FK_Branch_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Branch" EntitySet="Branches" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_Branch_SYS_USER" Association="apwdbModel.C_FK_Branch_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Branch" EntitySet="Branches" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_Employee_Branch" Association="apwdbModel.C_FK_Employee_Branch">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_Employee_REC_SOURCE_TYPE" Association="apwdbModel.C_FK_Employee_REC_SOURCE_TYPE">
+            <End Role="REC_SOURCE_TYPE" EntitySet="REC_SOURCE_TYPE" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <EntitySet Name="REC_CONTRACT_TYPE" EntityType="apwdbModel.REC_CONTRACT_TYPE" />
+          <AssociationSet Name="C_FK_Employee_REC_CONTRACT_TYPE" Association="apwdbModel.C_FK_Employee_REC_CONTRACT_TYPE">
+            <End Role="REC_CONTRACT_TYPE" EntitySet="REC_CONTRACT_TYPE" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <EntitySet Name="EmployeeTypes" EntityType="apwdbModel.EmployeeType" />
+          <AssociationSet Name="C_FK_Employee_EmployeeType" Association="apwdbModel.C_FK_Employee_EmployeeType">
+            <End Role="EmployeeType" EntitySet="EmployeeTypes" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeType_SYS_USER" Association="apwdbModel.FK_EmployeeType_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="EmployeeType" EntitySet="EmployeeTypes" />
+          </AssociationSet>
+          <EntitySet Name="EmployeeRanks" EntityType="apwdbModel.EmployeeRank" />
+          <AssociationSet Name="C_FK_Employee_EmployeeRank" Association="apwdbModel.C_FK_Employee_EmployeeRank">
+            <End Role="EmployeeRank" EntitySet="EmployeeRanks" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeRank_SYS_USER" Association="apwdbModel.FK_EmployeeRank_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="EmployeeRank" EntitySet="EmployeeRanks" />
+          </AssociationSet>
+          <EntitySet Name="REC_CLIENT_DEPARTMENT" EntityType="apwdbModel.REC_CLIENT_DEPARTMENT" />
+          <AssociationSet Name="C_FK_REC_CLIENT_DEPARTMENT_Department" Association="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="REC_CLIENT_DEPARTMENT" EntitySet="REC_CLIENT_DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CLIENT_DEPARTMENT_REC_CLIENT" Association="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_DEPARTMENT" EntitySet="REC_CLIENT_DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_DEPARTMENT_SYS_USER" Association="apwdbModel.FK_REC_CLIENT_DEPARTMENT_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT_DEPARTMENT" EntitySet="REC_CLIENT_DEPARTMENT" />
+          </AssociationSet>
+          <EntitySet Name="REC_CLIENT_SHIFT" EntityType="apwdbModel.REC_CLIENT_SHIFT" />
+          <EntitySet Name="Shifts" EntityType="apwdbModel.Shift" />
+          <AssociationSet Name="C_FK_Employee_Shift1" Association="apwdbModel.C_FK_Employee_Shift1">
+            <End Role="Shift" EntitySet="Shifts" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_SHIFT_REC_CLIENT" Association="apwdbModel.FK_REC_CLIENT_SHIFT_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_SHIFT" EntitySet="REC_CLIENT_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_SHIFT_Shift" Association="apwdbModel.FK_REC_CLIENT_SHIFT_Shift">
+            <End Role="Shift" EntitySet="Shifts" />
+            <End Role="REC_CLIENT_SHIFT" EntitySet="REC_CLIENT_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_SHIFT_SYS_USER" Association="apwdbModel.FK_REC_CLIENT_SHIFT_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT_SHIFT" EntitySet="REC_CLIENT_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shift_SYS_USER" Association="apwdbModel.FK_Shift_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Shift" EntitySet="Shifts" />
+          </AssociationSet>
+          <FunctionImport Name="USP_H_MANAGE_EMPLOYEE_TRANSACTION">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="EMP_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DATE_HIRED" Mode="In" Type="DateTime" />
+            <Parameter Name="CONTRACT_START" Mode="In" Type="DateTime" />
+            <Parameter Name="CONTRACT_END" Mode="In" Type="DateTime" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="HIRE_TYPE" Mode="In" Type="String" />
+            <Parameter Name="JO_DET_ID" Mode="In" Type="Int32" />
+            <Parameter Name="IS_HISTORY" Mode="In" Type="Boolean" />
+            <Parameter Name="EMPLOYEE_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="POSITION" Mode="In" Type="String" />
+            <Parameter Name="DATE_REGULAR" Mode="In" Type="DateTime" />
+            <Parameter Name="DEPARTMENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BRANCH_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DATE_RESIGNATION_SUBMITTED" Mode="In" Type="DateTime" />
+            <Parameter Name="DATE_SEPARATED" Mode="In" Type="DateTime" />
+            <Parameter Name="SEPARATE_BY" Mode="In" Type="Int32" />
+            <Parameter Name="FLOATING_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DATE_INACTIVE" Mode="In" Type="DateTime" />
+            <Parameter Name="DATE_INACTIVE_CREATED" Mode="In" Type="DateTime" />
+            <Parameter Name="INACTIVE_BY" Mode="In" Type="Int32" />
+            <Parameter Name="SEPARATE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="EMPLOYEE_RANK_ID" Mode="In" Type="Int32" />
+            <Parameter Name="SHIFT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -592,6 +1292,15 @@
           <Property Name="card_no_validity" Type="DateTime" Precision="3" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Employee_SYS_USER" FromRole="Employee" ToRole="SYS_USER" />
           <NavigationProperty Name="REC_CANDIDATE_EMPLOYEE_LINK" Relationship="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1" FromRole="Employee" ToRole="REC_CANDIDATE_EMPLOYEE_LINK" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.FK_Employee_REC_CLIENT" FromRole="Employee" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="REC_CLIENT1" Relationship="apwdbModel.FK_Employee_REC_CLIENT1" FromRole="Employee" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="Department" Relationship="apwdbModel.C_FK_Employee_Department" FromRole="Employee" ToRole="Department" />
+          <NavigationProperty Name="Branch" Relationship="apwdbModel.C_FK_Employee_Branch" FromRole="Employee" ToRole="Branch" />
+          <NavigationProperty Name="REC_SOURCE_TYPE" Relationship="apwdbModel.C_FK_Employee_REC_SOURCE_TYPE" FromRole="Employee" ToRole="REC_SOURCE_TYPE" />
+          <NavigationProperty Name="REC_CONTRACT_TYPE" Relationship="apwdbModel.C_FK_Employee_REC_CONTRACT_TYPE" FromRole="Employee" ToRole="REC_CONTRACT_TYPE" />
+          <NavigationProperty Name="EmployeeType" Relationship="apwdbModel.C_FK_Employee_EmployeeType" FromRole="Employee" ToRole="EmployeeType" />
+          <NavigationProperty Name="EmployeeRank" Relationship="apwdbModel.C_FK_Employee_EmployeeRank" FromRole="Employee" ToRole="EmployeeRank" />
+          <NavigationProperty Name="Shift" Relationship="apwdbModel.C_FK_Employee_Shift1" FromRole="Employee" ToRole="Shift" />
         </EntityType>
         <EntityType Name="REC_USER_LOG">
           <Key>
@@ -641,6 +1350,14 @@
           <NavigationProperty Name="SYS_USER_GROUP" Relationship="apwdbModel.FK_SYS_USER_GROUP_SYS_USER" FromRole="SYS_USER" ToRole="SYS_USER_GROUP" />
           <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.FK_REC_CANDIDATE_SYS_USER" FromRole="SYS_USER" ToRole="REC_CANDIDATE" />
           <NavigationProperty Name="REC_CANDIDATE_EMPLOYEE_LINK" Relationship="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER" FromRole="SYS_USER" ToRole="REC_CANDIDATE_EMPLOYEE_LINK" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_CLIENT_SYS_USER" FromRole="SYS_USER" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="Departments" Relationship="apwdbModel.FK_Department_SYS_USER" FromRole="SYS_USER" ToRole="Department" />
+          <NavigationProperty Name="Branches" Relationship="apwdbModel.C_FK_Branch_SYS_USER" FromRole="SYS_USER" ToRole="Branch" />
+          <NavigationProperty Name="EmployeeTypes" Relationship="apwdbModel.FK_EmployeeType_SYS_USER" FromRole="SYS_USER" ToRole="EmployeeType" />
+          <NavigationProperty Name="EmployeeRanks" Relationship="apwdbModel.FK_EmployeeRank_SYS_USER" FromRole="SYS_USER" ToRole="EmployeeRank" />
+          <NavigationProperty Name="REC_CLIENT_DEPARTMENT" Relationship="apwdbModel.FK_REC_CLIENT_DEPARTMENT_SYS_USER" FromRole="SYS_USER" ToRole="REC_CLIENT_DEPARTMENT" />
+          <NavigationProperty Name="REC_CLIENT_SHIFT" Relationship="apwdbModel.FK_REC_CLIENT_SHIFT_SYS_USER" FromRole="SYS_USER" ToRole="REC_CLIENT_SHIFT" />
+          <NavigationProperty Name="Shifts" Relationship="apwdbModel.FK_Shift_SYS_USER" FromRole="SYS_USER" ToRole="Shift" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP">
           <Key>
@@ -929,6 +1646,473 @@
             </Principal>
             <Dependent Role="REC_CANDIDATE_EMPLOYEE_LINK">
               <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="Int32" Name="emp_id" Nullable="true" />
+          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="hire_type" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="date_hired" Nullable="true" />
+          <Property Type="DateTime" Name="contract_start" Nullable="true" />
+          <Property Type="DateTime" Name="contract_end" Nullable="true" />
+          <Property Type="String" Name="hired_by" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="jo_det_id" Nullable="true" />
+          <Property Type="DateTime" Name="date_resignation_submitted" Nullable="true" />
+          <Property Type="DateTime" Name="date_separated" Nullable="true" />
+          <Property Type="DateTime" Name="date_inactive" Nullable="true" />
+          <Property Type="DateTime" Name="date_inactive_created" Nullable="true" />
+          <Property Type="Int32" Name="floating_id" Nullable="true" />
+          <Property Type="Int32" Name="separated_id" Nullable="true" />
+          <Property Type="String" Name="contract_status" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="connected_to_isearch" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="employee_type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="position" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="date_regular" Nullable="true" />
+          <Property Type="Int32" Name="client_id" Nullable="true" />
+          <Property Type="Boolean" Name="contract_extended" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="REC_CLIENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="client_address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="contact_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email_address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="contact_person" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="remarks" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="tin_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="industry_id" Type="Int32" Nullable="false" />
+          <Property Name="contact_title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="mobile_no" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="date_encoded" Type="DateTime" Precision="0" />
+          <Property Name="website" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="Vatable" Type="Boolean" Nullable="false" />
+          <Property Name="client_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="logofile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="zip_code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="sss_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sss_br_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pagibig_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pagibig_br_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="philhealth_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="philhealth_br_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="company_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="is_withholding_tax" Type="Boolean" Nullable="false" />
+          <Property Name="withholding_tax_rate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Vat_Type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="billing_address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="employer_id" Type="Int32" Nullable="false" />
+          <Property Name="guid" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.FK_Employee_REC_CLIENT" FromRole="REC_CLIENT" ToRole="Employee" />
+          <NavigationProperty Name="Employees1" Relationship="apwdbModel.FK_Employee_REC_CLIENT1" FromRole="REC_CLIENT" ToRole="Employee" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.C_FK_REC_CLIENT_SYS_USER" FromRole="REC_CLIENT" ToRole="SYS_USER" />
+          <NavigationProperty Name="Branches" Relationship="apwdbModel.C_FK_Branch_REC_CLIENT" FromRole="REC_CLIENT" ToRole="Branch" />
+          <NavigationProperty Name="REC_CLIENT_DEPARTMENT" Relationship="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_DEPARTMENT" />
+          <NavigationProperty Name="REC_CLIENT_SHIFT" Relationship="apwdbModel.FK_REC_CLIENT_SHIFT_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_SHIFT" />
+        </EntityType>
+        <Association Name="FK_Employee_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_REC_CLIENT1">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CLIENT_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_H_GET_CLIENTS_BY_COMPANY_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
+          <Property Type="Boolean" Name="status" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Dept_ID" />
+          </Key>
+          <Property Name="Dept_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dept_Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_Department" FromRole="Department" ToRole="Employee" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Department_SYS_USER" FromRole="Department" ToRole="SYS_USER" />
+          <NavigationProperty Name="REC_CLIENT_DEPARTMENT" Relationship="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_Department" FromRole="Department" ToRole="REC_CLIENT_DEPARTMENT" />
+        </EntityType>
+        <Association Name="C_FK_Employee_Department">
+          <End Type="apwdbModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dept_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Department_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Department" Role="Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Branch_ID" />
+          </Key>
+          <Property Name="Branch_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Branch_Desc" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="no_of_days" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="region_name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="region_longitude" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="region_latitude" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="allowed_radius_meter" Type="Int32" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_Branch_REC_CLIENT" FromRole="Branch" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.C_FK_Branch_SYS_USER" FromRole="Branch" ToRole="SYS_USER" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_Branch" FromRole="Branch" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="REC_SOURCE_TYPE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="source_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_REC_SOURCE_TYPE" FromRole="REC_SOURCE_TYPE" ToRole="Employee" />
+        </EntityType>
+        <Association Name="C_FK_Branch_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.Branch" Role="Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_Branch_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Branch" Role="Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_Employee_Branch">
+          <End Type="apwdbModel.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Branch_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Branch_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_Employee_REC_SOURCE_TYPE">
+          <End Type="apwdbModel.REC_SOURCE_TYPE" Role="REC_SOURCE_TYPE" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_SOURCE_TYPE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="employee_processingtype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_CONTRACT_TYPE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="contract_type" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_REC_CONTRACT_TYPE" FromRole="REC_CONTRACT_TYPE" ToRole="Employee" />
+        </EntityType>
+        <Association Name="C_FK_Employee_REC_CONTRACT_TYPE">
+          <End Type="apwdbModel.REC_CONTRACT_TYPE" Role="REC_CONTRACT_TYPE" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CONTRACT_TYPE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="contracttype_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EmployeeType">
+          <Key>
+            <PropertyRef Name="EmpType_ID" />
+          </Key>
+          <Property Name="EmpType_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpType_Desc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_EmployeeType" FromRole="EmployeeType" ToRole="Employee" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_EmployeeType_SYS_USER" FromRole="EmployeeType" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="C_FK_Employee_EmployeeType">
+          <End Type="apwdbModel.EmployeeType" Role="EmployeeType" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmpType_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmpType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeType_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.EmployeeType" Role="EmployeeType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeType">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EmployeeRank">
+          <Key>
+            <PropertyRef Name="EmpRank_ID" />
+          </Key>
+          <Property Name="EmpRank_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeRank1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Userid" Type="Int32" Nullable="false" />
+          <Property Name="Date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_EmployeeRank" FromRole="EmployeeRank" ToRole="Employee" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_EmployeeRank_SYS_USER" FromRole="EmployeeRank" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="C_FK_Employee_EmployeeRank">
+          <End Type="apwdbModel.EmployeeRank" Role="EmployeeRank" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeRank">
+              <PropertyRef Name="EmpRank_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmpRank_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeRank_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.EmployeeRank" Role="EmployeeRank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeRank">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_CLIENT_DEPARTMENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="dept_code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Department" Relationship="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_Department" FromRole="REC_CLIENT_DEPARTMENT" ToRole="Department" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_REC_CLIENT" FromRole="REC_CLIENT_DEPARTMENT" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CLIENT_DEPARTMENT_SYS_USER" FromRole="REC_CLIENT_DEPARTMENT" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="C_FK_REC_CLIENT_DEPARTMENT_Department">
+          <End Type="apwdbModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_DEPARTMENT" Role="REC_CLIENT_DEPARTMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dept_ID" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_DEPARTMENT">
+              <PropertyRef Name="department_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CLIENT_DEPARTMENT_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_DEPARTMENT" Role="REC_CLIENT_DEPARTMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_DEPARTMENT">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_DEPARTMENT_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_DEPARTMENT" Role="REC_CLIENT_DEPARTMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_DEPARTMENT">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_CLIENT_SHIFT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="shift_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.FK_REC_CLIENT_SHIFT_REC_CLIENT" FromRole="REC_CLIENT_SHIFT" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="Shift" Relationship="apwdbModel.FK_REC_CLIENT_SHIFT_Shift" FromRole="REC_CLIENT_SHIFT" ToRole="Shift" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CLIENT_SHIFT_SYS_USER" FromRole="REC_CLIENT_SHIFT" ToRole="SYS_USER" />
+        </EntityType>
+        <EntityType Name="Shift">
+          <Key>
+            <PropertyRef Name="Shift_ID" />
+          </Key>
+          <Property Name="Shift_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_in" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Shift_out" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Grace_period" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="break_time_start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="break_time_end" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="is_graveyard" Type="Boolean" Nullable="false" />
+          <Property Name="country_id" Type="Int32" Nullable="false" />
+          <Property Name="grave_time_in" Type="DateTime" Precision="3" />
+          <Property Name="grave_time_out" Type="DateTime" Precision="3" />
+          <Property Name="is_halfday" Type="Boolean" Nullable="false" />
+          <Property Name="is_compress" Type="Boolean" Nullable="false" />
+          <Property Name="hours_worked" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_Shift1" FromRole="Shift" ToRole="Employee" />
+          <NavigationProperty Name="REC_CLIENT_SHIFT" Relationship="apwdbModel.FK_REC_CLIENT_SHIFT_Shift" FromRole="Shift" ToRole="REC_CLIENT_SHIFT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Shift_SYS_USER" FromRole="Shift" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="C_FK_Employee_Shift1">
+          <End Type="apwdbModel.Shift" Role="Shift" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="Shift_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Shift_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_SHIFT_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_SHIFT" Role="REC_CLIENT_SHIFT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SHIFT">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_SHIFT_Shift">
+          <End Type="apwdbModel.Shift" Role="Shift" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_SHIFT" Role="REC_CLIENT_SHIFT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="Shift_ID" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SHIFT">
+              <PropertyRef Name="shift_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_SHIFT_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_SHIFT" Role="REC_CLIENT_SHIFT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SHIFT">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shift_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Shift" Role="Shift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Shift">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1224,6 +2408,201 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_EMPLOYEE_TRANSACTION_MONITORING" FunctionName="apwdbModel.Store.USP_H_EMPLOYEE_TRANSACTION_MONITORING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="hire_type" ColumnName="hire_type" />
+                <ScalarProperty Name="date_hired" ColumnName="date_hired" />
+                <ScalarProperty Name="contract_start" ColumnName="contract_start" />
+                <ScalarProperty Name="contract_end" ColumnName="contract_end" />
+                <ScalarProperty Name="hired_by" ColumnName="hired_by" />
+                <ScalarProperty Name="jo_det_id" ColumnName="jo_det_id" />
+                <ScalarProperty Name="date_resignation_submitted" ColumnName="date_resignation_submitted" />
+                <ScalarProperty Name="date_separated" ColumnName="date_separated" />
+                <ScalarProperty Name="date_inactive" ColumnName="date_inactive" />
+                <ScalarProperty Name="date_inactive_created" ColumnName="date_inactive_created" />
+                <ScalarProperty Name="floating_id" ColumnName="floating_id" />
+                <ScalarProperty Name="separated_id" ColumnName="separated_id" />
+                <ScalarProperty Name="contract_status" ColumnName="contract_status" />
+                <ScalarProperty Name="connected_to_isearch" ColumnName="connected_to_isearch" />
+                <ScalarProperty Name="employee_type" ColumnName="employee_type" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="date_regular" ColumnName="date_regular" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="contract_extended" ColumnName="contract_extended" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="REC_CLIENT">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT">
+              <MappingFragment StoreEntitySet="REC_CLIENT">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+                <ScalarProperty Name="billing_address" ColumnName="billing_address" />
+                <ScalarProperty Name="Vat_Type" ColumnName="Vat_Type" />
+                <ScalarProperty Name="withholding_tax_rate" ColumnName="withholding_tax_rate" />
+                <ScalarProperty Name="is_withholding_tax" ColumnName="is_withholding_tax" />
+                <ScalarProperty Name="company_type" ColumnName="company_type" />
+                <ScalarProperty Name="philhealth_br_code" ColumnName="philhealth_br_code" />
+                <ScalarProperty Name="philhealth_no" ColumnName="philhealth_no" />
+                <ScalarProperty Name="pagibig_br_code" ColumnName="pagibig_br_code" />
+                <ScalarProperty Name="pagibig_no" ColumnName="pagibig_no" />
+                <ScalarProperty Name="sss_br_code" ColumnName="sss_br_code" />
+                <ScalarProperty Name="sss_no" ColumnName="sss_no" />
+                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="logofile" ColumnName="logofile" />
+                <ScalarProperty Name="client_type" ColumnName="client_type" />
+                <ScalarProperty Name="Vatable" ColumnName="Vatable" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="date_encoded" ColumnName="date_encoded" />
+                <ScalarProperty Name="mobile_no" ColumnName="mobile_no" />
+                <ScalarProperty Name="contact_title" ColumnName="contact_title" />
+                <ScalarProperty Name="industry_id" ColumnName="industry_id" />
+                <ScalarProperty Name="tin_no" ColumnName="tin_no" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="contact_person" ColumnName="contact_person" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="client_address" ColumnName="client_address" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_GET_CLIENTS_BY_COMPANY" FunctionName="apwdbModel.Store.USP_H_GET_CLIENTS_BY_COMPANY">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_CLIENTS_BY_COMPANY_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="apwdbModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Dept_Name" ColumnName="Dept_Name" />
+                <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="apwdbModel.Branch">
+              <MappingFragment StoreEntitySet="Branch">
+                <ScalarProperty Name="allowed_radius_meter" ColumnName="allowed_radius_meter" />
+                <ScalarProperty Name="region_latitude" ColumnName="region_latitude" />
+                <ScalarProperty Name="region_longitude" ColumnName="region_longitude" />
+                <ScalarProperty Name="region_name" ColumnName="region_name" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="no_of_days" ColumnName="no_of_days" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Branch_Desc" ColumnName="Branch_Desc" />
+                <ScalarProperty Name="Branch_ID" ColumnName="Branch_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_SOURCE_TYPE">
+            <EntityTypeMapping TypeName="apwdbModel.REC_SOURCE_TYPE">
+              <MappingFragment StoreEntitySet="REC_SOURCE_TYPE">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="source_type" ColumnName="source_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CONTRACT_TYPE">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CONTRACT_TYPE">
+              <MappingFragment StoreEntitySet="REC_CONTRACT_TYPE">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="contract_type" ColumnName="contract_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeTypes">
+            <EntityTypeMapping TypeName="apwdbModel.EmployeeType">
+              <MappingFragment StoreEntitySet="EmployeeType">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EmpType_Desc" ColumnName="EmpType_Desc" />
+                <ScalarProperty Name="EmpType_ID" ColumnName="EmpType_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeRanks">
+            <EntityTypeMapping TypeName="apwdbModel.EmployeeRank">
+              <MappingFragment StoreEntitySet="EmployeeRank">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Date_created" ColumnName="Date_created" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="EmployeeRank1" ColumnName="EmployeeRank" />
+                <ScalarProperty Name="EmpRank_ID" ColumnName="EmpRank_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CLIENT_DEPARTMENT">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_DEPARTMENT">
+              <MappingFragment StoreEntitySet="REC_CLIENT_DEPARTMENT">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="dept_code" ColumnName="dept_code" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CLIENT_SHIFT">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_SHIFT">
+              <MappingFragment StoreEntitySet="REC_CLIENT_SHIFT">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shifts">
+            <EntityTypeMapping TypeName="apwdbModel.Shift">
+              <MappingFragment StoreEntitySet="Shift">
+                <ScalarProperty Name="hours_worked" ColumnName="hours_worked" />
+                <ScalarProperty Name="is_compress" ColumnName="is_compress" />
+                <ScalarProperty Name="is_halfday" ColumnName="is_halfday" />
+                <ScalarProperty Name="grave_time_out" ColumnName="grave_time_out" />
+                <ScalarProperty Name="grave_time_in" ColumnName="grave_time_in" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="is_graveyard" ColumnName="is_graveyard" />
+                <ScalarProperty Name="break_time_end" ColumnName="break_time_end" />
+                <ScalarProperty Name="break_time_start" ColumnName="break_time_start" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Grace_period" ColumnName="Grace_period" />
+                <ScalarProperty Name="Shift_out" ColumnName="Shift_out" />
+                <ScalarProperty Name="Shift_in" ColumnName="Shift_in" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Shift_ID" ColumnName="Shift_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_TRANSACTION" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_TRANSACTION" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -114,5 +114,14 @@ namespace HRMS.DB
         public virtual SYS_USER SYS_USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_CANDIDATE_EMPLOYEE_LINK> REC_CANDIDATE_EMPLOYEE_LINK { get; set; }
+        public virtual REC_CLIENT REC_CLIENT { get; set; }
+        public virtual REC_CLIENT REC_CLIENT1 { get; set; }
+        public virtual Department Department { get; set; }
+        public virtual Branch Branch { get; set; }
+        public virtual REC_SOURCE_TYPE REC_SOURCE_TYPE { get; set; }
+        public virtual REC_CONTRACT_TYPE REC_CONTRACT_TYPE { get; set; }
+        public virtual EmployeeType EmployeeType { get; set; }
+        public virtual EmployeeRank EmployeeRank { get; set; }
+        public virtual Shift Shift { get; set; }
     }
 }
