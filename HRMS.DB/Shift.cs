@@ -18,6 +18,7 @@ namespace HRMS.DB
         public Shift()
         {
             this.Employees = new HashSet<Employee>();
+            this.REC_CLIENT_SHIFT = new HashSet<REC_CLIENT_SHIFT>();
         }
     
         public int Shift_ID { get; set; }
@@ -40,6 +41,8 @@ namespace HRMS.DB
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CLIENT_SHIFT> REC_CLIENT_SHIFT { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
     }
 }

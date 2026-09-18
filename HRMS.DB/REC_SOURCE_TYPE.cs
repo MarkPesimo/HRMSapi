@@ -12,25 +12,19 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Department
+    public partial class REC_SOURCE_TYPE
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Department()
+        public REC_SOURCE_TYPE()
         {
             this.Employees = new HashSet<Employee>();
-            this.REC_CLIENT_DEPARTMENT = new HashSet<REC_CLIENT_DEPARTMENT>();
         }
     
-        public int Dept_ID { get; set; }
-        public string Dept_Name { get; set; }
-        public int UserID { get; set; }
-        public System.DateTime date_created { get; set; }
-        public bool Status { get; set; }
+        public int id { get; set; }
+        public string source_type { get; set; }
+        public Nullable<bool> status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
-        public virtual SYS_USER SYS_USER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<REC_CLIENT_DEPARTMENT> REC_CLIENT_DEPARTMENT { get; set; }
     }
 }

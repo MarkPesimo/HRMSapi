@@ -12,25 +12,21 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Department
+    public partial class FloatingReason
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Department()
+        public FloatingReason()
         {
-            this.Employees = new HashSet<Employee>();
-            this.REC_CLIENT_DEPARTMENT = new HashSet<REC_CLIENT_DEPARTMENT>();
+            this.Employee_Floating_Status = new HashSet<Employee_Floating_Status>();
         }
     
-        public int Dept_ID { get; set; }
-        public string Dept_Name { get; set; }
-        public int UserID { get; set; }
+        public int id { get; set; }
+        public string floating_reason { get; set; }
+        public Nullable<bool> status { get; set; }
+        public int user_id { get; set; }
         public System.DateTime date_created { get; set; }
-        public bool Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
-        public virtual SYS_USER SYS_USER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<REC_CLIENT_DEPARTMENT> REC_CLIENT_DEPARTMENT { get; set; }
+        public virtual ICollection<Employee_Floating_Status> Employee_Floating_Status { get; set; }
     }
 }

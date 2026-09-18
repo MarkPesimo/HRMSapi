@@ -172,5 +172,6 @@ namespace HRModel.ViewModel.Employees
     {
         public int EmpId { get; set; }
         public string EmpNo { get; set; }
+        public string EmployeeGUID { get; set; }
     }
 }
