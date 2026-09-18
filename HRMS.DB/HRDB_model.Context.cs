@@ -35,6 +35,22 @@ namespace HRMS.DB
         public virtual DbSet<SYS_USER_GROUP_DET> SYS_USER_GROUP_DET { get; set; }
         public virtual DbSet<REC_CANDIDATE> REC_CANDIDATE { get; set; }
         public virtual DbSet<REC_CANDIDATE_EMPLOYEE_LINK> REC_CANDIDATE_EMPLOYEE_LINK { get; set; }
+        public virtual DbSet<AreaLibrary> AreaLibraries { get; set; }
+        public virtual DbSet<Branch> Branches { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<EmployeeType> EmployeeTypes { get; set; }
+        public virtual DbSet<EMPLOYER> EMPLOYERs { get; set; }
+        public virtual DbSet<REC_CLIENT> REC_CLIENT { get; set; }
+        public virtual DbSet<Shift> Shifts { get; set; }
+        public virtual DbSet<REC_CANDIDATE_DOCUMENT> REC_CANDIDATE_DOCUMENT { get; set; }
+        public virtual DbSet<REC_CANDIDATE_EDUCATION> REC_CANDIDATE_EDUCATION { get; set; }
+        public virtual DbSet<REC_CANDIDATE_EMPLOYMENT> REC_CANDIDATE_EMPLOYMENT { get; set; }
+        public virtual DbSet<REC_CANDIDATE_SKILL> REC_CANDIDATE_SKILL { get; set; }
+        public virtual DbSet<REC_CANDIDATE_TRAINING> REC_CANDIDATE_TRAINING { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<SchoolLevel> SchoolLevels { get; set; }
+        public virtual DbSet<Degree> Degrees { get; set; }
+        public virtual DbSet<REC_Skill> REC_Skill { get; set; }
     
         public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
         {

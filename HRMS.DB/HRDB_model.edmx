@@ -5,6 +5,58 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="apwdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AreaLibrary">
+          <Key>
+            <PropertyRef Name="AreaID" />
+          </Key>
+          <Property Name="AreaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AreaDescription" Type="nvarchar" MaxLength="200" />
+          <Property Name="ProvinceID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="region_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Branch_ID" />
+          </Key>
+          <Property Name="Branch_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Branch_Desc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="no_of_days" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="date_created" Type="smalldatetime" Nullable="false" />
+          <Property Name="region_name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="region_longitude" Type="decimal" Precision="18" Scale="8" />
+          <Property Name="region_latitude" Type="decimal" Precision="18" Scale="8" />
+          <Property Name="allowed_radius_meter" Type="int" />
+        </EntityType>
+        <EntityType Name="Degree">
+          <Key>
+            <PropertyRef Name="DegreeID" />
+          </Key>
+          <Property Name="DegreeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DegreeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="UserCreated" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="UserUpdated" Type="int" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Dept_ID" />
+          </Key>
+          <Property Name="Dept_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dept_Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Emp_ID" />
@@ -100,6 +152,26 @@
           <Property Name="func_id" Type="int" Nullable="false" />
           <Property Name="card_no_validity" Type="datetime" />
         </EntityType>
+        <EntityType Name="EmployeeType">
+          <Key>
+            <PropertyRef Name="EmpType_ID" />
+          </Key>
+          <Property Name="EmpType_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpType_Desc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EMPLOYER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employer_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="employer_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="REC_CANDIDATE">
           <Key>
             <PropertyRef Name="id" />
@@ -167,6 +239,41 @@
           <Property Name="created_type" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="guid" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
+        <EntityType Name="REC_CANDIDATE_DOCUMENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="candidate_id" Type="int" Nullable="false" />
+          <Property Name="doc_id" Type="int" Nullable="false" />
+          <Property Name="date_issued" Type="smalldatetime" />
+          <Property Name="date_expired" Type="smalldatetime" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="250" />
+          <Property Name="file_location" Type="nvarchar(max)" />
+          <Property Name="DocNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="date_added" Type="datetime" Nullable="false" />
+          <Property Name="added_by" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CANDIDATE_EDUCATION">
+          <Key>
+            <PropertyRef Name="School_Id" />
+          </Key>
+          <Property Name="candidate_id" Type="int" Nullable="false" />
+          <Property Name="School_Level" Type="nvarchar" MaxLength="50" />
+          <Property Name="School_Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="School_Remarks" Type="nvarchar" MaxLength="250" />
+          <Property Name="School_Grade" Type="nvarchar" MaxLength="250" />
+          <Property Name="School_From" Type="date" />
+          <Property Name="School_To" Type="date" />
+          <Property Name="School_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Awards" Type="nvarchar" MaxLength="500" />
+          <Property Name="SchoolLibID" Type="int" Nullable="false" />
+          <Property Name="SchoolLevelID" Type="int" Nullable="false" />
+          <Property Name="DegreeID" Type="int" />
+          <Property Name="Graduated" Type="bit" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="REC_CANDIDATE_EMPLOYEE_LINK">
           <Key>
             <PropertyRef Name="id" />
@@ -192,6 +299,119 @@
           <Property Name="salary_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="allowance_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="REC_CANDIDATE_EMPLOYMENT">
+          <Key>
+            <PropertyRef Name="Employ_ID" />
+          </Key>
+          <Property Name="candidate_id" Type="int" Nullable="false" />
+          <Property Name="Company_name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Company_Address" Type="nvarchar" MaxLength="250" />
+          <Property Name="Company_position" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company_Rank" Type="nvarchar" MaxLength="20" />
+          <Property Name="Reason_for_leaving" Type="nvarchar" MaxLength="250" />
+          <Property Name="Company_Salary" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Company_from" Type="smalldatetime" />
+          <Property Name="Company_to" Type="smalldatetime" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Employ_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emidiate_head" Type="nvarchar" MaxLength="150" />
+          <Property Name="employment_Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Internal_Tag" Type="int" />
+          <Property Name="NatureOfBusinessID" Type="int" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="function_id" Type="int" Nullable="false" />
+          <Property Name="industry_id" Type="int" Nullable="false" />
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="fixed_bonus_13" Type="bit" Nullable="false" />
+          <Property Name="fixed_bonus_14" Type="bit" Nullable="false" />
+          <Property Name="fixed_bonus_15" Type="bit" Nullable="false" />
+          <Property Name="fixed_bonus_16" Type="bit" Nullable="false" />
+          <Property Name="hmo_principal" Type="bit" Nullable="false" />
+          <Property Name="hmo_dependent" Type="bit" Nullable="false" />
+          <Property Name="is_tax_shield" Type="bit" Nullable="false" />
+          <Property Name="tax_shield_percentage" Type="int" Nullable="false" />
+          <Property Name="other_benifits" Type="nvarchar" MaxLength="500" />
+          <Property Name="job_description" Type="nvarchar(max)" />
+          <Property Name="is_currently_working" Type="bit" Nullable="false" />
+          <Property Name="company_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CANDIDATE_SKILL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="candidate_id" Type="int" Nullable="false" />
+          <Property Name="skill_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CANDIDATE_TRAINING">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="candidate_id" Type="int" Nullable="false" />
+          <Property Name="training_id" Type="int" Nullable="false" />
+          <Property Name="venue" Type="nvarchar" MaxLength="250" />
+          <Property Name="date_from" Type="smalldatetime" />
+          <Property Name="date_to" Type="smalldatetime" />
+          <Property Name="facilitator" Type="nvarchar" MaxLength="150" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="250" />
+          <Property Name="file_location" Type="nvarchar" MaxLength="250" />
+          <Property Name="Cost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Internal" Type="int" />
+          <Property Name="NoOfHours" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_name" Type="nvarchar" MaxLength="150" />
+          <Property Name="client_address" Type="nvarchar" MaxLength="250" />
+          <Property Name="contact_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="email_address" Type="nvarchar" MaxLength="150" />
+          <Property Name="contact_person" Type="nvarchar" MaxLength="150" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="1000" />
+          <Property Name="status" Type="bit" />
+          <Property Name="tin_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="industry_id" Type="int" Nullable="false" />
+          <Property Name="contact_title" Type="nvarchar" MaxLength="150" />
+          <Property Name="mobile_no" Type="nvarchar" MaxLength="150" />
+          <Property Name="date_encoded" Type="smalldatetime" />
+          <Property Name="website" Type="nvarchar" MaxLength="150" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="Vatable" Type="bit" Nullable="false" />
+          <Property Name="client_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="logofile" Type="varbinary(max)" />
+          <Property Name="zip_code" Type="nvarchar" MaxLength="10" />
+          <Property Name="sss_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="sss_br_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="pagibig_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="pagibig_br_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="philhealth_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="philhealth_br_code" Type="nvarchar" MaxLength="50" />
+          <Property Name="company_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="is_withholding_tax" Type="bit" Nullable="false" />
+          <Property Name="withholding_tax_rate" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Vat_Type" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="billing_address" Type="nvarchar" MaxLength="250" />
+          <Property Name="employer_id" Type="int" Nullable="false" />
+          <Property Name="guid" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_Skill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="function_id" Type="int" Nullable="false" />
+          <Property Name="skill_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Skill_description" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Skill_details" Type="nvarchar" MaxLength="500" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="REC_USER_LOG">
           <Key>
             <PropertyRef Name="id" />
@@ -199,6 +419,57 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="250" />
+          <Property Name="School_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="location" Type="nvarchar" MaxLength="250" />
+          <Property Name="region_id" Type="int" Nullable="false" />
+          <Property Name="school_tier_id" Type="int" Nullable="false" />
+          <Property Name="UserCreated" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="UserUpdated" Type="int" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SchoolLevel">
+          <Key>
+            <PropertyRef Name="LevelID" />
+          </Key>
+          <Property Name="LevelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolLevelDescn" Type="nvarchar" MaxLength="80" />
+          <Property Name="UserCreated" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="UserUpdated" Type="int" />
+          <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shift">
+          <Key>
+            <PropertyRef Name="Shift_ID" />
+          </Key>
+          <Property Name="Shift_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Shift_in" Type="smalldatetime" Nullable="false" />
+          <Property Name="Shift_out" Type="smalldatetime" Nullable="false" />
+          <Property Name="Grace_period" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="break_time_start" Type="datetime" Nullable="false" />
+          <Property Name="break_time_end" Type="datetime" Nullable="false" />
+          <Property Name="is_graveyard" Type="bit" Nullable="false" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+          <Property Name="grave_time_in" Type="datetime" />
+          <Property Name="grave_time_out" Type="datetime" />
+          <Property Name="is_halfday" Type="bit" Nullable="false" />
+          <Property Name="is_compress" Type="bit" Nullable="false" />
+          <Property Name="hours_worked" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="sys_company">
           <Key>
@@ -256,6 +527,126 @@
           <Property Name="user_type" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
+        <Association Name=" FK_Branch_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="Branch" Type="Self.Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Branch_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Branch" Type="Self.Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_AreaLibrary">
+          <End Role="AreaLibrary" Type="Self.AreaLibrary" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AreaLibrary">
+              <PropertyRef Name="AreaID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_AreaLibrary1">
+          <End Role="AreaLibrary" Type="Self.AreaLibrary" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AreaLibrary">
+              <PropertyRef Name="AreaID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="ProvinceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_Branch">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Branch_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Branch_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dept_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Department_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_EmployeeType">
+          <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmpType_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmpType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Employee_Shift1">
+          <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="Shift_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Shift_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE">
+          <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_DOCUMENT" Type="Self.REC_CANDIDATE_DOCUMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_DOCUMENT">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_CANDIDATE_EDUCATION_REC_CANDIDATE">
+          <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_EDUCATION" Type="Self.REC_CANDIDATE_EDUCATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EDUCATION">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name=" FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE">
           <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="1" />
           <End Role="REC_CANDIDATE_EMPLOYEE_LINK" Type="Self.REC_CANDIDATE_EMPLOYEE_LINK" Multiplicity="*" />
@@ -268,6 +659,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name=" FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE">
+          <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_EMPLOYMENT" Type="Self.REC_CANDIDATE_EMPLOYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EMPLOYMENT">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_CANDIDATE_TRAINING_REC_CANDIDATE">
+          <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_TRAINING" Type="Self.REC_CANDIDATE_TRAINING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_TRAINING">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_CLIENT_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaLibrary_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="AreaLibrary" Type="Self.AreaLibrary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AreaLibrary">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Degree_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Degree" Type="Self.Degree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Degree">
+              <PropertyRef Name="UserCreated" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_REC_CLIENT1">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -277,6 +764,78 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeType_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeType">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMPLOYER_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="EMPLOYER" Type="Self.EMPLOYER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EMPLOYER">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_DOCUMENT_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_DOCUMENT" Type="Self.REC_CANDIDATE_DOCUMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_DOCUMENT">
+              <PropertyRef Name="added_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_EDUCATION_Degree">
+          <End Role="Degree" Type="Self.Degree" Multiplicity="0..1" />
+          <End Role="REC_CANDIDATE_EDUCATION" Type="Self.REC_CANDIDATE_EDUCATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Degree">
+              <PropertyRef Name="DegreeID" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EDUCATION">
+              <PropertyRef Name="DegreeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_EDUCATION_School">
+          <End Role="School" Type="Self.School" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_EDUCATION" Type="Self.REC_CANDIDATE_EDUCATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EDUCATION">
+              <PropertyRef Name="SchoolLibID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_EDUCATION_SchoolLevel">
+          <End Role="SchoolLevel" Type="Self.SchoolLevel" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_EDUCATION" Type="Self.REC_CANDIDATE_EDUCATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolLevel">
+              <PropertyRef Name="LevelID" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EDUCATION">
+              <PropertyRef Name="SchoolLevelID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -304,6 +863,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_REC_CANDIDATE_SKILL_REC_CANDIDATE">
+          <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_SKILL" Type="Self.REC_CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_SKILL">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_SKILL_REC_Skill">
+          <End Role="REC_Skill" Type="Self.REC_Skill" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_SKILL" Type="Self.REC_CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_Skill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_SKILL">
+              <PropertyRef Name="skill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_SKILL_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_SKILL" Type="Self.REC_CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_SKILL">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_REC_CANDIDATE_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="*" />
@@ -313,6 +908,66 @@
             </Principal>
             <Dependent Role="REC_CANDIDATE">
               <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_EMPLOYER">
+          <End Role="EMPLOYER" Type="Self.EMPLOYER" Multiplicity="1" />
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_Skill_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_Skill" Type="Self.REC_Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_Skill">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_School_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="School" Type="Self.School" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="School">
+              <PropertyRef Name="UserCreated" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SchoolLevel_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="SchoolLevel" Type="Self.SchoolLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SchoolLevel">
+              <PropertyRef Name="UserCreated" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shift_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Shift" Type="Self.Shift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Shift">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -385,21 +1040,133 @@
           <Parameter Name="COMPANY_ID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="apwdbModelStoreContainer">
+          <EntitySet Name="AreaLibrary" EntityType="Self.AreaLibrary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Degree" EntityType="Self.Degree" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeType" EntityType="Self.EmployeeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPLOYER" EntityType="Self.EMPLOYER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE" EntityType="Self.REC_CANDIDATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CANDIDATE_DOCUMENT" EntityType="Self.REC_CANDIDATE_DOCUMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CANDIDATE_EDUCATION" EntityType="Self.REC_CANDIDATE_EDUCATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE_EMPLOYEE_LINK" EntityType="Self.REC_CANDIDATE_EMPLOYEE_LINK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CANDIDATE_EMPLOYMENT" EntityType="Self.REC_CANDIDATE_EMPLOYMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CANDIDATE_SKILL" EntityType="Self.REC_CANDIDATE_SKILL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CANDIDATE_TRAINING" EntityType="Self.REC_CANDIDATE_TRAINING" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT" EntityType="Self.REC_CLIENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_Skill" EntityType="Self.REC_Skill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_USER_LOG" EntityType="Self.REC_USER_LOG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="School" EntityType="Self.School" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchoolLevel" EntityType="Self.SchoolLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shift" EntityType="Self.Shift" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sys_company" EntityType="Self.sys_company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER" EntityType="Self.SYS_USER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP" EntityType="Self.SYS_USER_GROUP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP_DET" EntityType="Self.SYS_USER_GROUP_DET" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name=" FK_Branch_REC_CLIENT" Association="Self. FK_Branch_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Branch" EntitySet="Branch" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Branch_SYS_USER" Association="Self. FK_Branch_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Branch" EntitySet="Branch" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_AreaLibrary" Association="Self. FK_Employee_AreaLibrary">
+            <End Role="AreaLibrary" EntitySet="AreaLibrary" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_AreaLibrary1" Association="Self. FK_Employee_AreaLibrary1">
+            <End Role="AreaLibrary" EntitySet="AreaLibrary" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_Branch" Association="Self. FK_Employee_Branch">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_Department" Association="Self. FK_Employee_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_EmployeeType" Association="Self. FK_Employee_EmployeeType">
+            <End Role="EmployeeType" EntitySet="EmployeeType" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_Shift1" Association="Self. FK_Employee_Shift1">
+            <End Role="Shift" EntitySet="Shift" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE" Association="Self. FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_DOCUMENT" EntitySet="REC_CANDIDATE_DOCUMENT" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_CANDIDATE_EDUCATION_REC_CANDIDATE" Association="Self. FK_REC_CANDIDATE_EDUCATION_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_EDUCATION" EntitySet="REC_CANDIDATE_EDUCATION" />
+          </AssociationSet>
           <AssociationSet Name=" FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE" Association="Self. FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE">
             <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
             <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
           </AssociationSet>
+          <AssociationSet Name=" FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE" Association="Self. FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_EMPLOYMENT" EntitySet="REC_CANDIDATE_EMPLOYMENT" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_CANDIDATE_TRAINING_REC_CANDIDATE" Association="Self. FK_REC_CANDIDATE_TRAINING_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_TRAINING" EntitySet="REC_CANDIDATE_TRAINING" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_CLIENT_SYS_USER" Association="Self. FK_REC_CLIENT_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaLibrary_SYS_USER" Association="Self.FK_AreaLibrary_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="AreaLibrary" EntitySet="AreaLibrary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Degree_SYS_USER" Association="Self.FK_Degree_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Degree" EntitySet="Degree" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_SYS_USER" Association="Self.FK_Department_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_REC_CLIENT" Association="Self.FK_Employee_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_REC_CLIENT1" Association="Self.FK_Employee_REC_CLIENT1">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employee_SYS_USER" Association="Self.FK_Employee_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeType_SYS_USER" Association="Self.FK_EmployeeType_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="EmployeeType" EntitySet="EmployeeType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMPLOYER_SYS_USER" Association="Self.FK_EMPLOYER_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="EMPLOYER" EntitySet="EMPLOYER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_DOCUMENT_SYS_USER" Association="Self.FK_REC_CANDIDATE_DOCUMENT_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CANDIDATE_DOCUMENT" EntitySet="REC_CANDIDATE_DOCUMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_EDUCATION_Degree" Association="Self.FK_REC_CANDIDATE_EDUCATION_Degree">
+            <End Role="Degree" EntitySet="Degree" />
+            <End Role="REC_CANDIDATE_EDUCATION" EntitySet="REC_CANDIDATE_EDUCATION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_EDUCATION_School" Association="Self.FK_REC_CANDIDATE_EDUCATION_School">
+            <End Role="School" EntitySet="School" />
+            <End Role="REC_CANDIDATE_EDUCATION" EntitySet="REC_CANDIDATE_EDUCATION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_EDUCATION_SchoolLevel" Association="Self.FK_REC_CANDIDATE_EDUCATION_SchoolLevel">
+            <End Role="SchoolLevel" EntitySet="SchoolLevel" />
+            <End Role="REC_CANDIDATE_EDUCATION" EntitySet="REC_CANDIDATE_EDUCATION" />
           </AssociationSet>
           <AssociationSet Name="FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1" Association="Self.FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1">
             <End Role="Employee" EntitySet="Employee" />
@@ -409,9 +1176,41 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
           </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_SKILL_REC_CANDIDATE" Association="Self.FK_REC_CANDIDATE_SKILL_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_SKILL" EntitySet="REC_CANDIDATE_SKILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_SKILL_REC_Skill" Association="Self.FK_REC_CANDIDATE_SKILL_REC_Skill">
+            <End Role="REC_Skill" EntitySet="REC_Skill" />
+            <End Role="REC_CANDIDATE_SKILL" EntitySet="REC_CANDIDATE_SKILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_SKILL_SYS_USER" Association="Self.FK_REC_CANDIDATE_SKILL_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CANDIDATE_SKILL" EntitySet="REC_CANDIDATE_SKILL" />
+          </AssociationSet>
           <AssociationSet Name="FK_REC_CANDIDATE_SYS_USER" Association="Self.FK_REC_CANDIDATE_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_EMPLOYER" Association="Self.FK_REC_CLIENT_EMPLOYER">
+            <End Role="EMPLOYER" EntitySet="EMPLOYER" />
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_Skill_SYS_USER" Association="Self.FK_REC_Skill_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_Skill" EntitySet="REC_Skill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_School_SYS_USER" Association="Self.FK_School_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="School" EntitySet="School" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SchoolLevel_SYS_USER" Association="Self.FK_SchoolLevel_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SchoolLevel" EntitySet="SchoolLevel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shift_SYS_USER" Association="Self.FK_Shift_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Shift" EntitySet="Shift" />
           </AssociationSet>
           <AssociationSet Name="FK_sys_company_SYS_USER" Association="Self.FK_sys_company_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -494,6 +1293,150 @@
           <AssociationSet Name="FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER" Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
+          </AssociationSet>
+          <EntitySet Name="AreaLibraries" EntityType="apwdbModel.AreaLibrary" />
+          <AssociationSet Name="C_FK_Employee_AreaLibrary" Association="apwdbModel.C_FK_Employee_AreaLibrary">
+            <End Role="AreaLibrary" EntitySet="AreaLibraries" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_Employee_AreaLibrary1" Association="apwdbModel.C_FK_Employee_AreaLibrary1">
+            <End Role="AreaLibrary" EntitySet="AreaLibraries" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaLibrary_SYS_USER" Association="apwdbModel.FK_AreaLibrary_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="AreaLibrary" EntitySet="AreaLibraries" />
+          </AssociationSet>
+          <EntitySet Name="Branches" EntityType="apwdbModel.Branch" />
+          <EntitySet Name="Departments" EntityType="apwdbModel.Department" />
+          <EntitySet Name="EmployeeTypes" EntityType="apwdbModel.EmployeeType" />
+          <EntitySet Name="EMPLOYERs" EntityType="apwdbModel.EMPLOYER" />
+          <EntitySet Name="REC_CLIENT" EntityType="apwdbModel.REC_CLIENT" />
+          <EntitySet Name="Shifts" EntityType="apwdbModel.Shift" />
+          <AssociationSet Name="C_FK_Branch_REC_CLIENT" Association="apwdbModel.C_FK_Branch_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Branch" EntitySet="Branches" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_Branch_SYS_USER" Association="apwdbModel.C_FK_Branch_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Branch" EntitySet="Branches" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_Employee_Branch" Association="apwdbModel.C_FK_Employee_Branch">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_Employee_Department" Association="apwdbModel.C_FK_Employee_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_SYS_USER" Association="apwdbModel.FK_Department_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_Employee_EmployeeType" Association="apwdbModel.C_FK_Employee_EmployeeType">
+            <End Role="EmployeeType" EntitySet="EmployeeTypes" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_Employee_Shift1" Association="apwdbModel.C_FK_Employee_Shift1">
+            <End Role="Shift" EntitySet="Shifts" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_REC_CLIENT" Association="apwdbModel.FK_Employee_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_REC_CLIENT1" Association="apwdbModel.FK_Employee_REC_CLIENT1">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeType_SYS_USER" Association="apwdbModel.FK_EmployeeType_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="EmployeeType" EntitySet="EmployeeTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMPLOYER_SYS_USER" Association="apwdbModel.FK_EMPLOYER_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="EMPLOYER" EntitySet="EMPLOYERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_EMPLOYER" Association="apwdbModel.FK_REC_CLIENT_EMPLOYER">
+            <End Role="EMPLOYER" EntitySet="EMPLOYERs" />
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CLIENT_SYS_USER" Association="apwdbModel.C_FK_REC_CLIENT_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shift_SYS_USER" Association="apwdbModel.FK_Shift_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Shift" EntitySet="Shifts" />
+          </AssociationSet>
+          <EntitySet Name="REC_CANDIDATE_DOCUMENT" EntityType="apwdbModel.REC_CANDIDATE_DOCUMENT" />
+          <EntitySet Name="REC_CANDIDATE_EDUCATION" EntityType="apwdbModel.REC_CANDIDATE_EDUCATION" />
+          <EntitySet Name="REC_CANDIDATE_EMPLOYMENT" EntityType="apwdbModel.REC_CANDIDATE_EMPLOYMENT" />
+          <EntitySet Name="REC_CANDIDATE_SKILL" EntityType="apwdbModel.REC_CANDIDATE_SKILL" />
+          <EntitySet Name="REC_CANDIDATE_TRAINING" EntityType="apwdbModel.REC_CANDIDATE_TRAINING" />
+          <AssociationSet Name="C_FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE" Association="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_DOCUMENT" EntitySet="REC_CANDIDATE_DOCUMENT" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CANDIDATE_EDUCATION_REC_CANDIDATE" Association="apwdbModel.C_FK_REC_CANDIDATE_EDUCATION_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_EDUCATION" EntitySet="REC_CANDIDATE_EDUCATION" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE" Association="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_EMPLOYMENT" EntitySet="REC_CANDIDATE_EMPLOYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CANDIDATE_TRAINING_REC_CANDIDATE" Association="apwdbModel.C_FK_REC_CANDIDATE_TRAINING_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_TRAINING" EntitySet="REC_CANDIDATE_TRAINING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_SKILL_REC_CANDIDATE" Association="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_SKILL" EntitySet="REC_CANDIDATE_SKILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_DOCUMENT_SYS_USER" Association="apwdbModel.FK_REC_CANDIDATE_DOCUMENT_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CANDIDATE_DOCUMENT" EntitySet="REC_CANDIDATE_DOCUMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_SKILL_SYS_USER" Association="apwdbModel.FK_REC_CANDIDATE_SKILL_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CANDIDATE_SKILL" EntitySet="REC_CANDIDATE_SKILL" />
+          </AssociationSet>
+          <EntitySet Name="Schools" EntityType="apwdbModel.School" />
+          <EntitySet Name="SchoolLevels" EntityType="apwdbModel.SchoolLevel" />
+          <AssociationSet Name="FK_REC_CANDIDATE_EDUCATION_School" Association="apwdbModel.FK_REC_CANDIDATE_EDUCATION_School">
+            <End Role="School" EntitySet="Schools" />
+            <End Role="REC_CANDIDATE_EDUCATION" EntitySet="REC_CANDIDATE_EDUCATION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_EDUCATION_SchoolLevel" Association="apwdbModel.FK_REC_CANDIDATE_EDUCATION_SchoolLevel">
+            <End Role="SchoolLevel" EntitySet="SchoolLevels" />
+            <End Role="REC_CANDIDATE_EDUCATION" EntitySet="REC_CANDIDATE_EDUCATION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_School_SYS_USER" Association="apwdbModel.FK_School_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="School" EntitySet="Schools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SchoolLevel_SYS_USER" Association="apwdbModel.FK_SchoolLevel_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SchoolLevel" EntitySet="SchoolLevels" />
+          </AssociationSet>
+          <EntitySet Name="Degrees" EntityType="apwdbModel.Degree" />
+          <AssociationSet Name="FK_Degree_SYS_USER" Association="apwdbModel.FK_Degree_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Degree" EntitySet="Degrees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_EDUCATION_Degree" Association="apwdbModel.FK_REC_CANDIDATE_EDUCATION_Degree">
+            <End Role="Degree" EntitySet="Degrees" />
+            <End Role="REC_CANDIDATE_EDUCATION" EntitySet="REC_CANDIDATE_EDUCATION" />
+          </AssociationSet>
+          <EntitySet Name="REC_Skill" EntityType="apwdbModel.REC_Skill" />
+          <AssociationSet Name="FK_REC_CANDIDATE_SKILL_REC_Skill" Association="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_Skill">
+            <End Role="REC_Skill" EntitySet="REC_Skill" />
+            <End Role="REC_CANDIDATE_SKILL" EntitySet="REC_CANDIDATE_SKILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_Skill_SYS_USER" Association="apwdbModel.FK_REC_Skill_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_Skill" EntitySet="REC_Skill" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Employee">
@@ -592,6 +1535,14 @@
           <Property Name="card_no_validity" Type="DateTime" Precision="3" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Employee_SYS_USER" FromRole="Employee" ToRole="SYS_USER" />
           <NavigationProperty Name="REC_CANDIDATE_EMPLOYEE_LINK" Relationship="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1" FromRole="Employee" ToRole="REC_CANDIDATE_EMPLOYEE_LINK" />
+          <NavigationProperty Name="AreaLibrary" Relationship="apwdbModel.C_FK_Employee_AreaLibrary" FromRole="Employee" ToRole="AreaLibrary" />
+          <NavigationProperty Name="AreaLibrary1" Relationship="apwdbModel.C_FK_Employee_AreaLibrary1" FromRole="Employee" ToRole="AreaLibrary" />
+          <NavigationProperty Name="Branch" Relationship="apwdbModel.C_FK_Employee_Branch" FromRole="Employee" ToRole="Branch" />
+          <NavigationProperty Name="Department" Relationship="apwdbModel.C_FK_Employee_Department" FromRole="Employee" ToRole="Department" />
+          <NavigationProperty Name="EmployeeType" Relationship="apwdbModel.C_FK_Employee_EmployeeType" FromRole="Employee" ToRole="EmployeeType" />
+          <NavigationProperty Name="Shift" Relationship="apwdbModel.C_FK_Employee_Shift1" FromRole="Employee" ToRole="Shift" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.FK_Employee_REC_CLIENT" FromRole="Employee" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="REC_CLIENT1" Relationship="apwdbModel.FK_Employee_REC_CLIENT1" FromRole="Employee" ToRole="REC_CLIENT" />
         </EntityType>
         <EntityType Name="REC_USER_LOG">
           <Key>
@@ -641,6 +1592,19 @@
           <NavigationProperty Name="SYS_USER_GROUP" Relationship="apwdbModel.FK_SYS_USER_GROUP_SYS_USER" FromRole="SYS_USER" ToRole="SYS_USER_GROUP" />
           <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.FK_REC_CANDIDATE_SYS_USER" FromRole="SYS_USER" ToRole="REC_CANDIDATE" />
           <NavigationProperty Name="REC_CANDIDATE_EMPLOYEE_LINK" Relationship="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_SYS_USER" FromRole="SYS_USER" ToRole="REC_CANDIDATE_EMPLOYEE_LINK" />
+          <NavigationProperty Name="AreaLibraries" Relationship="apwdbModel.FK_AreaLibrary_SYS_USER" FromRole="SYS_USER" ToRole="AreaLibrary" />
+          <NavigationProperty Name="Branches" Relationship="apwdbModel.C_FK_Branch_SYS_USER" FromRole="SYS_USER" ToRole="Branch" />
+          <NavigationProperty Name="Departments" Relationship="apwdbModel.FK_Department_SYS_USER" FromRole="SYS_USER" ToRole="Department" />
+          <NavigationProperty Name="EmployeeTypes" Relationship="apwdbModel.FK_EmployeeType_SYS_USER" FromRole="SYS_USER" ToRole="EmployeeType" />
+          <NavigationProperty Name="EMPLOYERs" Relationship="apwdbModel.FK_EMPLOYER_SYS_USER" FromRole="SYS_USER" ToRole="EMPLOYER" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_CLIENT_SYS_USER" FromRole="SYS_USER" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="Shifts" Relationship="apwdbModel.FK_Shift_SYS_USER" FromRole="SYS_USER" ToRole="Shift" />
+          <NavigationProperty Name="REC_CANDIDATE_DOCUMENT" Relationship="apwdbModel.FK_REC_CANDIDATE_DOCUMENT_SYS_USER" FromRole="SYS_USER" ToRole="REC_CANDIDATE_DOCUMENT" />
+          <NavigationProperty Name="REC_CANDIDATE_SKILL" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_SYS_USER" FromRole="SYS_USER" ToRole="REC_CANDIDATE_SKILL" />
+          <NavigationProperty Name="Schools" Relationship="apwdbModel.FK_School_SYS_USER" FromRole="SYS_USER" ToRole="School" />
+          <NavigationProperty Name="SchoolLevels" Relationship="apwdbModel.FK_SchoolLevel_SYS_USER" FromRole="SYS_USER" ToRole="SchoolLevel" />
+          <NavigationProperty Name="Degrees" Relationship="apwdbModel.FK_Degree_SYS_USER" FromRole="SYS_USER" ToRole="Degree" />
+          <NavigationProperty Name="REC_Skill" Relationship="apwdbModel.FK_REC_Skill_SYS_USER" FromRole="SYS_USER" ToRole="REC_Skill" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP">
           <Key>
@@ -855,6 +1819,11 @@
           <Property Name="guid" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="REC_CANDIDATE_EMPLOYEE_LINK" Relationship="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYEE_LINK_REC_CANDIDATE" FromRole="REC_CANDIDATE" ToRole="REC_CANDIDATE_EMPLOYEE_LINK" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CANDIDATE_SYS_USER" FromRole="REC_CANDIDATE" ToRole="SYS_USER" />
+          <NavigationProperty Name="REC_CANDIDATE_DOCUMENT" Relationship="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE" FromRole="REC_CANDIDATE" ToRole="REC_CANDIDATE_DOCUMENT" />
+          <NavigationProperty Name="REC_CANDIDATE_EDUCATION" Relationship="apwdbModel.C_FK_REC_CANDIDATE_EDUCATION_REC_CANDIDATE" FromRole="REC_CANDIDATE" ToRole="REC_CANDIDATE_EDUCATION" />
+          <NavigationProperty Name="REC_CANDIDATE_EMPLOYMENT" Relationship="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE" FromRole="REC_CANDIDATE" ToRole="REC_CANDIDATE_EMPLOYMENT" />
+          <NavigationProperty Name="REC_CANDIDATE_TRAINING" Relationship="apwdbModel.C_FK_REC_CANDIDATE_TRAINING_REC_CANDIDATE" FromRole="REC_CANDIDATE" ToRole="REC_CANDIDATE_TRAINING" />
+          <NavigationProperty Name="REC_CANDIDATE_SKILL" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_CANDIDATE" FromRole="REC_CANDIDATE" ToRole="REC_CANDIDATE_SKILL" />
         </EntityType>
         <EntityType Name="REC_CANDIDATE_EMPLOYEE_LINK">
           <Key>
@@ -929,6 +1898,699 @@
             </Principal>
             <Dependent Role="REC_CANDIDATE_EMPLOYEE_LINK">
               <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AreaLibrary">
+          <Key>
+            <PropertyRef Name="AreaID" />
+          </Key>
+          <Property Name="AreaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ProvinceID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="region_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_AreaLibrary" FromRole="AreaLibrary" ToRole="Employee" />
+          <NavigationProperty Name="Employees1" Relationship="apwdbModel.C_FK_Employee_AreaLibrary1" FromRole="AreaLibrary" ToRole="Employee" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_AreaLibrary_SYS_USER" FromRole="AreaLibrary" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="C_FK_Employee_AreaLibrary">
+          <End Type="apwdbModel.AreaLibrary" Role="AreaLibrary" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AreaLibrary">
+              <PropertyRef Name="AreaID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_Employee_AreaLibrary1">
+          <End Type="apwdbModel.AreaLibrary" Role="AreaLibrary" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AreaLibrary">
+              <PropertyRef Name="AreaID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="ProvinceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaLibrary_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.AreaLibrary" Role="AreaLibrary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AreaLibrary">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Branch_ID" />
+          </Key>
+          <Property Name="Branch_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Branch_Desc" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="no_of_days" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="region_name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="region_longitude" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="region_latitude" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="allowed_radius_meter" Type="Int32" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_Branch_REC_CLIENT" FromRole="Branch" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.C_FK_Branch_SYS_USER" FromRole="Branch" ToRole="SYS_USER" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_Branch" FromRole="Branch" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Dept_ID" />
+          </Key>
+          <Property Name="Dept_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dept_Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_Department" FromRole="Department" ToRole="Employee" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Department_SYS_USER" FromRole="Department" ToRole="SYS_USER" />
+        </EntityType>
+        <EntityType Name="EmployeeType">
+          <Key>
+            <PropertyRef Name="EmpType_ID" />
+          </Key>
+          <Property Name="EmpType_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpType_Desc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_EmployeeType" FromRole="EmployeeType" ToRole="Employee" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_EmployeeType_SYS_USER" FromRole="EmployeeType" ToRole="SYS_USER" />
+        </EntityType>
+        <EntityType Name="EMPLOYER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employer_name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="employer_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_EMPLOYER_SYS_USER" FromRole="EMPLOYER" ToRole="SYS_USER" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.FK_REC_CLIENT_EMPLOYER" FromRole="EMPLOYER" ToRole="REC_CLIENT" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="client_address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="contact_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email_address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="contact_person" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="remarks" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="tin_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="industry_id" Type="Int32" Nullable="false" />
+          <Property Name="contact_title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="mobile_no" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="date_encoded" Type="DateTime" Precision="0" />
+          <Property Name="website" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="Vatable" Type="Boolean" Nullable="false" />
+          <Property Name="client_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="logofile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="zip_code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="sss_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sss_br_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pagibig_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pagibig_br_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="philhealth_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="philhealth_br_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="company_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="is_withholding_tax" Type="Boolean" Nullable="false" />
+          <Property Name="withholding_tax_rate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Vat_Type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="billing_address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="employer_id" Type="Int32" Nullable="false" />
+          <Property Name="guid" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Branches" Relationship="apwdbModel.C_FK_Branch_REC_CLIENT" FromRole="REC_CLIENT" ToRole="Branch" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.FK_Employee_REC_CLIENT" FromRole="REC_CLIENT" ToRole="Employee" />
+          <NavigationProperty Name="Employees1" Relationship="apwdbModel.FK_Employee_REC_CLIENT1" FromRole="REC_CLIENT" ToRole="Employee" />
+          <NavigationProperty Name="EMPLOYER" Relationship="apwdbModel.FK_REC_CLIENT_EMPLOYER" FromRole="REC_CLIENT" ToRole="EMPLOYER" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.C_FK_REC_CLIENT_SYS_USER" FromRole="REC_CLIENT" ToRole="SYS_USER" />
+        </EntityType>
+        <EntityType Name="Shift">
+          <Key>
+            <PropertyRef Name="Shift_ID" />
+          </Key>
+          <Property Name="Shift_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_in" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Shift_out" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Grace_period" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="break_time_start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="break_time_end" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="is_graveyard" Type="Boolean" Nullable="false" />
+          <Property Name="country_id" Type="Int32" Nullable="false" />
+          <Property Name="grave_time_in" Type="DateTime" Precision="3" />
+          <Property Name="grave_time_out" Type="DateTime" Precision="3" />
+          <Property Name="is_halfday" Type="Boolean" Nullable="false" />
+          <Property Name="is_compress" Type="Boolean" Nullable="false" />
+          <Property Name="hours_worked" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_Shift1" FromRole="Shift" ToRole="Employee" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Shift_SYS_USER" FromRole="Shift" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="C_FK_Branch_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.Branch" Role="Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_Branch_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Branch" Role="Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_Employee_Branch">
+          <End Type="apwdbModel.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Branch_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Branch_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_Employee_Department">
+          <End Type="apwdbModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dept_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Department_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Department" Role="Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_Employee_EmployeeType">
+          <End Type="apwdbModel.EmployeeType" Role="EmployeeType" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmpType_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmpType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_Employee_Shift1">
+          <End Type="apwdbModel.Shift" Role="Shift" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="Shift_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Shift_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_REC_CLIENT1">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeType_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.EmployeeType" Role="EmployeeType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmployeeType">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMPLOYER_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.EMPLOYER" Role="EMPLOYER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EMPLOYER">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_EMPLOYER">
+          <End Type="apwdbModel.EMPLOYER" Role="EMPLOYER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CLIENT_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shift_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Shift" Role="Shift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Shift">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_CANDIDATE_DOCUMENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="candidate_id" Type="Int32" Nullable="false" />
+          <Property Name="doc_id" Type="Int32" Nullable="false" />
+          <Property Name="date_issued" Type="DateTime" Precision="0" />
+          <Property Name="date_expired" Type="DateTime" Precision="0" />
+          <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="file_location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DocNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date_added" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="added_by" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE" FromRole="REC_CANDIDATE_DOCUMENT" ToRole="REC_CANDIDATE" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CANDIDATE_DOCUMENT_SYS_USER" FromRole="REC_CANDIDATE_DOCUMENT" ToRole="SYS_USER" />
+        </EntityType>
+        <EntityType Name="REC_CANDIDATE_EDUCATION">
+          <Key>
+            <PropertyRef Name="School_Id" />
+          </Key>
+          <Property Name="candidate_id" Type="Int32" Nullable="false" />
+          <Property Name="School_Level" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="School_Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="School_Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="School_Grade" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="School_From" Type="DateTime" Precision="0" />
+          <Property Name="School_To" Type="DateTime" Precision="0" />
+          <Property Name="School_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Awards" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolLibID" Type="Int32" Nullable="false" />
+          <Property Name="SchoolLevelID" Type="Int32" Nullable="false" />
+          <Property Name="DegreeID" Type="Int32" />
+          <Property Name="Graduated" Type="Boolean" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.C_FK_REC_CANDIDATE_EDUCATION_REC_CANDIDATE" FromRole="REC_CANDIDATE_EDUCATION" ToRole="REC_CANDIDATE" />
+          <NavigationProperty Name="School" Relationship="apwdbModel.FK_REC_CANDIDATE_EDUCATION_School" FromRole="REC_CANDIDATE_EDUCATION" ToRole="School" />
+          <NavigationProperty Name="SchoolLevel" Relationship="apwdbModel.FK_REC_CANDIDATE_EDUCATION_SchoolLevel" FromRole="REC_CANDIDATE_EDUCATION" ToRole="SchoolLevel" />
+          <NavigationProperty Name="Degree" Relationship="apwdbModel.FK_REC_CANDIDATE_EDUCATION_Degree" FromRole="REC_CANDIDATE_EDUCATION" ToRole="Degree" />
+        </EntityType>
+        <EntityType Name="REC_CANDIDATE_EMPLOYMENT">
+          <Key>
+            <PropertyRef Name="Employ_ID" />
+          </Key>
+          <Property Name="candidate_id" Type="Int32" Nullable="false" />
+          <Property Name="Company_name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Company_Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Company_position" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Company_Rank" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Reason_for_leaving" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Company_Salary" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Company_from" Type="DateTime" Precision="0" />
+          <Property Name="Company_to" Type="DateTime" Precision="0" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Employ_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emidiate_head" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="employment_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Internal_Tag" Type="Int32" />
+          <Property Name="NatureOfBusinessID" Type="Int32" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="function_id" Type="Int32" Nullable="false" />
+          <Property Name="industry_id" Type="Int32" Nullable="false" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <Property Name="fixed_bonus_13" Type="Boolean" Nullable="false" />
+          <Property Name="fixed_bonus_14" Type="Boolean" Nullable="false" />
+          <Property Name="fixed_bonus_15" Type="Boolean" Nullable="false" />
+          <Property Name="fixed_bonus_16" Type="Boolean" Nullable="false" />
+          <Property Name="hmo_principal" Type="Boolean" Nullable="false" />
+          <Property Name="hmo_dependent" Type="Boolean" Nullable="false" />
+          <Property Name="is_tax_shield" Type="Boolean" Nullable="false" />
+          <Property Name="tax_shield_percentage" Type="Int32" Nullable="false" />
+          <Property Name="other_benifits" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="job_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="is_currently_working" Type="Boolean" Nullable="false" />
+          <Property Name="company_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE" FromRole="REC_CANDIDATE_EMPLOYMENT" ToRole="REC_CANDIDATE" />
+        </EntityType>
+        <EntityType Name="REC_CANDIDATE_SKILL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="candidate_id" Type="Int32" Nullable="false" />
+          <Property Name="skill_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_CANDIDATE" FromRole="REC_CANDIDATE_SKILL" ToRole="REC_CANDIDATE" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_SYS_USER" FromRole="REC_CANDIDATE_SKILL" ToRole="SYS_USER" />
+          <NavigationProperty Name="REC_Skill" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_Skill" FromRole="REC_CANDIDATE_SKILL" ToRole="REC_Skill" />
+        </EntityType>
+        <EntityType Name="REC_CANDIDATE_TRAINING">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="candidate_id" Type="Int32" Nullable="false" />
+          <Property Name="training_id" Type="Int32" Nullable="false" />
+          <Property Name="venue" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="date_from" Type="DateTime" Precision="0" />
+          <Property Name="date_to" Type="DateTime" Precision="0" />
+          <Property Name="facilitator" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="file_location" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Internal" Type="Int32" />
+          <Property Name="NoOfHours" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.C_FK_REC_CANDIDATE_TRAINING_REC_CANDIDATE" FromRole="REC_CANDIDATE_TRAINING" ToRole="REC_CANDIDATE" />
+        </EntityType>
+        <Association Name="C_FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE">
+          <End Type="apwdbModel.REC_CANDIDATE" Role="REC_CANDIDATE" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_DOCUMENT" Role="REC_CANDIDATE_DOCUMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_DOCUMENT">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CANDIDATE_EDUCATION_REC_CANDIDATE">
+          <End Type="apwdbModel.REC_CANDIDATE" Role="REC_CANDIDATE" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_EDUCATION" Role="REC_CANDIDATE_EDUCATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EDUCATION">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE">
+          <End Type="apwdbModel.REC_CANDIDATE" Role="REC_CANDIDATE" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_EMPLOYMENT" Role="REC_CANDIDATE_EMPLOYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EMPLOYMENT">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CANDIDATE_TRAINING_REC_CANDIDATE">
+          <End Type="apwdbModel.REC_CANDIDATE" Role="REC_CANDIDATE" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_TRAINING" Role="REC_CANDIDATE_TRAINING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_TRAINING">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_SKILL_REC_CANDIDATE">
+          <End Type="apwdbModel.REC_CANDIDATE" Role="REC_CANDIDATE" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_SKILL" Role="REC_CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_SKILL">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_DOCUMENT_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_DOCUMENT" Role="REC_CANDIDATE_DOCUMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_DOCUMENT">
+              <PropertyRef Name="added_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_SKILL_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_SKILL" Role="REC_CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_SKILL">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="SchoolID" />
+          </Key>
+          <Property Name="SchoolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="School_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="location" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="region_id" Type="Int32" Nullable="false" />
+          <Property Name="school_tier_id" Type="Int32" Nullable="false" />
+          <Property Name="UserCreated" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserUpdated" Type="Int32" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="country_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="REC_CANDIDATE_EDUCATION" Relationship="apwdbModel.FK_REC_CANDIDATE_EDUCATION_School" FromRole="School" ToRole="REC_CANDIDATE_EDUCATION" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_School_SYS_USER" FromRole="School" ToRole="SYS_USER" />
+        </EntityType>
+        <EntityType Name="SchoolLevel">
+          <Key>
+            <PropertyRef Name="LevelID" />
+          </Key>
+          <Property Name="LevelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolLevelDescn" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="UserCreated" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserUpdated" Type="Int32" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="REC_CANDIDATE_EDUCATION" Relationship="apwdbModel.FK_REC_CANDIDATE_EDUCATION_SchoolLevel" FromRole="SchoolLevel" ToRole="REC_CANDIDATE_EDUCATION" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_SchoolLevel_SYS_USER" FromRole="SchoolLevel" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_REC_CANDIDATE_EDUCATION_School">
+          <End Type="apwdbModel.School" Role="School" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_EDUCATION" Role="REC_CANDIDATE_EDUCATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="SchoolID" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EDUCATION">
+              <PropertyRef Name="SchoolLibID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_EDUCATION_SchoolLevel">
+          <End Type="apwdbModel.SchoolLevel" Role="SchoolLevel" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_EDUCATION" Role="REC_CANDIDATE_EDUCATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolLevel">
+              <PropertyRef Name="LevelID" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EDUCATION">
+              <PropertyRef Name="SchoolLevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_School_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.School" Role="School" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="School">
+              <PropertyRef Name="UserCreated" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SchoolLevel_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.SchoolLevel" Role="SchoolLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SchoolLevel">
+              <PropertyRef Name="UserCreated" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Degree">
+          <Key>
+            <PropertyRef Name="DegreeID" />
+          </Key>
+          <Property Name="DegreeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DegreeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="UserCreated" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserUpdated" Type="Int32" />
+          <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="country_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Degree_SYS_USER" FromRole="Degree" ToRole="SYS_USER" />
+          <NavigationProperty Name="REC_CANDIDATE_EDUCATION" Relationship="apwdbModel.FK_REC_CANDIDATE_EDUCATION_Degree" FromRole="Degree" ToRole="REC_CANDIDATE_EDUCATION" />
+        </EntityType>
+        <Association Name="FK_Degree_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Degree" Role="Degree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Degree">
+              <PropertyRef Name="UserCreated" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_EDUCATION_Degree">
+          <End Type="apwdbModel.Degree" Role="Degree" Multiplicity="0..1" />
+          <End Type="apwdbModel.REC_CANDIDATE_EDUCATION" Role="REC_CANDIDATE_EDUCATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Degree">
+              <PropertyRef Name="DegreeID" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EDUCATION">
+              <PropertyRef Name="DegreeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_Skill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="function_id" Type="Int32" Nullable="false" />
+          <Property Name="skill_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Skill_description" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Skill_details" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="REC_CANDIDATE_SKILL" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_Skill" FromRole="REC_Skill" ToRole="REC_CANDIDATE_SKILL" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_Skill_SYS_USER" FromRole="REC_Skill" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_REC_CANDIDATE_SKILL_REC_Skill">
+          <End Type="apwdbModel.REC_Skill" Role="REC_Skill" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_SKILL" Role="REC_CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_Skill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_SKILL">
+              <PropertyRef Name="skill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_Skill_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_Skill" Role="REC_Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_Skill">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1220,6 +2882,293 @@
                 <ScalarProperty Name="client_id" ColumnName="client_id" />
                 <ScalarProperty Name="emp_id" ColumnName="emp_id" />
                 <ScalarProperty Name="candidate_id" ColumnName="candidate_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AreaLibraries">
+            <EntityTypeMapping TypeName="apwdbModel.AreaLibrary">
+              <MappingFragment StoreEntitySet="AreaLibrary">
+                <ScalarProperty Name="region_id" ColumnName="region_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="AreaDescription" ColumnName="AreaDescription" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="apwdbModel.Branch">
+              <MappingFragment StoreEntitySet="Branch">
+                <ScalarProperty Name="allowed_radius_meter" ColumnName="allowed_radius_meter" />
+                <ScalarProperty Name="region_latitude" ColumnName="region_latitude" />
+                <ScalarProperty Name="region_longitude" ColumnName="region_longitude" />
+                <ScalarProperty Name="region_name" ColumnName="region_name" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="no_of_days" ColumnName="no_of_days" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Branch_Desc" ColumnName="Branch_Desc" />
+                <ScalarProperty Name="Branch_ID" ColumnName="Branch_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="apwdbModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Dept_Name" ColumnName="Dept_Name" />
+                <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeTypes">
+            <EntityTypeMapping TypeName="apwdbModel.EmployeeType">
+              <MappingFragment StoreEntitySet="EmployeeType">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EmpType_Desc" ColumnName="EmpType_Desc" />
+                <ScalarProperty Name="EmpType_ID" ColumnName="EmpType_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYERs">
+            <EntityTypeMapping TypeName="apwdbModel.EMPLOYER">
+              <MappingFragment StoreEntitySet="EMPLOYER">
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="employer_type" ColumnName="employer_type" />
+                <ScalarProperty Name="employer_name" ColumnName="employer_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CLIENT">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT">
+              <MappingFragment StoreEntitySet="REC_CLIENT">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+                <ScalarProperty Name="billing_address" ColumnName="billing_address" />
+                <ScalarProperty Name="Vat_Type" ColumnName="Vat_Type" />
+                <ScalarProperty Name="withholding_tax_rate" ColumnName="withholding_tax_rate" />
+                <ScalarProperty Name="is_withholding_tax" ColumnName="is_withholding_tax" />
+                <ScalarProperty Name="company_type" ColumnName="company_type" />
+                <ScalarProperty Name="philhealth_br_code" ColumnName="philhealth_br_code" />
+                <ScalarProperty Name="philhealth_no" ColumnName="philhealth_no" />
+                <ScalarProperty Name="pagibig_br_code" ColumnName="pagibig_br_code" />
+                <ScalarProperty Name="pagibig_no" ColumnName="pagibig_no" />
+                <ScalarProperty Name="sss_br_code" ColumnName="sss_br_code" />
+                <ScalarProperty Name="sss_no" ColumnName="sss_no" />
+                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="logofile" ColumnName="logofile" />
+                <ScalarProperty Name="client_type" ColumnName="client_type" />
+                <ScalarProperty Name="Vatable" ColumnName="Vatable" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="date_encoded" ColumnName="date_encoded" />
+                <ScalarProperty Name="mobile_no" ColumnName="mobile_no" />
+                <ScalarProperty Name="contact_title" ColumnName="contact_title" />
+                <ScalarProperty Name="industry_id" ColumnName="industry_id" />
+                <ScalarProperty Name="tin_no" ColumnName="tin_no" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="contact_person" ColumnName="contact_person" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="client_address" ColumnName="client_address" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shifts">
+            <EntityTypeMapping TypeName="apwdbModel.Shift">
+              <MappingFragment StoreEntitySet="Shift">
+                <ScalarProperty Name="hours_worked" ColumnName="hours_worked" />
+                <ScalarProperty Name="is_compress" ColumnName="is_compress" />
+                <ScalarProperty Name="is_halfday" ColumnName="is_halfday" />
+                <ScalarProperty Name="grave_time_out" ColumnName="grave_time_out" />
+                <ScalarProperty Name="grave_time_in" ColumnName="grave_time_in" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="is_graveyard" ColumnName="is_graveyard" />
+                <ScalarProperty Name="break_time_end" ColumnName="break_time_end" />
+                <ScalarProperty Name="break_time_start" ColumnName="break_time_start" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Grace_period" ColumnName="Grace_period" />
+                <ScalarProperty Name="Shift_out" ColumnName="Shift_out" />
+                <ScalarProperty Name="Shift_in" ColumnName="Shift_in" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Shift_ID" ColumnName="Shift_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CANDIDATE_DOCUMENT">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CANDIDATE_DOCUMENT">
+              <MappingFragment StoreEntitySet="REC_CANDIDATE_DOCUMENT">
+                <ScalarProperty Name="added_by" ColumnName="added_by" />
+                <ScalarProperty Name="date_added" ColumnName="date_added" />
+                <ScalarProperty Name="DocNo" ColumnName="DocNo" />
+                <ScalarProperty Name="file_location" ColumnName="file_location" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="date_expired" ColumnName="date_expired" />
+                <ScalarProperty Name="date_issued" ColumnName="date_issued" />
+                <ScalarProperty Name="doc_id" ColumnName="doc_id" />
+                <ScalarProperty Name="candidate_id" ColumnName="candidate_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CANDIDATE_EDUCATION">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CANDIDATE_EDUCATION">
+              <MappingFragment StoreEntitySet="REC_CANDIDATE_EDUCATION">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="Graduated" ColumnName="Graduated" />
+                <ScalarProperty Name="DegreeID" ColumnName="DegreeID" />
+                <ScalarProperty Name="SchoolLevelID" ColumnName="SchoolLevelID" />
+                <ScalarProperty Name="SchoolLibID" ColumnName="SchoolLibID" />
+                <ScalarProperty Name="Awards" ColumnName="Awards" />
+                <ScalarProperty Name="School_Id" ColumnName="School_Id" />
+                <ScalarProperty Name="School_To" ColumnName="School_To" />
+                <ScalarProperty Name="School_From" ColumnName="School_From" />
+                <ScalarProperty Name="School_Grade" ColumnName="School_Grade" />
+                <ScalarProperty Name="School_Remarks" ColumnName="School_Remarks" />
+                <ScalarProperty Name="School_Name" ColumnName="School_Name" />
+                <ScalarProperty Name="School_Level" ColumnName="School_Level" />
+                <ScalarProperty Name="candidate_id" ColumnName="candidate_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CANDIDATE_EMPLOYMENT">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CANDIDATE_EMPLOYMENT">
+              <MappingFragment StoreEntitySet="REC_CANDIDATE_EMPLOYMENT">
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="is_currently_working" ColumnName="is_currently_working" />
+                <ScalarProperty Name="job_description" ColumnName="job_description" />
+                <ScalarProperty Name="other_benifits" ColumnName="other_benifits" />
+                <ScalarProperty Name="tax_shield_percentage" ColumnName="tax_shield_percentage" />
+                <ScalarProperty Name="is_tax_shield" ColumnName="is_tax_shield" />
+                <ScalarProperty Name="hmo_dependent" ColumnName="hmo_dependent" />
+                <ScalarProperty Name="hmo_principal" ColumnName="hmo_principal" />
+                <ScalarProperty Name="fixed_bonus_16" ColumnName="fixed_bonus_16" />
+                <ScalarProperty Name="fixed_bonus_15" ColumnName="fixed_bonus_15" />
+                <ScalarProperty Name="fixed_bonus_14" ColumnName="fixed_bonus_14" />
+                <ScalarProperty Name="fixed_bonus_13" ColumnName="fixed_bonus_13" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="industry_id" ColumnName="industry_id" />
+                <ScalarProperty Name="function_id" ColumnName="function_id" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="NatureOfBusinessID" ColumnName="NatureOfBusinessID" />
+                <ScalarProperty Name="Internal_Tag" ColumnName="Internal_Tag" />
+                <ScalarProperty Name="employment_Status" ColumnName="employment_Status" />
+                <ScalarProperty Name="Emidiate_head" ColumnName="Emidiate_head" />
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Company_to" ColumnName="Company_to" />
+                <ScalarProperty Name="Company_from" ColumnName="Company_from" />
+                <ScalarProperty Name="Company_Salary" ColumnName="Company_Salary" />
+                <ScalarProperty Name="Reason_for_leaving" ColumnName="Reason_for_leaving" />
+                <ScalarProperty Name="Company_Rank" ColumnName="Company_Rank" />
+                <ScalarProperty Name="Company_position" ColumnName="Company_position" />
+                <ScalarProperty Name="Company_Address" ColumnName="Company_Address" />
+                <ScalarProperty Name="Company_name" ColumnName="Company_name" />
+                <ScalarProperty Name="candidate_id" ColumnName="candidate_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CANDIDATE_SKILL">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CANDIDATE_SKILL">
+              <MappingFragment StoreEntitySet="REC_CANDIDATE_SKILL">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="skill_id" ColumnName="skill_id" />
+                <ScalarProperty Name="candidate_id" ColumnName="candidate_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CANDIDATE_TRAINING">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CANDIDATE_TRAINING">
+              <MappingFragment StoreEntitySet="REC_CANDIDATE_TRAINING">
+                <ScalarProperty Name="NoOfHours" ColumnName="NoOfHours" />
+                <ScalarProperty Name="Internal" ColumnName="Internal" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="file_location" ColumnName="file_location" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="facilitator" ColumnName="facilitator" />
+                <ScalarProperty Name="date_to" ColumnName="date_to" />
+                <ScalarProperty Name="date_from" ColumnName="date_from" />
+                <ScalarProperty Name="venue" ColumnName="venue" />
+                <ScalarProperty Name="training_id" ColumnName="training_id" />
+                <ScalarProperty Name="candidate_id" ColumnName="candidate_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schools">
+            <EntityTypeMapping TypeName="apwdbModel.School">
+              <MappingFragment StoreEntitySet="School">
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UserUpdated" ColumnName="UserUpdated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="school_tier_id" ColumnName="school_tier_id" />
+                <ScalarProperty Name="region_id" ColumnName="region_id" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="School_type" ColumnName="School_type" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SchoolLevels">
+            <EntityTypeMapping TypeName="apwdbModel.SchoolLevel">
+              <MappingFragment StoreEntitySet="SchoolLevel">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UserUpdated" ColumnName="UserUpdated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="SchoolLevelDescn" ColumnName="SchoolLevelDescn" />
+                <ScalarProperty Name="LevelID" ColumnName="LevelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Degrees">
+            <EntityTypeMapping TypeName="apwdbModel.Degree">
+              <MappingFragment StoreEntitySet="Degree">
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="UserUpdated" ColumnName="UserUpdated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="UserCreated" ColumnName="UserCreated" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="DegreeName" ColumnName="DegreeName" />
+                <ScalarProperty Name="DegreeID" ColumnName="DegreeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_Skill">
+            <EntityTypeMapping TypeName="apwdbModel.REC_Skill">
+              <MappingFragment StoreEntitySet="REC_Skill">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Skill_details" ColumnName="Skill_details" />
+                <ScalarProperty Name="Skill_description" ColumnName="Skill_description" />
+                <ScalarProperty Name="skill_type" ColumnName="skill_type" />
+                <ScalarProperty Name="function_id" ColumnName="function_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
