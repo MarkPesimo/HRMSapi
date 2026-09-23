@@ -12,25 +12,26 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class EmployeeType
+    public partial class LeaveType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EmployeeType()
+        public LeaveType()
         {
-            this.Employees = new HashSet<Employee>();
-            this.REC_NEW_HIRED_EMPLOYEE = new HashSet<REC_NEW_HIRED_EMPLOYEE>();
+            this.EmployeeLeaveMonitorings = new HashSet<EmployeeLeaveMonitoring>();
+            this.P_Leave = new HashSet<P_Leave>();
         }
     
-        public int EmpType_ID { get; set; }
-        public string EmpType_Desc { get; set; }
+        public int Leavetype_ID { get; set; }
+        public string Leavetype_desc { get; set; }
         public int UserID { get; set; }
-        public bool status { get; set; }
-        public System.DateTime date_created { get; set; }
+        public Nullable<bool> status { get; set; }
+        public string LeaveCode { get; set; }
+        public System.DateTime DateCreated { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
-        public virtual SYS_USER SYS_USER { get; set; }
+        public virtual ICollection<EmployeeLeaveMonitoring> EmployeeLeaveMonitorings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<REC_NEW_HIRED_EMPLOYEE> REC_NEW_HIRED_EMPLOYEE { get; set; }
+        public virtual ICollection<P_Leave> P_Leave { get; set; }
+        public virtual SYS_USER SYS_USER { get; set; }
     }
 }

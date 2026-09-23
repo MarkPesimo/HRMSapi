@@ -212,7 +212,6 @@ namespace HRMS_API.Repository
             return Convert.ToInt32(_return_value.Value);
         }
 
-
         public EmployeeKeys GetEmployeeKeyReverse(int _empid)
         {
             EmployeeKeys _obj = new EmployeeKeys();
@@ -252,7 +251,6 @@ namespace HRMS_API.Repository
             return _monthname;
         }
 
-
         public void ManageEmployeeTransactionLog(TransactionLog _log)
         {
             _conn.USP_H_MANAGE_EMPLOYEE_TRANSACTION_BACKDATE_LOG(_log.TranId,
@@ -261,5 +259,6 @@ namespace HRMS_API.Repository
                 _log.DateValue);
 
         }
+   
     }
 }

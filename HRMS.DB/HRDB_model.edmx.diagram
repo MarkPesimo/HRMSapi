@@ -76,6 +76,17 @@
         <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_SHIFT_Shift" />
         <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_SHIFT_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_Shift_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.REC_NEW_HIRED_EMPLOYEE" Width="1.5" PointX="9.25" PointY="9.5" />
+        <AssociationConnector Association="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_Employee" />
+        <AssociationConnector Association="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_EmployeeType" />
+        <AssociationConnector Association="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.LoanTransaction" Width="1.5" PointX="11.375" PointY="18.75" />
+        <AssociationConnector Association="apwdbModel.C_FK_LoanTransaction_EmployeeLoanMaster" />
+        <EntityTypeShape EntityType="apwdbModel.LeaveType" Width="1.5" PointX="3.75" PointY="25.125" />
+        <AssociationConnector Association="apwdbModel.C_FK_EmployeeLeaveMonitoring_LeaveType" />
+        <AssociationConnector Association="apwdbModel.C_FK_P_Leave_LeaveType" />
+        <AssociationConnector Association="apwdbModel.FK_LeaveType_SYS_USER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

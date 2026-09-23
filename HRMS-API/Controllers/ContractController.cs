@@ -243,5 +243,29 @@ namespace HRMS_API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
             }
         }
+
+        [Route("api/Contract/GetContract/{_id}")]
+        [HttpGet]
+        public HttpResponseMessage GetContract(int _id)
+        {
+            try
+            {
+                Contract _model = Contractrepository.GetContract(_id);
+
+                if (_model != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
     }
 }

@@ -22,6 +22,7 @@ namespace HRMS.DB
             this.P_Leave = new HashSet<P_Leave>();
             this.EmployeeLoanMasters = new HashSet<EmployeeLoanMaster>();
             this.Employee_Replacement_HD = new HashSet<Employee_Replacement_HD>();
+            this.REC_NEW_HIRED_EMPLOYEE = new HashSet<REC_NEW_HIRED_EMPLOYEE>();
         }
     
         public int Emp_ID { get; set; }
@@ -135,5 +136,7 @@ namespace HRMS.DB
         public virtual EmployeeType EmployeeType { get; set; }
         public virtual EmployeeRank EmployeeRank { get; set; }
         public virtual Shift Shift { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_NEW_HIRED_EMPLOYEE> REC_NEW_HIRED_EMPLOYEE { get; set; }
     }
 }

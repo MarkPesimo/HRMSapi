@@ -1,4 +1,5 @@
-﻿using HRMS_API.Helper;
+﻿using HRModel.ViewModel.Employees;
+using HRMS_API.Helper;
 using HRMS_API.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,17 +12,16 @@ using static HRModel.ViewModel.Loan.Loan_model;
 namespace HRMS_API.Controllers
 {
     [BasicAuthentication]
-
-
     public class LoanController : ApiController
     {
         public LoanRepository _loanrepository { get; set; }
+        public GlobalRepository _globalrepository{ get; set; }
 
         public LoanController()
         {
             if (_loanrepository == null) { _loanrepository = new LoanRepository(); }
         }
-        
+
         [Route("api/Loan/GetEmployeeLoanMonitoring/{ByLoan}/{LoanTypeId}/{ByDate}/{From}/{To}/{ByStatus}/{Status}/{Keyword}/{CompanyId}")]
         [HttpGet]
         public HttpResponseMessage GetEmployeeLoanMonitoring(
@@ -37,23 +37,20 @@ namespace HRMS_API.Controllers
                     From = From,
                     To = To,
                     ByStatus = ByStatus,
-                    Status = Status,
-                    Keyword = Keyword,
+                    Status = (string.IsNullOrWhiteSpace(Status) || Status.Equals("NULL", StringComparison.OrdinalIgnoreCase)) ? "" : Status,
+                    Keyword = (string.IsNullOrWhiteSpace(Keyword) || Keyword.Equals("NULL", StringComparison.OrdinalIgnoreCase)) ? "" : Keyword,
                     CompanyId = CompanyId
                 };
 
                 List<EmployeeLoanMonitoringModel> results = _loanrepository.GetEmployeeLoanMonitoring(filter);
-
-                return results != null && results.Count > 0
-                    ? Request.CreateResponse(HttpStatusCode.OK, results)
-                    : Request.CreateErrorResponse(HttpStatusCode.NotFound, "No records found.");
+                
+                return Request.CreateResponse(HttpStatusCode.OK, results ?? new List<EmployeeLoanMonitoringModel>());
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
 
         [Route("api/Loan/ManageEmployeeLoan")]
         [HttpPost]
@@ -69,6 +66,23 @@ namespace HRMS_API.Controllers
             {
                 var errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+
+        [Route("api/Loan/GetLoanTypes")]
+        [HttpGet]
+        public HttpResponseMessage GetLoanTypes()
+        {
+            try
+            {
+                List<LoanTypeModel> _obj = _loanrepository.GetLoanTypes();
+                if (_obj != null) { return Request.CreateResponse(HttpStatusCode.OK, _obj); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
             }
         }
     }

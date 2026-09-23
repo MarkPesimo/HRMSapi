@@ -20,8 +20,7 @@ namespace HRMS_API.Repository
 
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
         }
-
-        //=======================BEGIN EMPLOYEE LEAVE BALANCE MONITORING===========================================================
+        
         public List<EmployeeLeaveBalanceMonitoring_model> GetEmployeeLeaveBalanceMonitoring(LeaveBalanceFilter_model _filter)
         {
             return (from x in _conn.USP_H_GET_LEAVE_BALANCE_MONITORING(
@@ -107,8 +106,8 @@ namespace HRMS_API.Repository
                     _model.ClientId,
                     _model.Mode,
                     _model.UserId,
-                    _model.ValidFrom,
-                    _model.ValidTo,
+                    _model.ValidDateFrom,
+                    _model.ValidDateTo,
                     _model.CreditEarnedPerMonth,
                     _model.IsConvertable,
                     _model.AutoResetPerYear,
@@ -128,10 +127,7 @@ namespace HRMS_API.Repository
                 throw new Exception(ex.Message);
             }           
         }
-        //=======================END EMPLOYEE LEAVE BALANCE MONITORING===========================================================
 
-
-        //=======================BEGIN EMPLOYEE LEAVE MONITORING===========================================================
         public int ManageEmployeeFiledLeave(LeaveModel _model)
         {
             try
@@ -207,7 +203,156 @@ namespace HRMS_API.Repository
                     LeaveTo = x.leave_to.Value.ToShortDateString()
                 }).ToList();
         }
-        //=======================END EMPLOYEE LEAVE MONITORING===========================================================
 
+        public List<LeaveTypeModel> GetActiveLeaveTypes()
+        {
+            try
+            {
+                return (from lt in _conn.LeaveTypes
+                        where lt.status == true
+                        orderby lt.Leavetype_desc ascending
+                        select new LeaveTypeModel
+                        {
+                            LeaveTypeId = lt.Leavetype_ID,
+                            LeaveTypeDesc = lt.Leavetype_desc,
+                            LeaveCode = lt.LeaveCode
+                        }).ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public EmployeeLeaveDetailMonitoring_model GetEmployeeLeaveDetail(int _id)
+        {
+            var _obj = (from elm in _conn.EmployeeLeaveMonitorings
+                        join e in _conn.Employees on elm.EmpID equals e.Emp_ID
+                        join lt in _conn.LeaveTypes on elm.LeaveTypeID equals lt.Leavetype_ID into ltGroup
+                        from lt in ltGroup.DefaultIfEmpty()
+                        join c in _conn.REC_CLIENT on elm.client_id equals c.id into cGroup
+                        from c in cGroup.DefaultIfEmpty()
+                        where elm.ID == _id
+                        select new EmployeeLeaveDetailMonitoring_model
+                        {
+                            Id = elm.ID,
+                            EmpId = elm.EmpID,
+                            EmpNo = e.Emp_No,
+                            EmployeeName = e.Firstname + " " + e.Lastname,
+                            ClientName = c != null ? c.client_name : "-",
+
+                            LeaveTypeId = elm.LeaveTypeID,
+                            LeaveType = lt != null ? lt.Leavetype_desc : "-",
+
+                            EntitleLeave = elm.EntitleLeave,
+                            RemainingLeave = elm.RemainingLeave,
+                            UsedLeave = elm.UsedLeave,
+                            BalanceLeave = elm.BalanceLeave,
+
+                            MonthEntitled = elm.MonthEntitled,
+                            YearEntitled = elm.YearEntitled,
+                            ValidDateFrom = elm.ValidDateFrom,
+                            ValidDateTo = elm.ValidDateTo,
+
+                            UserId = elm.UserId,
+                            ClientId = elm.client_id,
+                            Status = elm.status,
+                            DateAdded = elm.date_added,
+                            CreditEarnedPerMonth = elm.credit_earned_per_month,
+                            IsConvertable = elm.is_convertable,
+                            AutoResetPerYear = elm.auto_reset_per_year,
+                            WhenCreditIsEarned = elm.when_credit_is_earned
+                        }).FirstOrDefault();
+
+            return _obj;
+        }
+
+        public int ManageLeaveAccept(LeaveAcceptModel _model)
+        {
+            try
+            {
+                string _return = "";
+
+                System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RET_ID", typeof(int));
+
+                _conn.USP_H_MANAGE_LEAVE_ACCEPT(
+                    _model.Id,
+                    _model.PLeaveId,
+                    _model.DateAccepted,
+                    _model.Remarks,
+                    _model.Mode,
+                    _model.UserId,
+                    _return_value);
+
+                _return = Convert.ToString(_return_value.Value);
+
+                return int.Parse(_return.ToString());
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null) { throw new Exception(ex.InnerException.Message); }
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public LeaveModel GetEmployeeFiledLeave(int _id)
+        {
+            return (from d in _conn.P_Leave
+                    where d.P_LeaveID == _id
+                    select d).AsEnumerable()
+                .Select(x => new LeaveModel()
+                {
+                    Id = x.P_LeaveID,
+                    EmpId = x.EmpID,
+                    EmpName = x.Employee != null ? x.Employee.Lastname + ", " + x.Employee.Firstname : "",
+                    ClientName = x.REC_CLIENT != null ? x.REC_CLIENT.client_name : "",
+                    LeaveTypeId = x.LeaveTypeId,
+                    LeaveType = x.LeaveType != null ? x.LeaveType.Leavetype_desc : "",
+                    EmergencyLeave = x.is_EmergencyLeave,
+                    DateFiled = x.DateFiled,
+                    LeaveFrom = x.LeaveFrom,
+                    LeaveFromAMPM = x.FromAMPM,
+                    LeaveTo = x.LeaveTo,
+                    LeaveToAMPM = x.ToAMPM,
+                    LeaveDays = x.LeaveDays,
+                    IsHalfday = x.IsHalfDay,
+                    Reason = x.Reason,
+                    Remarks = x.Remarks,
+                    Status = x.Status,
+                    FileStatus = x.FileStatus,
+                    IsRejected = x.IsRejected,
+                    UserId = x.user_modified ?? 0
+                }).SingleOrDefault();
+        }
+
+        public int ManageLeaveRevoke(LeaveAcceptModel _model)
+        {
+            try
+            {
+                string _return = "";
+
+                System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RET_ID", typeof(int));
+
+                _conn.USP_H_MANAGE_LEAVE_REVOKE(
+                    _model.Id,
+                    _model.PLeaveId,
+                    _model.DateAccepted,
+                    _model.Remarks,
+                    _model.Mode,
+                    _model.UserId,
+                    _return_value);
+
+                _return = Convert.ToString(_return_value.Value);
+
+                return int.Parse(_return.ToString());
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null) { throw new Exception(ex.InnerException.Message); }
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

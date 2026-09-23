@@ -151,4 +151,12 @@ namespace HRModel.ViewModel.Employees
         public string EmpNo { get; set; }
         public string EmployeeGUID { get; set; }
     }
+
+    public class LoanTypeModel
+    {
+        public int LoanTypeID { get; set; }
+        public string LoanTypeDesc { get; set; }
+        public int UserID { get; set; }
+        public DateTime DateCreated { get; set; }
+    }
 }

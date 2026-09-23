@@ -95,6 +95,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HRDB_model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="LeaveType.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoanTransaction.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="LoanType.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -118,6 +124,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_CONTRACT_TYPE.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_NEW_HIRED_EMPLOYEE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_SOURCE_TYPE.cs">
