@@ -261,5 +261,18 @@ namespace HRMS_API.Repository
                 _log.DateValue);
 
         }
+
+        public int ComputeAge(DateTime _bdate)
+        {
+            if (_bdate == null)
+            {
+                return 0;
+            }
+            else
+            {
+                DateTime _bbdate = DateTime.Parse(_bdate.ToString());
+                return (DateTime.Now - _bbdate).Days / 365;
+            }
+        }
     }
 }

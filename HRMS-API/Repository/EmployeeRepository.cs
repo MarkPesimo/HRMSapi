@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HRMS.DB;
-using static HRModel.ViewModel.Contract.EmployeeTransaction.EmployeeTransaction;
 
 namespace HRMS_API.Repository
 {
@@ -54,7 +53,9 @@ namespace HRMS_API.Repository
             EmployeeProfile _profile = new EmployeeProfile
             {
                 Personal = GetPersonalInfo(_empid),
-                //Spouse = GetSpouseInfo(_empid)
+                Spouse = GetSpouseInfo(_empid),
+                EmergencyContact = GetEmergencyContact(_empid),
+                CurrentEmployment = GetCurrentEmployment(_empid)
             };
 
             return _profile;
@@ -65,21 +66,30 @@ namespace HRMS_API.Repository
             PersonalInfo _obj = new PersonalInfo();
 
             _obj = (from d in _conn.Employees
+                    join a in _conn.AreaLibraries on d.CityID equals a.AreaID
+                    join l in _conn.AreaLibraries on d.ProvinceID equals l.AreaID
                     where d.Emp_ID == _empid
-                    select new PersonalInfo
+                    select d).AsEnumerable()
+                  .Select(x => new PersonalInfo()
                     {
-                        EmployeeNo      = d.Emp_No,
-                        LastName        = d.Lastname,
-                        FirstName       = d.Firstname,
-                        MiddleName      = d.Middlename,
-                        BirthDate       = DateTime.Parse(d.Birthday.Value.ToShortDateString()),
-                        Gender          = d.Gender,
-                        CivilStatus     = d.CivilStatus,
-                        Nationality     = d.Citizenship,
-                        BirthPlace      = d.Birthplace,
-                        EmailAdd        = d.EmailAddress,
-                        PresentAdd      = d.Address,
-                        ProvincialAdd   = d.Prov_Address
+                        EmployeeNo      = x.Emp_No,
+                        LastName        = x.Lastname,
+                        FirstName       = x.Firstname,
+                        MiddleName      = x.Middlename,
+                        BirthDate       = DateTime.Parse(x.Birthday.Value.ToShortDateString()),
+                        Age             = _globalrepository.ComputeAge(x.Birthday.Value),
+                        Gender          = x.Gender,
+                        CivilStatus     = x.CivilStatus,
+                        Nationality     = x.Citizenship,
+                        BirthPlace      = x.Birthplace,
+                        EmailAdd        = x.EmailAddress,
+                        PresentAdd      = x.Address,
+                        City            = x.AreaLibrary.AreaDescription,
+                        ProvincialAdd   = x.Prov_Address,
+                        Province        = x.AreaLibrary1.AreaDescription,
+                        Skills          = "",
+                        CityId          = x.CityID,
+                        ProvinceId      = x.ProvinceID
                     }).SingleOrDefault();
 
             return _obj;
@@ -100,12 +110,104 @@ namespace HRMS_API.Repository
 
             return _obj;
         }
-               
-        public string GetEmployeeName(int _empid)
+
+        public EmergencyContactInfo GetEmergencyContact(int _empid)
         {
-            return (from d in _conn.Employees where d.Emp_ID == _empid select d.Lastname + ", " + d.Firstname).ToString();
+            EmergencyContactInfo _obj = new EmergencyContactInfo();
+
+            _obj = (from d in _conn.Employees
+                    where d.Emp_ID == _empid
+                    select new EmergencyContactInfo
+                    {
+                        ContactPerson   = d.Contact_person,
+                        ContactAdd      = d.Contact_Address,
+                        ContactNo       = d.Contact_No,
+                        ContactRelation = d.Contact_relation
+                    }).SingleOrDefault();
+
+            return _obj;
         }
 
-       
+        public EmploymentInfo GetCurrentEmployment(int _empid)
+        {
+            EmploymentInfo _obj = new EmploymentInfo();
+
+            _obj = (from d in _conn.Employees
+                    join c in _conn.REC_CLIENT on d.client_id equals c.id
+                    join e in _conn.REC_CLIENT on d.employer_id equals e.id
+                    join b in _conn.Branches on d.Branch_ID equals b.Branch_ID
+                    join dept in _conn.Departments on d.Department_ID equals dept.Dept_ID
+                    join et in _conn.EmployeeTypes on d.EmpType_ID equals et.EmpType_ID
+                    join s in _conn.Shifts on d.Shift_ID equals s.Shift_ID
+                    where d.Emp_ID == _empid
+                    select d).AsEnumerable()
+                  .Select(x => new EmploymentInfo()
+                    {
+                        EmployerName        = x.REC_CLIENT1.client_name,
+                        ClientName          = x.REC_CLIENT.client_name,
+                        Branch              = x.Branch.Branch_Desc,
+                        Department          = x.Department.Dept_Name,
+                        Position            = x.Position,
+                        EmployeeType        = x.EmployeeType.EmpType_Desc,
+                        ShiftSched          = x.Shift.Description,
+                        DateHired           = DateTime.Parse(x.Datehired.Value.ToShortDateString())
+                  }).SingleOrDefault();
+
+            return _obj;
+        }
+
+        public EmployeeEducation GetEmployeeEducation(string GuId)
+        {
+            //get empid
+            int _empid = _globalrepository.GetEmployeeKey(GuId).EmpId;
+            EmployeeEducation _education = new EmployeeEducation
+            {
+                EducationalBackgroundList = GetEducation(_empid)
+            };
+
+            return _education;
+        }
+
+        public List<EducationalBackgroundViewModel> GetEducation(int _empid)
+        {
+
+            List<EducationalBackgroundViewModel> _obj = new List<EducationalBackgroundViewModel>();
+
+            _obj = (from d in _conn.REC_CANDIDATE_EDUCATION
+                    join l in _conn.REC_CANDIDATE_EMPLOYEE_LINK on d.candidate_id equals l.candidate_id
+                    join sl in _conn.SchoolLevels on d.SchoolLevelID equals sl.LevelID
+                    join dg in _conn.Degrees on d.DegreeID equals dg.DegreeID
+                    where l.emp_id == _empid
+                    select d).AsEnumerable()
+                  .Select(x => new EducationalBackgroundViewModel()
+                  {
+                      Level         = x.SchoolLevel.SchoolLevelDescn,
+                      SchoolName    = x.School.SchoolName,
+                      Degree        = x.Degree.DegreeName,
+                      Period        = x.School_From.Value.Year + "-" + x.School_To.Value.Year,
+                      Graduate      = x.Graduated.Value == true ? "Graduate" : "Under Graduate"
+                  }).ToList();
+
+            return _obj;
+        }
+
+        //public List<PreviousEmploymentViewModel> GetPreviousEmployment(int _empid)
+        //{
+
+        //    List<PreviousEmploymentViewModel> _obj = new List<PreviousEmploymentViewModel>();
+
+        //    _obj = (from d in _conn.REC_CANDIDATE_EDUCATION
+        //            join l in _conn.REC_CANDIDATE_EMPLOYEE_LINK on d.candidate_id equals l.candidate_id
+        //            join sl in _conn.SchoolLevels on d.SchoolLevelID equals sl.LevelID
+        //            join dg in _conn.Degrees on d.DegreeID equals dg.DegreeID
+        //            where l.emp_id == _empid
+        //            select d).AsEnumerable()
+        //          .Select(x => new PreviousEmploymentViewModel()
+        //          {
+
+        //          }).ToList();
+
+        //    return _obj;
+        //}
     }
 }
