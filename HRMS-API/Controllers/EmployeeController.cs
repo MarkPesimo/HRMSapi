@@ -42,13 +42,33 @@ namespace HRMS_API.Controllers
             }
         }
 
-        [Route("api/Employee/Employees/Profile/{Keyword}")]
+        [Route("api/Employee/GetPersonalInfo/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetPersonalInfo(string GUID)
         {
             try
             {
                 EmployeeProfile _model = Employeerepository.GetEmployeeProfile(GUID);
+                if (_model != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/GetEmployeeEducation/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetEmployeeEducation(string GUID)
+        {
+            try
+            {
+                EmployeeEducation _model = Employeerepository.GetEmployeeEducation(GUID);
                 if (_model != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, _model);

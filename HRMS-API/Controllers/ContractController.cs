@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using static HRModel.ViewModel.Contract.EmployeeTransaction.EmployeeTransaction;
 using static HRModel.ViewModel.Global.GlobalSearch_models;
 
 namespace HRMS_API.Controllers
@@ -19,11 +20,13 @@ namespace HRMS_API.Controllers
     {
         private ContractRepository Contractrepository { get; set; }
         private GlobalRepository GlobalRepository { get; set; }
+        private EmployeeRepository EmployeeRepository { get; set; }
 
         public ContractController()
         {
             if (Contractrepository == null) { Contractrepository = new ContractRepository(); }
             if (GlobalRepository == null) { GlobalRepository = new GlobalRepository(); }
+            if (EmployeeRepository == null) { EmployeeRepository = new EmployeeRepository(); }
         }
 
         [Route("api/Contract/GetMonitoring/{_clientid}/{_keyword}/{_bydate}/{_stage}/{_from}/{_to}/{_bycontractstatus}/{_contractstatus}/{_byemployeetype}/{_employeetypeid}/{_byuserhired}/{_userid}/{_company_id}")]
@@ -236,6 +239,106 @@ namespace HRMS_API.Controllers
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save contract transaction.");
                 }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+
+        //==========================CONTRACT EXTENSION==============================
+        [Route("api/Contract/Extension")]
+        [HttpPost]
+        public HttpResponseMessage Extension([FromBody] Contract model)
+        {
+            try
+            {
+                model.HireType = "Extension";
+                model.mode = 5;
+
+                int result = Contractrepository.ManageContract(model);
+
+                if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Contract transaction successfully extend."); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save contract transaction."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+        //==========================CONTRACT EXTENSION==============================
+
+        //==========================CONTRACT REHIRE==============================
+        [Route("api/Contract/Rehire")]
+        [HttpPost]
+        public HttpResponseMessage Rehire([FromBody] EmployeeRehire_model model)
+        {
+            try
+            {
+                int result = Contractrepository.ManageRehire(model);
+
+                if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Contract transaction successfully Rehire."); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save contract transaction."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+        //==========================CONTRACT REHIRE==============================
+
+
+        //==========================CONTRACT REMARKS==============================
+        [Route("api/Contract/Remarks/{Id}/{Var}")]
+        [HttpGet]
+        public HttpResponseMessage Remarks(int Id, int Var)
+        {
+            try
+            {
+                ContractRemarks _model = Contractrepository.GetContractRemark(Id);
+
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+        
+        [Route("api/Contract/Remarks/{ContractId}")]
+        [HttpGet]
+        public HttpResponseMessage Remarks(int ContractId)
+        {
+            try
+            {
+                List<ContractRemarks> _model = Contractrepository.GetContractRemarks(ContractId);
+
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Contract/ManageContractRemarks")]
+        [HttpPost]
+        public HttpResponseMessage ManageContractRemarks([FromBody] ContractRemarks model)
+        {
+            try
+            {
+                int result = Contractrepository.ManageContractRemarks(model);
+
+                if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Contract remarks successfully saved."); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save contract transaction."); }
             }
             catch (Exception ex)
             {

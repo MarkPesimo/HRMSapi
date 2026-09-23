@@ -52,9 +52,19 @@ namespace HRMS.DB
         public virtual DbSet<REC_CLIENT_DEPARTMENT> REC_CLIENT_DEPARTMENT { get; set; }
         public virtual DbSet<REC_CLIENT_SHIFT> REC_CLIENT_SHIFT { get; set; }
         public virtual DbSet<Shift> Shifts { get; set; }
+        public virtual DbSet<Separation_Reason> Separation_Reason { get; set; }
+        public virtual DbSet<Employee_Separation> Employee_Separation { get; set; }
         public virtual DbSet<REC_NEW_HIRED_EMPLOYEE> REC_NEW_HIRED_EMPLOYEE { get; set; }
-        public virtual DbSet<LoanTransaction> LoanTransactions { get; set; }
-        public virtual DbSet<LeaveType> LeaveTypes { get; set; }
+        public virtual DbSet<REC_NEW_HIRED_EMPLOYEE_REMARKS> REC_NEW_HIRED_EMPLOYEE_REMARKS { get; set; }
+        public virtual DbSet<HELPDESK_CONCERN> HELPDESK_CONCERN { get; set; }
+        public virtual DbSet<HELPDESK_CONCERN_THREAD> HELPDESK_CONCERN_THREAD { get; set; }
+        public virtual DbSet<HELPDESK_CONCERN_TYPE> HELPDESK_CONCERN_TYPE { get; set; }
+        public virtual DbSet<REC_CANDIDATE_DOCUMENT> REC_CANDIDATE_DOCUMENT { get; set; }
+        public virtual DbSet<REC_CANDIDATE_EDUCATION> REC_CANDIDATE_EDUCATION { get; set; }
+        public virtual DbSet<AreaLibrary> AreaLibraries { get; set; }
+        public virtual DbSet<Degree> Degrees { get; set; }
+        public virtual DbSet<SchoolLevel> SchoolLevels { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
     
         public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
         {
@@ -717,19 +727,435 @@ namespace HRMS.DB
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_CLIENTS_BY_COMPANY_Result>("USP_H_GET_CLIENTS_BY_COMPANY", company_idParameter);
         }
     
-        public virtual int USP_H_MANAGE_LEAVE_ACCEPT(Nullable<int> iD, Nullable<int> p_LEAVE_ID, Nullable<System.DateTime> dATE_ACCEPTED, string rEMARKS, Nullable<int> mODE, Nullable<int> uSER_ID, ObjectParameter rET_ID)
+        public virtual int SP_MANAGE_EMPLOYEE_SEPARATION(Nullable<int> mODE, Nullable<int> iD, Nullable<int> eMPID, Nullable<int> rEASON_ID, Nullable<int> uSERID, string rEMARKS, Nullable<System.DateTime> sEPARATION_DATE, Nullable<System.DateTime> cLEARANCE_DATE, Nullable<bool> wITH_CLEARANCE, Nullable<System.DateTime> qUITCLAIM_DATE, Nullable<bool> wITH_QUITCLAIM, Nullable<System.DateTime> cOE_DATE, Nullable<bool> wITH_COE, Nullable<System.DateTime> tERMINATION_DATE, Nullable<bool> wITH_TERMINATION, Nullable<bool> iS_HISTORY, string dOCUMENT_REMARKS, string dOCUMENT_LOCATION, Nullable<int> dOCUMENTTYPE_ID, Nullable<int> dOCUMENTID, Nullable<bool> oVERALL_STATUS, Nullable<System.DateTime> oVERALL_STATUS_DATE, ObjectParameter rETURN_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var eMPIDParameter = eMPID.HasValue ?
+                new ObjectParameter("EMPID", eMPID) :
+                new ObjectParameter("EMPID", typeof(int));
+    
+            var rEASON_IDParameter = rEASON_ID.HasValue ?
+                new ObjectParameter("REASON_ID", rEASON_ID) :
+                new ObjectParameter("REASON_ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            var sEPARATION_DATEParameter = sEPARATION_DATE.HasValue ?
+                new ObjectParameter("SEPARATION_DATE", sEPARATION_DATE) :
+                new ObjectParameter("SEPARATION_DATE", typeof(System.DateTime));
+    
+            var cLEARANCE_DATEParameter = cLEARANCE_DATE.HasValue ?
+                new ObjectParameter("CLEARANCE_DATE", cLEARANCE_DATE) :
+                new ObjectParameter("CLEARANCE_DATE", typeof(System.DateTime));
+    
+            var wITH_CLEARANCEParameter = wITH_CLEARANCE.HasValue ?
+                new ObjectParameter("WITH_CLEARANCE", wITH_CLEARANCE) :
+                new ObjectParameter("WITH_CLEARANCE", typeof(bool));
+    
+            var qUITCLAIM_DATEParameter = qUITCLAIM_DATE.HasValue ?
+                new ObjectParameter("QUITCLAIM_DATE", qUITCLAIM_DATE) :
+                new ObjectParameter("QUITCLAIM_DATE", typeof(System.DateTime));
+    
+            var wITH_QUITCLAIMParameter = wITH_QUITCLAIM.HasValue ?
+                new ObjectParameter("WITH_QUITCLAIM", wITH_QUITCLAIM) :
+                new ObjectParameter("WITH_QUITCLAIM", typeof(bool));
+    
+            var cOE_DATEParameter = cOE_DATE.HasValue ?
+                new ObjectParameter("COE_DATE", cOE_DATE) :
+                new ObjectParameter("COE_DATE", typeof(System.DateTime));
+    
+            var wITH_COEParameter = wITH_COE.HasValue ?
+                new ObjectParameter("WITH_COE", wITH_COE) :
+                new ObjectParameter("WITH_COE", typeof(bool));
+    
+            var tERMINATION_DATEParameter = tERMINATION_DATE.HasValue ?
+                new ObjectParameter("TERMINATION_DATE", tERMINATION_DATE) :
+                new ObjectParameter("TERMINATION_DATE", typeof(System.DateTime));
+    
+            var wITH_TERMINATIONParameter = wITH_TERMINATION.HasValue ?
+                new ObjectParameter("WITH_TERMINATION", wITH_TERMINATION) :
+                new ObjectParameter("WITH_TERMINATION", typeof(bool));
+    
+            var iS_HISTORYParameter = iS_HISTORY.HasValue ?
+                new ObjectParameter("IS_HISTORY", iS_HISTORY) :
+                new ObjectParameter("IS_HISTORY", typeof(bool));
+    
+            var dOCUMENT_REMARKSParameter = dOCUMENT_REMARKS != null ?
+                new ObjectParameter("DOCUMENT_REMARKS", dOCUMENT_REMARKS) :
+                new ObjectParameter("DOCUMENT_REMARKS", typeof(string));
+    
+            var dOCUMENT_LOCATIONParameter = dOCUMENT_LOCATION != null ?
+                new ObjectParameter("DOCUMENT_LOCATION", dOCUMENT_LOCATION) :
+                new ObjectParameter("DOCUMENT_LOCATION", typeof(string));
+    
+            var dOCUMENTTYPE_IDParameter = dOCUMENTTYPE_ID.HasValue ?
+                new ObjectParameter("DOCUMENTTYPE_ID", dOCUMENTTYPE_ID) :
+                new ObjectParameter("DOCUMENTTYPE_ID", typeof(int));
+    
+            var dOCUMENTIDParameter = dOCUMENTID.HasValue ?
+                new ObjectParameter("DOCUMENTID", dOCUMENTID) :
+                new ObjectParameter("DOCUMENTID", typeof(int));
+    
+            var oVERALL_STATUSParameter = oVERALL_STATUS.HasValue ?
+                new ObjectParameter("OVERALL_STATUS", oVERALL_STATUS) :
+                new ObjectParameter("OVERALL_STATUS", typeof(bool));
+    
+            var oVERALL_STATUS_DATEParameter = oVERALL_STATUS_DATE.HasValue ?
+                new ObjectParameter("OVERALL_STATUS_DATE", oVERALL_STATUS_DATE) :
+                new ObjectParameter("OVERALL_STATUS_DATE", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MANAGE_EMPLOYEE_SEPARATION", mODEParameter, iDParameter, eMPIDParameter, rEASON_IDParameter, uSERIDParameter, rEMARKSParameter, sEPARATION_DATEParameter, cLEARANCE_DATEParameter, wITH_CLEARANCEParameter, qUITCLAIM_DATEParameter, wITH_QUITCLAIMParameter, cOE_DATEParameter, wITH_COEParameter, tERMINATION_DATEParameter, wITH_TERMINATIONParameter, iS_HISTORYParameter, dOCUMENT_REMARKSParameter, dOCUMENT_LOCATIONParameter, dOCUMENTTYPE_IDParameter, dOCUMENTIDParameter, oVERALL_STATUSParameter, oVERALL_STATUS_DATEParameter, rETURN_ID);
+        }
+    
+        public virtual int SP_MANAGE_EMPLOYEE(Nullable<int> eMPID, string eMPNO, string fNAME, string lNAME, string mNAME, Nullable<System.DateTime> bDATE, string gENDER, string cIVISSTATUS, string hEIGHT, string wEIGHT, string cITIZENSHIP, string bPLACE, string aDDRESS, string pROVADDRESS, string rELIGION, string hOMEMOBILENO, string eMAIL, string cONTACTPERSON, string cONTACTNO, string cONTACTRELATION, string cONTACTADDRESS, string sPOUSENAME, string sPOUSECOMPANY, string sPOUSECOMADDRESS, Nullable<int> cOMPID, Nullable<int> dEPTID, string pOSITION, Nullable<int> eMPRANKID, Nullable<int> eMPTYPEID, Nullable<int> sHIFTID, Nullable<int> bRANCHID, Nullable<int> sALARYTYPEID, string pHILHEALTHNO, string pAGIBIGNO, string tINNO, Nullable<System.DateTime> dATEHIRED, Nullable<System.DateTime> dATEREGULAR, Nullable<System.DateTime> dATERESIGNED, Nullable<short> aCTIVEINACTIVE, string sSSNO, Nullable<int> mODE, Nullable<int> uSERID, ObjectParameter rETURN_ID, byte[] iMAGEFILE, string rESIGNEDREMARKS, string hOBBIES, Nullable<System.DateTime> cONTRACTSTART, Nullable<System.DateTime> cONTRACTEND, Nullable<int> cITYID, Nullable<int> pROVINCEID, Nullable<int> cLIENT_ID, string pAY_TYPE, Nullable<int> bANK_ID, Nullable<int> cONTRACTTYPEID, Nullable<int> eMPLOYEE_PROCESSINGTYPE, Nullable<decimal> mONTHLYSALARY, Nullable<decimal> rICE_ALLOWANCE, Nullable<decimal> mEALALLOWANCE, Nullable<decimal> aLLOWANCE, Nullable<decimal> cAR_ALLOWANCE, Nullable<decimal> cOMMISSION, Nullable<decimal> pAGIBIGCONT, Nullable<int> eMPLOYER_ID, Nullable<bool> iS_MINIMUM, Nullable<bool> iS_CONFIDENTIAL, Nullable<bool> wITH_VAT, Nullable<decimal> tAX_PERCENTAGE, Nullable<int> fUNC_ID)
+        {
+            var eMPIDParameter = eMPID.HasValue ?
+                new ObjectParameter("EMPID", eMPID) :
+                new ObjectParameter("EMPID", typeof(int));
+    
+            var eMPNOParameter = eMPNO != null ?
+                new ObjectParameter("EMPNO", eMPNO) :
+                new ObjectParameter("EMPNO", typeof(string));
+    
+            var fNAMEParameter = fNAME != null ?
+                new ObjectParameter("FNAME", fNAME) :
+                new ObjectParameter("FNAME", typeof(string));
+    
+            var lNAMEParameter = lNAME != null ?
+                new ObjectParameter("LNAME", lNAME) :
+                new ObjectParameter("LNAME", typeof(string));
+    
+            var mNAMEParameter = mNAME != null ?
+                new ObjectParameter("MNAME", mNAME) :
+                new ObjectParameter("MNAME", typeof(string));
+    
+            var bDATEParameter = bDATE.HasValue ?
+                new ObjectParameter("BDATE", bDATE) :
+                new ObjectParameter("BDATE", typeof(System.DateTime));
+    
+            var gENDERParameter = gENDER != null ?
+                new ObjectParameter("GENDER", gENDER) :
+                new ObjectParameter("GENDER", typeof(string));
+    
+            var cIVISSTATUSParameter = cIVISSTATUS != null ?
+                new ObjectParameter("CIVISSTATUS", cIVISSTATUS) :
+                new ObjectParameter("CIVISSTATUS", typeof(string));
+    
+            var hEIGHTParameter = hEIGHT != null ?
+                new ObjectParameter("HEIGHT", hEIGHT) :
+                new ObjectParameter("HEIGHT", typeof(string));
+    
+            var wEIGHTParameter = wEIGHT != null ?
+                new ObjectParameter("WEIGHT", wEIGHT) :
+                new ObjectParameter("WEIGHT", typeof(string));
+    
+            var cITIZENSHIPParameter = cITIZENSHIP != null ?
+                new ObjectParameter("CITIZENSHIP", cITIZENSHIP) :
+                new ObjectParameter("CITIZENSHIP", typeof(string));
+    
+            var bPLACEParameter = bPLACE != null ?
+                new ObjectParameter("BPLACE", bPLACE) :
+                new ObjectParameter("BPLACE", typeof(string));
+    
+            var aDDRESSParameter = aDDRESS != null ?
+                new ObjectParameter("ADDRESS", aDDRESS) :
+                new ObjectParameter("ADDRESS", typeof(string));
+    
+            var pROVADDRESSParameter = pROVADDRESS != null ?
+                new ObjectParameter("PROVADDRESS", pROVADDRESS) :
+                new ObjectParameter("PROVADDRESS", typeof(string));
+    
+            var rELIGIONParameter = rELIGION != null ?
+                new ObjectParameter("RELIGION", rELIGION) :
+                new ObjectParameter("RELIGION", typeof(string));
+    
+            var hOMEMOBILENOParameter = hOMEMOBILENO != null ?
+                new ObjectParameter("HOMEMOBILENO", hOMEMOBILENO) :
+                new ObjectParameter("HOMEMOBILENO", typeof(string));
+    
+            var eMAILParameter = eMAIL != null ?
+                new ObjectParameter("EMAIL", eMAIL) :
+                new ObjectParameter("EMAIL", typeof(string));
+    
+            var cONTACTPERSONParameter = cONTACTPERSON != null ?
+                new ObjectParameter("CONTACTPERSON", cONTACTPERSON) :
+                new ObjectParameter("CONTACTPERSON", typeof(string));
+    
+            var cONTACTNOParameter = cONTACTNO != null ?
+                new ObjectParameter("CONTACTNO", cONTACTNO) :
+                new ObjectParameter("CONTACTNO", typeof(string));
+    
+            var cONTACTRELATIONParameter = cONTACTRELATION != null ?
+                new ObjectParameter("CONTACTRELATION", cONTACTRELATION) :
+                new ObjectParameter("CONTACTRELATION", typeof(string));
+    
+            var cONTACTADDRESSParameter = cONTACTADDRESS != null ?
+                new ObjectParameter("CONTACTADDRESS", cONTACTADDRESS) :
+                new ObjectParameter("CONTACTADDRESS", typeof(string));
+    
+            var sPOUSENAMEParameter = sPOUSENAME != null ?
+                new ObjectParameter("SPOUSENAME", sPOUSENAME) :
+                new ObjectParameter("SPOUSENAME", typeof(string));
+    
+            var sPOUSECOMPANYParameter = sPOUSECOMPANY != null ?
+                new ObjectParameter("SPOUSECOMPANY", sPOUSECOMPANY) :
+                new ObjectParameter("SPOUSECOMPANY", typeof(string));
+    
+            var sPOUSECOMADDRESSParameter = sPOUSECOMADDRESS != null ?
+                new ObjectParameter("SPOUSECOMADDRESS", sPOUSECOMADDRESS) :
+                new ObjectParameter("SPOUSECOMADDRESS", typeof(string));
+    
+            var cOMPIDParameter = cOMPID.HasValue ?
+                new ObjectParameter("COMPID", cOMPID) :
+                new ObjectParameter("COMPID", typeof(int));
+    
+            var dEPTIDParameter = dEPTID.HasValue ?
+                new ObjectParameter("DEPTID", dEPTID) :
+                new ObjectParameter("DEPTID", typeof(int));
+    
+            var pOSITIONParameter = pOSITION != null ?
+                new ObjectParameter("POSITION", pOSITION) :
+                new ObjectParameter("POSITION", typeof(string));
+    
+            var eMPRANKIDParameter = eMPRANKID.HasValue ?
+                new ObjectParameter("EMPRANKID", eMPRANKID) :
+                new ObjectParameter("EMPRANKID", typeof(int));
+    
+            var eMPTYPEIDParameter = eMPTYPEID.HasValue ?
+                new ObjectParameter("EMPTYPEID", eMPTYPEID) :
+                new ObjectParameter("EMPTYPEID", typeof(int));
+    
+            var sHIFTIDParameter = sHIFTID.HasValue ?
+                new ObjectParameter("SHIFTID", sHIFTID) :
+                new ObjectParameter("SHIFTID", typeof(int));
+    
+            var bRANCHIDParameter = bRANCHID.HasValue ?
+                new ObjectParameter("BRANCHID", bRANCHID) :
+                new ObjectParameter("BRANCHID", typeof(int));
+    
+            var sALARYTYPEIDParameter = sALARYTYPEID.HasValue ?
+                new ObjectParameter("SALARYTYPEID", sALARYTYPEID) :
+                new ObjectParameter("SALARYTYPEID", typeof(int));
+    
+            var pHILHEALTHNOParameter = pHILHEALTHNO != null ?
+                new ObjectParameter("PHILHEALTHNO", pHILHEALTHNO) :
+                new ObjectParameter("PHILHEALTHNO", typeof(string));
+    
+            var pAGIBIGNOParameter = pAGIBIGNO != null ?
+                new ObjectParameter("PAGIBIGNO", pAGIBIGNO) :
+                new ObjectParameter("PAGIBIGNO", typeof(string));
+    
+            var tINNOParameter = tINNO != null ?
+                new ObjectParameter("TINNO", tINNO) :
+                new ObjectParameter("TINNO", typeof(string));
+    
+            var dATEHIREDParameter = dATEHIRED.HasValue ?
+                new ObjectParameter("DATEHIRED", dATEHIRED) :
+                new ObjectParameter("DATEHIRED", typeof(System.DateTime));
+    
+            var dATEREGULARParameter = dATEREGULAR.HasValue ?
+                new ObjectParameter("DATEREGULAR", dATEREGULAR) :
+                new ObjectParameter("DATEREGULAR", typeof(System.DateTime));
+    
+            var dATERESIGNEDParameter = dATERESIGNED.HasValue ?
+                new ObjectParameter("DATERESIGNED", dATERESIGNED) :
+                new ObjectParameter("DATERESIGNED", typeof(System.DateTime));
+    
+            var aCTIVEINACTIVEParameter = aCTIVEINACTIVE.HasValue ?
+                new ObjectParameter("ACTIVEINACTIVE", aCTIVEINACTIVE) :
+                new ObjectParameter("ACTIVEINACTIVE", typeof(short));
+    
+            var sSSNOParameter = sSSNO != null ?
+                new ObjectParameter("SSSNO", sSSNO) :
+                new ObjectParameter("SSSNO", typeof(string));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var iMAGEFILEParameter = iMAGEFILE != null ?
+                new ObjectParameter("IMAGEFILE", iMAGEFILE) :
+                new ObjectParameter("IMAGEFILE", typeof(byte[]));
+    
+            var rESIGNEDREMARKSParameter = rESIGNEDREMARKS != null ?
+                new ObjectParameter("RESIGNEDREMARKS", rESIGNEDREMARKS) :
+                new ObjectParameter("RESIGNEDREMARKS", typeof(string));
+    
+            var hOBBIESParameter = hOBBIES != null ?
+                new ObjectParameter("HOBBIES", hOBBIES) :
+                new ObjectParameter("HOBBIES", typeof(string));
+    
+            var cONTRACTSTARTParameter = cONTRACTSTART.HasValue ?
+                new ObjectParameter("CONTRACTSTART", cONTRACTSTART) :
+                new ObjectParameter("CONTRACTSTART", typeof(System.DateTime));
+    
+            var cONTRACTENDParameter = cONTRACTEND.HasValue ?
+                new ObjectParameter("CONTRACTEND", cONTRACTEND) :
+                new ObjectParameter("CONTRACTEND", typeof(System.DateTime));
+    
+            var cITYIDParameter = cITYID.HasValue ?
+                new ObjectParameter("CITYID", cITYID) :
+                new ObjectParameter("CITYID", typeof(int));
+    
+            var pROVINCEIDParameter = pROVINCEID.HasValue ?
+                new ObjectParameter("PROVINCEID", pROVINCEID) :
+                new ObjectParameter("PROVINCEID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var pAY_TYPEParameter = pAY_TYPE != null ?
+                new ObjectParameter("PAY_TYPE", pAY_TYPE) :
+                new ObjectParameter("PAY_TYPE", typeof(string));
+    
+            var bANK_IDParameter = bANK_ID.HasValue ?
+                new ObjectParameter("BANK_ID", bANK_ID) :
+                new ObjectParameter("BANK_ID", typeof(int));
+    
+            var cONTRACTTYPEIDParameter = cONTRACTTYPEID.HasValue ?
+                new ObjectParameter("CONTRACTTYPEID", cONTRACTTYPEID) :
+                new ObjectParameter("CONTRACTTYPEID", typeof(int));
+    
+            var eMPLOYEE_PROCESSINGTYPEParameter = eMPLOYEE_PROCESSINGTYPE.HasValue ?
+                new ObjectParameter("EMPLOYEE_PROCESSINGTYPE", eMPLOYEE_PROCESSINGTYPE) :
+                new ObjectParameter("EMPLOYEE_PROCESSINGTYPE", typeof(int));
+    
+            var mONTHLYSALARYParameter = mONTHLYSALARY.HasValue ?
+                new ObjectParameter("MONTHLYSALARY", mONTHLYSALARY) :
+                new ObjectParameter("MONTHLYSALARY", typeof(decimal));
+    
+            var rICE_ALLOWANCEParameter = rICE_ALLOWANCE.HasValue ?
+                new ObjectParameter("RICE_ALLOWANCE", rICE_ALLOWANCE) :
+                new ObjectParameter("RICE_ALLOWANCE", typeof(decimal));
+    
+            var mEALALLOWANCEParameter = mEALALLOWANCE.HasValue ?
+                new ObjectParameter("MEALALLOWANCE", mEALALLOWANCE) :
+                new ObjectParameter("MEALALLOWANCE", typeof(decimal));
+    
+            var aLLOWANCEParameter = aLLOWANCE.HasValue ?
+                new ObjectParameter("ALLOWANCE", aLLOWANCE) :
+                new ObjectParameter("ALLOWANCE", typeof(decimal));
+    
+            var cAR_ALLOWANCEParameter = cAR_ALLOWANCE.HasValue ?
+                new ObjectParameter("CAR_ALLOWANCE", cAR_ALLOWANCE) :
+                new ObjectParameter("CAR_ALLOWANCE", typeof(decimal));
+    
+            var cOMMISSIONParameter = cOMMISSION.HasValue ?
+                new ObjectParameter("COMMISSION", cOMMISSION) :
+                new ObjectParameter("COMMISSION", typeof(decimal));
+    
+            var pAGIBIGCONTParameter = pAGIBIGCONT.HasValue ?
+                new ObjectParameter("PAGIBIGCONT", pAGIBIGCONT) :
+                new ObjectParameter("PAGIBIGCONT", typeof(decimal));
+    
+            var eMPLOYER_IDParameter = eMPLOYER_ID.HasValue ?
+                new ObjectParameter("EMPLOYER_ID", eMPLOYER_ID) :
+                new ObjectParameter("EMPLOYER_ID", typeof(int));
+    
+            var iS_MINIMUMParameter = iS_MINIMUM.HasValue ?
+                new ObjectParameter("IS_MINIMUM", iS_MINIMUM) :
+                new ObjectParameter("IS_MINIMUM", typeof(bool));
+    
+            var iS_CONFIDENTIALParameter = iS_CONFIDENTIAL.HasValue ?
+                new ObjectParameter("IS_CONFIDENTIAL", iS_CONFIDENTIAL) :
+                new ObjectParameter("IS_CONFIDENTIAL", typeof(bool));
+    
+            var wITH_VATParameter = wITH_VAT.HasValue ?
+                new ObjectParameter("WITH_VAT", wITH_VAT) :
+                new ObjectParameter("WITH_VAT", typeof(bool));
+    
+            var tAX_PERCENTAGEParameter = tAX_PERCENTAGE.HasValue ?
+                new ObjectParameter("TAX_PERCENTAGE", tAX_PERCENTAGE) :
+                new ObjectParameter("TAX_PERCENTAGE", typeof(decimal));
+    
+            var fUNC_IDParameter = fUNC_ID.HasValue ?
+                new ObjectParameter("FUNC_ID", fUNC_ID) :
+                new ObjectParameter("FUNC_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MANAGE_EMPLOYEE", eMPIDParameter, eMPNOParameter, fNAMEParameter, lNAMEParameter, mNAMEParameter, bDATEParameter, gENDERParameter, cIVISSTATUSParameter, hEIGHTParameter, wEIGHTParameter, cITIZENSHIPParameter, bPLACEParameter, aDDRESSParameter, pROVADDRESSParameter, rELIGIONParameter, hOMEMOBILENOParameter, eMAILParameter, cONTACTPERSONParameter, cONTACTNOParameter, cONTACTRELATIONParameter, cONTACTADDRESSParameter, sPOUSENAMEParameter, sPOUSECOMPANYParameter, sPOUSECOMADDRESSParameter, cOMPIDParameter, dEPTIDParameter, pOSITIONParameter, eMPRANKIDParameter, eMPTYPEIDParameter, sHIFTIDParameter, bRANCHIDParameter, sALARYTYPEIDParameter, pHILHEALTHNOParameter, pAGIBIGNOParameter, tINNOParameter, dATEHIREDParameter, dATEREGULARParameter, dATERESIGNEDParameter, aCTIVEINACTIVEParameter, sSSNOParameter, mODEParameter, uSERIDParameter, rETURN_ID, iMAGEFILEParameter, rESIGNEDREMARKSParameter, hOBBIESParameter, cONTRACTSTARTParameter, cONTRACTENDParameter, cITYIDParameter, pROVINCEIDParameter, cLIENT_IDParameter, pAY_TYPEParameter, bANK_IDParameter, cONTRACTTYPEIDParameter, eMPLOYEE_PROCESSINGTYPEParameter, mONTHLYSALARYParameter, rICE_ALLOWANCEParameter, mEALALLOWANCEParameter, aLLOWANCEParameter, cAR_ALLOWANCEParameter, cOMMISSIONParameter, pAGIBIGCONTParameter, eMPLOYER_IDParameter, iS_MINIMUMParameter, iS_CONFIDENTIALParameter, wITH_VATParameter, tAX_PERCENTAGEParameter, fUNC_IDParameter);
+        }
+    
+        public virtual ObjectResult<USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result1> USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING(Nullable<bool> bY_STATUS, Nullable<bool> sTATUS, string kEYWORD)
+        {
+            var bY_STATUSParameter = bY_STATUS.HasValue ?
+                new ObjectParameter("BY_STATUS", bY_STATUS) :
+                new ObjectParameter("BY_STATUS", typeof(bool));
+    
+            var sTATUSParameter = sTATUS.HasValue ?
+                new ObjectParameter("STATUS", sTATUS) :
+                new ObjectParameter("STATUS", typeof(bool));
+    
+            var kEYWORDParameter = kEYWORD != null ?
+                new ObjectParameter("KEYWORD", kEYWORD) :
+                new ObjectParameter("KEYWORD", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result1>("USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING", bY_STATUSParameter, sTATUSParameter, kEYWORDParameter);
+        }
+    
+        public virtual int USP_H_MANAGE_EMPLOYEE_SEPARATION_REOPEN(Nullable<int> iD, Nullable<int> tRAN_ID, Nullable<int> sEPARATION_ID, Nullable<int> rEQUESTED_BY, string rEASON, Nullable<int> cREATED_BY, Nullable<int> mODE)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
                 new ObjectParameter("ID", typeof(int));
     
-            var p_LEAVE_IDParameter = p_LEAVE_ID.HasValue ?
-                new ObjectParameter("P_LEAVE_ID", p_LEAVE_ID) :
-                new ObjectParameter("P_LEAVE_ID", typeof(int));
+            var tRAN_IDParameter = tRAN_ID.HasValue ?
+                new ObjectParameter("TRAN_ID", tRAN_ID) :
+                new ObjectParameter("TRAN_ID", typeof(int));
     
-            var dATE_ACCEPTEDParameter = dATE_ACCEPTED.HasValue ?
-                new ObjectParameter("DATE_ACCEPTED", dATE_ACCEPTED) :
-                new ObjectParameter("DATE_ACCEPTED", typeof(System.DateTime));
+            var sEPARATION_IDParameter = sEPARATION_ID.HasValue ?
+                new ObjectParameter("SEPARATION_ID", sEPARATION_ID) :
+                new ObjectParameter("SEPARATION_ID", typeof(int));
+    
+            var rEQUESTED_BYParameter = rEQUESTED_BY.HasValue ?
+                new ObjectParameter("REQUESTED_BY", rEQUESTED_BY) :
+                new ObjectParameter("REQUESTED_BY", typeof(int));
+    
+            var rEASONParameter = rEASON != null ?
+                new ObjectParameter("REASON", rEASON) :
+                new ObjectParameter("REASON", typeof(string));
+    
+            var cREATED_BYParameter = cREATED_BY.HasValue ?
+                new ObjectParameter("CREATED_BY", cREATED_BY) :
+                new ObjectParameter("CREATED_BY", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_EMPLOYEE_SEPARATION_REOPEN", iDParameter, tRAN_IDParameter, sEPARATION_IDParameter, rEQUESTED_BYParameter, rEASONParameter, cREATED_BYParameter, mODEParameter);
+        }
+    
+        public virtual int USP_H_MANAGE_EMPLOYEE_TRANSACTION_REMARKS(Nullable<int> iD, Nullable<int> tRAN_ID, Nullable<int> uSER_ID, string rEMARKS, Nullable<int> mODE, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var tRAN_IDParameter = tRAN_ID.HasValue ?
+                new ObjectParameter("TRAN_ID", tRAN_ID) :
+                new ObjectParameter("TRAN_ID", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
     
             var rEMARKSParameter = rEMARKS != null ?
                 new ObjectParameter("REMARKS", rEMARKS) :
@@ -739,40 +1165,381 @@ namespace HRMS.DB
                 new ObjectParameter("MODE", mODE) :
                 new ObjectParameter("MODE", typeof(int));
     
-            var uSER_IDParameter = uSER_ID.HasValue ?
-                new ObjectParameter("USER_ID", uSER_ID) :
-                new ObjectParameter("USER_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_LEAVE_ACCEPT", iDParameter, p_LEAVE_IDParameter, dATE_ACCEPTEDParameter, rEMARKSParameter, mODEParameter, uSER_IDParameter, rET_ID);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_EMPLOYEE_TRANSACTION_REMARKS", iDParameter, tRAN_IDParameter, uSER_IDParameter, rEMARKSParameter, mODEParameter, rET_ID);
         }
     
-        public virtual int USP_H_MANAGE_LEAVE_REVOKE(Nullable<int> iD, Nullable<int> p_LEAVE_ID, Nullable<System.DateTime> dATE_CREATED, string rEMARKS, Nullable<int> mODE, Nullable<int> uSER_ID, ObjectParameter rET_ID)
+        public virtual ObjectResult<USP_H_GET_EMPLOYEE_NOTE_Result> USP_H_GET_EMPLOYEE_NOTE(Nullable<int> iD)
         {
             var iDParameter = iD.HasValue ?
                 new ObjectParameter("ID", iD) :
                 new ObjectParameter("ID", typeof(int));
     
-            var p_LEAVE_IDParameter = p_LEAVE_ID.HasValue ?
-                new ObjectParameter("P_LEAVE_ID", p_LEAVE_ID) :
-                new ObjectParameter("P_LEAVE_ID", typeof(int));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_EMPLOYEE_NOTE_Result>("USP_H_GET_EMPLOYEE_NOTE", iDParameter);
+        }
+    
+        public virtual ObjectResult<USP_H_GET_ACTIVE_EMPLOYEE_NOTES_Result1> USP_H_GET_ACTIVE_EMPLOYEE_NOTES(Nullable<bool> bY_DATE, Nullable<System.DateTime> dATE_FROM, Nullable<System.DateTime> dATE_TO, Nullable<bool> bY_STATUS, Nullable<bool> sTATUS, Nullable<int> uSER_ID)
+        {
+            var bY_DATEParameter = bY_DATE.HasValue ?
+                new ObjectParameter("BY_DATE", bY_DATE) :
+                new ObjectParameter("BY_DATE", typeof(bool));
+    
+            var dATE_FROMParameter = dATE_FROM.HasValue ?
+                new ObjectParameter("DATE_FROM", dATE_FROM) :
+                new ObjectParameter("DATE_FROM", typeof(System.DateTime));
+    
+            var dATE_TOParameter = dATE_TO.HasValue ?
+                new ObjectParameter("DATE_TO", dATE_TO) :
+                new ObjectParameter("DATE_TO", typeof(System.DateTime));
+    
+            var bY_STATUSParameter = bY_STATUS.HasValue ?
+                new ObjectParameter("BY_STATUS", bY_STATUS) :
+                new ObjectParameter("BY_STATUS", typeof(bool));
+    
+            var sTATUSParameter = sTATUS.HasValue ?
+                new ObjectParameter("STATUS", sTATUS) :
+                new ObjectParameter("STATUS", typeof(bool));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_ACTIVE_EMPLOYEE_NOTES_Result1>("USP_H_GET_ACTIVE_EMPLOYEE_NOTES", bY_DATEParameter, dATE_FROMParameter, dATE_TOParameter, bY_STATUSParameter, sTATUSParameter, uSER_IDParameter);
+        }
+    
+        public virtual ObjectResult<USP_H_GET_EMPLOYEE_NOTES_Result> USP_H_GET_EMPLOYEE_NOTES(Nullable<int> eMP_ID)
+        {
+            var eMP_IDParameter = eMP_ID.HasValue ?
+                new ObjectParameter("EMP_ID", eMP_ID) :
+                new ObjectParameter("EMP_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_EMPLOYEE_NOTES_Result>("USP_H_GET_EMPLOYEE_NOTES", eMP_IDParameter);
+        }
+    
+        public virtual ObjectResult<USP_H_GET_EMPLOYEE_NOTE_COOR_PORTAL_Result> USP_H_GET_EMPLOYEE_NOTE_COOR_PORTAL(Nullable<int> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_EMPLOYEE_NOTE_COOR_PORTAL_Result>("USP_H_GET_EMPLOYEE_NOTE_COOR_PORTAL", iDParameter);
+        }
+    
+        public virtual int USP_H_ADD_CANDIDATE_DOCUMENT(Nullable<int> empID, Nullable<int> addedByID, Nullable<int> docId, string remarks, string fileLocation, ObjectParameter rET_ID)
+        {
+            var empIDParameter = empID.HasValue ?
+                new ObjectParameter("EmpID", empID) :
+                new ObjectParameter("EmpID", typeof(int));
+    
+            var addedByIDParameter = addedByID.HasValue ?
+                new ObjectParameter("AddedByID", addedByID) :
+                new ObjectParameter("AddedByID", typeof(int));
+    
+            var docIdParameter = docId.HasValue ?
+                new ObjectParameter("DocId", docId) :
+                new ObjectParameter("DocId", typeof(int));
+    
+            var remarksParameter = remarks != null ?
+                new ObjectParameter("Remarks", remarks) :
+                new ObjectParameter("Remarks", typeof(string));
+    
+            var fileLocationParameter = fileLocation != null ?
+                new ObjectParameter("FileLocation", fileLocation) :
+                new ObjectParameter("FileLocation", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_ADD_CANDIDATE_DOCUMENT", empIDParameter, addedByIDParameter, docIdParameter, remarksParameter, fileLocationParameter, rET_ID);
+        }
+    
+        public virtual ObjectResult<USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT_Result> USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT(Nullable<int> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT_Result>("USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT", iDParameter);
+        }
+    
+        public virtual int USP_H_MANAGE_ACTIVE_EMPLOYEE_NOTES(Nullable<int> iD, Nullable<int> uSER_ID, Nullable<System.DateTime> dATE_REQUESTED, Nullable<int> eMP_ID, string rEMARKS_TYPE, string eMPLOYMENT_TYPE, string rEMARKS, string tIN_EXT, string pHILHEALTH_EXT, string pAGIBIG_EXT, string sSS_EXT, Nullable<System.DateTime> dATE_COMPLETED, Nullable<int> cOMPLETED_BY, Nullable<int> mODE, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var dATE_REQUESTEDParameter = dATE_REQUESTED.HasValue ?
+                new ObjectParameter("DATE_REQUESTED", dATE_REQUESTED) :
+                new ObjectParameter("DATE_REQUESTED", typeof(System.DateTime));
+    
+            var eMP_IDParameter = eMP_ID.HasValue ?
+                new ObjectParameter("EMP_ID", eMP_ID) :
+                new ObjectParameter("EMP_ID", typeof(int));
+    
+            var rEMARKS_TYPEParameter = rEMARKS_TYPE != null ?
+                new ObjectParameter("REMARKS_TYPE", rEMARKS_TYPE) :
+                new ObjectParameter("REMARKS_TYPE", typeof(string));
+    
+            var eMPLOYMENT_TYPEParameter = eMPLOYMENT_TYPE != null ?
+                new ObjectParameter("EMPLOYMENT_TYPE", eMPLOYMENT_TYPE) :
+                new ObjectParameter("EMPLOYMENT_TYPE", typeof(string));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            var tIN_EXTParameter = tIN_EXT != null ?
+                new ObjectParameter("TIN_EXT", tIN_EXT) :
+                new ObjectParameter("TIN_EXT", typeof(string));
+    
+            var pHILHEALTH_EXTParameter = pHILHEALTH_EXT != null ?
+                new ObjectParameter("PHILHEALTH_EXT", pHILHEALTH_EXT) :
+                new ObjectParameter("PHILHEALTH_EXT", typeof(string));
+    
+            var pAGIBIG_EXTParameter = pAGIBIG_EXT != null ?
+                new ObjectParameter("PAGIBIG_EXT", pAGIBIG_EXT) :
+                new ObjectParameter("PAGIBIG_EXT", typeof(string));
+    
+            var sSS_EXTParameter = sSS_EXT != null ?
+                new ObjectParameter("SSS_EXT", sSS_EXT) :
+                new ObjectParameter("SSS_EXT", typeof(string));
+    
+            var dATE_COMPLETEDParameter = dATE_COMPLETED.HasValue ?
+                new ObjectParameter("DATE_COMPLETED", dATE_COMPLETED) :
+                new ObjectParameter("DATE_COMPLETED", typeof(System.DateTime));
+    
+            var cOMPLETED_BYParameter = cOMPLETED_BY.HasValue ?
+                new ObjectParameter("COMPLETED_BY", cOMPLETED_BY) :
+                new ObjectParameter("COMPLETED_BY", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_ACTIVE_EMPLOYEE_NOTES", iDParameter, uSER_IDParameter, dATE_REQUESTEDParameter, eMP_IDParameter, rEMARKS_TYPEParameter, eMPLOYMENT_TYPEParameter, rEMARKSParameter, tIN_EXTParameter, pHILHEALTH_EXTParameter, pAGIBIG_EXTParameter, sSS_EXTParameter, dATE_COMPLETEDParameter, cOMPLETED_BYParameter, mODEParameter, rET_ID);
+        }
+    
+        public virtual int USP_P_MANAGE_SUBMIT_REQUIRED_DOCUMENT(Nullable<int> iD, Nullable<int> cANDIDATE_ID, Nullable<int> rEQUIRED_DOCUMENT_ID, Nullable<int> dOC_ID, string fILE_TYPE, Nullable<int> mODE, Nullable<int> uSER_ID, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cANDIDATE_IDParameter = cANDIDATE_ID.HasValue ?
+                new ObjectParameter("CANDIDATE_ID", cANDIDATE_ID) :
+                new ObjectParameter("CANDIDATE_ID", typeof(int));
+    
+            var rEQUIRED_DOCUMENT_IDParameter = rEQUIRED_DOCUMENT_ID.HasValue ?
+                new ObjectParameter("REQUIRED_DOCUMENT_ID", rEQUIRED_DOCUMENT_ID) :
+                new ObjectParameter("REQUIRED_DOCUMENT_ID", typeof(int));
+    
+            var dOC_IDParameter = dOC_ID.HasValue ?
+                new ObjectParameter("DOC_ID", dOC_ID) :
+                new ObjectParameter("DOC_ID", typeof(int));
+    
+            var fILE_TYPEParameter = fILE_TYPE != null ?
+                new ObjectParameter("FILE_TYPE", fILE_TYPE) :
+                new ObjectParameter("FILE_TYPE", typeof(string));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_P_MANAGE_SUBMIT_REQUIRED_DOCUMENT", iDParameter, cANDIDATE_IDParameter, rEQUIRED_DOCUMENT_IDParameter, dOC_IDParameter, fILE_TYPEParameter, mODEParameter, uSER_IDParameter, rET_ID);
+        }
+    
+        public virtual int USP_C_MANAGE_COOR_NEW_EMPLOYEE(Nullable<int> iD, Nullable<int> uSER_ID, string rEMARKS, string aTTACHMENT, Nullable<int> mODE, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            var aTTACHMENTParameter = aTTACHMENT != null ?
+                new ObjectParameter("ATTACHMENT", aTTACHMENT) :
+                new ObjectParameter("ATTACHMENT", typeof(string));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_C_MANAGE_COOR_NEW_EMPLOYEE", iDParameter, uSER_IDParameter, rEMARKSParameter, aTTACHMENTParameter, mODEParameter, rET_ID);
+        }
+    
+        public virtual ObjectResult<USP_H_GET_HELPDESK_MONITORING_Result1> USP_H_GET_HELPDESK_MONITORING(Nullable<int> uSER_ID, string uSER_TYPE, Nullable<bool> bY_CONCERN_TYPE, Nullable<int> cONCERN_TYPE_ID, Nullable<bool> bY_CONCERN_STATUS, string cONCERN_STATUS, Nullable<bool> bY_DATE, Nullable<System.DateTime> fROM, Nullable<System.DateTime> tO, string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> cOMPANY_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var uSER_TYPEParameter = uSER_TYPE != null ?
+                new ObjectParameter("USER_TYPE", uSER_TYPE) :
+                new ObjectParameter("USER_TYPE", typeof(string));
+    
+            var bY_CONCERN_TYPEParameter = bY_CONCERN_TYPE.HasValue ?
+                new ObjectParameter("BY_CONCERN_TYPE", bY_CONCERN_TYPE) :
+                new ObjectParameter("BY_CONCERN_TYPE", typeof(bool));
+    
+            var cONCERN_TYPE_IDParameter = cONCERN_TYPE_ID.HasValue ?
+                new ObjectParameter("CONCERN_TYPE_ID", cONCERN_TYPE_ID) :
+                new ObjectParameter("CONCERN_TYPE_ID", typeof(int));
+    
+            var bY_CONCERN_STATUSParameter = bY_CONCERN_STATUS.HasValue ?
+                new ObjectParameter("BY_CONCERN_STATUS", bY_CONCERN_STATUS) :
+                new ObjectParameter("BY_CONCERN_STATUS", typeof(bool));
+    
+            var cONCERN_STATUSParameter = cONCERN_STATUS != null ?
+                new ObjectParameter("CONCERN_STATUS", cONCERN_STATUS) :
+                new ObjectParameter("CONCERN_STATUS", typeof(string));
+    
+            var bY_DATEParameter = bY_DATE.HasValue ?
+                new ObjectParameter("BY_DATE", bY_DATE) :
+                new ObjectParameter("BY_DATE", typeof(bool));
+    
+            var fROMParameter = fROM.HasValue ?
+                new ObjectParameter("FROM", fROM) :
+                new ObjectParameter("FROM", typeof(System.DateTime));
+    
+            var tOParameter = tO.HasValue ?
+                new ObjectParameter("TO", tO) :
+                new ObjectParameter("TO", typeof(System.DateTime));
+    
+            var kEYWORDParameter = kEYWORD != null ?
+                new ObjectParameter("KEYWORD", kEYWORD) :
+                new ObjectParameter("KEYWORD", typeof(string));
+    
+            var bY_CLIENTParameter = bY_CLIENT.HasValue ?
+                new ObjectParameter("BY_CLIENT", bY_CLIENT) :
+                new ObjectParameter("BY_CLIENT", typeof(bool));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var cOMPANY_IDParameter = cOMPANY_ID.HasValue ?
+                new ObjectParameter("COMPANY_ID", cOMPANY_ID) :
+                new ObjectParameter("COMPANY_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_HELPDESK_MONITORING_Result1>("USP_H_GET_HELPDESK_MONITORING", uSER_IDParameter, uSER_TYPEParameter, bY_CONCERN_TYPEParameter, cONCERN_TYPE_IDParameter, bY_CONCERN_STATUSParameter, cONCERN_STATUSParameter, bY_DATEParameter, fROMParameter, tOParameter, kEYWORDParameter, bY_CLIENTParameter, cLIENT_IDParameter, cOMPANY_IDParameter);
+        }
+    
+        public virtual int USP_H_MANAGE_CONCERN(Nullable<int> iD, Nullable<int> uSER_ID, string uSER_TYPE, Nullable<int> cONCERN_TYPE_ID, string cONCERN_DESCRIPTION, Nullable<System.DateTime> dATE_COMPLETED, Nullable<System.DateTime> dATE_CREATED, Nullable<int> mODE, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var uSER_TYPEParameter = uSER_TYPE != null ?
+                new ObjectParameter("USER_TYPE", uSER_TYPE) :
+                new ObjectParameter("USER_TYPE", typeof(string));
+    
+            var cONCERN_TYPE_IDParameter = cONCERN_TYPE_ID.HasValue ?
+                new ObjectParameter("CONCERN_TYPE_ID", cONCERN_TYPE_ID) :
+                new ObjectParameter("CONCERN_TYPE_ID", typeof(int));
+    
+            var cONCERN_DESCRIPTIONParameter = cONCERN_DESCRIPTION != null ?
+                new ObjectParameter("CONCERN_DESCRIPTION", cONCERN_DESCRIPTION) :
+                new ObjectParameter("CONCERN_DESCRIPTION", typeof(string));
+    
+            var dATE_COMPLETEDParameter = dATE_COMPLETED.HasValue ?
+                new ObjectParameter("DATE_COMPLETED", dATE_COMPLETED) :
+                new ObjectParameter("DATE_COMPLETED", typeof(System.DateTime));
     
             var dATE_CREATEDParameter = dATE_CREATED.HasValue ?
                 new ObjectParameter("DATE_CREATED", dATE_CREATED) :
                 new ObjectParameter("DATE_CREATED", typeof(System.DateTime));
     
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_CONCERN", iDParameter, uSER_IDParameter, uSER_TYPEParameter, cONCERN_TYPE_IDParameter, cONCERN_DESCRIPTIONParameter, dATE_COMPLETEDParameter, dATE_CREATEDParameter, mODEParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual int USP_H_MANAGE_CONCERN_THREAD(Nullable<int> iD, Nullable<int> cONCERN_ID, string uSER_TYPE, string rEMARKS, string fILE_LOCATION, string fILE_NAME, string cONTENT_TYPE, Nullable<System.DateTime> dATE_UPLOADED, Nullable<int> mODE, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cONCERN_IDParameter = cONCERN_ID.HasValue ?
+                new ObjectParameter("CONCERN_ID", cONCERN_ID) :
+                new ObjectParameter("CONCERN_ID", typeof(int));
+    
+            var uSER_TYPEParameter = uSER_TYPE != null ?
+                new ObjectParameter("USER_TYPE", uSER_TYPE) :
+                new ObjectParameter("USER_TYPE", typeof(string));
+    
             var rEMARKSParameter = rEMARKS != null ?
                 new ObjectParameter("REMARKS", rEMARKS) :
                 new ObjectParameter("REMARKS", typeof(string));
+    
+            var fILE_LOCATIONParameter = fILE_LOCATION != null ?
+                new ObjectParameter("FILE_LOCATION", fILE_LOCATION) :
+                new ObjectParameter("FILE_LOCATION", typeof(string));
+    
+            var fILE_NAMEParameter = fILE_NAME != null ?
+                new ObjectParameter("FILE_NAME", fILE_NAME) :
+                new ObjectParameter("FILE_NAME", typeof(string));
+    
+            var cONTENT_TYPEParameter = cONTENT_TYPE != null ?
+                new ObjectParameter("CONTENT_TYPE", cONTENT_TYPE) :
+                new ObjectParameter("CONTENT_TYPE", typeof(string));
+    
+            var dATE_UPLOADEDParameter = dATE_UPLOADED.HasValue ?
+                new ObjectParameter("DATE_UPLOADED", dATE_UPLOADED) :
+                new ObjectParameter("DATE_UPLOADED", typeof(System.DateTime));
     
             var mODEParameter = mODE.HasValue ?
                 new ObjectParameter("MODE", mODE) :
                 new ObjectParameter("MODE", typeof(int));
     
-            var uSER_IDParameter = uSER_ID.HasValue ?
-                new ObjectParameter("USER_ID", uSER_ID) :
-                new ObjectParameter("USER_ID", typeof(int));
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_LEAVE_REVOKE", iDParameter, p_LEAVE_IDParameter, dATE_CREATEDParameter, rEMARKSParameter, mODEParameter, uSER_IDParameter, rET_ID);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_CONCERN_THREAD", iDParameter, cONCERN_IDParameter, uSER_TYPEParameter, rEMARKSParameter, fILE_LOCATIONParameter, fILE_NAMEParameter, cONTENT_TYPEParameter, dATE_UPLOADEDParameter, mODEParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual ObjectResult<USP_H_GET_COMMENT_Result> USP_H_GET_COMMENT(Nullable<int> cONCERN_ID, Nullable<int> iD)
+        {
+            var cONCERN_IDParameter = cONCERN_ID.HasValue ?
+                new ObjectParameter("CONCERN_ID", cONCERN_ID) :
+                new ObjectParameter("CONCERN_ID", typeof(int));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_COMMENT_Result>("USP_H_GET_COMMENT", cONCERN_IDParameter, iDParameter);
+        }
+    
+        public virtual ObjectResult<USP_H_GET_COMMENTS_Result> USP_H_GET_COMMENTS(Nullable<int> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_COMMENTS_Result>("USP_H_GET_COMMENTS", iDParameter);
         }
     }
 }

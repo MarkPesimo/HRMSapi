@@ -18,16 +18,15 @@ namespace HRMS_API.Controllers
     {
         public GlobalRepository _globalrepository { get; set; }
         public FloatingRepository _floatingrepository { get; set; }
-        public TransactionRepository _transactionrepository { get; set; }
+        public ContractRepository _contractrepository { get; set; }
         public ReplacementRepository _replacementrepository { get; set; }
 
         public FloatingController()
         {
             if (_floatingrepository == null) { _floatingrepository = new FloatingRepository(); }
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
-            if (_transactionrepository == null) { _transactionrepository = new TransactionRepository(); }
+            if (_contractrepository == null) { _contractrepository = new ContractRepository(); }
             if (_replacementrepository == null) { _replacementrepository = new ReplacementRepository(); }
-
         }
 
         [Route("api/Floating/Reasons")]
@@ -66,7 +65,6 @@ namespace HRMS_API.Controllers
             }
         }
 
-
         [Route("api/Floating/ManageEmployeeFloating")]
         [HttpPost]
         public HttpResponseMessage ManageEmployeeFloating([FromBody] EmployeeFloatingRecord_model model)
@@ -90,7 +88,7 @@ namespace HRMS_API.Controllers
                     //manage contract floating
                     if (model.TransactionId != 0)
                     {
-                        Separation _floating = new Separation();
+                        Floating _floating = new Floating();
 
                         _floating.Id = model.TransactionId;
                         _floating.DateResignationSubmitted = DateTime.Now;
@@ -100,7 +98,7 @@ namespace HRMS_API.Controllers
                         _floating.LoginUserId = model.UserId;
                         _floating.Mode = 3;
 
-                        _id = _transactionrepository.ManageEmployeeContractFloating(_floating);
+                        _id = _contractrepository.ManageEmployeeContractFloating(_floating);
 
                         if (_id > 0)
                         {
@@ -129,6 +127,56 @@ namespace HRMS_API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
             }
 
+        }
+
+        [Route("api/Floating/UpdateFloatingDate")]
+        [HttpPost]
+        public HttpResponseMessage UpdateFloatingDate([FromBody] Floating model)
+        {
+            try
+            {
+                if (model.DateSeparated < DateTime.Now.Date || model.DateResignationSubmitted < DateTime.Now.Date)
+                {
+                    TransactionLog _log = new TransactionLog();
+                    _log.TranId = model.Id;
+                    _log.TranAction = "Floating";
+                    _log.UserId = model.LoginUserId;
+                    _log.DateValue = model.DateSeparated.Value;
+
+                    _globalrepository.ManageEmployeeTransactionLog(_log);
+                }
+
+                model.FloatingId = 0;
+                model.Mode = 33;
+                model.Id = _contractrepository.ManageEmployeeContractFloating(model);
+
+                if (model.Id != 0) { return Request.CreateResponse(HttpStatusCode.OK, model.Id); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error"); }
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Floating/Link")]
+        [HttpPost]
+        public HttpResponseMessage Link([FromBody] Floating model)
+        {
+            try
+            {
+                model.Mode = 333;
+                model.Id = _contractrepository.ManageEmployeeContractFloating(model);
+
+                if (model.Id != 0) { return Request.CreateResponse(HttpStatusCode.OK, model.Id); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error"); }
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
         }
     }
 }

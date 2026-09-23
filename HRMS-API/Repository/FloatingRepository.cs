@@ -14,6 +14,8 @@ namespace HRMS_API.Repository
         private GlobalRepository _globalrepository { get; set; }
         private UserRepository _userrepository { get; set; }
         private ReplacementRepository _replacementrepository { get; set; }
+        private EmployeeRepository _employeerepository { get; set; }
+        private ContractRepository _contractrepository { get; set; }
 
         public FloatingRepository()
         {
@@ -22,6 +24,8 @@ namespace HRMS_API.Repository
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
             if (_userrepository == null) { _userrepository = new UserRepository(); }
             if (_replacementrepository == null) { _replacementrepository = new ReplacementRepository(); }
+            if (_employeerepository == null) { _employeerepository = new EmployeeRepository(); }
+            if (_contractrepository == null) { _contractrepository = new ContractRepository(); }
         }
 
         public List<FloatingReason_model> GetFloatingReasons()
@@ -45,6 +49,7 @@ namespace HRMS_API.Repository
                {
                    Id = int.Parse(x.id.ToString()),
                    EmpId = x.emp_id,
+                   EmployeeName = _employeerepository.GetEmployeeName(x.emp_id),
                    IsFloating = x.isfloating,
                    FloatingDate = x.floating_date,
                    WithSeparationPay = x.with_separation_pay,
@@ -67,6 +72,7 @@ namespace HRMS_API.Repository
 
                 //jump to REC_NEW_HIRED_EMPLOYEE where id = _obj.transaction
                 //set _obj.ContractStatus = is_history field
+                _obj.ContractStatus = _contractrepository.GetContractStatus(_obj.TransactionId);                
             }
 
             return _obj;
@@ -105,6 +111,8 @@ namespace HRMS_API.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+
 
     }
 }

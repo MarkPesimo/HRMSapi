@@ -24,6 +24,8 @@ namespace HRModel.ViewModel.Employees
         public string Province { get; set; }
         public string PresentAdd { get; set; }
         public string ProvincialAdd { get; set; }
+        public int CityId { get; set; }
+        public int ProvinceId { get; set; }
     }
 
     public class SpouseInfo
@@ -45,6 +47,7 @@ namespace HRModel.ViewModel.Employees
 
     public class EmploymentInfo
     {
+        public int Id { get; set; }
         public int EmpID { get; set; }
         public string EmployerName { get; set; }
         public string ClientName { get; set; }
@@ -58,19 +61,18 @@ namespace HRModel.ViewModel.Employees
 
     public class EducationalBackgroundViewModel
     {
+        public int Id { get; set; }
         public int EmpID { get; set; }
         public string Level { get; set; }
         public string SchoolName { get; set; }
         public string Degree { get; set; }
         public string Period { get; set; }
-        public bool Graduate { get; set; }
-        public string EmployeeType { get; set; }
-        public string ShiftSched { get; set; }
-        public DateTime DateHired { get; set; }
+        public string Graduate { get; set; }
     }
 
     public class EducationalBackgroundModel
     {
+        public int Id { get; set; }
         public int EmpID { get; set; }        
         public string SchoolName { get; set; }
         public string Level { get; set; }
@@ -79,11 +81,15 @@ namespace HRModel.ViewModel.Employees
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public string Remarks { get; set; }
-        public bool Graduate { get; set; }
+        public bool Graduated { get; set; }
+        public int SchoolId { get; set; }
+        public int SchoolLevelId { get; set; }
+        public int DegreeId { get; set; }
     }
 
     public class SkillViewModel
     {
+        public int Id { get; set; }
         public int EmpID { get; set; }
         public string SkillName { get; set; }
         public string Proficiency { get; set; }
@@ -93,15 +99,19 @@ namespace HRModel.ViewModel.Employees
 
     public class SkillModel
     {
+        public int Id { get; set; }
         public int EmpID { get; set; }
         public string SkillName { get; set; }
         public string SkillLevel { get; set; }
         public int YearsOfExperience { get; set; }
         public string Remarks { get; set; }
+        public int SkillId { get; set; }
+        public int SkillLevelId { get; set; }
     }
 
     public class InternalEmploymentViewModel
     {
+        public int Id { get; set; }
         public int EmpID { get; set; }
         public string CompanyName { get; set; }
         public string Position { get; set; }
@@ -111,6 +121,7 @@ namespace HRModel.ViewModel.Employees
 
     public class PreviousEmploymentViewModel
     {
+        public int Id { get; set; }
         public int EmpID { get; set; }
         public string CompanyName { get; set; }
         public string Position { get; set; }
@@ -122,6 +133,7 @@ namespace HRModel.ViewModel.Employees
 
     public class PreviousEmploymentModel
     {
+        public int Id { get; set; }
         public int EmpID { get; set; }
         public string CompanyName { get; set; }
         public string Position { get; set; }
@@ -130,6 +142,7 @@ namespace HRModel.ViewModel.Employees
         public string EmploymentType { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public int EmploymentTypeId { get; set; }
     }
 
     public class EmployeeProfile
@@ -139,10 +152,20 @@ namespace HRModel.ViewModel.Employees
         public SpouseInfo Spouse { get; set; }
         public EmergencyContactInfo EmergencyContact { get; set; }
         public EmploymentInfo CurrentEmployment { get; set; }
+        //public List<SkillViewModel> EmployeeSkillList { get; set; }
+        //public SkillModel EmployeeSkill { get; set; }
+    }
+
+    public class EmployeeEducation
+    {
         public List<EducationalBackgroundViewModel> EducationalBackgroundList { get; set; }
         public EducationalBackgroundModel EducationalBackgroundInfo { get; set; }
-        public List<SkillViewModel> EmployeeSkillList { get; set; }
-        public SkillModel EmployeeSkill { get; set; }
+    }
+
+    public class PreviousEmployment
+    {
+        public List<PreviousEmploymentViewModel> PreviousEmploymentList { get; set; }
+        public PreviousEmploymentModel PreviousEmploymentInfo { get; set; }
     }
 
     public class EmployeeKeys

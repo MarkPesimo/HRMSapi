@@ -20,7 +20,7 @@ namespace HRModel.ViewModel.Floating
             public int Mode { get; set; }
             public int Id { get; set; }
             public int EmpId { get; set; }
-
+            
             public DateTime ReplacementDate { get; set; }
             public string Remarks { get; set; }
 

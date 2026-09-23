@@ -14,6 +14,12 @@ namespace HRMS.DB
     
     public partial class REC_NEW_HIRED_EMPLOYEE
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public REC_NEW_HIRED_EMPLOYEE()
+        {
+            this.REC_NEW_HIRED_EMPLOYEE_REMARKS = new HashSet<REC_NEW_HIRED_EMPLOYEE_REMARKS>();
+        }
+    
         public int id { get; set; }
         public int client_id { get; set; }
         public int emp_id { get; set; }
@@ -52,5 +58,7 @@ namespace HRMS.DB
         public virtual EmployeeType EmployeeType { get; set; }
         public virtual REC_CLIENT REC_CLIENT { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_NEW_HIRED_EMPLOYEE_REMARKS> REC_NEW_HIRED_EMPLOYEE_REMARKS { get; set; }
     }
 }
