@@ -96,6 +96,24 @@
         <AssociationConnector Association="apwdbModel.FK_HELPDESK_CONCERN_HELPDESK_CONCERN_TYPE" />
         <AssociationConnector Association="apwdbModel.FK_HELPDESK_CONCERN_THREAD_HELPDESK_CONCERN" />
         <AssociationConnector Association="apwdbModel.FK_HELPDESK_CONCERN_TYPE_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE_DOCUMENT" Width="2.5" PointX="6.625" PointY="2.375" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_DOCUMENT_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE_EDUCATION" Width="2.75" PointX="6.625" PointY="16.125" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CANDIDATE_EDUCATION_REC_CANDIDATE" />
+        <EntityTypeShape EntityType="apwdbModel.AreaLibrary" Width="1.5" PointX="3.75" PointY="16.375" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.C_FK_Employee_AreaLibrary" />
+        <AssociationConnector Association="apwdbModel.C_FK_Employee_AreaLibrary1" />
+        <AssociationConnector Association="apwdbModel.FK_AreaLibrary_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.Degree" Width="1.5" PointX="3.75" PointY="20.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.SchoolLevel" Width="1.5" PointX="3.75" PointY="24.375" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.FK_Degree_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_EDUCATION_Degree" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_EDUCATION_SchoolLevel" />
+        <AssociationConnector Association="apwdbModel.FK_SchoolLevel_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.School" Width="1.5" PointX="3.75" PointY="28.125" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_EDUCATION_School" />
+        <AssociationConnector Association="apwdbModel.FK_School_SYS_USER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -147,5 +147,7 @@ namespace HRMS.DB
         public virtual ICollection<REC_NEW_HIRED_EMPLOYEE> REC_NEW_HIRED_EMPLOYEE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HELPDESK_CONCERN> HELPDESK_CONCERN { get; set; }
+        public virtual AreaLibrary AreaLibrary { get; set; }
+        public virtual AreaLibrary AreaLibrary1 { get; set; }
     }
 }

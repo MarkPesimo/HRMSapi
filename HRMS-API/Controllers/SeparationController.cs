@@ -96,7 +96,7 @@ namespace HRMS_API.Controllers
                         _separation.SeparationId = _id;
                         _separation.InactiveById = model.UserId;
 
-                        _id = _contractrepository.ManageEmployeeContractSepartion(_separation);
+                        _id = _contractrepository.ManageEmployeeContractSeparation(_separation);
 
                         if (_id > 0)
                         {

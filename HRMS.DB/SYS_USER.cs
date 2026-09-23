@@ -40,6 +40,11 @@ namespace HRMS.DB
             this.REC_NEW_HIRED_EMPLOYEE = new HashSet<REC_NEW_HIRED_EMPLOYEE>();
             this.REC_NEW_HIRED_EMPLOYEE_REMARKS = new HashSet<REC_NEW_HIRED_EMPLOYEE_REMARKS>();
             this.HELPDESK_CONCERN_TYPE = new HashSet<HELPDESK_CONCERN_TYPE>();
+            this.REC_CANDIDATE_DOCUMENT = new HashSet<REC_CANDIDATE_DOCUMENT>();
+            this.AreaLibraries = new HashSet<AreaLibrary>();
+            this.Degrees = new HashSet<Degree>();
+            this.SchoolLevels = new HashSet<SchoolLevel>();
+            this.Schools = new HashSet<School>();
         }
     
         public int id { get; set; }
@@ -99,5 +104,15 @@ namespace HRMS.DB
         public virtual ICollection<REC_NEW_HIRED_EMPLOYEE_REMARKS> REC_NEW_HIRED_EMPLOYEE_REMARKS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HELPDESK_CONCERN_TYPE> HELPDESK_CONCERN_TYPE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CANDIDATE_DOCUMENT> REC_CANDIDATE_DOCUMENT { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AreaLibrary> AreaLibraries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Degree> Degrees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SchoolLevel> SchoolLevels { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<School> Schools { get; set; }
     }
 }

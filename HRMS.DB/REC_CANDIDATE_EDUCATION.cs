@@ -31,8 +31,8 @@ namespace HRMS.DB
         public System.DateTime date_created { get; set; }
     
         public virtual REC_CANDIDATE REC_CANDIDATE { get; set; }
-        public virtual School School { get; set; }
-        public virtual SchoolLevel SchoolLevel { get; set; }
         public virtual Degree Degree { get; set; }
+        public virtual SchoolLevel SchoolLevel { get; set; }
+        public virtual School School { get; set; }
     }
 }

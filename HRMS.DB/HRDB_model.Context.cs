@@ -59,6 +59,12 @@ namespace HRMS.DB
         public virtual DbSet<HELPDESK_CONCERN> HELPDESK_CONCERN { get; set; }
         public virtual DbSet<HELPDESK_CONCERN_THREAD> HELPDESK_CONCERN_THREAD { get; set; }
         public virtual DbSet<HELPDESK_CONCERN_TYPE> HELPDESK_CONCERN_TYPE { get; set; }
+        public virtual DbSet<REC_CANDIDATE_DOCUMENT> REC_CANDIDATE_DOCUMENT { get; set; }
+        public virtual DbSet<REC_CANDIDATE_EDUCATION> REC_CANDIDATE_EDUCATION { get; set; }
+        public virtual DbSet<AreaLibrary> AreaLibraries { get; set; }
+        public virtual DbSet<Degree> Degrees { get; set; }
+        public virtual DbSet<SchoolLevel> SchoolLevels { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
     
         public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
         {

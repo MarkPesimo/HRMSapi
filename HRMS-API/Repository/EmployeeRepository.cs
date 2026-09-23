@@ -21,6 +21,11 @@ namespace HRMS_API.Repository
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
         }
 
+        public string GetEmployeeName(int _empid)
+        {
+            return (from d in _conn.Employees where d.Emp_ID == _empid select d.Lastname + ", " + d.Firstname).ToString();
+        }
+
         public List<EmployeeMonitoringViewModel> GetEmployeeMonitoring(string Keyword, bool ByClient, int ClientID, int PageNo, int PageSize, int CompanyID)
         {
             if (Keyword == "NULL") { Keyword = ""; } 

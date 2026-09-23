@@ -21,7 +21,7 @@ namespace HRMS_API.Controllers
         {
             if (_reactivationrepository == null) { _reactivationrepository = new ReactivationRepository(); }
             if (GlobalRepository == null) { GlobalRepository = new GlobalRepository(); }
-            if (EmployeeRepository == null) { EmployeeRepository = new EmployeeRepository(); }
+            //if (EmployeeRepository == null) { EmployeeRepository = new EmployeeRepository(); }
         }
 
         [Route("api/Reactivation/GetMonitoring/{ByStatus}/{Status}/{Keyword}")]
