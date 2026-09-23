@@ -22,6 +22,10 @@ namespace HRMS.DB
             this.P_Leave = new HashSet<P_Leave>();
             this.EmployeeLoanMasters = new HashSet<EmployeeLoanMaster>();
             this.Employee_Replacement_HD = new HashSet<Employee_Replacement_HD>();
+            this.Employee_Separation = new HashSet<Employee_Separation>();
+            this.Employee_Separation1 = new HashSet<Employee_Separation>();
+            this.REC_NEW_HIRED_EMPLOYEE = new HashSet<REC_NEW_HIRED_EMPLOYEE>();
+            this.HELPDESK_CONCERN = new HashSet<HELPDESK_CONCERN>();
         }
     
         public int Emp_ID { get; set; }
@@ -135,5 +139,13 @@ namespace HRMS.DB
         public virtual EmployeeType EmployeeType { get; set; }
         public virtual EmployeeRank EmployeeRank { get; set; }
         public virtual Shift Shift { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_Separation> Employee_Separation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_Separation> Employee_Separation1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_NEW_HIRED_EMPLOYEE> REC_NEW_HIRED_EMPLOYEE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HELPDESK_CONCERN> HELPDESK_CONCERN { get; set; }
     }
 }

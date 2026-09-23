@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HRMS.DB;
+using static HRModel.ViewModel.Contract.EmployeeTransaction.EmployeeTransaction;
 
 namespace HRMS_API.Repository
 {
@@ -99,5 +100,12 @@ namespace HRMS_API.Repository
 
             return _obj;
         }
+               
+        public string GetEmployeeName(int _empid)
+        {
+            return (from d in _conn.Employees where d.Emp_ID == _empid select d.Lastname + ", " + d.Firstname).ToString();
+        }
+
+       
     }
 }

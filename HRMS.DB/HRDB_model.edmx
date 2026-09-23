@@ -159,6 +159,32 @@
           <Property Name="jo_id" Type="int" Nullable="false" />
           <Property Name="is_retracted" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Employee_Separation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="Reason_ID" Type="int" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
+          <Property Name="Separation_Date" Type="smalldatetime" Nullable="false" />
+          <Property Name="Clearance_Date" Type="smalldatetime" />
+          <Property Name="With_Clearance" Type="bit" />
+          <Property Name="Quitclaim_Date" Type="smalldatetime" />
+          <Property Name="With_Quitclaim" Type="bit" />
+          <Property Name="COE_Date" Type="smalldatetime" />
+          <Property Name="With_COE" Type="bit" />
+          <Property Name="Termination_Date" Type="smalldatetime" />
+          <Property Name="With_Termination" Type="bit" />
+          <Property Name="Is_History" Type="bit" />
+          <Property Name="Overall_Status" Type="bit" />
+          <Property Name="Overall_Status_Date" Type="smalldatetime" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_modified" Type="smalldatetime" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="date_is_history_updated" Type="datetime" />
+          <Property Name="user_id_is_history_updated" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="EmployeeLeaveMonitoring">
           <Key>
             <PropertyRef Name="ID" />
@@ -232,6 +258,50 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="floating_reason" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="status" Type="bit" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HELPDESK_CONCERN">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="user_type" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="concern_type_id" Type="int" Nullable="false" />
+          <Property Name="concern_description" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="post_status" Type="bit" Nullable="false" />
+          <Property Name="file_status" Type="bit" Nullable="false" />
+          <Property Name="concern_status" Type="bit" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="date_completed" Type="datetime" />
+          <Property Name="date_posted" Type="datetime" />
+        </EntityType>
+        <EntityType Name="HELPDESK_CONCERN_THREAD">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="concern_id" Type="int" Nullable="false" />
+          <Property Name="user_type" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="user_Id" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="file_location" Type="nvarchar" MaxLength="1200" />
+          <Property Name="file_name" Type="nvarchar" MaxLength="1200" />
+          <Property Name="content_type" Type="nvarchar" MaxLength="250" />
+          <Property Name="date_uploaded" Type="datetime" />
+        </EntityType>
+        <EntityType Name="HELPDESK_CONCERN_TYPE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sort_no" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="concern_description" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="department" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
@@ -453,6 +523,54 @@
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="REC_NEW_HIRED_EMPLOYEE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="emp_id" Type="int" Nullable="false" />
+          <Property Name="date_hired" Type="date" Nullable="false" />
+          <Property Name="contract_start" Type="date" />
+          <Property Name="contract_end" Type="date" />
+          <Property Name="is_history" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="hire_type" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="jo_det_id" Type="int" Nullable="false" />
+          <Property Name="date_resignation_submitted" Type="date" />
+          <Property Name="date_separated" Type="date" />
+          <Property Name="separated_by" Type="int" Nullable="false" />
+          <Property Name="floating_id" Type="int" Nullable="false" />
+          <Property Name="date_inactive" Type="date" />
+          <Property Name="date_inactive_created" Type="date" />
+          <Property Name="inactive_by" Type="int" Nullable="false" />
+          <Property Name="separated_id" Type="int" Nullable="false" />
+          <Property Name="date_closed" Type="datetime" />
+          <Property Name="employee_type_id" Type="int" Nullable="false" />
+          <Property Name="position" Type="nvarchar" MaxLength="150" />
+          <Property Name="date_regularized" Type="date" />
+          <Property Name="salary_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="salary_type" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="contract_extended" Type="bit" Nullable="false" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+          <Property Name="branch_id" Type="int" Nullable="false" />
+          <Property Name="date_contract_extended" Type="date" />
+          <Property Name="extended_from_contract_id" Type="int" Nullable="false" />
+          <Property Name="employee_rank_id" Type="int" Nullable="false" />
+          <Property Name="restday_id" Type="int" Nullable="false" />
+          <Property Name="shift_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_NEW_HIRED_EMPLOYEE_REMARKS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tran_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="1200" Nullable="false" />
+        </EntityType>
         <EntityType Name="REC_SOURCE_TYPE">
           <Key>
             <PropertyRef Name="id" />
@@ -466,6 +584,16 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Separation_Reason">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Status" Type="bit" />
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
@@ -655,6 +783,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name=" FK_Employee_Separation_Separation_Reason">
+          <End Role="Separation_Reason" Type="Self.Separation_Reason" Multiplicity="1" />
+          <End Role="Employee_Separation" Type="Self.Employee_Separation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Separation_Reason">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee_Separation">
+              <PropertyRef Name="Reason_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name=" FK_Employee_Shift1">
           <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -799,6 +939,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Employee_Separation_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Employee_Separation" Type="Self.Employee_Separation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="Employee_Separation">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Separation_Employee1">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Employee_Separation" Type="Self.Employee_Separation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="Employee_Separation">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -892,6 +1056,54 @@
             </Principal>
             <Dependent Role="EmployeeType">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HELPDESK_CONCERN_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="HELPDESK_CONCERN" Type="Self.HELPDESK_CONCERN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="HELPDESK_CONCERN">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HELPDESK_CONCERN_HELPDESK_CONCERN_TYPE">
+          <End Role="HELPDESK_CONCERN_TYPE" Type="Self.HELPDESK_CONCERN_TYPE" Multiplicity="1" />
+          <End Role="HELPDESK_CONCERN" Type="Self.HELPDESK_CONCERN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HELPDESK_CONCERN_TYPE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HELPDESK_CONCERN">
+              <PropertyRef Name="concern_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HELPDESK_CONCERN_THREAD_HELPDESK_CONCERN">
+          <End Role="HELPDESK_CONCERN" Type="Self.HELPDESK_CONCERN" Multiplicity="1" />
+          <End Role="HELPDESK_CONCERN_THREAD" Type="Self.HELPDESK_CONCERN_THREAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HELPDESK_CONCERN">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HELPDESK_CONCERN_THREAD">
+              <PropertyRef Name="concern_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HELPDESK_CONCERN_TYPE_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="HELPDESK_CONCERN_TYPE" Type="Self.HELPDESK_CONCERN_TYPE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HELPDESK_CONCERN_TYPE">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1027,6 +1239,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="REC_NEW_HIRED_EMPLOYEE" Type="Self.REC_NEW_HIRED_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="REC_NEW_HIRED_EMPLOYEE">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_EmployeeType">
+          <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="1" />
+          <End Role="REC_NEW_HIRED_EMPLOYEE" Type="Self.REC_NEW_HIRED_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmpType_ID" />
+            </Principal>
+            <Dependent Role="REC_NEW_HIRED_EMPLOYEE">
+              <PropertyRef Name="employee_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="REC_NEW_HIRED_EMPLOYEE" Type="Self.REC_NEW_HIRED_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_NEW_HIRED_EMPLOYEE">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_REC_NEW_HIRED_EMPLOYEE">
+          <End Role="REC_NEW_HIRED_EMPLOYEE" Type="Self.REC_NEW_HIRED_EMPLOYEE" Multiplicity="1" />
+          <End Role="REC_NEW_HIRED_EMPLOYEE_REMARKS" Type="Self.REC_NEW_HIRED_EMPLOYEE_REMARKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_NEW_HIRED_EMPLOYEE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_NEW_HIRED_EMPLOYEE_REMARKS">
+              <PropertyRef Name="tran_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_NEW_HIRED_EMPLOYEE_REMARKS" Type="Self.REC_NEW_HIRED_EMPLOYEE_REMARKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_NEW_HIRED_EMPLOYEE_REMARKS">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_NEW_HIRED_EMPLOYEE" Type="Self.REC_NEW_HIRED_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_NEW_HIRED_EMPLOYEE">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Shift_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="Shift" Type="Self.Shift" Multiplicity="*" />
@@ -1116,6 +1400,76 @@
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
           <Parameter Name="LOAN_START" Type="date" Mode="In" />
         </Function>
+        <Function Name="SP_MANAGE_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="EMPNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="FNAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="LNAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="MNAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="BDATE" Type="smalldatetime" Mode="In" />
+          <Parameter Name="GENDER" Type="nvarchar" Mode="In" />
+          <Parameter Name="CIVISSTATUS" Type="nvarchar" Mode="In" />
+          <Parameter Name="HEIGHT" Type="nvarchar" Mode="In" />
+          <Parameter Name="WEIGHT" Type="nvarchar" Mode="In" />
+          <Parameter Name="CITIZENSHIP" Type="nvarchar" Mode="In" />
+          <Parameter Name="BPLACE" Type="nvarchar" Mode="In" />
+          <Parameter Name="ADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="PROVADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="RELIGION" Type="nvarchar" Mode="In" />
+          <Parameter Name="HOMEMOBILENO" Type="nvarchar" Mode="In" />
+          <Parameter Name="EMAIL" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTACTPERSON" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTACTNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTACTRELATION" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTACTADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="SPOUSENAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="SPOUSECOMPANY" Type="nvarchar" Mode="In" />
+          <Parameter Name="SPOUSECOMADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="COMPID" Type="int" Mode="In" />
+          <Parameter Name="DEPTID" Type="int" Mode="In" />
+          <Parameter Name="POSITION" Type="nvarchar" Mode="In" />
+          <Parameter Name="EMPRANKID" Type="int" Mode="In" />
+          <Parameter Name="EMPTYPEID" Type="int" Mode="In" />
+          <Parameter Name="SHIFTID" Type="int" Mode="In" />
+          <Parameter Name="BRANCHID" Type="int" Mode="In" />
+          <Parameter Name="SALARYTYPEID" Type="int" Mode="In" />
+          <Parameter Name="PHILHEALTHNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="PAGIBIGNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="TINNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="DATEHIRED" Type="smalldatetime" Mode="In" />
+          <Parameter Name="DATEREGULAR" Type="smalldatetime" Mode="In" />
+          <Parameter Name="DATERESIGNED" Type="smalldatetime" Mode="In" />
+          <Parameter Name="ACTIVEINACTIVE" Type="smallint" Mode="In" />
+          <Parameter Name="SSSNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
+          <Parameter Name="IMAGEFILE" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="RESIGNEDREMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="HOBBIES" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTRACTSTART" Type="smalldatetime" Mode="In" />
+          <Parameter Name="CONTRACTEND" Type="smalldatetime" Mode="In" />
+          <Parameter Name="CITYID" Type="int" Mode="In" />
+          <Parameter Name="PROVINCEID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="PAY_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="BANK_ID" Type="int" Mode="In" />
+          <Parameter Name="CONTRACTTYPEID" Type="int" Mode="In" />
+          <Parameter Name="EMPLOYEE_PROCESSINGTYPE" Type="int" Mode="In" />
+          <Parameter Name="MONTHLYSALARY" Type="decimal" Mode="In" />
+          <Parameter Name="RICE_ALLOWANCE" Type="decimal" Mode="In" />
+          <Parameter Name="MEALALLOWANCE" Type="decimal" Mode="In" />
+          <Parameter Name="ALLOWANCE" Type="decimal" Mode="In" />
+          <Parameter Name="CAR_ALLOWANCE" Type="decimal" Mode="In" />
+          <Parameter Name="COMMISSION" Type="decimal" Mode="In" />
+          <Parameter Name="PAGIBIGCONT" Type="decimal" Mode="In" />
+          <Parameter Name="EMPLOYER_ID" Type="int" Mode="In" />
+          <Parameter Name="IS_MINIMUM" Type="bit" Mode="In" />
+          <Parameter Name="IS_CONFIDENTIAL" Type="bit" Mode="In" />
+          <Parameter Name="WITH_VAT" Type="bit" Mode="In" />
+          <Parameter Name="TAX_PERCENTAGE" Type="decimal" Mode="In" />
+          <Parameter Name="FUNC_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_MANAGE_EMPLOYEE_LEAVE_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="EMPID" Type="int" Mode="In" />
@@ -1138,6 +1492,52 @@
           <Parameter Name="BALANCE_LEAVE" Type="decimal" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="SP_MANAGE_EMPLOYEE_SEPARATION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="REASON_ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="SEPARATION_DATE" Type="smalldatetime" Mode="In" />
+          <Parameter Name="CLEARANCE_DATE" Type="smalldatetime" Mode="In" />
+          <Parameter Name="WITH_CLEARANCE" Type="bit" Mode="In" />
+          <Parameter Name="QUITCLAIM_DATE" Type="smalldatetime" Mode="In" />
+          <Parameter Name="WITH_QUITCLAIM" Type="bit" Mode="In" />
+          <Parameter Name="COE_DATE" Type="smalldatetime" Mode="In" />
+          <Parameter Name="WITH_COE" Type="bit" Mode="In" />
+          <Parameter Name="TERMINATION_DATE" Type="smalldatetime" Mode="In" />
+          <Parameter Name="WITH_TERMINATION" Type="bit" Mode="In" />
+          <Parameter Name="IS_HISTORY" Type="bit" Mode="In" />
+          <Parameter Name="DOCUMENT_REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="DOCUMENT_LOCATION" Type="nvarchar" Mode="In" />
+          <Parameter Name="DOCUMENTTYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="DOCUMENTID" Type="int" Mode="In" />
+          <Parameter Name="OVERALL_STATUS" Type="bit" Mode="In" />
+          <Parameter Name="OVERALL_STATUS_DATE" Type="smalldatetime" Mode="In" />
+          <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_C_MANAGE_COOR_NEW_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="ATTACHMENT" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_ADD_CANDIDATE_DOCUMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmpID" Type="int" Mode="In" />
+          <Parameter Name="AddedByID" Type="int" Mode="In" />
+          <Parameter Name="DocId" Type="int" Mode="In" />
+          <Parameter Name="Remarks" Type="nvarchar" Mode="In" />
+          <Parameter Name="FileLocation" Type="nvarchar" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BY_STATUS" Type="bit" Mode="In" />
+          <Parameter Name="STATUS" Type="bit" Mode="In" />
+          <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="USP_H_EMPLOYEE_TRANSACTION_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
           <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
@@ -1153,8 +1553,23 @@
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="COMPANY_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="USP_H_GET_ACTIVE_EMPLOYEE_NOTES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BY_DATE" Type="bit" Mode="In" />
+          <Parameter Name="DATE_FROM" Type="date" Mode="In" />
+          <Parameter Name="DATE_TO" Type="date" Mode="In" />
+          <Parameter Name="BY_STATUS" Type="bit" Mode="In" />
+          <Parameter Name="STATUS" Type="bit" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_H_GET_CLIENTS_BY_COMPANY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="company_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_GET_COMMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CONCERN_ID" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_GET_COMMENTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
         </Function>
         <Function Name="USP_H_GET_EMPLOYEE_FILED_LEAVE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
@@ -1174,6 +1589,30 @@
           <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
           <Parameter Name="PageNumber" Type="int" Mode="In" />
           <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="COMPANY_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_GET_EMPLOYEE_NOTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_GET_EMPLOYEE_NOTE_COOR_PORTAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_GET_EMPLOYEE_NOTES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMP_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_GET_HELPDESK_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="USER_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="BY_CONCERN_TYPE" Type="bit" Mode="In" />
+          <Parameter Name="CONCERN_TYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="BY_CONCERN_STATUS" Type="bit" Mode="In" />
+          <Parameter Name="CONCERN_STATUS" Type="nvarchar" Mode="In" />
+          <Parameter Name="BY_DATE" Type="bit" Mode="In" />
+          <Parameter Name="FROM" Type="date" Mode="In" />
+          <Parameter Name="TO" Type="date" Mode="In" />
+          <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
+          <Parameter Name="BY_CLIENT" Type="bit" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
           <Parameter Name="COMPANY_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="USP_H_GET_LEAVE_BALANCE_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -1196,6 +1635,51 @@
           <Parameter Name="STATUS" Type="nvarchar" Mode="In" />
           <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
           <Parameter Name="COMPANY_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_MANAGE_ACTIVE_EMPLOYEE_NOTES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="DATE_REQUESTED" Type="datetime" Mode="In" />
+          <Parameter Name="EMP_ID" Type="int" Mode="In" />
+          <Parameter Name="REMARKS_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="EMPLOYMENT_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="TIN_EXT" Type="nvarchar" Mode="In" />
+          <Parameter Name="PHILHEALTH_EXT" Type="nvarchar" Mode="In" />
+          <Parameter Name="PAGIBIG_EXT" Type="nvarchar" Mode="In" />
+          <Parameter Name="SSS_EXT" Type="nvarchar" Mode="In" />
+          <Parameter Name="DATE_COMPLETED" Type="datetime" Mode="In" />
+          <Parameter Name="COMPLETED_BY" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_MANAGE_CONCERN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="USER_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONCERN_TYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="CONCERN_DESCRIPTION" Type="nvarchar" Mode="In" />
+          <Parameter Name="DATE_COMPLETED" Type="datetime" Mode="In" />
+          <Parameter Name="DATE_CREATED" Type="datetime" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_MANAGE_CONCERN_THREAD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CONCERN_ID" Type="int" Mode="In" />
+          <Parameter Name="USER_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="FILE_LOCATION" Type="nvarchar" Mode="In" />
+          <Parameter Name="FILE_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTENT_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="DATE_UPLOADED" Type="datetime" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
         <Function Name="USP_H_MANAGE_EMPLOYEE_FLOATING_STATUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MODE" Type="int" Mode="In" />
@@ -1221,6 +1705,15 @@
           <Parameter Name="SEPARATION_ID" Type="int" Mode="In" />
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_MANAGE_EMPLOYEE_SEPARATION_REOPEN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="TRAN_ID" Type="int" Mode="In" />
+          <Parameter Name="SEPARATION_ID" Type="int" Mode="In" />
+          <Parameter Name="REQUESTED_BY" Type="int" Mode="In" />
+          <Parameter Name="REASON" Type="nvarchar" Mode="In" />
+          <Parameter Name="CREATED_BY" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
         </Function>
         <Function Name="USP_H_MANAGE_EMPLOYEE_TRANSACTION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
@@ -1257,6 +1750,14 @@
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="DATE_VALUE" Type="date" Mode="In" />
         </Function>
+        <Function Name="USP_H_MANAGE_EMPLOYEE_TRANSACTION_REMARKS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="TRAN_ID" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_H_MASTER_P_LEAVE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="P_LEAVEID" Type="int" Mode="In" />
           <Parameter Name="EMP_ID" Type="int" Mode="In" />
@@ -1280,17 +1781,31 @@
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_P_MANAGE_SUBMIT_REQUIRED_DOCUMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CANDIDATE_ID" Type="int" Mode="In" />
+          <Parameter Name="REQUIRED_DOCUMENT_ID" Type="int" Mode="In" />
+          <Parameter Name="DOC_ID" Type="int" Mode="In" />
+          <Parameter Name="FILE_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <EntityContainer Name="apwdbModelStoreContainer">
           <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Floating_Status" EntityType="Self.Employee_Floating_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Replacement_HD" EntityType="Self.Employee_Replacement_HD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee_Separation" EntityType="Self.Employee_Separation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeLeaveMonitoring" EntityType="Self.EmployeeLeaveMonitoring" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeLoanMaster" EntityType="Self.EmployeeLoanMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeRank" EntityType="Self.EmployeeRank" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeType" EntityType="Self.EmployeeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FloatingReason" EntityType="Self.FloatingReason" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HELPDESK_CONCERN" EntityType="Self.HELPDESK_CONCERN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HELPDESK_CONCERN_THREAD" EntityType="Self.HELPDESK_CONCERN_THREAD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HELPDESK_CONCERN_TYPE" EntityType="Self.HELPDESK_CONCERN_TYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoanType" EntityType="Self.LoanType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="P_Leave" EntityType="Self.P_Leave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE" EntityType="Self.REC_CANDIDATE" Schema="dbo" store:Type="Tables" />
@@ -1299,8 +1814,11 @@
           <EntitySet Name="REC_CLIENT_DEPARTMENT" EntityType="Self.REC_CLIENT_DEPARTMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_SHIFT" EntityType="Self.REC_CLIENT_SHIFT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CONTRACT_TYPE" EntityType="Self.REC_CONTRACT_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_NEW_HIRED_EMPLOYEE" EntityType="Self.REC_NEW_HIRED_EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_NEW_HIRED_EMPLOYEE_REMARKS" EntityType="Self.REC_NEW_HIRED_EMPLOYEE_REMARKS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_SOURCE_TYPE" EntityType="Self.REC_SOURCE_TYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_USER_LOG" EntityType="Self.REC_USER_LOG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Separation_Reason" EntityType="Self.Separation_Reason" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shift" EntityType="Self.Shift" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sys_company" EntityType="Self.sys_company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER" EntityType="Self.SYS_USER" Schema="dbo" store:Type="Tables" />
@@ -1341,6 +1859,10 @@
           <AssociationSet Name=" FK_Employee_REC_SOURCE_TYPE" Association="Self. FK_Employee_REC_SOURCE_TYPE">
             <End Role="REC_SOURCE_TYPE" EntitySet="REC_SOURCE_TYPE" />
             <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Employee_Separation_Separation_Reason" Association="Self. FK_Employee_Separation_Separation_Reason">
+            <End Role="Separation_Reason" EntitySet="Separation_Reason" />
+            <End Role="Employee_Separation" EntitySet="Employee_Separation" />
           </AssociationSet>
           <AssociationSet Name=" FK_Employee_Shift1" Association="Self. FK_Employee_Shift1">
             <End Role="Shift" EntitySet="Shift" />
@@ -1390,6 +1912,14 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Employee_Replacement_HD" EntitySet="Employee_Replacement_HD" />
           </AssociationSet>
+          <AssociationSet Name="FK_Employee_Separation_Employee" Association="Self.FK_Employee_Separation_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Employee_Separation" EntitySet="Employee_Separation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Separation_Employee1" Association="Self.FK_Employee_Separation_Employee1">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Employee_Separation" EntitySet="Employee_Separation" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employee_SYS_USER" Association="Self.FK_Employee_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Employee" EntitySet="Employee" />
@@ -1421,6 +1951,22 @@
           <AssociationSet Name="FK_EmployeeType_SYS_USER" Association="Self.FK_EmployeeType_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="EmployeeType" EntitySet="EmployeeType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HELPDESK_CONCERN_Employee" Association="Self.FK_HELPDESK_CONCERN_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="HELPDESK_CONCERN" EntitySet="HELPDESK_CONCERN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HELPDESK_CONCERN_HELPDESK_CONCERN_TYPE" Association="Self.FK_HELPDESK_CONCERN_HELPDESK_CONCERN_TYPE">
+            <End Role="HELPDESK_CONCERN_TYPE" EntitySet="HELPDESK_CONCERN_TYPE" />
+            <End Role="HELPDESK_CONCERN" EntitySet="HELPDESK_CONCERN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HELPDESK_CONCERN_THREAD_HELPDESK_CONCERN" Association="Self.FK_HELPDESK_CONCERN_THREAD_HELPDESK_CONCERN">
+            <End Role="HELPDESK_CONCERN" EntitySet="HELPDESK_CONCERN" />
+            <End Role="HELPDESK_CONCERN_THREAD" EntitySet="HELPDESK_CONCERN_THREAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HELPDESK_CONCERN_TYPE_SYS_USER" Association="Self.FK_HELPDESK_CONCERN_TYPE_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="HELPDESK_CONCERN_TYPE" EntitySet="HELPDESK_CONCERN_TYPE" />
           </AssociationSet>
           <AssociationSet Name="FK_LoanType_SYS_USER" Association="Self.FK_LoanType_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -1465,6 +2011,30 @@
           <AssociationSet Name="FK_REC_CLIENT_SHIFT_SYS_USER" Association="Self.FK_REC_CLIENT_SHIFT_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CLIENT_SHIFT" EntitySet="REC_CLIENT_SHIFT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_Employee" Association="Self.FK_REC_NEW_HIRED_EMPLOYEE_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_EmployeeType" Association="Self.FK_REC_NEW_HIRED_EMPLOYEE_EmployeeType">
+            <End Role="EmployeeType" EntitySet="EmployeeType" />
+            <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_REC_CLIENT" Association="Self.FK_REC_NEW_HIRED_EMPLOYEE_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_REC_NEW_HIRED_EMPLOYEE" Association="Self.FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_REC_NEW_HIRED_EMPLOYEE">
+            <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
+            <End Role="REC_NEW_HIRED_EMPLOYEE_REMARKS" EntitySet="REC_NEW_HIRED_EMPLOYEE_REMARKS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_SYS_USER" Association="Self.FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_NEW_HIRED_EMPLOYEE_REMARKS" EntitySet="REC_NEW_HIRED_EMPLOYEE_REMARKS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER" Association="Self.FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
           </AssociationSet>
           <AssociationSet Name="FK_Shift_SYS_USER" Association="Self.FK_Shift_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -1886,6 +2456,292 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Shift" EntitySet="Shifts" />
           </AssociationSet>
+          <EntitySet Name="Separation_Reason" EntityType="apwdbModel.Separation_Reason" />
+          <EntitySet Name="Employee_Separation" EntityType="apwdbModel.Employee_Separation" />
+          <AssociationSet Name="FK_Employee_Separation_Employee" Association="apwdbModel.FK_Employee_Separation_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Employee_Separation" EntitySet="Employee_Separation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Separation_Employee1" Association="apwdbModel.FK_Employee_Separation_Employee1">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Employee_Separation" EntitySet="Employee_Separation" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_Employee_Separation_Separation_Reason" Association="apwdbModel.C_FK_Employee_Separation_Separation_Reason">
+            <End Role="Separation_Reason" EntitySet="Separation_Reason" />
+            <End Role="Employee_Separation" EntitySet="Employee_Separation" />
+          </AssociationSet>
+          <EntitySet Name="REC_NEW_HIRED_EMPLOYEE" EntityType="apwdbModel.REC_NEW_HIRED_EMPLOYEE" />
+          <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_Employee" Association="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_EmployeeType" Association="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_EmployeeType">
+            <End Role="EmployeeType" EntitySet="EmployeeTypes" />
+            <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_REC_CLIENT" Association="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER" Association="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
+          </AssociationSet>
+          <FunctionImport Name="SP_MANAGE_EMPLOYEE_SEPARATION">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="REASON_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="SEPARATION_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="CLEARANCE_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="WITH_CLEARANCE" Mode="In" Type="Boolean" />
+            <Parameter Name="QUITCLAIM_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="WITH_QUITCLAIM" Mode="In" Type="Boolean" />
+            <Parameter Name="COE_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="WITH_COE" Mode="In" Type="Boolean" />
+            <Parameter Name="TERMINATION_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="WITH_TERMINATION" Mode="In" Type="Boolean" />
+            <Parameter Name="IS_HISTORY" Mode="In" Type="Boolean" />
+            <Parameter Name="DOCUMENT_REMARKS" Mode="In" Type="String" />
+            <Parameter Name="DOCUMENT_LOCATION" Mode="In" Type="String" />
+            <Parameter Name="DOCUMENTTYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DOCUMENTID" Mode="In" Type="Int32" />
+            <Parameter Name="OVERALL_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="OVERALL_STATUS_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="RETURN_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MANAGE_EMPLOYEE">
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="EMPNO" Mode="In" Type="String" />
+            <Parameter Name="FNAME" Mode="In" Type="String" />
+            <Parameter Name="LNAME" Mode="In" Type="String" />
+            <Parameter Name="MNAME" Mode="In" Type="String" />
+            <Parameter Name="BDATE" Mode="In" Type="DateTime" />
+            <Parameter Name="GENDER" Mode="In" Type="String" />
+            <Parameter Name="CIVISSTATUS" Mode="In" Type="String" />
+            <Parameter Name="HEIGHT" Mode="In" Type="String" />
+            <Parameter Name="WEIGHT" Mode="In" Type="String" />
+            <Parameter Name="CITIZENSHIP" Mode="In" Type="String" />
+            <Parameter Name="BPLACE" Mode="In" Type="String" />
+            <Parameter Name="ADDRESS" Mode="In" Type="String" />
+            <Parameter Name="PROVADDRESS" Mode="In" Type="String" />
+            <Parameter Name="RELIGION" Mode="In" Type="String" />
+            <Parameter Name="HOMEMOBILENO" Mode="In" Type="String" />
+            <Parameter Name="EMAIL" Mode="In" Type="String" />
+            <Parameter Name="CONTACTPERSON" Mode="In" Type="String" />
+            <Parameter Name="CONTACTNO" Mode="In" Type="String" />
+            <Parameter Name="CONTACTRELATION" Mode="In" Type="String" />
+            <Parameter Name="CONTACTADDRESS" Mode="In" Type="String" />
+            <Parameter Name="SPOUSENAME" Mode="In" Type="String" />
+            <Parameter Name="SPOUSECOMPANY" Mode="In" Type="String" />
+            <Parameter Name="SPOUSECOMADDRESS" Mode="In" Type="String" />
+            <Parameter Name="COMPID" Mode="In" Type="Int32" />
+            <Parameter Name="DEPTID" Mode="In" Type="Int32" />
+            <Parameter Name="POSITION" Mode="In" Type="String" />
+            <Parameter Name="EMPRANKID" Mode="In" Type="Int32" />
+            <Parameter Name="EMPTYPEID" Mode="In" Type="Int32" />
+            <Parameter Name="SHIFTID" Mode="In" Type="Int32" />
+            <Parameter Name="BRANCHID" Mode="In" Type="Int32" />
+            <Parameter Name="SALARYTYPEID" Mode="In" Type="Int32" />
+            <Parameter Name="PHILHEALTHNO" Mode="In" Type="String" />
+            <Parameter Name="PAGIBIGNO" Mode="In" Type="String" />
+            <Parameter Name="TINNO" Mode="In" Type="String" />
+            <Parameter Name="DATEHIRED" Mode="In" Type="DateTime" />
+            <Parameter Name="DATEREGULAR" Mode="In" Type="DateTime" />
+            <Parameter Name="DATERESIGNED" Mode="In" Type="DateTime" />
+            <Parameter Name="ACTIVEINACTIVE" Mode="In" Type="Int16" />
+            <Parameter Name="SSSNO" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RETURN_ID" Mode="InOut" Type="Int32" />
+            <Parameter Name="IMAGEFILE" Mode="In" Type="Binary" />
+            <Parameter Name="RESIGNEDREMARKS" Mode="In" Type="String" />
+            <Parameter Name="HOBBIES" Mode="In" Type="String" />
+            <Parameter Name="CONTRACTSTART" Mode="In" Type="DateTime" />
+            <Parameter Name="CONTRACTEND" Mode="In" Type="DateTime" />
+            <Parameter Name="CITYID" Mode="In" Type="Int32" />
+            <Parameter Name="PROVINCEID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="PAY_TYPE" Mode="In" Type="String" />
+            <Parameter Name="BANK_ID" Mode="In" Type="Int32" />
+            <Parameter Name="CONTRACTTYPEID" Mode="In" Type="Int32" />
+            <Parameter Name="EMPLOYEE_PROCESSINGTYPE" Mode="In" Type="Int32" />
+            <Parameter Name="MONTHLYSALARY" Mode="In" Type="Decimal" />
+            <Parameter Name="RICE_ALLOWANCE" Mode="In" Type="Decimal" />
+            <Parameter Name="MEALALLOWANCE" Mode="In" Type="Decimal" />
+            <Parameter Name="ALLOWANCE" Mode="In" Type="Decimal" />
+            <Parameter Name="CAR_ALLOWANCE" Mode="In" Type="Decimal" />
+            <Parameter Name="COMMISSION" Mode="In" Type="Decimal" />
+            <Parameter Name="PAGIBIGCONT" Mode="In" Type="Decimal" />
+            <Parameter Name="EMPLOYER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="IS_MINIMUM" Mode="In" Type="Boolean" />
+            <Parameter Name="IS_CONFIDENTIAL" Mode="In" Type="Boolean" />
+            <Parameter Name="WITH_VAT" Mode="In" Type="Boolean" />
+            <Parameter Name="TAX_PERCENTAGE" Mode="In" Type="Decimal" />
+            <Parameter Name="FUNC_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING" ReturnType="Collection(apwdbModel.USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result1)">
+            <Parameter Name="BY_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_EMPLOYEE_SEPARATION_REOPEN">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="TRAN_ID" Mode="In" Type="Int32" />
+            <Parameter Name="SEPARATION_ID" Mode="In" Type="Int32" />
+            <Parameter Name="REQUESTED_BY" Mode="In" Type="Int32" />
+            <Parameter Name="REASON" Mode="In" Type="String" />
+            <Parameter Name="CREATED_BY" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="REC_NEW_HIRED_EMPLOYEE_REMARKS" EntityType="apwdbModel.REC_NEW_HIRED_EMPLOYEE_REMARKS" />
+          <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_REC_NEW_HIRED_EMPLOYEE" Association="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_REC_NEW_HIRED_EMPLOYEE">
+            <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
+            <End Role="REC_NEW_HIRED_EMPLOYEE_REMARKS" EntitySet="REC_NEW_HIRED_EMPLOYEE_REMARKS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_SYS_USER" Association="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_NEW_HIRED_EMPLOYEE_REMARKS" EntitySet="REC_NEW_HIRED_EMPLOYEE_REMARKS" />
+          </AssociationSet>
+          <FunctionImport Name="USP_H_MANAGE_EMPLOYEE_TRANSACTION_REMARKS">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="TRAN_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_GET_EMPLOYEE_NOTE" ReturnType="Collection(apwdbModel.USP_H_GET_EMPLOYEE_NOTE_Result)">
+          <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_GET_ACTIVE_EMPLOYEE_NOTES" ReturnType="Collection(apwdbModel.USP_H_GET_ACTIVE_EMPLOYEE_NOTES_Result1)">
+            <Parameter Name="BY_DATE" Mode="In" Type="Boolean" />
+            <Parameter Name="DATE_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="DATE_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="BY_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_GET_EMPLOYEE_NOTES" ReturnType="Collection(apwdbModel.USP_H_GET_EMPLOYEE_NOTES_Result)">
+          <Parameter Name="EMP_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_GET_EMPLOYEE_NOTE_COOR_PORTAL" ReturnType="Collection(apwdbModel.USP_H_GET_EMPLOYEE_NOTE_COOR_PORTAL_Result)">
+          <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_ADD_CANDIDATE_DOCUMENT">
+            <Parameter Name="EmpID" Mode="In" Type="Int32" />
+            <Parameter Name="AddedByID" Mode="In" Type="Int32" />
+            <Parameter Name="DocId" Mode="In" Type="Int32" />
+            <Parameter Name="Remarks" Mode="In" Type="String" />
+            <Parameter Name="FileLocation" Mode="In" Type="String" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT" ReturnType="Collection(apwdbModel.USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT_Result)">
+          <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_ACTIVE_EMPLOYEE_NOTES">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DATE_REQUESTED" Mode="In" Type="DateTime" />
+            <Parameter Name="EMP_ID" Mode="In" Type="Int32" />
+            <Parameter Name="REMARKS_TYPE" Mode="In" Type="String" />
+            <Parameter Name="EMPLOYMENT_TYPE" Mode="In" Type="String" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="TIN_EXT" Mode="In" Type="String" />
+            <Parameter Name="PHILHEALTH_EXT" Mode="In" Type="String" />
+            <Parameter Name="PAGIBIG_EXT" Mode="In" Type="String" />
+            <Parameter Name="SSS_EXT" Mode="In" Type="String" />
+            <Parameter Name="DATE_COMPLETED" Mode="In" Type="DateTime" />
+            <Parameter Name="COMPLETED_BY" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_P_MANAGE_SUBMIT_REQUIRED_DOCUMENT">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CANDIDATE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="REQUIRED_DOCUMENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DOC_ID" Mode="In" Type="Int32" />
+            <Parameter Name="FILE_TYPE" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_C_MANAGE_COOR_NEW_EMPLOYEE">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="ATTACHMENT" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_GET_HELPDESK_MONITORING" ReturnType="Collection(apwdbModel.USP_H_GET_HELPDESK_MONITORING_Result1)">
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USER_TYPE" Mode="In" Type="String" />
+            <Parameter Name="BY_CONCERN_TYPE" Mode="In" Type="Boolean" />
+            <Parameter Name="CONCERN_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_CONCERN_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="CONCERN_STATUS" Mode="In" Type="String" />
+            <Parameter Name="BY_DATE" Mode="In" Type="Boolean" />
+            <Parameter Name="FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="TO" Mode="In" Type="DateTime" />
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
+            <Parameter Name="BY_CLIENT" Mode="In" Type="Boolean" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="COMPANY_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_CONCERN">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USER_TYPE" Mode="In" Type="String" />
+            <Parameter Name="CONCERN_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="CONCERN_DESCRIPTION" Mode="In" Type="String" />
+            <Parameter Name="DATE_COMPLETED" Mode="In" Type="DateTime" />
+            <Parameter Name="DATE_CREATED" Mode="In" Type="DateTime" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_CONCERN_THREAD">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CONCERN_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USER_TYPE" Mode="In" Type="String" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="FILE_LOCATION" Mode="In" Type="String" />
+            <Parameter Name="FILE_NAME" Mode="In" Type="String" />
+            <Parameter Name="CONTENT_TYPE" Mode="In" Type="String" />
+            <Parameter Name="DATE_UPLOADED" Mode="In" Type="DateTime" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="HELPDESK_CONCERN" EntityType="apwdbModel.HELPDESK_CONCERN" />
+          <EntitySet Name="HELPDESK_CONCERN_THREAD" EntityType="apwdbModel.HELPDESK_CONCERN_THREAD" />
+          <EntitySet Name="HELPDESK_CONCERN_TYPE" EntityType="apwdbModel.HELPDESK_CONCERN_TYPE" />
+          <AssociationSet Name="FK_HELPDESK_CONCERN_Employee" Association="apwdbModel.FK_HELPDESK_CONCERN_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="HELPDESK_CONCERN" EntitySet="HELPDESK_CONCERN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HELPDESK_CONCERN_HELPDESK_CONCERN_TYPE" Association="apwdbModel.FK_HELPDESK_CONCERN_HELPDESK_CONCERN_TYPE">
+            <End Role="HELPDESK_CONCERN_TYPE" EntitySet="HELPDESK_CONCERN_TYPE" />
+            <End Role="HELPDESK_CONCERN" EntitySet="HELPDESK_CONCERN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HELPDESK_CONCERN_THREAD_HELPDESK_CONCERN" Association="apwdbModel.FK_HELPDESK_CONCERN_THREAD_HELPDESK_CONCERN">
+            <End Role="HELPDESK_CONCERN" EntitySet="HELPDESK_CONCERN" />
+            <End Role="HELPDESK_CONCERN_THREAD" EntitySet="HELPDESK_CONCERN_THREAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HELPDESK_CONCERN_TYPE_SYS_USER" Association="apwdbModel.FK_HELPDESK_CONCERN_TYPE_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="HELPDESK_CONCERN_TYPE" EntitySet="HELPDESK_CONCERN_TYPE" />
+          </AssociationSet>
+          <FunctionImport Name="USP_H_GET_COMMENT" ReturnType="Collection(apwdbModel.USP_H_GET_COMMENT_Result)">
+            <Parameter Name="CONCERN_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_GET_COMMENTS" ReturnType="Collection(apwdbModel.USP_H_GET_COMMENTS_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -1996,6 +2852,10 @@
           <NavigationProperty Name="EmployeeType" Relationship="apwdbModel.C_FK_Employee_EmployeeType" FromRole="Employee" ToRole="EmployeeType" />
           <NavigationProperty Name="EmployeeRank" Relationship="apwdbModel.C_FK_Employee_EmployeeRank" FromRole="Employee" ToRole="EmployeeRank" />
           <NavigationProperty Name="Shift" Relationship="apwdbModel.C_FK_Employee_Shift1" FromRole="Employee" ToRole="Shift" />
+          <NavigationProperty Name="Employee_Separation" Relationship="apwdbModel.FK_Employee_Separation_Employee" FromRole="Employee" ToRole="Employee_Separation" />
+          <NavigationProperty Name="Employee_Separation1" Relationship="apwdbModel.FK_Employee_Separation_Employee1" FromRole="Employee" ToRole="Employee_Separation" />
+          <NavigationProperty Name="REC_NEW_HIRED_EMPLOYEE" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_Employee" FromRole="Employee" ToRole="REC_NEW_HIRED_EMPLOYEE" />
+          <NavigationProperty Name="HELPDESK_CONCERN" Relationship="apwdbModel.FK_HELPDESK_CONCERN_Employee" FromRole="Employee" ToRole="HELPDESK_CONCERN" />
         </EntityType>
         <EntityType Name="REC_USER_LOG">
           <Key>
@@ -2059,6 +2919,9 @@
           <NavigationProperty Name="REC_CLIENT_DEPARTMENT" Relationship="apwdbModel.FK_REC_CLIENT_DEPARTMENT_SYS_USER" FromRole="SYS_USER" ToRole="REC_CLIENT_DEPARTMENT" />
           <NavigationProperty Name="REC_CLIENT_SHIFT" Relationship="apwdbModel.FK_REC_CLIENT_SHIFT_SYS_USER" FromRole="SYS_USER" ToRole="REC_CLIENT_SHIFT" />
           <NavigationProperty Name="Shifts" Relationship="apwdbModel.FK_Shift_SYS_USER" FromRole="SYS_USER" ToRole="Shift" />
+          <NavigationProperty Name="REC_NEW_HIRED_EMPLOYEE" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER" FromRole="SYS_USER" ToRole="REC_NEW_HIRED_EMPLOYEE" />
+          <NavigationProperty Name="REC_NEW_HIRED_EMPLOYEE_REMARKS" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_SYS_USER" FromRole="SYS_USER" ToRole="REC_NEW_HIRED_EMPLOYEE_REMARKS" />
+          <NavigationProperty Name="HELPDESK_CONCERN_TYPE" Relationship="apwdbModel.FK_HELPDESK_CONCERN_TYPE_SYS_USER" FromRole="SYS_USER" ToRole="HELPDESK_CONCERN_TYPE" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP">
           <Key>
@@ -2538,6 +3401,7 @@
           <NavigationProperty Name="Branches" Relationship="apwdbModel.C_FK_Branch_REC_CLIENT" FromRole="REC_CLIENT" ToRole="Branch" />
           <NavigationProperty Name="REC_CLIENT_DEPARTMENT" Relationship="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_DEPARTMENT" />
           <NavigationProperty Name="REC_CLIENT_SHIFT" Relationship="apwdbModel.FK_REC_CLIENT_SHIFT_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_SHIFT" />
+          <NavigationProperty Name="REC_NEW_HIRED_EMPLOYEE" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_NEW_HIRED_EMPLOYEE" />
         </EntityType>
         <Association Name="FK_Employee_REC_CLIENT">
           <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
@@ -2983,6 +3847,7 @@
           <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_EmployeeType" FromRole="EmployeeType" ToRole="Employee" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_EmployeeType_SYS_USER" FromRole="EmployeeType" ToRole="SYS_USER" />
+          <NavigationProperty Name="REC_NEW_HIRED_EMPLOYEE" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_EmployeeType" FromRole="EmployeeType" ToRole="REC_NEW_HIRED_EMPLOYEE" />
         </EntityType>
         <Association Name="C_FK_Employee_EmployeeType">
           <End Type="apwdbModel.EmployeeType" Role="EmployeeType" Multiplicity="1" />
@@ -3194,6 +4059,448 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Separation_Reason">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Reason" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Employee_Separation" Relationship="apwdbModel.C_FK_Employee_Separation_Separation_Reason" FromRole="Separation_Reason" ToRole="Employee_Separation" />
+        </EntityType>
+        <EntityType Name="Employee_Separation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="Reason_ID" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Separation_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Clearance_Date" Type="DateTime" Precision="0" />
+          <Property Name="With_Clearance" Type="Boolean" />
+          <Property Name="Quitclaim_Date" Type="DateTime" Precision="0" />
+          <Property Name="With_Quitclaim" Type="Boolean" />
+          <Property Name="COE_Date" Type="DateTime" Precision="0" />
+          <Property Name="With_COE" Type="Boolean" />
+          <Property Name="Termination_Date" Type="DateTime" Precision="0" />
+          <Property Name="With_Termination" Type="Boolean" />
+          <Property Name="Is_History" Type="Boolean" />
+          <Property Name="Overall_Status" Type="Boolean" />
+          <Property Name="Overall_Status_Date" Type="DateTime" Precision="0" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_modified" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="date_is_history_updated" Type="DateTime" Precision="3" />
+          <Property Name="user_id_is_history_updated" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_Employee_Separation_Employee" FromRole="Employee_Separation" ToRole="Employee" />
+          <NavigationProperty Name="Employee1" Relationship="apwdbModel.FK_Employee_Separation_Employee1" FromRole="Employee_Separation" ToRole="Employee" />
+          <NavigationProperty Name="Separation_Reason" Relationship="apwdbModel.C_FK_Employee_Separation_Separation_Reason" FromRole="Employee_Separation" ToRole="Separation_Reason" />
+        </EntityType>
+        <Association Name="FK_Employee_Separation_Employee">
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Separation" Role="Employee_Separation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="Employee_Separation">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Separation_Employee1">
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Separation" Role="Employee_Separation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="Employee_Separation">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_Employee_Separation_Separation_Reason">
+          <End Type="apwdbModel.Separation_Reason" Role="Separation_Reason" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Separation" Role="Employee_Separation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Separation_Reason">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee_Separation">
+              <PropertyRef Name="Reason_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_NEW_HIRED_EMPLOYEE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="emp_id" Type="Int32" Nullable="false" />
+          <Property Name="date_hired" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="contract_start" Type="DateTime" Precision="0" />
+          <Property Name="contract_end" Type="DateTime" Precision="0" />
+          <Property Name="is_history" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="hire_type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="jo_det_id" Type="Int32" Nullable="false" />
+          <Property Name="date_resignation_submitted" Type="DateTime" Precision="0" />
+          <Property Name="date_separated" Type="DateTime" Precision="0" />
+          <Property Name="separated_by" Type="Int32" Nullable="false" />
+          <Property Name="floating_id" Type="Int32" Nullable="false" />
+          <Property Name="date_inactive" Type="DateTime" Precision="0" />
+          <Property Name="date_inactive_created" Type="DateTime" Precision="0" />
+          <Property Name="inactive_by" Type="Int32" Nullable="false" />
+          <Property Name="separated_id" Type="Int32" Nullable="false" />
+          <Property Name="date_closed" Type="DateTime" Precision="3" />
+          <Property Name="employee_type_id" Type="Int32" Nullable="false" />
+          <Property Name="position" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="date_regularized" Type="DateTime" Precision="0" />
+          <Property Name="salary_amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="salary_type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="contract_extended" Type="Boolean" Nullable="false" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <Property Name="branch_id" Type="Int32" Nullable="false" />
+          <Property Name="date_contract_extended" Type="DateTime" Precision="0" />
+          <Property Name="extended_from_contract_id" Type="Int32" Nullable="false" />
+          <Property Name="employee_rank_id" Type="Int32" Nullable="false" />
+          <Property Name="restday_id" Type="Int32" Nullable="false" />
+          <Property Name="shift_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_Employee" FromRole="REC_NEW_HIRED_EMPLOYEE" ToRole="Employee" />
+          <NavigationProperty Name="EmployeeType" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_EmployeeType" FromRole="REC_NEW_HIRED_EMPLOYEE" ToRole="EmployeeType" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_REC_CLIENT" FromRole="REC_NEW_HIRED_EMPLOYEE" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER" FromRole="REC_NEW_HIRED_EMPLOYEE" ToRole="SYS_USER" />
+          <NavigationProperty Name="REC_NEW_HIRED_EMPLOYEE_REMARKS" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_REC_NEW_HIRED_EMPLOYEE" FromRole="REC_NEW_HIRED_EMPLOYEE" ToRole="REC_NEW_HIRED_EMPLOYEE_REMARKS" />
+        </EntityType>
+        <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_Employee">
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="apwdbModel.REC_NEW_HIRED_EMPLOYEE" Role="REC_NEW_HIRED_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="REC_NEW_HIRED_EMPLOYEE">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_EmployeeType">
+          <End Type="apwdbModel.EmployeeType" Role="EmployeeType" Multiplicity="1" />
+          <End Type="apwdbModel.REC_NEW_HIRED_EMPLOYEE" Role="REC_NEW_HIRED_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmpType_ID" />
+            </Principal>
+            <Dependent Role="REC_NEW_HIRED_EMPLOYEE">
+              <PropertyRef Name="employee_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.REC_NEW_HIRED_EMPLOYEE" Role="REC_NEW_HIRED_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_NEW_HIRED_EMPLOYEE">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_NEW_HIRED_EMPLOYEE" Role="REC_NEW_HIRED_EMPLOYEE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_NEW_HIRED_EMPLOYEE">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="DateTime" Name="date_created" Nullable="true" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="emp_id" Nullable="true" />
+          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="requested_by" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="reason" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="created_by" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_closed" Nullable="true" />
+          <Property Type="Int32" Name="tran_id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result1">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="DateTime" Name="date_created" Nullable="true" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="emp_id" Nullable="true" />
+          <Property Type="String" Name="employee_guid" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="requested_by" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="reason" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="created_by" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_closed" Nullable="true" />
+          <Property Type="Int32" Name="tran_id" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="REC_NEW_HIRED_EMPLOYEE_REMARKS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tran_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="remarks" Type="String" Nullable="false" MaxLength="1200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="REC_NEW_HIRED_EMPLOYEE" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_REC_NEW_HIRED_EMPLOYEE" FromRole="REC_NEW_HIRED_EMPLOYEE_REMARKS" ToRole="REC_NEW_HIRED_EMPLOYEE" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_SYS_USER" FromRole="REC_NEW_HIRED_EMPLOYEE_REMARKS" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_REC_NEW_HIRED_EMPLOYEE">
+          <End Type="apwdbModel.REC_NEW_HIRED_EMPLOYEE" Role="REC_NEW_HIRED_EMPLOYEE" Multiplicity="1" />
+          <End Type="apwdbModel.REC_NEW_HIRED_EMPLOYEE_REMARKS" Role="REC_NEW_HIRED_EMPLOYEE_REMARKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_NEW_HIRED_EMPLOYEE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_NEW_HIRED_EMPLOYEE_REMARKS">
+              <PropertyRef Name="tran_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_REMARKS_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_NEW_HIRED_EMPLOYEE_REMARKS" Role="REC_NEW_HIRED_EMPLOYEE_REMARKS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_NEW_HIRED_EMPLOYEE_REMARKS">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_H_GET_ACTIVE_EMPLOYEE_NOTES_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="DateTime" Name="date_requested" Nullable="true" Precision="23" />
+          <Property Type="String" Name="requested_by" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="emp_id" Nullable="true" />
+          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="note_type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="remarks" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="date_completed" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="completed_by" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="employment_type" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="USP_H_GET_EMPLOYEE_NOTE_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="DateTime" Name="date_requested" Nullable="true" Precision="23" />
+          <Property Type="String" Name="requested_by" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="emp_id" Nullable="true" />
+          <Property Type="Int32" Name="cand_id" Nullable="true" />
+          <Property Type="String" Name="note_type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="remarks" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="date_completed" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="completed_by" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="document_ext" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="USP_H_GET_ACTIVE_EMPLOYEE_NOTES_Result1">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="DateTime" Name="date_requested" Nullable="true" Precision="23" />
+          <Property Type="String" Name="requested_by" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="emp_id" Nullable="true" />
+          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="note_type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="remarks" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="date_completed" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="completed_by" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="employment_type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="employee_guid" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="USP_H_GET_EMPLOYEE_NOTES_Result">
+          <Property Type="DateTime" Name="date_requested" Nullable="false" Precision="23" />
+          <Property Type="String" Name="RequestBy" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="remarks_type" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="remarks" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="9" />
+          <Property Type="DateTime" Name="date_completed" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="completed_by" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_H_GET_EMPLOYEE_NOTE_COOR_PORTAL_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="DateTime" Name="date_requested" Nullable="true" Precision="23" />
+          <Property Type="String" Name="requested_by" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="emp_id" Nullable="true" />
+          <Property Type="String" Name="remarks" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="date_completed" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="completed_by" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="document_name" Nullable="true" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="candidate_id" Nullable="false" />
+          <Property Type="String" Name="CandName" Nullable="true" MaxLength="101" />
+          <Property Type="Int32" Name="required_doc_id" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="doc_id" Nullable="false" />
+          <Property Type="String" Name="file_type" Nullable="true" MaxLength="110" />
+        </ComplexType>
+        <ComplexType Name="USP_H_GET_HELPDESK_MONITORING_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="DateTime" Name="concern_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="client" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="concern_type" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="concern_description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="file_status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="concern_status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="created_by" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="date_completed" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="age" Nullable="true" />
+          <Property Type="DateTime" Name="date_posted" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="USP_H_GET_HELPDESK_MONITORING_Result1">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="DateTime" Name="concern_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="client" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="concern_type" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="concern_description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="file_status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="concern_status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="created_by" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="date_completed" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="age" Nullable="true" />
+          <Property Type="DateTime" Name="date_posted" Nullable="true" Precision="23" />
+        </ComplexType>
+        <EntityType Name="HELPDESK_CONCERN">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="user_type" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="concern_type_id" Type="Int32" Nullable="false" />
+          <Property Name="concern_description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="post_status" Type="Boolean" Nullable="false" />
+          <Property Name="file_status" Type="Boolean" Nullable="false" />
+          <Property Name="concern_status" Type="Boolean" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_completed" Type="DateTime" Precision="3" />
+          <Property Name="date_posted" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_HELPDESK_CONCERN_Employee" FromRole="HELPDESK_CONCERN" ToRole="Employee" />
+          <NavigationProperty Name="HELPDESK_CONCERN_TYPE" Relationship="apwdbModel.FK_HELPDESK_CONCERN_HELPDESK_CONCERN_TYPE" FromRole="HELPDESK_CONCERN" ToRole="HELPDESK_CONCERN_TYPE" />
+          <NavigationProperty Name="HELPDESK_CONCERN_THREAD" Relationship="apwdbModel.FK_HELPDESK_CONCERN_THREAD_HELPDESK_CONCERN" FromRole="HELPDESK_CONCERN" ToRole="HELPDESK_CONCERN_THREAD" />
+        </EntityType>
+        <EntityType Name="HELPDESK_CONCERN_THREAD">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="concern_id" Type="Int32" Nullable="false" />
+          <Property Name="user_type" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="user_Id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="remarks" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="file_location" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
+          <Property Name="file_name" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" />
+          <Property Name="content_type" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="date_uploaded" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="HELPDESK_CONCERN" Relationship="apwdbModel.FK_HELPDESK_CONCERN_THREAD_HELPDESK_CONCERN" FromRole="HELPDESK_CONCERN_THREAD" ToRole="HELPDESK_CONCERN" />
+        </EntityType>
+        <EntityType Name="HELPDESK_CONCERN_TYPE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sort_no" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="concern_description" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="department" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="HELPDESK_CONCERN" Relationship="apwdbModel.FK_HELPDESK_CONCERN_HELPDESK_CONCERN_TYPE" FromRole="HELPDESK_CONCERN_TYPE" ToRole="HELPDESK_CONCERN" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_HELPDESK_CONCERN_TYPE_SYS_USER" FromRole="HELPDESK_CONCERN_TYPE" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_HELPDESK_CONCERN_Employee">
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="apwdbModel.HELPDESK_CONCERN" Role="HELPDESK_CONCERN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="HELPDESK_CONCERN">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HELPDESK_CONCERN_HELPDESK_CONCERN_TYPE">
+          <End Type="apwdbModel.HELPDESK_CONCERN_TYPE" Role="HELPDESK_CONCERN_TYPE" Multiplicity="1" />
+          <End Type="apwdbModel.HELPDESK_CONCERN" Role="HELPDESK_CONCERN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HELPDESK_CONCERN_TYPE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HELPDESK_CONCERN">
+              <PropertyRef Name="concern_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HELPDESK_CONCERN_THREAD_HELPDESK_CONCERN">
+          <End Type="apwdbModel.HELPDESK_CONCERN" Role="HELPDESK_CONCERN" Multiplicity="1" />
+          <End Type="apwdbModel.HELPDESK_CONCERN_THREAD" Role="HELPDESK_CONCERN_THREAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HELPDESK_CONCERN">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HELPDESK_CONCERN_THREAD">
+              <PropertyRef Name="concern_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HELPDESK_CONCERN_TYPE_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.HELPDESK_CONCERN_TYPE" Role="HELPDESK_CONCERN_TYPE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HELPDESK_CONCERN_TYPE">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_H_GET_COMMENT_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="date_created" Nullable="true" Precision="23" />
+          <Property Type="String" Name="remarks" Nullable="true" MaxLength="1200" />
+          <Property Type="String" Name="content_type" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="USP_H_GET_COMMENTS_Result">
+          <Property Type="Decimal" Name="sort" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="date_created" Nullable="true" Precision="23" />
+          <Property Type="String" Name="remarks" Nullable="true" MaxLength="1200" />
+          <Property Type="String" Name="user_type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="time_created" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3897,6 +5204,288 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Separation_Reason">
+            <EntityTypeMapping TypeName="apwdbModel.Separation_Reason">
+              <MappingFragment StoreEntitySet="Separation_Reason">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee_Separation">
+            <EntityTypeMapping TypeName="apwdbModel.Employee_Separation">
+              <MappingFragment StoreEntitySet="Employee_Separation">
+                <ScalarProperty Name="user_id_is_history_updated" ColumnName="user_id_is_history_updated" />
+                <ScalarProperty Name="date_is_history_updated" ColumnName="date_is_history_updated" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="Overall_Status_Date" ColumnName="Overall_Status_Date" />
+                <ScalarProperty Name="Overall_Status" ColumnName="Overall_Status" />
+                <ScalarProperty Name="Is_History" ColumnName="Is_History" />
+                <ScalarProperty Name="With_Termination" ColumnName="With_Termination" />
+                <ScalarProperty Name="Termination_Date" ColumnName="Termination_Date" />
+                <ScalarProperty Name="With_COE" ColumnName="With_COE" />
+                <ScalarProperty Name="COE_Date" ColumnName="COE_Date" />
+                <ScalarProperty Name="With_Quitclaim" ColumnName="With_Quitclaim" />
+                <ScalarProperty Name="Quitclaim_Date" ColumnName="Quitclaim_Date" />
+                <ScalarProperty Name="With_Clearance" ColumnName="With_Clearance" />
+                <ScalarProperty Name="Clearance_Date" ColumnName="Clearance_Date" />
+                <ScalarProperty Name="Separation_Date" ColumnName="Separation_Date" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Reason_ID" ColumnName="Reason_ID" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_NEW_HIRED_EMPLOYEE">
+            <EntityTypeMapping TypeName="apwdbModel.REC_NEW_HIRED_EMPLOYEE">
+              <MappingFragment StoreEntitySet="REC_NEW_HIRED_EMPLOYEE">
+                <ScalarProperty Name="shift_id" ColumnName="shift_id" />
+                <ScalarProperty Name="restday_id" ColumnName="restday_id" />
+                <ScalarProperty Name="employee_rank_id" ColumnName="employee_rank_id" />
+                <ScalarProperty Name="extended_from_contract_id" ColumnName="extended_from_contract_id" />
+                <ScalarProperty Name="date_contract_extended" ColumnName="date_contract_extended" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="contract_extended" ColumnName="contract_extended" />
+                <ScalarProperty Name="salary_type" ColumnName="salary_type" />
+                <ScalarProperty Name="salary_amount" ColumnName="salary_amount" />
+                <ScalarProperty Name="date_regularized" ColumnName="date_regularized" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="employee_type_id" ColumnName="employee_type_id" />
+                <ScalarProperty Name="date_closed" ColumnName="date_closed" />
+                <ScalarProperty Name="separated_id" ColumnName="separated_id" />
+                <ScalarProperty Name="inactive_by" ColumnName="inactive_by" />
+                <ScalarProperty Name="date_inactive_created" ColumnName="date_inactive_created" />
+                <ScalarProperty Name="date_inactive" ColumnName="date_inactive" />
+                <ScalarProperty Name="floating_id" ColumnName="floating_id" />
+                <ScalarProperty Name="separated_by" ColumnName="separated_by" />
+                <ScalarProperty Name="date_separated" ColumnName="date_separated" />
+                <ScalarProperty Name="date_resignation_submitted" ColumnName="date_resignation_submitted" />
+                <ScalarProperty Name="jo_det_id" ColumnName="jo_det_id" />
+                <ScalarProperty Name="hire_type" ColumnName="hire_type" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="is_history" ColumnName="is_history" />
+                <ScalarProperty Name="contract_end" ColumnName="contract_end" />
+                <ScalarProperty Name="contract_start" ColumnName="contract_start" />
+                <ScalarProperty Name="date_hired" ColumnName="date_hired" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_MANAGE_EMPLOYEE_SEPARATION" FunctionName="apwdbModel.Store.SP_MANAGE_EMPLOYEE_SEPARATION" />
+          <FunctionImportMapping FunctionImportName="SP_MANAGE_EMPLOYEE" FunctionName="apwdbModel.Store.SP_MANAGE_EMPLOYEE" />
+          <FunctionImportMapping FunctionImportName="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING" FunctionName="apwdbModel.Store.USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="employee_guid" ColumnName="employee_guid" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="requested_by" ColumnName="requested_by" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="date_closed" ColumnName="date_closed" />
+                <ScalarProperty Name="tran_id" ColumnName="tran_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_SEPARATION_REOPEN" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_SEPARATION_REOPEN" />
+          <EntitySetMapping Name="REC_NEW_HIRED_EMPLOYEE_REMARKS">
+            <EntityTypeMapping TypeName="apwdbModel.REC_NEW_HIRED_EMPLOYEE_REMARKS">
+              <MappingFragment StoreEntitySet="REC_NEW_HIRED_EMPLOYEE_REMARKS">
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="tran_id" ColumnName="tran_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_TRANSACTION_REMARKS" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_TRANSACTION_REMARKS" />
+          <FunctionImportMapping FunctionImportName="USP_H_GET_EMPLOYEE_NOTE" FunctionName="apwdbModel.Store.USP_H_GET_EMPLOYEE_NOTE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_EMPLOYEE_NOTE_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date_requested" ColumnName="date_requested" />
+                <ScalarProperty Name="requested_by" ColumnName="requested_by" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="cand_id" ColumnName="cand_id" />
+                <ScalarProperty Name="note_type" ColumnName="note_type" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date_completed" ColumnName="date_completed" />
+                <ScalarProperty Name="completed_by" ColumnName="completed_by" />
+                <ScalarProperty Name="document_ext" ColumnName="document_ext" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_GET_ACTIVE_EMPLOYEE_NOTES" FunctionName="apwdbModel.Store.USP_H_GET_ACTIVE_EMPLOYEE_NOTES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_ACTIVE_EMPLOYEE_NOTES_Result1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date_requested" ColumnName="date_requested" />
+                <ScalarProperty Name="requested_by" ColumnName="requested_by" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="note_type" ColumnName="note_type" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date_completed" ColumnName="date_completed" />
+                <ScalarProperty Name="completed_by" ColumnName="completed_by" />
+                <ScalarProperty Name="employment_type" ColumnName="employment_type" />
+                <ScalarProperty Name="employee_guid" ColumnName="employee_guid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_GET_EMPLOYEE_NOTES" FunctionName="apwdbModel.Store.USP_H_GET_EMPLOYEE_NOTES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_EMPLOYEE_NOTES_Result">
+                <ScalarProperty Name="date_requested" ColumnName="date_requested" />
+                <ScalarProperty Name="RequestBy" ColumnName="RequestBy" />
+                <ScalarProperty Name="remarks_type" ColumnName="remarks_type" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="date_completed" ColumnName="date_completed" />
+                <ScalarProperty Name="completed_by" ColumnName="completed_by" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_GET_EMPLOYEE_NOTE_COOR_PORTAL" FunctionName="apwdbModel.Store.USP_H_GET_EMPLOYEE_NOTE_COOR_PORTAL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_EMPLOYEE_NOTE_COOR_PORTAL_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date_requested" ColumnName="date_requested" />
+                <ScalarProperty Name="requested_by" ColumnName="requested_by" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="date_completed" ColumnName="date_completed" />
+                <ScalarProperty Name="completed_by" ColumnName="completed_by" />
+                <ScalarProperty Name="document_name" ColumnName="document_name" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_ADD_CANDIDATE_DOCUMENT" FunctionName="apwdbModel.Store.USP_H_ADD_CANDIDATE_DOCUMENT" />
+          <FunctionImportMapping FunctionImportName="USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT" FunctionName="apwdbModel.Store.USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="candidate_id" ColumnName="candidate_id" />
+                <ScalarProperty Name="CandName" ColumnName="CandName" />
+                <ScalarProperty Name="required_doc_id" ColumnName="required_doc_id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="doc_id" ColumnName="doc_id" />
+                <ScalarProperty Name="file_type" ColumnName="file_type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_ACTIVE_EMPLOYEE_NOTES" FunctionName="apwdbModel.Store.USP_H_MANAGE_ACTIVE_EMPLOYEE_NOTES" />
+          <FunctionImportMapping FunctionImportName="USP_P_MANAGE_SUBMIT_REQUIRED_DOCUMENT" FunctionName="apwdbModel.Store.USP_P_MANAGE_SUBMIT_REQUIRED_DOCUMENT" />
+          <FunctionImportMapping FunctionImportName="USP_C_MANAGE_COOR_NEW_EMPLOYEE" FunctionName="apwdbModel.Store.USP_C_MANAGE_COOR_NEW_EMPLOYEE" />
+          <FunctionImportMapping FunctionImportName="USP_H_GET_HELPDESK_MONITORING" FunctionName="apwdbModel.Store.USP_H_GET_HELPDESK_MONITORING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_HELPDESK_MONITORING_Result1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="concern_date" ColumnName="concern_date" />
+                <ScalarProperty Name="client" ColumnName="client" />
+                <ScalarProperty Name="concern_type" ColumnName="concern_type" />
+                <ScalarProperty Name="concern_description" ColumnName="concern_description" />
+                <ScalarProperty Name="file_status" ColumnName="file_status" />
+                <ScalarProperty Name="concern_status" ColumnName="concern_status" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="date_completed" ColumnName="date_completed" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="date_posted" ColumnName="date_posted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_CONCERN" FunctionName="apwdbModel.Store.USP_H_MANAGE_CONCERN" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_CONCERN_THREAD" FunctionName="apwdbModel.Store.USP_H_MANAGE_CONCERN_THREAD" />
+          <EntitySetMapping Name="HELPDESK_CONCERN">
+            <EntityTypeMapping TypeName="apwdbModel.HELPDESK_CONCERN">
+              <MappingFragment StoreEntitySet="HELPDESK_CONCERN">
+                <ScalarProperty Name="date_posted" ColumnName="date_posted" />
+                <ScalarProperty Name="date_completed" ColumnName="date_completed" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="concern_status" ColumnName="concern_status" />
+                <ScalarProperty Name="file_status" ColumnName="file_status" />
+                <ScalarProperty Name="post_status" ColumnName="post_status" />
+                <ScalarProperty Name="concern_description" ColumnName="concern_description" />
+                <ScalarProperty Name="concern_type_id" ColumnName="concern_type_id" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HELPDESK_CONCERN_THREAD">
+            <EntityTypeMapping TypeName="apwdbModel.HELPDESK_CONCERN_THREAD">
+              <MappingFragment StoreEntitySet="HELPDESK_CONCERN_THREAD">
+                <ScalarProperty Name="date_uploaded" ColumnName="date_uploaded" />
+                <ScalarProperty Name="content_type" ColumnName="content_type" />
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="file_location" ColumnName="file_location" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="user_Id" ColumnName="user_Id" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="concern_id" ColumnName="concern_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HELPDESK_CONCERN_TYPE">
+            <EntityTypeMapping TypeName="apwdbModel.HELPDESK_CONCERN_TYPE">
+              <MappingFragment StoreEntitySet="HELPDESK_CONCERN_TYPE">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="concern_description" ColumnName="concern_description" />
+                <ScalarProperty Name="sort_no" ColumnName="sort_no" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_GET_COMMENT" FunctionName="apwdbModel.Store.USP_H_GET_COMMENT">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_COMMENT_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="content_type" ColumnName="content_type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_GET_COMMENTS" FunctionName="apwdbModel.Store.USP_H_GET_COMMENTS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_COMMENTS_Result">
+                <ScalarProperty Name="sort" ColumnName="sort" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="time_created" ColumnName="time_created" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

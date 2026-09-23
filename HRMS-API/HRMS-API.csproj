@@ -55,7 +55,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HRModel\bin\Debug\HRModel.dll</HintPath>
     </Reference>
-    <Reference Include="HRMS.DB">
+    <Reference Include="HRMS.DB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HRMS.DB\bin\Debug\HRMS.DB.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -173,9 +174,13 @@
     <Compile Include="Controllers\ContractController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\FloatingController.cs" />
+    <Compile Include="Controllers\HelpdeskController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
+    <Compile Include="Controllers\NoteController.cs" />
+    <Compile Include="Controllers\ReactivationController.cs" />
+    <Compile Include="Controllers\SeparationController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -188,9 +193,13 @@
     <Compile Include="Repository\EmployeeRepository.cs" />
     <Compile Include="Repository\FloatingRepository.cs" />
     <Compile Include="Repository\GlobalRepository.cs" />
+    <Compile Include="Repository\HelpdeskRepository.cs" />
     <Compile Include="Repository\LeaveRepository.cs" />
     <Compile Include="Repository\LoanRepository.cs" />
+    <Compile Include="Repository\NotesRepository.cs" />
+    <Compile Include="Repository\ReactivationRepository.cs" />
     <Compile Include="Repository\ReplacementRepository.cs" />
+    <Compile Include="Repository\SeparationRepository.cs" />
     <Compile Include="Repository\TransactionRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>

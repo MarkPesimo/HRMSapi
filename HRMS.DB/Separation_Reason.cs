@@ -12,25 +12,21 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class EmployeeType
+    public partial class Separation_Reason
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EmployeeType()
+        public Separation_Reason()
         {
-            this.Employees = new HashSet<Employee>();
-            this.REC_NEW_HIRED_EMPLOYEE = new HashSet<REC_NEW_HIRED_EMPLOYEE>();
+            this.Employee_Separation = new HashSet<Employee_Separation>();
         }
     
-        public int EmpType_ID { get; set; }
-        public string EmpType_Desc { get; set; }
-        public int UserID { get; set; }
-        public bool status { get; set; }
+        public int ID { get; set; }
+        public string Reason { get; set; }
+        public Nullable<bool> Status { get; set; }
+        public int user_id { get; set; }
         public System.DateTime date_created { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
-        public virtual SYS_USER SYS_USER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<REC_NEW_HIRED_EMPLOYEE> REC_NEW_HIRED_EMPLOYEE { get; set; }
+        public virtual ICollection<Employee_Separation> Employee_Separation { get; set; }
     }
 }

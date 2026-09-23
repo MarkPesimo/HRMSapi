@@ -12,25 +12,24 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class EmployeeType
+    public partial class HELPDESK_CONCERN_TYPE
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EmployeeType()
+        public HELPDESK_CONCERN_TYPE()
         {
-            this.Employees = new HashSet<Employee>();
-            this.REC_NEW_HIRED_EMPLOYEE = new HashSet<REC_NEW_HIRED_EMPLOYEE>();
+            this.HELPDESK_CONCERN = new HashSet<HELPDESK_CONCERN>();
         }
     
-        public int EmpType_ID { get; set; }
-        public string EmpType_Desc { get; set; }
-        public int UserID { get; set; }
+        public int id { get; set; }
+        public decimal sort_no { get; set; }
+        public string concern_description { get; set; }
+        public string department { get; set; }
         public bool status { get; set; }
+        public int user_id { get; set; }
         public System.DateTime date_created { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<HELPDESK_CONCERN> HELPDESK_CONCERN { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<REC_NEW_HIRED_EMPLOYEE> REC_NEW_HIRED_EMPLOYEE { get; set; }
     }
 }

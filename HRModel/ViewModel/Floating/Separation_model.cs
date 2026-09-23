@@ -6,27 +6,24 @@ using System.Threading.Tasks;
 
 namespace HRModel.ViewModel.Floating
 {
-    public class Floating_model
+    public class Separation_model
     {
-        public class FloatingReason_model
+        public class SeparationReason_model
         {
             public int Id { get; set; }
             public string Reason { get; set; }
         }
 
-        public class EmployeeFloatingRecord_model
+        public class EmployeeSeparationRecord_model
         {
             public int Id { get; set; }
             public int EmpId { get; set; }
             public string EmployeeName { get; set; }
 
-            public string FloatingReason { get; set; }
-            public int FloatingReasonId { get; set; }
+            public string SeparationReason { get; set; }
+            public int SeparationReasonId { get; set; }
 
-            public bool IsFloating { get; set; }
-            public DateTime FloatingDate { get; set; }
-
-            public bool WithSeparationPay { get; set; }
+            public DateTime SeparationDate { get; set; }
             public string Remarks { get; set; }
 
             public int UserId { get; set; }
@@ -42,16 +39,17 @@ namespace HRModel.ViewModel.Floating
             public bool ContractStatus { get; set; }
         }
 
-        public class Floating
+        public class Separation
         {
             public int Id { get; set; }
             public string ClientName { get; set; }
             public string EmployeeName { get; set; }
-            public DateTime? DateResignationSubmitted { get; set; }
-            public DateTime? DateSeparated { get; set; }
-            public int SeparatedById { get; set; }
-            public string SeparatedBy { get; set; }
-            public int FloatingId { get; set; }
+            public DateTime? DateCreated { get; set; }
+            public DateTime? DateInactive { get; set; }
+            public int InactiveById { get; set; }
+            public string InactiveBy { get; set; }
+            public int SeparationId { get; set; }
+
 
             public int Mode { get; set; }
             public int LoginUserId { get; set; }

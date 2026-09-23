@@ -7,35 +7,35 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using static HRModel.ViewModel.Floating.EmployeeTransaction_model;
-using static HRModel.ViewModel.Floating.Floating_model;
 using static HRModel.ViewModel.Floating.Replacement_model;
+using static HRModel.ViewModel.Floating.Separation_model;
 
 namespace HRMS_API.Controllers
 {
     [BasicAuthentication]
 
-    public class FloatingController : ApiController
+    public class SeparationController : ApiController
     {
         public GlobalRepository _globalrepository { get; set; }
-        public FloatingRepository _floatingrepository { get; set; }
+        public SeparationRepository _separationrepository { get; set; }
         public ContractRepository _contractrepository { get; set; }
         public ReplacementRepository _replacementrepository { get; set; }
 
-        public FloatingController()
+        public SeparationController()
         {
-            if (_floatingrepository == null) { _floatingrepository = new FloatingRepository(); }
+            if (_separationrepository == null) { _separationrepository = new SeparationRepository(); }
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
             if (_contractrepository == null) { _contractrepository = new ContractRepository(); }
             if (_replacementrepository == null) { _replacementrepository = new ReplacementRepository(); }
         }
 
-        [Route("api/Floating/Reasons")]
+        [Route("api/Separation/Reasons")]
         [HttpGet]
-        public HttpResponseMessage Reasons( )
+        public HttpResponseMessage Reasons()
         {
             try
             {
-                List<FloatingReason_model> results = _floatingrepository.GetFloatingReasons();
+                List<SeparationReason_model> results = _separationrepository.GetSeparationReasons();
 
                 return results != null && results.Count > 0
                     ? Request.CreateResponse(HttpStatusCode.OK, results)
@@ -47,15 +47,15 @@ namespace HRMS_API.Controllers
             }
         }
 
-        [Route("api/Floating/GetEmployeeFloatingRecord/{Id}")]
+        [Route("api/Separation/GetEmployeeSeparationRecord/{Id}")]
         [HttpGet]
-        public HttpResponseMessage GetEmployeeFloatingRecord(int Id)
+        public HttpResponseMessage GetEmployeeSeparationRecord(int Id)
         {
             try
             {
-                EmployeeFloatingRecord_model _obj = _floatingrepository.GetEmployeeFloatingRecord(Id);
+                EmployeeSeparationRecord_model _obj = _separationrepository.GetEmployeeSeparationRecord(Id);
 
-                return _obj != null  
+                return _obj != null
                     ? Request.CreateResponse(HttpStatusCode.OK, _obj)
                     : Request.CreateErrorResponse(HttpStatusCode.NotFound, "No records found.");
             }
@@ -64,41 +64,39 @@ namespace HRMS_API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
-
-        [Route("api/Floating/ManageEmployeeFloating")]
+        
+        [Route("api/Separation/ManageEmployeeSeparation")]
         [HttpPost]
-        public HttpResponseMessage ManageEmployeeFloating([FromBody] EmployeeFloatingRecord_model model)
+        public HttpResponseMessage ManageEmployeeSeparation([FromBody] EmployeeSeparationRecord_model model)
         {
             try
             {
-                if (model.FloatingDate < DateTime.Now)
+                if (model.SeparationDate < DateTime.Now)
                 {
                     TransactionLog _log = new TransactionLog();
                     _log.TranId = model.Id;
-                    _log.TranAction = "Floating";
+                    _log.TranAction = "Inactive";
                     _log.UserId = model.UserId;
-                    _log.DateValue = model.FloatingDate;
+                    _log.DateValue = model.SeparationDate;
 
                     _globalrepository.ManageEmployeeTransactionLog(_log);
                 }
 
-                int _id = _floatingrepository.ManageEmployeeFloatingRecord(model);
+                int _id = _separationrepository.ManageEmployeeSeparationRecord(model);
                 if (_id != 0)
                 {
-                    //manage contract floating
+                    //manage contract separation
                     if (model.TransactionId != 0)
                     {
-                        Floating _floating = new Floating();
+                        Separation _separation = new Separation();
 
-                        _floating.Id = model.TransactionId;
-                        _floating.DateResignationSubmitted = DateTime.Now;
-                        _floating.DateSeparated = model.FloatingDate;
-                        _floating.FloatingId = _id;
-                        _floating.SeparatedById = model.UserId;
-                        _floating.LoginUserId = model.UserId;
-                        _floating.Mode = 3;
+                        _separation.Id = model.TransactionId;
+                        _separation.DateCreated = DateTime.Now;
+                        _separation.DateInactive = model.SeparationDate;
+                        _separation.SeparationId = _id;
+                        _separation.InactiveById = model.UserId;
 
-                        _id = _contractrepository.ManageEmployeeContractFloating(_floating);
+                        _id = _contractrepository.ManageEmployeeContractSepartion(_separation);
 
                         if (_id > 0)
                         {
@@ -129,26 +127,27 @@ namespace HRMS_API.Controllers
 
         }
 
-        [Route("api/Floating/UpdateFloatingDate")]
+        [Route("api/Separation/UpdateSeparationDate")]
         [HttpPost]
-        public HttpResponseMessage UpdateFloatingDate([FromBody] Floating model)
+        public HttpResponseMessage UpdateSeparationDate([FromBody] Separation model)
         {
             try
             {
-                if (model.DateSeparated < DateTime.Now.Date || model.DateResignationSubmitted < DateTime.Now.Date)
+                if (model.DateInactive < DateTime.Now.Date)
                 {
                     TransactionLog _log = new TransactionLog();
                     _log.TranId = model.Id;
-                    _log.TranAction = "Floating";
+                    _log.TranAction = "inactive";
                     _log.UserId = model.LoginUserId;
-                    _log.DateValue = model.DateSeparated.Value;
+                    _log.DateValue = model.DateInactive.Value;
 
                     _globalrepository.ManageEmployeeTransactionLog(_log);
                 }
+ 
+                model.Mode = 44;
+                model.SeparationId = 0;
 
-                model.FloatingId = 0;
-                model.Mode = 33;
-                model.Id = _contractrepository.ManageEmployeeContractFloating(model);
+                model.Id = _contractrepository.ManageEmployeeContractSeparation(model);
 
                 if (model.Id != 0) { return Request.CreateResponse(HttpStatusCode.OK, model.Id); }
                 else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error"); }
@@ -160,14 +159,14 @@ namespace HRMS_API.Controllers
             }
         }
 
-        [Route("api/Floating/Link")]
+        [Route("api/Separation/Link")]
         [HttpPost]
-        public HttpResponseMessage Link([FromBody] Floating model)
+        public HttpResponseMessage Link([FromBody] Separation model)
         {
             try
             {
-                model.Mode = 333;
-                model.Id = _contractrepository.ManageEmployeeContractFloating(model);
+                model.Mode = 444;
+                model.Id = _contractrepository.ManageEmployeeContractSeparation(model);
 
                 if (model.Id != 0) { return Request.CreateResponse(HttpStatusCode.OK, model.Id); }
                 else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error"); }

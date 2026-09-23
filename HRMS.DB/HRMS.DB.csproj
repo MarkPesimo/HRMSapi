@@ -77,7 +77,19 @@
     <Compile Include="Employee_Replacement_HD.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Employee_Separation.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="FloatingReason.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HELPDESK_CONCERN.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HELPDESK_CONCERN_THREAD.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HELPDESK_CONCERN_TYPE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="HRDB_model.Context.cs">
@@ -120,10 +132,19 @@
     <Compile Include="REC_CONTRACT_TYPE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_NEW_HIRED_EMPLOYEE.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_NEW_HIRED_EMPLOYEE_REMARKS.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_SOURCE_TYPE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_USER_LOG.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Separation_Reason.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Shift.cs">
@@ -141,10 +162,28 @@
     <Compile Include="SYS_USER_GROUP_DET.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result1.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="USP_H_GET_ACTIVE_EMPLOYEE_NOTES_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_ACTIVE_EMPLOYEE_NOTES_Result1.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="USP_H_GET_CLIENTS_BY_COMPANY_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_COMMENTS_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_COMMENT_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_GET_EMPLOYEE_FILED_LEAVE_Result.cs">
@@ -156,10 +195,28 @@
     <Compile Include="USP_H_GET_EMPLOYEE_MONITORING_Result1.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="USP_H_GET_EMPLOYEE_NOTES_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_EMPLOYEE_NOTE_COOR_PORTAL_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_EMPLOYEE_NOTE_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_HELPDESK_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_HELPDESK_MONITORING_Result1.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="USP_H_GET_LEAVE_BALANCE_MONITORING_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_GET_LOAN_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
   </ItemGroup>
