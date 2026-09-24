@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using static HRModel.ViewModel.Employees.Notes.EmployeeNotes_model;
 
@@ -164,6 +165,30 @@ namespace HRMS_API.Controllers
 
                 if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Ok."); }
                 else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save contract transaction."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Notes/GetFilePath/{type}")]
+        [HttpGet]
+        public HttpResponseMessage GetFilePath(string type)
+        {
+            try
+            {
+                string filePath = _globalrepository.GetFilePath(type);
+
+                if (!string.IsNullOrEmpty(filePath))
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, filePath);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No path configuration found for the specified type!");
+                }
             }
             catch (Exception ex)
             {

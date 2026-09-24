@@ -45,6 +45,7 @@ namespace HRMS.DB
             this.Degrees = new HashSet<Degree>();
             this.SchoolLevels = new HashSet<SchoolLevel>();
             this.Schools = new HashSet<School>();
+            this.LeaveTypes = new HashSet<LeaveType>();
         }
     
         public int id { get; set; }
@@ -114,5 +115,7 @@ namespace HRMS.DB
         public virtual ICollection<SchoolLevel> SchoolLevels { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<School> Schools { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LeaveType> LeaveTypes { get; set; }
     }
 }

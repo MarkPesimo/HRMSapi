@@ -331,6 +331,28 @@
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="LeaveType">
+          <Key>
+            <PropertyRef Name="Leavetype_ID" />
+          </Key>
+          <Property Name="Leavetype_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Leavetype_desc" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" />
+          <Property Name="LeaveCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoanTransaction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoanID" Type="int" />
+          <Property Name="PayrollID" Type="int" />
+          <Property Name="TransDate" Type="smalldatetime" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
         <EntityType Name="LoanType">
           <Key>
             <PropertyRef Name="LoanType_ID" />
@@ -583,6 +605,14 @@
           <Property Name="status" Type="bit" Nullable="false" />
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_FILE_CONFIGURATION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="attach_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="attach_location" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="REC_NEW_HIRED_EMPLOYEE">
           <Key>
@@ -921,6 +951,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name=" FK_EmployeeLeaveMonitoring_LeaveType">
+          <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="1" />
+          <End Role="EmployeeLeaveMonitoring" Type="Self.EmployeeLeaveMonitoring" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="Leavetype_ID" />
+            </Principal>
+            <Dependent Role="EmployeeLeaveMonitoring">
+              <PropertyRef Name="LeaveTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name=" FK_EmployeeLoanMaster_LoanType">
           <End Role="LoanType" Type="Self.LoanType" Multiplicity="1" />
           <End Role="EmployeeLoanMaster" Type="Self.EmployeeLoanMaster" Multiplicity="*" />
@@ -930,6 +972,30 @@
             </Principal>
             <Dependent Role="EmployeeLoanMaster">
               <PropertyRef Name="LoanTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_LoanTransaction_EmployeeLoanMaster">
+          <End Role="EmployeeLoanMaster" Type="Self.EmployeeLoanMaster" Multiplicity="0..1" />
+          <End Role="LoanTransaction" Type="Self.LoanTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeLoanMaster">
+              <PropertyRef Name="LoanID" />
+            </Principal>
+            <Dependent Role="LoanTransaction">
+              <PropertyRef Name="LoanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_P_Leave_LeaveType">
+          <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="1" />
+          <End Role="P_Leave" Type="Self.P_Leave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="Leavetype_ID" />
+            </Principal>
+            <Dependent Role="P_Leave">
+              <PropertyRef Name="LeaveTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1266,6 +1332,18 @@
             </Principal>
             <Dependent Role="HELPDESK_CONCERN_TYPE">
               <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveType_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeaveType">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1992,6 +2070,24 @@
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_H_MANAGE_LEAVE_ACCEPT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="P_LEAVE_ID" Type="int" Mode="In" />
+          <Parameter Name="DATE_ACCEPTED" Type="date" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_MANAGE_LEAVE_REVOKE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="P_LEAVE_ID" Type="int" Mode="In" />
+          <Parameter Name="DATE_CREATED" Type="date" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_H_MASTER_P_LEAVE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="P_LEAVEID" Type="int" Mode="In" />
           <Parameter Name="EMP_ID" Type="int" Mode="In" />
@@ -2042,6 +2138,8 @@
           <EntitySet Name="HELPDESK_CONCERN" EntityType="Self.HELPDESK_CONCERN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HELPDESK_CONCERN_THREAD" EntityType="Self.HELPDESK_CONCERN_THREAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HELPDESK_CONCERN_TYPE" EntityType="Self.HELPDESK_CONCERN_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoanTransaction" EntityType="Self.LoanTransaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoanType" EntityType="Self.LoanType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="P_Leave" EntityType="Self.P_Leave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE" EntityType="Self.REC_CANDIDATE" Schema="dbo" store:Type="Tables" />
@@ -2052,6 +2150,7 @@
           <EntitySet Name="REC_CLIENT_DEPARTMENT" EntityType="Self.REC_CLIENT_DEPARTMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_SHIFT" EntityType="Self.REC_CLIENT_SHIFT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CONTRACT_TYPE" EntityType="Self.REC_CONTRACT_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_FILE_CONFIGURATION" EntityType="Self.REC_FILE_CONFIGURATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_NEW_HIRED_EMPLOYEE" EntityType="Self.REC_NEW_HIRED_EMPLOYEE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_NEW_HIRED_EMPLOYEE_REMARKS" EntityType="Self.REC_NEW_HIRED_EMPLOYEE_REMARKS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_SOURCE_TYPE" EntityType="Self.REC_SOURCE_TYPE" Schema="dbo" store:Type="Tables" />
@@ -2116,9 +2215,21 @@
             <End Role="Shift" EntitySet="Shift" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name=" FK_EmployeeLeaveMonitoring_LeaveType" Association="Self. FK_EmployeeLeaveMonitoring_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveType" />
+            <End Role="EmployeeLeaveMonitoring" EntitySet="EmployeeLeaveMonitoring" />
+          </AssociationSet>
           <AssociationSet Name=" FK_EmployeeLoanMaster_LoanType" Association="Self. FK_EmployeeLoanMaster_LoanType">
             <End Role="LoanType" EntitySet="LoanType" />
             <End Role="EmployeeLoanMaster" EntitySet="EmployeeLoanMaster" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_LoanTransaction_EmployeeLoanMaster" Association="Self. FK_LoanTransaction_EmployeeLoanMaster">
+            <End Role="EmployeeLoanMaster" EntitySet="EmployeeLoanMaster" />
+            <End Role="LoanTransaction" EntitySet="LoanTransaction" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_P_Leave_LeaveType" Association="Self. FK_P_Leave_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveType" />
+            <End Role="P_Leave" EntitySet="P_Leave" />
           </AssociationSet>
           <AssociationSet Name=" FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE" Association="Self. FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE">
             <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
@@ -2231,6 +2342,10 @@
           <AssociationSet Name="FK_HELPDESK_CONCERN_TYPE_SYS_USER" Association="Self.FK_HELPDESK_CONCERN_TYPE_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="HELPDESK_CONCERN_TYPE" EntitySet="HELPDESK_CONCERN_TYPE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveType_SYS_USER" Association="Self.FK_LeaveType_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="LeaveType" EntitySet="LeaveType" />
           </AssociationSet>
           <AssociationSet Name="FK_LoanType_SYS_USER" Association="Self.FK_LoanType_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -3084,6 +3199,43 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="School" EntitySet="Schools" />
           </AssociationSet>
+          <EntitySet Name="LeaveTypes" EntityType="apwdbModel.LeaveType" />
+          <EntitySet Name="LoanTransactions" EntityType="apwdbModel.LoanTransaction" />
+          <AssociationSet Name="C_FK_EmployeeLeaveMonitoring_LeaveType" Association="apwdbModel.C_FK_EmployeeLeaveMonitoring_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveTypes" />
+            <End Role="EmployeeLeaveMonitoring" EntitySet="EmployeeLeaveMonitorings" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_LoanTransaction_EmployeeLoanMaster" Association="apwdbModel.C_FK_LoanTransaction_EmployeeLoanMaster">
+            <End Role="EmployeeLoanMaster" EntitySet="EmployeeLoanMasters" />
+            <End Role="LoanTransaction" EntitySet="LoanTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_P_Leave_LeaveType" Association="apwdbModel.C_FK_P_Leave_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveTypes" />
+            <End Role="P_Leave" EntitySet="P_Leave" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveType_SYS_USER" Association="apwdbModel.FK_LeaveType_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="LeaveType" EntitySet="LeaveTypes" />
+          </AssociationSet>
+          <FunctionImport Name="USP_H_MANAGE_LEAVE_ACCEPT">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="P_LEAVE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DATE_ACCEPTED" Mode="In" Type="DateTime" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_LEAVE_REVOKE">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="P_LEAVE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DATE_CREATED" Mode="In" Type="DateTime" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="REC_FILE_CONFIGURATION" EntityType="apwdbModel.REC_FILE_CONFIGURATION" />
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -3271,6 +3423,7 @@
           <NavigationProperty Name="Degrees" Relationship="apwdbModel.FK_Degree_SYS_USER" FromRole="SYS_USER" ToRole="Degree" />
           <NavigationProperty Name="SchoolLevels" Relationship="apwdbModel.FK_SchoolLevel_SYS_USER" FromRole="SYS_USER" ToRole="SchoolLevel" />
           <NavigationProperty Name="Schools" Relationship="apwdbModel.FK_School_SYS_USER" FromRole="SYS_USER" ToRole="School" />
+          <NavigationProperty Name="LeaveTypes" Relationship="apwdbModel.FK_LeaveType_SYS_USER" FromRole="SYS_USER" ToRole="LeaveType" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP">
           <Key>
@@ -3590,6 +3743,7 @@
           <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_EmployeeLeaveMonitoring_Employee" FromRole="EmployeeLeaveMonitoring" ToRole="Employee" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_EmployeeLeaveMonitoring_SYS_USER" FromRole="EmployeeLeaveMonitoring" ToRole="SYS_USER" />
           <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.FK_EmployeeLeaveMonitoring_REC_CLIENT" FromRole="EmployeeLeaveMonitoring" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="LeaveType" Relationship="apwdbModel.C_FK_EmployeeLeaveMonitoring_LeaveType" FromRole="EmployeeLeaveMonitoring" ToRole="LeaveType" />
         </EntityType>
         <EntityType Name="P_Leave">
           <Key>
@@ -3640,6 +3794,7 @@
           <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_P_Leave_Employee" FromRole="P_Leave" ToRole="Employee" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_P_Leave_SYS_USER" FromRole="P_Leave" ToRole="SYS_USER" />
           <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.FK_P_Leave_REC_CLIENT" FromRole="P_Leave" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="LeaveType" Relationship="apwdbModel.C_FK_P_Leave_LeaveType" FromRole="P_Leave" ToRole="LeaveType" />
         </EntityType>
         <Association Name="FK_EmployeeLeaveMonitoring_Employee">
           <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="1" />
@@ -3865,6 +4020,7 @@
           <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_EmployeeLoanMaster_Employee" FromRole="EmployeeLoanMaster" ToRole="Employee" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_EmployeeLoanMaster_SYS_USER" FromRole="EmployeeLoanMaster" ToRole="SYS_USER" />
           <NavigationProperty Name="LoanType" Relationship="apwdbModel.C_FK_EmployeeLoanMaster_LoanType" FromRole="EmployeeLoanMaster" ToRole="LoanType" />
+          <NavigationProperty Name="LoanTransactions" Relationship="apwdbModel.C_FK_LoanTransaction_EmployeeLoanMaster" FromRole="EmployeeLoanMaster" ToRole="LoanTransaction" />
         </EntityType>
         <Association Name="FK_EmployeeLoanMaster_Employee">
           <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="1" />
@@ -5101,6 +5257,88 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LeaveType">
+          <Key>
+            <PropertyRef Name="Leavetype_ID" />
+          </Key>
+          <Property Name="Leavetype_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Leavetype_desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="LeaveCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="EmployeeLeaveMonitorings" Relationship="apwdbModel.C_FK_EmployeeLeaveMonitoring_LeaveType" FromRole="LeaveType" ToRole="EmployeeLeaveMonitoring" />
+          <NavigationProperty Name="P_Leave" Relationship="apwdbModel.C_FK_P_Leave_LeaveType" FromRole="LeaveType" ToRole="P_Leave" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_LeaveType_SYS_USER" FromRole="LeaveType" ToRole="SYS_USER" />
+        </EntityType>
+        <EntityType Name="LoanTransaction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoanID" Type="Int32" />
+          <Property Name="PayrollID" Type="Int32" />
+          <Property Name="TransDate" Type="DateTime" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="EmployeeLoanMaster" Relationship="apwdbModel.C_FK_LoanTransaction_EmployeeLoanMaster" FromRole="LoanTransaction" ToRole="EmployeeLoanMaster" />
+        </EntityType>
+        <Association Name="C_FK_EmployeeLeaveMonitoring_LeaveType">
+          <End Type="apwdbModel.LeaveType" Role="LeaveType" Multiplicity="1" />
+          <End Type="apwdbModel.EmployeeLeaveMonitoring" Role="EmployeeLeaveMonitoring" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="Leavetype_ID" />
+            </Principal>
+            <Dependent Role="EmployeeLeaveMonitoring">
+              <PropertyRef Name="LeaveTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_LoanTransaction_EmployeeLoanMaster">
+          <End Type="apwdbModel.EmployeeLoanMaster" Role="EmployeeLoanMaster" Multiplicity="0..1" />
+          <End Type="apwdbModel.LoanTransaction" Role="LoanTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeLoanMaster">
+              <PropertyRef Name="LoanID" />
+            </Principal>
+            <Dependent Role="LoanTransaction">
+              <PropertyRef Name="LoanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_P_Leave_LeaveType">
+          <End Type="apwdbModel.LeaveType" Role="LeaveType" Multiplicity="1" />
+          <End Type="apwdbModel.P_Leave" Role="P_Leave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="Leavetype_ID" />
+            </Principal>
+            <Dependent Role="P_Leave">
+              <PropertyRef Name="LeaveTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveType_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.LeaveType" Role="LeaveType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LeaveType">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_FILE_CONFIGURATION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="attach_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="attach_location" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6179,6 +6417,41 @@
                 <ScalarProperty Name="School_type" ColumnName="School_type" />
                 <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
                 <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveTypes">
+            <EntityTypeMapping TypeName="apwdbModel.LeaveType">
+              <MappingFragment StoreEntitySet="LeaveType">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="LeaveCode" ColumnName="LeaveCode" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Leavetype_desc" ColumnName="Leavetype_desc" />
+                <ScalarProperty Name="Leavetype_ID" ColumnName="Leavetype_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoanTransactions">
+            <EntityTypeMapping TypeName="apwdbModel.LoanTransaction">
+              <MappingFragment StoreEntitySet="LoanTransaction">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TransDate" ColumnName="TransDate" />
+                <ScalarProperty Name="PayrollID" ColumnName="PayrollID" />
+                <ScalarProperty Name="LoanID" ColumnName="LoanID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_LEAVE_ACCEPT" FunctionName="apwdbModel.Store.USP_H_MANAGE_LEAVE_ACCEPT" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_LEAVE_REVOKE" FunctionName="apwdbModel.Store.USP_H_MANAGE_LEAVE_REVOKE" />
+          <EntitySetMapping Name="REC_FILE_CONFIGURATION">
+            <EntityTypeMapping TypeName="apwdbModel.REC_FILE_CONFIGURATION">
+              <MappingFragment StoreEntitySet="REC_FILE_CONFIGURATION">
+                <ScalarProperty Name="attach_location" ColumnName="attach_location" />
+                <ScalarProperty Name="attach_type" ColumnName="attach_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
