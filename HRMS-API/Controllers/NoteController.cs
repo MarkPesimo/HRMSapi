@@ -1,4 +1,5 @@
-﻿using HRMS_API.Repository;
+﻿using HRMS_API.Helper;
+using HRMS_API.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ using static HRModel.ViewModel.Employees.Notes.EmployeeNotes_model;
 
 namespace HRMS_API.Controllers
 {
+    [BasicAuthentication]
+
     public class NoteController : ApiController
     {
         private GlobalRepository _globalrepository { get; set; }

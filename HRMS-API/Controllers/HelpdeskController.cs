@@ -43,7 +43,7 @@ namespace HRMS_API.Controllers
         }
 
 
-        [Route("api/Helpdesk/GetHelpdeskRecordMonitoring/{UserId}/{UserType}/{ByConcernType}/{ConcernTypeId/{ByConcernStatus}/{ConcernStatus}/{ByDate}/{DateFrom}/{DateTo}/{Keyword}/{ByClient}/{ClientId}/{CompanyId}")]
+        [Route("api/Helpdesk/GetHelpdeskRecordMonitoring/{UserId}/{UserType}/{ByConcernType}/{ConcernTypeId}/{ByConcernStatus}/{ConcernStatus}/{ByDate}/{DateFrom}/{DateTo}/{Keyword}/{ByClient}/{ClientId}/{CompanyId}")]
         [HttpGet]
         public HttpResponseMessage GetHelpdeskRecordMonitoring(int UserId, string UserType,
              bool ByConcernType,  int ConcernTypeId,

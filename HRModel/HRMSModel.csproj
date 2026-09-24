@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\Contract\EmployeeTransaction\EmployeeTransaction.cs" />
     <Compile Include="ViewModel\Contract\EmployeeTransaction\ReactivationModel.cs" />
+    <Compile Include="ViewModel\Employees\Document\RequiredDocument_model.cs" />
     <Compile Include="ViewModel\Employees\Education\EmployeeEducationModel.cs" />
     <Compile Include="ViewModel\Employees\EmployeeMonitoringViewModel.cs" />
     <Compile Include="ViewModel\Employees\EmployeeProfile.cs" />
@@ -52,11 +53,14 @@
     <Compile Include="ViewModel\Floating\Replacement_model.cs" />
     <Compile Include="ViewModel\Floating\EmployeeTransaction_model.cs" />
     <Compile Include="ViewModel\Floating\Separation_model.cs" />
+    <Compile Include="ViewModel\Global\AccessModel.cs" />
     <Compile Include="ViewModel\Global\ContextLoginUser_model.cs" />
     <Compile Include="ViewModel\Global\GlobalSearch_models.cs" />
     <Compile Include="ViewModel\Global\ICustomPrincipal.cs" />
     <Compile Include="ViewModel\Global\LoginModel.cs" />
     <Compile Include="ViewModel\Global\LoginUser_model.cs" />
+    <Compile Include="ViewModel\Global\MasterFile.cs" />
+    <Compile Include="ViewModel\Global\PortalAccount_model.cs" />
     <Compile Include="ViewModel\Global\SecretKeys.cs" />
     <Compile Include="ViewModel\Global\Serialize_LoginUser_model.cs" />
     <Compile Include="ViewModel\Helpdesk\Helpdesk_model.cs" />

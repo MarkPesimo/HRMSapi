@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using static HRModel.ViewModel.Global.PortalAccount_model;
 
 namespace HRMS_API.Repository
 {
@@ -140,6 +141,44 @@ namespace HRMS_API.Repository
 
             _conn.REC_USER_LOG.Add(_log);
             _conn.SaveChanges();
+        }
+
+        public List<NotYetRegisteredEmployee_model> GetEmployeesWithNoPortalAccount(int _clientid)
+        {
+            return (from x in _conn.USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE(_clientid)
+                    select x
+             ).AsEnumerable()
+             .Select(d => new NotYetRegisteredEmployee_model()
+             {
+                EmpId = d.emp_id,
+                EmpNo = d.emp_no,
+                EmployeeName = d.EmployeeName,
+                Lastname = d.Lastname,
+                Firstname = d.Firstname,
+                Middlename = d.Middlename,
+                EmailAddress = d.EmailAddress
+             }).ToList();
+        }
+
+        public bool RegisterPortalAccount(RegisterPortalAccount_model _model)
+        {
+            try
+            {
+                _conn.USP_E_MANAGE_ACCOUNT(
+                   _model.Username,
+                   _model.Password,
+                   _model.HashPassword,
+                   _model.EmpId,
+                   _model.EmailAddress,
+                   _model.UserId);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+           
         }
     }
 }

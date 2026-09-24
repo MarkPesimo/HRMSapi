@@ -45,6 +45,11 @@ namespace HRMS.DB
             this.Degrees = new HashSet<Degree>();
             this.SchoolLevels = new HashSet<SchoolLevel>();
             this.Schools = new HashSet<School>();
+            this.LeaveTypes = new HashSet<LeaveType>();
+            this.Salarytypes = new HashSet<Salarytype>();
+            this.Documents = new HashSet<Document>();
+            this.Required_Document = new HashSet<Required_Document>();
+            this.Required_Document_details = new HashSet<Required_Document_details>();
         }
     
         public int id { get; set; }
@@ -114,5 +119,15 @@ namespace HRMS.DB
         public virtual ICollection<SchoolLevel> SchoolLevels { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<School> Schools { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LeaveType> LeaveTypes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Salarytype> Salarytypes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Document> Documents { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Required_Document> Required_Document { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Required_Document_details> Required_Document_details { get; set; }
     }
 }

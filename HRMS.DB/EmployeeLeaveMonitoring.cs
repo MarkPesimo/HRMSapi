@@ -37,5 +37,6 @@ namespace HRMS.DB
         public virtual Employee Employee { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
         public virtual REC_CLIENT REC_CLIENT { get; set; }
+        public virtual LeaveType LeaveType { get; set; }
     }
 }

@@ -12,21 +12,16 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class REC_CANDIDATE_DOCUMENT
+    public partial class Required_Document_details
     {
         public int id { get; set; }
-        public int candidate_id { get; set; }
+        public int req_id { get; set; }
         public int doc_id { get; set; }
-        public Nullable<System.DateTime> date_issued { get; set; }
-        public Nullable<System.DateTime> date_expired { get; set; }
-        public string remarks { get; set; }
-        public string file_location { get; set; }
-        public string DocNo { get; set; }
-        public System.DateTime date_added { get; set; }
-        public int added_by { get; set; }
+        public int user_id { get; set; }
+        public System.DateTime date_created { get; set; }
     
-        public virtual REC_CANDIDATE REC_CANDIDATE { get; set; }
-        public virtual SYS_USER SYS_USER { get; set; }
         public virtual Document Document { get; set; }
+        public virtual Required_Document Required_Document { get; set; }
+        public virtual SYS_USER SYS_USER { get; set; }
     }
 }

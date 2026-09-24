@@ -65,6 +65,11 @@ namespace HRMS.DB
         public virtual DbSet<Degree> Degrees { get; set; }
         public virtual DbSet<SchoolLevel> SchoolLevels { get; set; }
         public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<LeaveType> LeaveTypes { get; set; }
+        public virtual DbSet<Salarytype> Salarytypes { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<Required_Document> Required_Document { get; set; }
+        public virtual DbSet<Required_Document_details> Required_Document_details { get; set; }
     
         public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
         {
@@ -1540,6 +1545,298 @@ namespace HRMS.DB
                 new ObjectParameter("ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_COMMENTS_Result>("USP_H_GET_COMMENTS", iDParameter);
+        }
+    
+        public virtual int SP_MASTER_DEPARTMENT(Nullable<int> mODE, string dEPARTMENT_DESC, Nullable<int> iD, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var dEPARTMENT_DESCParameter = dEPARTMENT_DESC != null ?
+                new ObjectParameter("DEPARTMENT_DESC", dEPARTMENT_DESC) :
+                new ObjectParameter("DEPARTMENT_DESC", typeof(string));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MASTER_DEPARTMENT", mODEParameter, dEPARTMENT_DESCParameter, iDParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual int SP_MASTER_EMPLOYEETYPE(Nullable<int> mODE, string eMPTYPE_DESC, Nullable<int> iD, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var eMPTYPE_DESCParameter = eMPTYPE_DESC != null ?
+                new ObjectParameter("EMPTYPE_DESC", eMPTYPE_DESC) :
+                new ObjectParameter("EMPTYPE_DESC", typeof(string));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MASTER_EMPLOYEETYPE", mODEParameter, eMPTYPE_DESCParameter, iDParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual int SP_MASTER_EMPLOYEERANK(Nullable<int> mODE, string eMPRANK_DESC, Nullable<int> iD, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var eMPRANK_DESCParameter = eMPRANK_DESC != null ?
+                new ObjectParameter("EMPRANK_DESC", eMPRANK_DESC) :
+                new ObjectParameter("EMPRANK_DESC", typeof(string));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MASTER_EMPLOYEERANK", mODEParameter, eMPRANK_DESCParameter, iDParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual int SP_MASTER_SALARY(Nullable<int> mODE, string sALARY_DESC, Nullable<decimal> sALARY_AMOUNT, Nullable<decimal> rICE_ALLOWANCE, Nullable<decimal> mEAL_ALLOWANCE, Nullable<int> iD, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var sALARY_DESCParameter = sALARY_DESC != null ?
+                new ObjectParameter("SALARY_DESC", sALARY_DESC) :
+                new ObjectParameter("SALARY_DESC", typeof(string));
+    
+            var sALARY_AMOUNTParameter = sALARY_AMOUNT.HasValue ?
+                new ObjectParameter("SALARY_AMOUNT", sALARY_AMOUNT) :
+                new ObjectParameter("SALARY_AMOUNT", typeof(decimal));
+    
+            var rICE_ALLOWANCEParameter = rICE_ALLOWANCE.HasValue ?
+                new ObjectParameter("RICE_ALLOWANCE", rICE_ALLOWANCE) :
+                new ObjectParameter("RICE_ALLOWANCE", typeof(decimal));
+    
+            var mEAL_ALLOWANCEParameter = mEAL_ALLOWANCE.HasValue ?
+                new ObjectParameter("MEAL_ALLOWANCE", mEAL_ALLOWANCE) :
+                new ObjectParameter("MEAL_ALLOWANCE", typeof(decimal));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MASTER_SALARY", mODEParameter, sALARY_DESCParameter, sALARY_AMOUNTParameter, rICE_ALLOWANCEParameter, mEAL_ALLOWANCEParameter, iDParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual int SP_MASTER_SALARYTYPE(Nullable<int> mODE, string sALARYTYPE_DESC, Nullable<int> iD, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var sALARYTYPE_DESCParameter = sALARYTYPE_DESC != null ?
+                new ObjectParameter("SALARYTYPE_DESC", sALARYTYPE_DESC) :
+                new ObjectParameter("SALARYTYPE_DESC", typeof(string));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MASTER_SALARYTYPE", mODEParameter, sALARYTYPE_DESCParameter, iDParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual int SP_MASTER_SHIFT(Nullable<int> mODE, string dESCRIPTION, Nullable<System.DateTime> sHIFT_IN, Nullable<System.DateTime> sHIFT_OUT, Nullable<int> gRACE_PERIOD, Nullable<int> iD, Nullable<int> cOUNTRY_ID, Nullable<int> uSERID, ObjectParameter rET_ID, Nullable<System.DateTime> bREAK_TIME_START, Nullable<System.DateTime> bREAK_TIME_END)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var dESCRIPTIONParameter = dESCRIPTION != null ?
+                new ObjectParameter("DESCRIPTION", dESCRIPTION) :
+                new ObjectParameter("DESCRIPTION", typeof(string));
+    
+            var sHIFT_INParameter = sHIFT_IN.HasValue ?
+                new ObjectParameter("SHIFT_IN", sHIFT_IN) :
+                new ObjectParameter("SHIFT_IN", typeof(System.DateTime));
+    
+            var sHIFT_OUTParameter = sHIFT_OUT.HasValue ?
+                new ObjectParameter("SHIFT_OUT", sHIFT_OUT) :
+                new ObjectParameter("SHIFT_OUT", typeof(System.DateTime));
+    
+            var gRACE_PERIODParameter = gRACE_PERIOD.HasValue ?
+                new ObjectParameter("GRACE_PERIOD", gRACE_PERIOD) :
+                new ObjectParameter("GRACE_PERIOD", typeof(int));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cOUNTRY_IDParameter = cOUNTRY_ID.HasValue ?
+                new ObjectParameter("COUNTRY_ID", cOUNTRY_ID) :
+                new ObjectParameter("COUNTRY_ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var bREAK_TIME_STARTParameter = bREAK_TIME_START.HasValue ?
+                new ObjectParameter("BREAK_TIME_START", bREAK_TIME_START) :
+                new ObjectParameter("BREAK_TIME_START", typeof(System.DateTime));
+    
+            var bREAK_TIME_ENDParameter = bREAK_TIME_END.HasValue ?
+                new ObjectParameter("BREAK_TIME_END", bREAK_TIME_END) :
+                new ObjectParameter("BREAK_TIME_END", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MASTER_SHIFT", mODEParameter, dESCRIPTIONParameter, sHIFT_INParameter, sHIFT_OUTParameter, gRACE_PERIODParameter, iDParameter, cOUNTRY_IDParameter, uSERIDParameter, rET_ID, bREAK_TIME_STARTParameter, bREAK_TIME_ENDParameter);
+        }
+    
+        public virtual int SP_H_MASTER_DOCUMENT(Nullable<int> dOCUMENT_ID, string dOCUMENT_NAME, string dOCUMENT_CLASS, Nullable<int> cOUNTRY_ID, Nullable<int> mODE, Nullable<int> uSER_ID, ObjectParameter rET_ID)
+        {
+            var dOCUMENT_IDParameter = dOCUMENT_ID.HasValue ?
+                new ObjectParameter("DOCUMENT_ID", dOCUMENT_ID) :
+                new ObjectParameter("DOCUMENT_ID", typeof(int));
+    
+            var dOCUMENT_NAMEParameter = dOCUMENT_NAME != null ?
+                new ObjectParameter("DOCUMENT_NAME", dOCUMENT_NAME) :
+                new ObjectParameter("DOCUMENT_NAME", typeof(string));
+    
+            var dOCUMENT_CLASSParameter = dOCUMENT_CLASS != null ?
+                new ObjectParameter("DOCUMENT_CLASS", dOCUMENT_CLASS) :
+                new ObjectParameter("DOCUMENT_CLASS", typeof(string));
+    
+            var cOUNTRY_IDParameter = cOUNTRY_ID.HasValue ?
+                new ObjectParameter("COUNTRY_ID", cOUNTRY_ID) :
+                new ObjectParameter("COUNTRY_ID", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_H_MASTER_DOCUMENT", dOCUMENT_IDParameter, dOCUMENT_NAMEParameter, dOCUMENT_CLASSParameter, cOUNTRY_IDParameter, mODEParameter, uSER_IDParameter, rET_ID);
+        }
+    
+        public virtual ObjectResult<USP_H_GET_ES_CLIENT_EMPLOYEES_Result> USP_H_GET_ES_CLIENT_EMPLOYEES(Nullable<int> cLIENT_ID)
+        {
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_ES_CLIENT_EMPLOYEES_Result>("USP_H_GET_ES_CLIENT_EMPLOYEES", cLIENT_IDParameter);
+        }
+    
+        public virtual int USP_H_MANAGE_REQUIRED_DOCUMENT(Nullable<int> iD, string dESCRIPTION, string dOC_CNT, Nullable<bool> iS_REQUIRED, Nullable<int> uSER_ID, Nullable<int> mODE, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var dESCRIPTIONParameter = dESCRIPTION != null ?
+                new ObjectParameter("DESCRIPTION", dESCRIPTION) :
+                new ObjectParameter("DESCRIPTION", typeof(string));
+    
+            var dOC_CNTParameter = dOC_CNT != null ?
+                new ObjectParameter("DOC_CNT", dOC_CNT) :
+                new ObjectParameter("DOC_CNT", typeof(string));
+    
+            var iS_REQUIREDParameter = iS_REQUIRED.HasValue ?
+                new ObjectParameter("IS_REQUIRED", iS_REQUIRED) :
+                new ObjectParameter("IS_REQUIRED", typeof(bool));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_REQUIRED_DOCUMENT", iDParameter, dESCRIPTIONParameter, dOC_CNTParameter, iS_REQUIREDParameter, uSER_IDParameter, mODEParameter, rET_ID);
+        }
+    
+        public virtual int USP_H_MANAGE_REQUIRED_DOCUMENT_DETAIL(Nullable<int> iD, Nullable<int> rEQ_ID, Nullable<int> dOC_ID, Nullable<int> uSER_ID, Nullable<int> mODE, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var rEQ_IDParameter = rEQ_ID.HasValue ?
+                new ObjectParameter("REQ_ID", rEQ_ID) :
+                new ObjectParameter("REQ_ID", typeof(int));
+    
+            var dOC_IDParameter = dOC_ID.HasValue ?
+                new ObjectParameter("DOC_ID", dOC_ID) :
+                new ObjectParameter("DOC_ID", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_REQUIRED_DOCUMENT_DETAIL", iDParameter, rEQ_IDParameter, dOC_IDParameter, uSER_IDParameter, mODEParameter, rET_ID);
+        }
+    
+        public virtual ObjectResult<USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE_Result> USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE(Nullable<int> cLIENT_ID)
+        {
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE_Result>("USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE", cLIENT_IDParameter);
+        }
+    
+        public virtual int USP_E_MANAGE_ACCOUNT(string uSERNAME, string pASSWORD, string hASH_PASSWORD, Nullable<int> eMPID, string eMAILADDRESS, Nullable<int> uSER_ID)
+        {
+            var uSERNAMEParameter = uSERNAME != null ?
+                new ObjectParameter("USERNAME", uSERNAME) :
+                new ObjectParameter("USERNAME", typeof(string));
+    
+            var pASSWORDParameter = pASSWORD != null ?
+                new ObjectParameter("PASSWORD", pASSWORD) :
+                new ObjectParameter("PASSWORD", typeof(string));
+    
+            var hASH_PASSWORDParameter = hASH_PASSWORD != null ?
+                new ObjectParameter("HASH_PASSWORD", hASH_PASSWORD) :
+                new ObjectParameter("HASH_PASSWORD", typeof(string));
+    
+            var eMPIDParameter = eMPID.HasValue ?
+                new ObjectParameter("EMPID", eMPID) :
+                new ObjectParameter("EMPID", typeof(int));
+    
+            var eMAILADDRESSParameter = eMAILADDRESS != null ?
+                new ObjectParameter("EMAILADDRESS", eMAILADDRESS) :
+                new ObjectParameter("EMAILADDRESS", typeof(string));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_E_MANAGE_ACCOUNT", uSERNAMEParameter, pASSWORDParameter, hASH_PASSWORDParameter, eMPIDParameter, eMAILADDRESSParameter, uSER_IDParameter);
         }
     }
 }

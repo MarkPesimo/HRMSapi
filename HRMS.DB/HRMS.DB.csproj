@@ -50,6 +50,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Access_model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Access_model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Access_model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Access_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Access_model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Access_model.edmx</DependentUpon>
+    </Compile>
     <Compile Include="AreaLibrary.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -60,6 +75,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Department.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Document.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Employee.cs">
@@ -113,6 +131,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HRDB_model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="LeaveType.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="LoanType.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -156,6 +177,15 @@
     <Compile Include="REC_USER_LOG.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Required_Document.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Required_Document_details.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Salarytype.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="School.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -171,6 +201,12 @@
     <Compile Include="sys_company.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="SYS_Module.cs">
+      <DependentUpon>Access_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sys_module_type.cs">
+      <DependentUpon>Access_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="SYS_USER.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -178,6 +214,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="SYS_USER_GROUP_DET.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result.cs">
@@ -222,6 +261,9 @@
     <Compile Include="USP_H_GET_EMPLOYEE_NOTE_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="USP_H_GET_ES_CLIENT_EMPLOYEES_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="USP_H_GET_HELPDESK_MONITORING_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -245,6 +287,13 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="Access_model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Access_model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Access_model.edmx.diagram">
+      <DependentUpon>Access_model.edmx</DependentUpon>
+    </None>
     <None Include="App.Config" />
     <None Include="HRDB_model.edmx.diagram">
       <DependentUpon>HRDB_model.edmx</DependentUpon>
@@ -252,6 +301,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Access_model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Access_model.edmx</DependentUpon>
+      <LastGenOutput>Access_model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Access_model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Access_model.edmx</DependentUpon>
+      <LastGenOutput>Access_model.cs</LastGenOutput>
+    </Content>
     <Content Include="HRDB_model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>HRDB_model.Context.cs</LastGenOutput>
