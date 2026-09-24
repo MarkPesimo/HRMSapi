@@ -133,8 +133,13 @@ namespace HRModel.ViewModel.Leave
             public decimal UsedLeave { get; set; }
             public int YearEntitled { get; set; }
             public int MonthEntitled { get; set; }
-            public DateTime ValidFrom { get; set; }
+            
+            public DateTime? ValidFrom { get; set; }
             public DateTime? ValidTo { get; set; }
+
+            public DateTime? ValidDateFrom { get; set; }
+            public DateTime? ValidDateTo { get; set; }
+
             public int UserId { get; set; }
             public DateTime DateAdded { get; set; }
             public int ClientId { get; set; }
@@ -145,8 +150,8 @@ namespace HRModel.ViewModel.Leave
             public string WhenCreditIsEarned { get; set; }
             public decimal EarnedLeave { get; set; }
             public decimal BalanceLeave { get; set; }
-            public int Mode { get; set; }
 
+            public int? Mode { get; set; }
         }
 
         public class EmployeeFiledLeave
@@ -196,6 +201,91 @@ namespace HRModel.ViewModel.Leave
             public string keyword { get; set; }
             public int CompanyId { get; set; }
 
+        }
+
+        public class LeaveTypeModel
+        {
+            public int LeaveTypeId { get; set; }
+            public string LeaveTypeDesc { get; set; }
+            public string LeaveCode { get; set; }
+        }
+
+        public class CoorLeaveBalanceMonitoringModel
+        {
+            public int Id { get; set; }
+            public string ClientName { get; set; }
+            public string EmployeeName { get; set; }
+            public string LeaveType { get; set; }
+            public decimal EntitledLeave { get; set; }
+            public decimal EarnedPerMonth { get; set; }
+            public decimal AvailableLeave { get; set; }
+            public decimal UsedLeave { get; set; }
+            public decimal BalanceLeave { get; set; }
+            public string AddedBy { get; set; }
+            public string DateAdded { get; set; }
+            public string Status { get; set; }
+            public int YearEntitled { get; set; }
+            public int MonthEntitled { get; set; }
+            public int ClientId { get; set; }
+            public int EmpId { get; set; }
+        }
+
+        public class EmployeeLeaveDetailMonitoring_model
+        {
+            public int Id { get; set; }
+            public int EmpId { get; set; }
+            public string EmpNo { get; set; }
+            public string EmployeeName { get; set; }
+            public string ClientName { get; set; }
+            public string DepartmentName { get; set; }
+
+            public int LeaveTypeId { get; set; }
+            public string LeaveType { get; set; }
+
+            public decimal EntitleLeave { get; set; }
+            public decimal RemainingLeave { get; set; }
+            public decimal UsedLeave { get; set; }
+            public decimal BalanceLeave { get; set; }
+            public decimal EarnedLeave { get; set; } 
+
+            public int MonthEntitled { get; set; }
+            public int YearEntitled { get; set; }
+            public string EntitledPeriod { get; set; }
+
+            public DateTime ValidDateFrom { get; set; }
+            public DateTime? ValidDateTo { get; set; }
+            
+            public DateTime ValidFrom
+            {
+                get => ValidDateFrom;
+                set => ValidDateFrom = value;
+            }
+            public DateTime? ValidTo
+            {
+                get => ValidDateTo;
+                set => ValidDateTo = value;
+            }
+
+            public int UserId { get; set; }
+            public int ClientId { get; set; }
+            public bool Status { get; set; }
+            public DateTime DateAdded { get; set; }
+            public decimal CreditEarnedPerMonth { get; set; }
+            public bool IsConvertable { get; set; }
+            public bool AutoResetPerYear { get; set; }
+            public string WhenCreditIsEarned { get; set; }
+
+            public string Mode { get; set; }
+        }
+
+        public class LeaveAcceptModel
+        {
+            public int Id { get; set; }
+            public int PLeaveId { get; set; }
+            public DateTime DateAccepted { get; set; }
+            public string Remarks { get; set; }
+            public int Mode { get; set; }
+            public int UserId { get; set; }
         }
     }
 }

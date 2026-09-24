@@ -312,5 +312,39 @@ namespace HRMS_API.Repository
             return int.Parse(_return.ToString());
         }
         //==========================CONTRACT REMARKS==============================
+
+        public Contract GetContract(int _id)
+        {
+            return (from d in _conn.REC_NEW_HIRED_EMPLOYEE
+                    where d.id == _id
+                    select d).AsEnumerable()
+                .Select(x => new Contract()
+                {
+                    Id = x.id,
+                    ClientId = x.client_id,
+                    ClientName = x.REC_CLIENT.client_name,
+                    EmpId = x.emp_id,
+                    EmployeeName = x.Employee.Lastname + ", " + x.Employee.Firstname,
+                    DateHired = x.date_hired,
+                    ContractStart = x.contract_start,
+                    ContractEnd = x.contract_end,
+                    HireType = x.hire_type,
+                    EmployeeTypeId = x.employee_type_id,
+                    EmployeeRankId = x.employee_rank_id,
+                    CurrentContract = !x.is_history,
+                    HiredById = x.user_id,
+                    HiredBy = x.SYS_USER.username,
+                    JoDetId = x.jo_det_id,
+                    Position = x.position,
+                    DateCreated = x.date_created.ToShortDateString(),
+                    DateRegularized = x.date_regularized,
+                    DepartmentId = x.department_id,
+                    BranchId = x.branch_id,
+                    RestDayId = x.restday_id,
+                    ShiftId = x.shift_id,
+                    IsContractExtended = x.contract_extended == false ? "No" : "Yes",
+                    DateExtended = x.date_contract_extended == null ? "" : x.date_contract_extended.Value.ToShortDateString()
+                }).SingleOrDefault();
+        }
     }
 }
