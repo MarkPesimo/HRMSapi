@@ -1838,5 +1838,63 @@ namespace HRMS.DB
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_E_MANAGE_ACCOUNT", uSERNAMEParameter, pASSWORDParameter, hASH_PASSWORDParameter, eMPIDParameter, eMAILADDRESSParameter, uSER_IDParameter);
         }
+    
+        public virtual int USP_H_MANAGE_LEAVE_ACCEPT(Nullable<int> iD, Nullable<int> p_LEAVE_ID, Nullable<System.DateTime> dATE_ACCEPTED, string rEMARKS, Nullable<int> mODE, Nullable<int> uSER_ID, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var p_LEAVE_IDParameter = p_LEAVE_ID.HasValue ?
+                new ObjectParameter("P_LEAVE_ID", p_LEAVE_ID) :
+                new ObjectParameter("P_LEAVE_ID", typeof(int));
+    
+            var dATE_ACCEPTEDParameter = dATE_ACCEPTED.HasValue ?
+                new ObjectParameter("DATE_ACCEPTED", dATE_ACCEPTED) :
+                new ObjectParameter("DATE_ACCEPTED", typeof(System.DateTime));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_LEAVE_ACCEPT", iDParameter, p_LEAVE_IDParameter, dATE_ACCEPTEDParameter, rEMARKSParameter, mODEParameter, uSER_IDParameter, rET_ID);
+        }
+    
+        public virtual int USP_H_MANAGE_LEAVE_REVOKE(Nullable<int> iD, Nullable<int> p_LEAVE_ID, Nullable<System.DateTime> dATE_CREATED, string rEMARKS, Nullable<int> mODE, Nullable<int> uSER_ID, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var p_LEAVE_IDParameter = p_LEAVE_ID.HasValue ?
+                new ObjectParameter("P_LEAVE_ID", p_LEAVE_ID) :
+                new ObjectParameter("P_LEAVE_ID", typeof(int));
+    
+            var dATE_CREATEDParameter = dATE_CREATED.HasValue ?
+                new ObjectParameter("DATE_CREATED", dATE_CREATED) :
+                new ObjectParameter("DATE_CREATED", typeof(System.DateTime));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_LEAVE_REVOKE", iDParameter, p_LEAVE_IDParameter, dATE_CREATEDParameter, rEMARKSParameter, mODEParameter, uSER_IDParameter, rET_ID);
+        }
     }
 }

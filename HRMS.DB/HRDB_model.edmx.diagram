@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ac44f2c2e5624ec08007520427d074b6" Name="Diagram1" ZoomLevel="94" >
+      <Diagram DiagramId="ac44f2c2e5624ec08007520427d074b6" Name="Diagram1" ZoomLevel="101" >
         <EntityTypeShape EntityType="apwdbModel.Employee" Width="1.5" PointX="9.25" PointY="13.25" IsExpanded="false" />
         <EntityTypeShape EntityType="apwdbModel.REC_USER_LOG" Width="1.5" PointX="0.875" PointY="7" IsExpanded="false" />
         <EntityTypeShape EntityType="apwdbModel.sys_company" Width="1.5" PointX="3.75" PointY="9.75" IsExpanded="false" />
@@ -124,8 +124,8 @@
         <EntityTypeShape EntityType="apwdbModel.Document" Width="1.5" PointX="3.75" PointY="27.75" IsExpanded="false" />
         <AssociationConnector Association="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_Document" />
         <AssociationConnector Association="apwdbModel.FK_Document_SYS_USER" />
-        <EntityTypeShape EntityType="apwdbModel.Required_Document" Width="1.5" PointX="3.75" PointY="0.75" />
-        <EntityTypeShape EntityType="apwdbModel.Required_Document_details" Width="1.5" PointX="10" PointY="7.125" />
+        <EntityTypeShape EntityType="apwdbModel.Required_Document" Width="2.375" PointX="3.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="apwdbModel.Required_Document_details" Width="3" PointX="10" PointY="7.125" IsExpanded="false" />
         <AssociationConnector Association="apwdbModel.FK_Required_Document_details_Document" />
         <AssociationConnector Association="apwdbModel.FK_Required_Document_details_Required_Document" />
         <AssociationConnector Association="apwdbModel.FK_Required_Document_SYS_USER" />

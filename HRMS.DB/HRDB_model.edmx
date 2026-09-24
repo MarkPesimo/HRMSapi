@@ -2255,6 +2255,24 @@
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_H_MANAGE_LEAVE_ACCEPT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="P_LEAVE_ID" Type="int" Mode="In" />
+          <Parameter Name="DATE_ACCEPTED" Type="date" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_MANAGE_LEAVE_REVOKE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="P_LEAVE_ID" Type="int" Mode="In" />
+          <Parameter Name="DATE_CREATED" Type="date" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_H_MANAGE_REQUIRED_DOCUMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="DESCRIPTION" Type="nvarchar" Mode="In" />
@@ -3543,7 +3561,7 @@
             <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE" ReturnType="Collection(apwdbModel.USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE_Result)">
-            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+          <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="USP_E_MANAGE_ACCOUNT">
             <Parameter Name="USERNAME" Mode="In" Type="String" />
@@ -3552,6 +3570,24 @@
             <Parameter Name="EMPID" Mode="In" Type="Int32" />
             <Parameter Name="EMAILADDRESS" Mode="In" Type="String" />
             <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_LEAVE_ACCEPT">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="P_LEAVE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DATE_ACCEPTED" Mode="In" Type="DateTime" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_LEAVE_REVOKE">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="P_LEAVE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DATE_CREATED" Mode="In" Type="DateTime" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Employee">
@@ -6984,6 +7020,8 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_E_MANAGE_ACCOUNT" FunctionName="apwdbModel.Store.USP_E_MANAGE_ACCOUNT" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_LEAVE_ACCEPT" FunctionName="apwdbModel.Store.USP_H_MANAGE_LEAVE_ACCEPT" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_LEAVE_REVOKE" FunctionName="apwdbModel.Store.USP_H_MANAGE_LEAVE_REVOKE" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

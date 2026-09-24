@@ -69,7 +69,6 @@ namespace HRMS_API.Controllers
             }
         }
 
-
         [Route("api/Loan/GetLoanTypes")]
         [HttpGet]
         public HttpResponseMessage GetLoanTypes()
