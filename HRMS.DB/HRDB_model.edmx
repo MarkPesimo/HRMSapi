@@ -57,6 +57,19 @@
           <Property Name="date_created" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocId" />
+          </Key>
+          <Property Name="DocId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Document_class" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="accessible_outside" Type="bit" Nullable="false" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Emp_ID" />
@@ -342,17 +355,6 @@
           <Property Name="LeaveCode" Type="nvarchar" MaxLength="10" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="LoanTransaction">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LoanID" Type="int" />
-          <Property Name="PayrollID" Type="int" />
-          <Property Name="TransDate" Type="smalldatetime" />
-          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="UserID" Type="int" />
-        </EntityType>
         <EntityType Name="LoanType">
           <Key>
             <PropertyRef Name="LoanType_ID" />
@@ -606,14 +608,6 @@
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="REC_FILE_CONFIGURATION">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="attach_type" Type="nvarchar" MaxLength="50" />
-          <Property Name="attach_location" Type="nvarchar" MaxLength="150" />
-        </EntityType>
         <EntityType Name="REC_NEW_HIRED_EMPLOYEE">
           <Key>
             <PropertyRef Name="id" />
@@ -677,6 +671,39 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Required_Document">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sort_no" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="doc_cnt" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="required" Type="bit" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Required_Document_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="req_id" Type="int" Nullable="false" />
+          <Property Name="doc_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salarytype">
+          <Key>
+            <PropertyRef Name="Salarytype_ID" />
+          </Key>
+          <Property Name="Salarytype_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Salarytype_Desc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Date_created" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="School">
           <Key>
@@ -927,6 +954,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name=" FK_Employee_Salarytype">
+          <End Role="Salarytype" Type="Self.Salarytype" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarytype">
+              <PropertyRef Name="Salarytype_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="SalaryType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name=" FK_Employee_Separation_Separation_Reason">
           <End Role="Separation_Reason" Type="Self.Separation_Reason" Multiplicity="1" />
           <End Role="Employee_Separation" Type="Self.Employee_Separation" Multiplicity="*" />
@@ -975,18 +1014,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name=" FK_LoanTransaction_EmployeeLoanMaster">
-          <End Role="EmployeeLoanMaster" Type="Self.EmployeeLoanMaster" Multiplicity="0..1" />
-          <End Role="LoanTransaction" Type="Self.LoanTransaction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeLoanMaster">
-              <PropertyRef Name="LoanID" />
-            </Principal>
-            <Dependent Role="LoanTransaction">
-              <PropertyRef Name="LoanID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name=" FK_P_Leave_LeaveType">
           <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="1" />
           <End Role="P_Leave" Type="Self.P_Leave" Multiplicity="*" />
@@ -996,6 +1023,18 @@
             </Principal>
             <Dependent Role="P_Leave">
               <PropertyRef Name="LeaveTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_CANDIDATE_DOCUMENT_Document">
+          <End Role="Document" Type="Self.Document" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_DOCUMENT" Type="Self.REC_CANDIDATE_DOCUMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="DocId" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_DOCUMENT">
+              <PropertyRef Name="doc_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1104,6 +1143,18 @@
             </Principal>
             <Dependent Role="Department">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1599,6 +1650,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Required_Document_details_Document">
+          <End Role="Document" Type="Self.Document" Multiplicity="1" />
+          <End Role="Required_Document_details" Type="Self.Required_Document_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="DocId" />
+            </Principal>
+            <Dependent Role="Required_Document_details">
+              <PropertyRef Name="doc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_Document_details_Required_Document">
+          <End Role="Required_Document" Type="Self.Required_Document" Multiplicity="1" />
+          <End Role="Required_Document_details" Type="Self.Required_Document_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Required_Document">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_Document_details">
+              <PropertyRef Name="req_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_Document_details_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Required_Document_details" Type="Self.Required_Document_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_Document_details">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_Document_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Required_Document" Type="Self.Required_Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_Document">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salarytype_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Salarytype" Type="Self.Salarytype" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Salarytype">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_School_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="School" Type="Self.School" Multiplicity="*" />
@@ -1711,6 +1822,15 @@
           <Parameter Name="USERID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
           <Parameter Name="LOAN_START" Type="date" Mode="In" />
+        </Function>
+        <Function Name="SP_H_MASTER_DOCUMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DOCUMENT_ID" Type="int" Mode="In" />
+          <Parameter Name="DOCUMENT_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="DOCUMENT_CLASS" Type="nvarchar" Mode="In" />
+          <Parameter Name="COUNTRY_ID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
         <Function Name="SP_MANAGE_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EMPID" Type="int" Mode="In" />
@@ -1829,6 +1949,60 @@
           <Parameter Name="OVERALL_STATUS_DATE" Type="smalldatetime" Mode="In" />
           <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="SP_MASTER_DEPARTMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="DEPARTMENT_DESC" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_MASTER_EMPLOYEERANK" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="EMPRANK_DESC" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_MASTER_EMPLOYEETYPE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="EMPTYPE_DESC" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_MASTER_SALARY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="SALARY_DESC" Type="nvarchar" Mode="In" />
+          <Parameter Name="SALARY_AMOUNT" Type="decimal" Mode="In" />
+          <Parameter Name="RICE_ALLOWANCE" Type="decimal" Mode="In" />
+          <Parameter Name="MEAL_ALLOWANCE" Type="decimal" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_MASTER_SALARYTYPE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="SALARYTYPE_DESC" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_MASTER_SHIFT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="DESCRIPTION" Type="nvarchar" Mode="In" />
+          <Parameter Name="SHIFT_IN" Type="smalldatetime" Mode="In" />
+          <Parameter Name="SHIFT_OUT" Type="smalldatetime" Mode="In" />
+          <Parameter Name="GRACE_PERIOD" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="COUNTRY_ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+          <Parameter Name="BREAK_TIME_START" Type="smalldatetime" Mode="In" />
+          <Parameter Name="BREAK_TIME_END" Type="smalldatetime" Mode="In" />
+        </Function>
+        <Function Name="USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_C_MANAGE_COOR_NEW_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="USER_ID" Type="int" Mode="In" />
@@ -1836,6 +2010,14 @@
           <Parameter Name="ATTACHMENT" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_E_MANAGE_ACCOUNT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USERNAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="PASSWORD" Type="nvarchar" Mode="In" />
+          <Parameter Name="HASH_PASSWORD" Type="nvarchar" Mode="In" />
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="EMAILADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="USP_H_ADD_CANDIDATE_DOCUMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmpID" Type="int" Mode="In" />
@@ -1911,6 +2093,9 @@
         </Function>
         <Function Name="USP_H_GET_EMPLOYEE_NOTES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EMP_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_GET_ES_CLIENT_EMPLOYEES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="USP_H_GET_HELPDESK_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="USER_ID" Type="int" Mode="In" />
@@ -2088,6 +2273,23 @@
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_H_MANAGE_REQUIRED_DOCUMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="DESCRIPTION" Type="nvarchar" Mode="In" />
+          <Parameter Name="DOC_CNT" Type="nvarchar" Mode="In" />
+          <Parameter Name="IS_REQUIRED" Type="bit" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_MANAGE_REQUIRED_DOCUMENT_DETAIL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="REQ_ID" Type="int" Mode="In" />
+          <Parameter Name="DOC_ID" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_H_MASTER_P_LEAVE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="P_LEAVEID" Type="int" Mode="In" />
           <Parameter Name="EMP_ID" Type="int" Mode="In" />
@@ -2126,6 +2328,7 @@
           <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Degree" EntityType="Self.Degree" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Floating_Status" EntityType="Self.Employee_Floating_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Replacement_HD" EntityType="Self.Employee_Replacement_HD" Schema="dbo" store:Type="Tables" />
@@ -2139,7 +2342,6 @@
           <EntitySet Name="HELPDESK_CONCERN_THREAD" EntityType="Self.HELPDESK_CONCERN_THREAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HELPDESK_CONCERN_TYPE" EntityType="Self.HELPDESK_CONCERN_TYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="LoanTransaction" EntityType="Self.LoanTransaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoanType" EntityType="Self.LoanType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="P_Leave" EntityType="Self.P_Leave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE" EntityType="Self.REC_CANDIDATE" Schema="dbo" store:Type="Tables" />
@@ -2150,11 +2352,13 @@
           <EntitySet Name="REC_CLIENT_DEPARTMENT" EntityType="Self.REC_CLIENT_DEPARTMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_SHIFT" EntityType="Self.REC_CLIENT_SHIFT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CONTRACT_TYPE" EntityType="Self.REC_CONTRACT_TYPE" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="REC_FILE_CONFIGURATION" EntityType="Self.REC_FILE_CONFIGURATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_NEW_HIRED_EMPLOYEE" EntityType="Self.REC_NEW_HIRED_EMPLOYEE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_NEW_HIRED_EMPLOYEE_REMARKS" EntityType="Self.REC_NEW_HIRED_EMPLOYEE_REMARKS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_SOURCE_TYPE" EntityType="Self.REC_SOURCE_TYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_USER_LOG" EntityType="Self.REC_USER_LOG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Required_Document" EntityType="Self.Required_Document" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Required_Document_details" EntityType="Self.Required_Document_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salarytype" EntityType="Self.Salarytype" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="School" EntityType="Self.School" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SchoolLevel" EntityType="Self.SchoolLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Separation_Reason" EntityType="Self.Separation_Reason" Schema="dbo" store:Type="Tables" />
@@ -2207,6 +2411,10 @@
             <End Role="REC_SOURCE_TYPE" EntitySet="REC_SOURCE_TYPE" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name=" FK_Employee_Salarytype" Association="Self. FK_Employee_Salarytype">
+            <End Role="Salarytype" EntitySet="Salarytype" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
           <AssociationSet Name=" FK_Employee_Separation_Separation_Reason" Association="Self. FK_Employee_Separation_Separation_Reason">
             <End Role="Separation_Reason" EntitySet="Separation_Reason" />
             <End Role="Employee_Separation" EntitySet="Employee_Separation" />
@@ -2223,13 +2431,13 @@
             <End Role="LoanType" EntitySet="LoanType" />
             <End Role="EmployeeLoanMaster" EntitySet="EmployeeLoanMaster" />
           </AssociationSet>
-          <AssociationSet Name=" FK_LoanTransaction_EmployeeLoanMaster" Association="Self. FK_LoanTransaction_EmployeeLoanMaster">
-            <End Role="EmployeeLoanMaster" EntitySet="EmployeeLoanMaster" />
-            <End Role="LoanTransaction" EntitySet="LoanTransaction" />
-          </AssociationSet>
           <AssociationSet Name=" FK_P_Leave_LeaveType" Association="Self. FK_P_Leave_LeaveType">
             <End Role="LeaveType" EntitySet="LeaveType" />
             <End Role="P_Leave" EntitySet="P_Leave" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_CANDIDATE_DOCUMENT_Document" Association="Self. FK_REC_CANDIDATE_DOCUMENT_Document">
+            <End Role="Document" EntitySet="Document" />
+            <End Role="REC_CANDIDATE_DOCUMENT" EntitySet="REC_CANDIDATE_DOCUMENT" />
           </AssociationSet>
           <AssociationSet Name=" FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE" Association="Self. FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE">
             <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
@@ -2266,6 +2474,10 @@
           <AssociationSet Name="FK_Department_SYS_USER" Association="Self.FK_Department_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_SYS_USER" Association="Self.FK_Document_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Document" EntitySet="Document" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_REC_CLIENT" Association="Self.FK_Employee_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
@@ -2430,6 +2642,26 @@
           <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER" Association="Self.FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_Document_details_Document" Association="Self.FK_Required_Document_details_Document">
+            <End Role="Document" EntitySet="Document" />
+            <End Role="Required_Document_details" EntitySet="Required_Document_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_Document_details_Required_Document" Association="Self.FK_Required_Document_details_Required_Document">
+            <End Role="Required_Document" EntitySet="Required_Document" />
+            <End Role="Required_Document_details" EntitySet="Required_Document_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_Document_details_SYS_USER" Association="Self.FK_Required_Document_details_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Required_Document_details" EntitySet="Required_Document_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_Document_SYS_USER" Association="Self.FK_Required_Document_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Required_Document" EntitySet="Required_Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salarytype_SYS_USER" Association="Self.FK_Salarytype_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Salarytype" EntitySet="Salarytype" />
           </AssociationSet>
           <AssociationSet Name="FK_School_SYS_USER" Association="Self.FK_School_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -3200,14 +3432,9 @@
             <End Role="School" EntitySet="Schools" />
           </AssociationSet>
           <EntitySet Name="LeaveTypes" EntityType="apwdbModel.LeaveType" />
-          <EntitySet Name="LoanTransactions" EntityType="apwdbModel.LoanTransaction" />
           <AssociationSet Name="C_FK_EmployeeLeaveMonitoring_LeaveType" Association="apwdbModel.C_FK_EmployeeLeaveMonitoring_LeaveType">
             <End Role="LeaveType" EntitySet="LeaveTypes" />
             <End Role="EmployeeLeaveMonitoring" EntitySet="EmployeeLeaveMonitorings" />
-          </AssociationSet>
-          <AssociationSet Name="C_FK_LoanTransaction_EmployeeLoanMaster" Association="apwdbModel.C_FK_LoanTransaction_EmployeeLoanMaster">
-            <End Role="EmployeeLoanMaster" EntitySet="EmployeeLoanMasters" />
-            <End Role="LoanTransaction" EntitySet="LoanTransactions" />
           </AssociationSet>
           <AssociationSet Name="C_FK_P_Leave_LeaveType" Association="apwdbModel.C_FK_P_Leave_LeaveType">
             <End Role="LeaveType" EntitySet="LeaveTypes" />
@@ -3217,6 +3444,133 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="LeaveType" EntitySet="LeaveTypes" />
           </AssociationSet>
+          <FunctionImport Name="SP_MASTER_DEPARTMENT">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="DEPARTMENT_DESC" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MASTER_EMPLOYEETYPE">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="EMPTYPE_DESC" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MASTER_EMPLOYEERANK">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="EMPRANK_DESC" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Salarytypes" EntityType="apwdbModel.Salarytype" />
+          <AssociationSet Name="C_FK_Employee_Salarytype" Association="apwdbModel.C_FK_Employee_Salarytype">
+            <End Role="Salarytype" EntitySet="Salarytypes" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salarytype_SYS_USER" Association="apwdbModel.FK_Salarytype_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Salarytype" EntitySet="Salarytypes" />
+          </AssociationSet>
+          <FunctionImport Name="SP_MASTER_SALARY">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="SALARY_DESC" Mode="In" Type="String" />
+            <Parameter Name="SALARY_AMOUNT" Mode="In" Type="Decimal" />
+            <Parameter Name="RICE_ALLOWANCE" Mode="In" Type="Decimal" />
+            <Parameter Name="MEAL_ALLOWANCE" Mode="In" Type="Decimal" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MASTER_SALARYTYPE">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="SALARYTYPE_DESC" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MASTER_SHIFT">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="DESCRIPTION" Mode="In" Type="String" />
+            <Parameter Name="SHIFT_IN" Mode="In" Type="DateTime" />
+            <Parameter Name="SHIFT_OUT" Mode="In" Type="DateTime" />
+            <Parameter Name="GRACE_PERIOD" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="COUNTRY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+            <Parameter Name="BREAK_TIME_START" Mode="In" Type="DateTime" />
+            <Parameter Name="BREAK_TIME_END" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SP_H_MASTER_DOCUMENT">
+            <Parameter Name="DOCUMENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DOCUMENT_NAME" Mode="In" Type="String" />
+            <Parameter Name="DOCUMENT_CLASS" Mode="In" Type="String" />
+            <Parameter Name="COUNTRY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Documents" EntityType="apwdbModel.Document" />
+          <AssociationSet Name="C_FK_REC_CANDIDATE_DOCUMENT_Document" Association="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_Document">
+            <End Role="Document" EntitySet="Documents" />
+            <End Role="REC_CANDIDATE_DOCUMENT" EntitySet="REC_CANDIDATE_DOCUMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_SYS_USER" Association="apwdbModel.FK_Document_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <EntitySet Name="Required_Document" EntityType="apwdbModel.Required_Document" />
+          <EntitySet Name="Required_Document_details" EntityType="apwdbModel.Required_Document_details" />
+          <AssociationSet Name="FK_Required_Document_details_Document" Association="apwdbModel.FK_Required_Document_details_Document">
+            <End Role="Document" EntitySet="Documents" />
+            <End Role="Required_Document_details" EntitySet="Required_Document_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_Document_details_Required_Document" Association="apwdbModel.FK_Required_Document_details_Required_Document">
+            <End Role="Required_Document" EntitySet="Required_Document" />
+            <End Role="Required_Document_details" EntitySet="Required_Document_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_Document_SYS_USER" Association="apwdbModel.FK_Required_Document_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Required_Document" EntitySet="Required_Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_Document_details_SYS_USER" Association="apwdbModel.FK_Required_Document_details_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Required_Document_details" EntitySet="Required_Document_details" />
+          </AssociationSet>
+          <FunctionImport Name="USP_H_GET_ES_CLIENT_EMPLOYEES" ReturnType="Collection(apwdbModel.USP_H_GET_ES_CLIENT_EMPLOYEES_Result)">
+          <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_REQUIRED_DOCUMENT">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="DESCRIPTION" Mode="In" Type="String" />
+            <Parameter Name="DOC_CNT" Mode="In" Type="String" />
+            <Parameter Name="IS_REQUIRED" Mode="In" Type="Boolean" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_REQUIRED_DOCUMENT_DETAIL">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="REQ_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DOC_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE" ReturnType="Collection(apwdbModel.USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE_Result)">
+          <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_E_MANAGE_ACCOUNT">
+            <Parameter Name="USERNAME" Mode="In" Type="String" />
+            <Parameter Name="PASSWORD" Mode="In" Type="String" />
+            <Parameter Name="HASH_PASSWORD" Mode="In" Type="String" />
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="EMAILADDRESS" Mode="In" Type="String" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="USP_H_MANAGE_LEAVE_ACCEPT">
             <Parameter Name="ID" Mode="In" Type="Int32" />
             <Parameter Name="P_LEAVE_ID" Mode="In" Type="Int32" />
@@ -3235,7 +3589,6 @@
             <Parameter Name="USER_ID" Mode="In" Type="Int32" />
             <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="REC_FILE_CONFIGURATION" EntityType="apwdbModel.REC_FILE_CONFIGURATION" />
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -3352,6 +3705,7 @@
           <NavigationProperty Name="HELPDESK_CONCERN" Relationship="apwdbModel.FK_HELPDESK_CONCERN_Employee" FromRole="Employee" ToRole="HELPDESK_CONCERN" />
           <NavigationProperty Name="AreaLibrary" Relationship="apwdbModel.C_FK_Employee_AreaLibrary" FromRole="Employee" ToRole="AreaLibrary" />
           <NavigationProperty Name="AreaLibrary1" Relationship="apwdbModel.C_FK_Employee_AreaLibrary1" FromRole="Employee" ToRole="AreaLibrary" />
+          <NavigationProperty Name="Salarytype" Relationship="apwdbModel.C_FK_Employee_Salarytype" FromRole="Employee" ToRole="Salarytype" />
         </EntityType>
         <EntityType Name="REC_USER_LOG">
           <Key>
@@ -3424,6 +3778,10 @@
           <NavigationProperty Name="SchoolLevels" Relationship="apwdbModel.FK_SchoolLevel_SYS_USER" FromRole="SYS_USER" ToRole="SchoolLevel" />
           <NavigationProperty Name="Schools" Relationship="apwdbModel.FK_School_SYS_USER" FromRole="SYS_USER" ToRole="School" />
           <NavigationProperty Name="LeaveTypes" Relationship="apwdbModel.FK_LeaveType_SYS_USER" FromRole="SYS_USER" ToRole="LeaveType" />
+          <NavigationProperty Name="Salarytypes" Relationship="apwdbModel.FK_Salarytype_SYS_USER" FromRole="SYS_USER" ToRole="Salarytype" />
+          <NavigationProperty Name="Documents" Relationship="apwdbModel.FK_Document_SYS_USER" FromRole="SYS_USER" ToRole="Document" />
+          <NavigationProperty Name="Required_Document" Relationship="apwdbModel.FK_Required_Document_SYS_USER" FromRole="SYS_USER" ToRole="Required_Document" />
+          <NavigationProperty Name="Required_Document_details" Relationship="apwdbModel.FK_Required_Document_details_SYS_USER" FromRole="SYS_USER" ToRole="Required_Document_details" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP">
           <Key>
@@ -4020,7 +4378,6 @@
           <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_EmployeeLoanMaster_Employee" FromRole="EmployeeLoanMaster" ToRole="Employee" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_EmployeeLoanMaster_SYS_USER" FromRole="EmployeeLoanMaster" ToRole="SYS_USER" />
           <NavigationProperty Name="LoanType" Relationship="apwdbModel.C_FK_EmployeeLoanMaster_LoanType" FromRole="EmployeeLoanMaster" ToRole="LoanType" />
-          <NavigationProperty Name="LoanTransactions" Relationship="apwdbModel.C_FK_LoanTransaction_EmployeeLoanMaster" FromRole="EmployeeLoanMaster" ToRole="LoanTransaction" />
         </EntityType>
         <Association Name="FK_EmployeeLoanMaster_Employee">
           <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="1" />
@@ -5024,6 +5381,7 @@
           <Property Name="added_by" Type="Int32" Nullable="false" />
           <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE" FromRole="REC_CANDIDATE_DOCUMENT" ToRole="REC_CANDIDATE" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CANDIDATE_DOCUMENT_SYS_USER" FromRole="REC_CANDIDATE_DOCUMENT" ToRole="SYS_USER" />
+          <NavigationProperty Name="Document" Relationship="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_Document" FromRole="REC_CANDIDATE_DOCUMENT" ToRole="Document" />
         </EntityType>
         <Association Name="C_FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE">
           <End Type="apwdbModel.REC_CANDIDATE" Role="REC_CANDIDATE" Multiplicity="1" />
@@ -5271,18 +5629,6 @@
           <NavigationProperty Name="P_Leave" Relationship="apwdbModel.C_FK_P_Leave_LeaveType" FromRole="LeaveType" ToRole="P_Leave" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_LeaveType_SYS_USER" FromRole="LeaveType" ToRole="SYS_USER" />
         </EntityType>
-        <EntityType Name="LoanTransaction">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LoanID" Type="Int32" />
-          <Property Name="PayrollID" Type="Int32" />
-          <Property Name="TransDate" Type="DateTime" Precision="0" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="UserID" Type="Int32" />
-          <NavigationProperty Name="EmployeeLoanMaster" Relationship="apwdbModel.C_FK_LoanTransaction_EmployeeLoanMaster" FromRole="LoanTransaction" ToRole="EmployeeLoanMaster" />
-        </EntityType>
         <Association Name="C_FK_EmployeeLeaveMonitoring_LeaveType">
           <End Type="apwdbModel.LeaveType" Role="LeaveType" Multiplicity="1" />
           <End Type="apwdbModel.EmployeeLeaveMonitoring" Role="EmployeeLeaveMonitoring" Multiplicity="*" />
@@ -5292,18 +5638,6 @@
             </Principal>
             <Dependent Role="EmployeeLeaveMonitoring">
               <PropertyRef Name="LeaveTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="C_FK_LoanTransaction_EmployeeLoanMaster">
-          <End Type="apwdbModel.EmployeeLoanMaster" Role="EmployeeLoanMaster" Multiplicity="0..1" />
-          <End Type="apwdbModel.LoanTransaction" Role="LoanTransaction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeLoanMaster">
-              <PropertyRef Name="LoanID" />
-            </Principal>
-            <Dependent Role="LoanTransaction">
-              <PropertyRef Name="LoanID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5331,14 +5665,179 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="REC_FILE_CONFIGURATION">
+        <EntityType Name="Salarytype">
+          <Key>
+            <PropertyRef Name="Salarytype_ID" />
+          </Key>
+          <Property Name="Salarytype_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Salarytype_Desc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_Salarytype" FromRole="Salarytype" ToRole="Employee" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Salarytype_SYS_USER" FromRole="Salarytype" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="C_FK_Employee_Salarytype">
+          <End Type="apwdbModel.Salarytype" Role="Salarytype" Multiplicity="0..1" />
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salarytype">
+              <PropertyRef Name="Salarytype_ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="SalaryType_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salarytype_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Salarytype" Role="Salarytype" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Salarytype">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocId" />
+          </Key>
+          <Property Name="DocId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Document_class" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="accessible_outside" Type="Boolean" Nullable="false" />
+          <Property Name="country_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="REC_CANDIDATE_DOCUMENT" Relationship="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_Document" FromRole="Document" ToRole="REC_CANDIDATE_DOCUMENT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Document_SYS_USER" FromRole="Document" ToRole="SYS_USER" />
+          <NavigationProperty Name="Required_Document_details" Relationship="apwdbModel.FK_Required_Document_details_Document" FromRole="Document" ToRole="Required_Document_details" />
+        </EntityType>
+        <Association Name="C_FK_REC_CANDIDATE_DOCUMENT_Document">
+          <End Type="apwdbModel.Document" Role="Document" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_DOCUMENT" Role="REC_CANDIDATE_DOCUMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="DocId" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_DOCUMENT">
+              <PropertyRef Name="doc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Document" Role="Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Required_Document">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="attach_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="attach_location" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="sort_no" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="doc_cnt" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="required" Type="Boolean" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Required_Document_details" Relationship="apwdbModel.FK_Required_Document_details_Required_Document" FromRole="Required_Document" ToRole="Required_Document_details" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Required_Document_SYS_USER" FromRole="Required_Document" ToRole="SYS_USER" />
         </EntityType>
+        <EntityType Name="Required_Document_details">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="req_id" Type="Int32" Nullable="false" />
+          <Property Name="doc_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Document" Relationship="apwdbModel.FK_Required_Document_details_Document" FromRole="Required_Document_details" ToRole="Document" />
+          <NavigationProperty Name="Required_Document" Relationship="apwdbModel.FK_Required_Document_details_Required_Document" FromRole="Required_Document_details" ToRole="Required_Document" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Required_Document_details_SYS_USER" FromRole="Required_Document_details" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_Required_Document_details_Document">
+          <End Type="apwdbModel.Document" Role="Document" Multiplicity="1" />
+          <End Type="apwdbModel.Required_Document_details" Role="Required_Document_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="DocId" />
+            </Principal>
+            <Dependent Role="Required_Document_details">
+              <PropertyRef Name="doc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_Document_details_Required_Document">
+          <End Type="apwdbModel.Required_Document" Role="Required_Document" Multiplicity="1" />
+          <End Type="apwdbModel.Required_Document_details" Role="Required_Document_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Required_Document">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_Document_details">
+              <PropertyRef Name="req_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_Document_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Required_Document" Role="Required_Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_Document">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_Document_details_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Required_Document_details" Role="Required_Document_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_Document_details">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_H_GET_ES_CLIENT_EMPLOYEES_Result">
+          <Property Type="Int32" Name="emp_id" Nullable="true" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="emp_no" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="remarks" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="req_document" Nullable="true" MaxLength="1200" />
+          <Property Type="DateTime" Name="date_hired" Nullable="true" />
+          <Property Type="DateTime" Name="contract_start" Nullable="true" />
+          <Property Type="DateTime" Name="contract_end" Nullable="true" />
+          <Property Type="Int32" Name="age" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE_Result">
+          <Property Type="Int32" Name="emp_id" Nullable="false" />
+          <Property Type="String" Name="emp_no" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="Lastname" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Firstname" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Middlename" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="500" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6432,29 +6931,97 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LoanTransactions">
-            <EntityTypeMapping TypeName="apwdbModel.LoanTransaction">
-              <MappingFragment StoreEntitySet="LoanTransaction">
+          <FunctionImportMapping FunctionImportName="SP_MASTER_DEPARTMENT" FunctionName="apwdbModel.Store.SP_MASTER_DEPARTMENT" />
+          <FunctionImportMapping FunctionImportName="SP_MASTER_EMPLOYEETYPE" FunctionName="apwdbModel.Store.SP_MASTER_EMPLOYEETYPE" />
+          <FunctionImportMapping FunctionImportName="SP_MASTER_EMPLOYEERANK" FunctionName="apwdbModel.Store.SP_MASTER_EMPLOYEERANK" />
+          <EntitySetMapping Name="Salarytypes">
+            <EntityTypeMapping TypeName="apwdbModel.Salarytype">
+              <MappingFragment StoreEntitySet="Salarytype">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Date_created" ColumnName="Date_created" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="TransDate" ColumnName="TransDate" />
-                <ScalarProperty Name="PayrollID" ColumnName="PayrollID" />
-                <ScalarProperty Name="LoanID" ColumnName="LoanID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Salarytype_Desc" ColumnName="Salarytype_Desc" />
+                <ScalarProperty Name="Salarytype_ID" ColumnName="Salarytype_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_LEAVE_ACCEPT" FunctionName="apwdbModel.Store.USP_H_MANAGE_LEAVE_ACCEPT" />
-          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_LEAVE_REVOKE" FunctionName="apwdbModel.Store.USP_H_MANAGE_LEAVE_REVOKE" />
-          <EntitySetMapping Name="REC_FILE_CONFIGURATION">
-            <EntityTypeMapping TypeName="apwdbModel.REC_FILE_CONFIGURATION">
-              <MappingFragment StoreEntitySet="REC_FILE_CONFIGURATION">
-                <ScalarProperty Name="attach_location" ColumnName="attach_location" />
-                <ScalarProperty Name="attach_type" ColumnName="attach_type" />
+          <FunctionImportMapping FunctionImportName="SP_MASTER_SALARY" FunctionName="apwdbModel.Store.SP_MASTER_SALARY" />
+          <FunctionImportMapping FunctionImportName="SP_MASTER_SALARYTYPE" FunctionName="apwdbModel.Store.SP_MASTER_SALARYTYPE" />
+          <FunctionImportMapping FunctionImportName="SP_MASTER_SHIFT" FunctionName="apwdbModel.Store.SP_MASTER_SHIFT" />
+          <FunctionImportMapping FunctionImportName="SP_H_MASTER_DOCUMENT" FunctionName="apwdbModel.Store.SP_H_MASTER_DOCUMENT" />
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="apwdbModel.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="accessible_outside" ColumnName="accessible_outside" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Document_class" ColumnName="Document_class" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DocId" ColumnName="DocId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Required_Document">
+            <EntityTypeMapping TypeName="apwdbModel.Required_Document">
+              <MappingFragment StoreEntitySet="Required_Document">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="required" ColumnName="required" />
+                <ScalarProperty Name="doc_cnt" ColumnName="doc_cnt" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sort_no" ColumnName="sort_no" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Required_Document_details">
+            <EntityTypeMapping TypeName="apwdbModel.Required_Document_details">
+              <MappingFragment StoreEntitySet="Required_Document_details">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="doc_id" ColumnName="doc_id" />
+                <ScalarProperty Name="req_id" ColumnName="req_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_GET_ES_CLIENT_EMPLOYEES" FunctionName="apwdbModel.Store.USP_H_GET_ES_CLIENT_EMPLOYEES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_ES_CLIENT_EMPLOYEES_Result">
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="emp_no" ColumnName="emp_no" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="req_document" ColumnName="req_document" />
+                <ScalarProperty Name="date_hired" ColumnName="date_hired" />
+                <ScalarProperty Name="contract_start" ColumnName="contract_start" />
+                <ScalarProperty Name="contract_end" ColumnName="contract_end" />
+                <ScalarProperty Name="age" ColumnName="age" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_REQUIRED_DOCUMENT" FunctionName="apwdbModel.Store.USP_H_MANAGE_REQUIRED_DOCUMENT" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_REQUIRED_DOCUMENT_DETAIL" FunctionName="apwdbModel.Store.USP_H_MANAGE_REQUIRED_DOCUMENT_DETAIL" />
+          <FunctionImportMapping FunctionImportName="USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE" FunctionName="apwdbModel.Store.USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE_Result">
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="emp_no" ColumnName="emp_no" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Middlename" ColumnName="Middlename" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_E_MANAGE_ACCOUNT" FunctionName="apwdbModel.Store.USP_E_MANAGE_ACCOUNT" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_LEAVE_ACCEPT" FunctionName="apwdbModel.Store.USP_H_MANAGE_LEAVE_ACCEPT" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_LEAVE_REVOKE" FunctionName="apwdbModel.Store.USP_H_MANAGE_LEAVE_REVOKE" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

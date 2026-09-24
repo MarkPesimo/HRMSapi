@@ -149,5 +149,6 @@ namespace HRMS.DB
         public virtual ICollection<HELPDESK_CONCERN> HELPDESK_CONCERN { get; set; }
         public virtual AreaLibrary AreaLibrary { get; set; }
         public virtual AreaLibrary AreaLibrary1 { get; set; }
+        public virtual Salarytype Salarytype { get; set; }
     }
 }

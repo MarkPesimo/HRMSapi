@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="accessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SYS_Module">
+          <Key>
+            <PropertyRef Name="MODULEID" />
+          </Key>
+          <Property Name="MODULEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MODULE_TYPE" Type="int" Nullable="false" />
+          <Property Name="MODULE_NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MODULE_APP" Type="int" Nullable="false" />
+          <Property Name="ACTIVE" Type="int" Nullable="false" />
+          <Property Name="DATE_CREATED" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sys_module_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="module_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name=" FK_SYS_Module_sys_module_type">
+          <End Role="sys_module_type" Type="Self.sys_module_type" Multiplicity="1" />
+          <End Role="SYS_Module" Type="Self.SYS_Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_module_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_Module">
+              <PropertyRef Name="MODULE_TYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_FUNCTION_ACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODULENAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="FUNCTION" Type="nvarchar" Mode="In" />
+          <Parameter Name="APP_MODULE" Type="nvarchar" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="ACCESS" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_MODULE_ACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODULENAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODULETYPE" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="MODULE_APP" Type="int" Mode="In" />
+          <Parameter Name="ACCESS" Type="int" Mode="InOut" />
+          <Parameter Name="ACTIVE" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="accessModelStoreContainer">
+          <EntitySet Name="SYS_Module" EntityType="Self.SYS_Module" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_module_type" EntityType="Self.sys_module_type" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name=" FK_SYS_Module_sys_module_type" Association="Self. FK_SYS_Module_sys_module_type">
+            <End Role="sys_module_type" EntitySet="sys_module_type" />
+            <End Role="SYS_Module" EntitySet="SYS_Module" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="accessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="SYS_Module">
+          <Key>
+            <PropertyRef Name="MODULEID" />
+          </Key>
+          <Property Name="MODULEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MODULE_TYPE" Type="Int32" Nullable="false" />
+          <Property Name="MODULE_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MODULE_APP" Type="Int32" Nullable="false" />
+          <Property Name="ACTIVE" Type="Int32" Nullable="false" />
+          <Property Name="DATE_CREATED" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="sys_module_type" Relationship="Self.C_FK_SYS_Module_sys_module_type" FromRole="SYS_Module" ToRole="sys_module_type" />
+        </EntityType>
+        <EntityType Name="sys_module_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="module_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SYS_Module" Relationship="Self.C_FK_SYS_Module_sys_module_type" FromRole="sys_module_type" ToRole="SYS_Module" />
+        </EntityType>
+        <Association Name="C_FK_SYS_Module_sys_module_type">
+          <End Role="sys_module_type" Type="Self.sys_module_type" Multiplicity="1" />
+          <End Role="SYS_Module" Type="Self.SYS_Module" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_module_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_Module">
+              <PropertyRef Name="MODULE_TYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="accessEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SYS_Module" EntityType="Self.SYS_Module" />
+          <EntitySet Name="sys_module_type" EntityType="Self.sys_module_type" />
+          <AssociationSet Name="C_FK_SYS_Module_sys_module_type" Association="Self.C_FK_SYS_Module_sys_module_type">
+            <End Role="sys_module_type" EntitySet="sys_module_type" />
+            <End Role="SYS_Module" EntitySet="SYS_Module" />
+          </AssociationSet>
+          <FunctionImport Name="SP_FUNCTION_ACCESS">
+            <Parameter Name="MODULENAME" Mode="In" Type="String" />
+            <Parameter Name="FUNCTION" Mode="In" Type="String" />
+            <Parameter Name="APP_MODULE" Mode="In" Type="String" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="ACCESS" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MODULE_ACCESS">
+            <Parameter Name="MODULENAME" Mode="In" Type="String" />
+            <Parameter Name="MODULETYPE" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_APP" Mode="In" Type="Int32" />
+            <Parameter Name="ACCESS" Mode="InOut" Type="Int32" />
+            <Parameter Name="ACTIVE" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="accessModelStoreContainer" CdmEntityContainer="accessEntities">
+          <EntitySetMapping Name="SYS_Module">
+            <EntityTypeMapping TypeName="accessModel.SYS_Module">
+              <MappingFragment StoreEntitySet="SYS_Module">
+                <ScalarProperty Name="MODULEID" ColumnName="MODULEID" />
+                <ScalarProperty Name="MODULE_TYPE" ColumnName="MODULE_TYPE" />
+                <ScalarProperty Name="MODULE_NAME" ColumnName="MODULE_NAME" />
+                <ScalarProperty Name="MODULE_APP" ColumnName="MODULE_APP" />
+                <ScalarProperty Name="ACTIVE" ColumnName="ACTIVE" />
+                <ScalarProperty Name="DATE_CREATED" ColumnName="DATE_CREATED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_module_type">
+            <EntityTypeMapping TypeName="accessModel.sys_module_type">
+              <MappingFragment StoreEntitySet="sys_module_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="module_type" ColumnName="module_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_FUNCTION_ACCESS" FunctionName="accessModel.Store.SP_FUNCTION_ACCESS" />
+          <FunctionImportMapping FunctionImportName="SP_MODULE_ACCESS" FunctionName="accessModel.Store.SP_MODULE_ACCESS" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

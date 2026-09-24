@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using static HRModel.ViewModel.Global.PortalAccount_model;
 using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
 using RouteAttribute = System.Web.Http.RouteAttribute;
 
@@ -65,5 +66,39 @@ namespace HRMS_API.Controllers
             }
         }
 
+        [Route("api/Account/GetEmployeesWithNoPortalAccount/{Clientid}")]
+        [HttpGet]
+        public HttpResponseMessage GetEmployeesWithNoPortalAccount(int Clientid)
+        {
+            try
+            {
+                List<NotYetRegisteredEmployee_model> _model = accountrepository.GetEmployeesWithNoPortalAccount(Clientid);
+                if (_model != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+        
+        [Route("api/Account/RegisterPortalAccount")]
+        [HttpPost]
+        public HttpResponseMessage RegisterPortalAccount([FromBody] RegisterPortalAccount_model _model)
+        {
+            try
+            {
+                bool _result = accountrepository.RegisterPortalAccount(_model);
+                return Request.CreateResponse(HttpStatusCode.OK, _result);                
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
     }
 }

@@ -169,6 +169,25 @@ namespace HRModel.ViewModel.Leave
             public string LeaveTo { get; set; }
         }
 
+        public class LeaveForApproval_model
+        {
+            public int Id { get; set; }
+            public int EmpID { get; set; }
+            public string ClientName { get; set; }
+            public string EmployeeName { get; set; }
+            public int LeaveTypeId { get; set; }
+            public string LeaveType { get; set; }
+            public string LeaveDays { get; set; }
+            public int TranYear { get; set; }
+            public string Reason { get; set; }
+            public string EntitledLeave { get; set; }
+            public string UsedLeave { get; set; }
+            public string Balance { get; set; }
+
+            public string FilingAttachedExtension { get; set; }
+            public string ApprovalAttachedExtension { get; set; }
+        }
+
         public class LeaveFilter_model
         {
             public int ClientId { get; set; } 

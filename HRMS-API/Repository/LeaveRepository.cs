@@ -128,6 +128,47 @@ namespace HRMS_API.Repository
             }           
         }
 
+
+        //=======================BEGIN EMPLOYEE LEAVE MONITORING===========================================================
+        public LeaveForApproval_model GetFiledLeaveForApproval(int _id)
+        {
+            LeaveForApproval_model _model = (from d in _conn.P_Leave
+                                               where d.P_LeaveID == _id
+                                               select d).AsEnumerable()
+               .Select(x => new LeaveForApproval_model()
+               {
+                   EmpID = x.EmpID,
+                   ClientName = x.REC_CLIENT.client_name,
+                   EmployeeName = x.Employee.Lastname + ", " + x.Employee.Firstname,
+                   TranYear = x.LeaveFrom.Year,
+                   LeaveTypeId = x.LeaveTypeId,
+                   LeaveType = x.LeaveType.Leavetype_desc,
+                   LeaveDays = x.LeaveDays.ToString(),
+                   Reason = x.Reason,
+                   FilingAttachedExtension = x.filing_extension,
+                   ApprovalAttachedExtension = x.approval_extension
+               }).SingleOrDefault();
+
+            EmployeeLeaveMonitoring _balance = GetEmployeeLeaveBalance(_model.EmpID, _model.LeaveTypeId, _model.TranYear);
+            if (_balance != null)
+            {
+                _model.EntitledLeave = _balance.EntitleLeave.ToString();
+                _model.UsedLeave = _balance.UsedLeave.ToString();
+                _model.Balance = _balance.RemainingLeave.ToString();
+
+            }
+            return _model;
+        }
+
+        public EmployeeLeaveMonitoring GetEmployeeLeaveBalance(int _empid, int _leavetypeid, int _year)
+        {
+            return (from d in _conn.EmployeeLeaveMonitorings
+                    where d.EmpID == _empid
+                    && d.LeaveTypeID == _leavetypeid
+                    && d.YearEntitled == _year
+                    select d).FirstOrDefault();
+        }
+
         public int ManageEmployeeFiledLeave(LeaveModel _model)
         {
             try

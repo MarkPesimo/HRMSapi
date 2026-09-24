@@ -84,7 +84,27 @@ namespace HRMS_API.Controllers
 
         }
 
-        [Route("api/Leave/GetEmployeeFiledLeaveMonitoring/{ClientId}/{Status}/{ByMonthYear}/{MonthLeave}/{YearLeave}/{ByDate}/{DateFrom}/{DateTo}/{keyword?}/{CompanyId}")]
+
+        //=========================BEGIN EMPLOYEE LEAVE================================================
+        [Route("api/Leave/GetFiledLeaveForApproval/{Id}")]
+        [HttpGet]
+        public HttpResponseMessage GetFiledLeaveForApproval(int Id)
+        {
+            try
+            {
+                LeaveForApproval_model result = _leaverepository.GetFiledLeaveForApproval(Id);
+
+                return result != null
+                    ? Request.CreateResponse(HttpStatusCode.OK, result)
+                    : Request.CreateErrorResponse(HttpStatusCode.NotFound, "No records found.");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/Leave/GetEmployeeFiledLeaveMonitoring/{ClientId}/{Status}/{ByMonthYear}/{MonthLeave}/{YearLeave}/{ByDate}/{DateFrom}/{DateTo}/{keyword}/{CompanyId}")]
         [HttpGet]
         public HttpResponseMessage GetEmployeeFiledLeaveMonitoring(int ClientId, string Status, bool ByMonthYear, int MonthLeave, int YearLeave, bool ByDate, DateTime DateFrom, DateTime DateTo, string keyword, int CompanyId)
         {

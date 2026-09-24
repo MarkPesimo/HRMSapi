@@ -14,12 +14,6 @@ namespace HRMS.DB
     
     public partial class EmployeeLoanMaster
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EmployeeLoanMaster()
-        {
-            this.LoanTransactions = new HashSet<LoanTransaction>();
-        }
-    
         public int LoanID { get; set; }
         public int EmpID { get; set; }
         public int LoanTypeID { get; set; }
@@ -41,7 +35,5 @@ namespace HRMS.DB
         public virtual Employee Employee { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
         public virtual LoanType LoanType { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LoanTransaction> LoanTransactions { get; set; }
     }
 }
