@@ -608,6 +608,14 @@
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="REC_FILE_CONFIGURATION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="attach_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="attach_location" Type="nvarchar" MaxLength="150" />
+        </EntityType>
         <EntityType Name="REC_NEW_HIRED_EMPLOYEE">
           <Key>
             <PropertyRef Name="id" />
@@ -2352,6 +2360,7 @@
           <EntitySet Name="REC_CLIENT_DEPARTMENT" EntityType="Self.REC_CLIENT_DEPARTMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_SHIFT" EntityType="Self.REC_CLIENT_SHIFT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CONTRACT_TYPE" EntityType="Self.REC_CONTRACT_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_FILE_CONFIGURATION" EntityType="Self.REC_FILE_CONFIGURATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_NEW_HIRED_EMPLOYEE" EntityType="Self.REC_NEW_HIRED_EMPLOYEE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_NEW_HIRED_EMPLOYEE_REMARKS" EntityType="Self.REC_NEW_HIRED_EMPLOYEE_REMARKS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_SOURCE_TYPE" EntityType="Self.REC_SOURCE_TYPE" Schema="dbo" store:Type="Tables" />
@@ -3589,6 +3598,7 @@
             <Parameter Name="USER_ID" Mode="In" Type="Int32" />
             <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="REC_FILE_CONFIGURATION" EntityType="apwdbModel.REC_FILE_CONFIGURATION" />
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -5838,6 +5848,14 @@
           <Property Type="String" Name="Middlename" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="500" />
         </ComplexType>
+        <EntityType Name="REC_FILE_CONFIGURATION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="attach_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="attach_location" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7022,6 +7040,15 @@
           <FunctionImportMapping FunctionImportName="USP_E_MANAGE_ACCOUNT" FunctionName="apwdbModel.Store.USP_E_MANAGE_ACCOUNT" />
           <FunctionImportMapping FunctionImportName="USP_H_MANAGE_LEAVE_ACCEPT" FunctionName="apwdbModel.Store.USP_H_MANAGE_LEAVE_ACCEPT" />
           <FunctionImportMapping FunctionImportName="USP_H_MANAGE_LEAVE_REVOKE" FunctionName="apwdbModel.Store.USP_H_MANAGE_LEAVE_REVOKE" />
+          <EntitySetMapping Name="REC_FILE_CONFIGURATION">
+            <EntityTypeMapping TypeName="apwdbModel.REC_FILE_CONFIGURATION">
+              <MappingFragment StoreEntitySet="REC_FILE_CONFIGURATION">
+                <ScalarProperty Name="attach_location" ColumnName="attach_location" />
+                <ScalarProperty Name="attach_type" ColumnName="attach_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

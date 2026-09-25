@@ -130,6 +130,7 @@
         <AssociationConnector Association="apwdbModel.FK_Required_Document_details_Required_Document" />
         <AssociationConnector Association="apwdbModel.FK_Required_Document_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_Required_Document_details_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.REC_FILE_CONFIGURATION" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

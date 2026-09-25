@@ -45,16 +45,16 @@ namespace HRMS_API.Controllers
             }
         }
 
-        [Route("api/Access/FunctionAccess/{ModuleName}/{Action}/{AppName}/{UserId}")]
+        [Route("api/Access/FunctionAccess/{ModuleName}/{FunctionAction}/{AppName}/{UserId}")]
         [HttpGet]
-        public HttpResponseMessage FunctionAccess(string ModuleName, string Action, string AppName, int UserId)
+        public HttpResponseMessage FunctionAccess(string ModuleName, string FunctionAction, string AppName, int UserId)
         {
             try
             {
                 FunctionAccess_model _model = new FunctionAccess_model
                 {
                     ModuleName = ModuleName,
-                    Action = Action,
+                    Action = FunctionAction,
                     AppName = AppName,
                     UserId = UserId 
                 };

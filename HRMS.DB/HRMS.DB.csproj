@@ -165,6 +165,9 @@
     <Compile Include="REC_CONTRACT_TYPE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_FILE_CONFIGURATION.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_NEW_HIRED_EMPLOYEE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>

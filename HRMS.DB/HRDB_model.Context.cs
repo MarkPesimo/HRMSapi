@@ -70,6 +70,7 @@ namespace HRMS.DB
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Required_Document> Required_Document { get; set; }
         public virtual DbSet<Required_Document_details> Required_Document_details { get; set; }
+        public virtual DbSet<REC_FILE_CONFIGURATION> REC_FILE_CONFIGURATION { get; set; }
     
         public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
         {
