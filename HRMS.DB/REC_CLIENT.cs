@@ -25,6 +25,12 @@ namespace HRMS.DB
             this.REC_CLIENT_DEPARTMENT = new HashSet<REC_CLIENT_DEPARTMENT>();
             this.REC_CLIENT_SHIFT = new HashSet<REC_CLIENT_SHIFT>();
             this.REC_NEW_HIRED_EMPLOYEE = new HashSet<REC_NEW_HIRED_EMPLOYEE>();
+            this.REC_CLIENT_COMPANY = new HashSet<REC_CLIENT_COMPANY>();
+            this.Adjustments = new HashSet<Adjustment>();
+            this.Deductions = new HashSet<Deduction>();
+            this.REC_CLIENT_BANK = new HashSet<REC_CLIENT_BANK>();
+            this.REC_CLIENT_CONTACTS = new HashSet<REC_CLIENT_CONTACTS>();
+            this.REC_CLIENT_DOCUMENTS = new HashSet<REC_CLIENT_DOCUMENTS>();
         }
     
         public int id { get; set; }
@@ -77,5 +83,19 @@ namespace HRMS.DB
         public virtual ICollection<REC_CLIENT_SHIFT> REC_CLIENT_SHIFT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_NEW_HIRED_EMPLOYEE> REC_NEW_HIRED_EMPLOYEE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CLIENT_COMPANY> REC_CLIENT_COMPANY { get; set; }
+        public virtual INDUSTRY INDUSTRY { get; set; }
+        public virtual EMPLOYER EMPLOYER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Adjustment> Adjustments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Deduction> Deductions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CLIENT_BANK> REC_CLIENT_BANK { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CLIENT_CONTACTS> REC_CLIENT_CONTACTS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CLIENT_DOCUMENTS> REC_CLIENT_DOCUMENTS { get; set; }
     }
 }

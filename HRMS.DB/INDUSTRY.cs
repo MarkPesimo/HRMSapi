@@ -12,34 +12,24 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class sys_company
+    public partial class INDUSTRY
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public sys_company()
+        public INDUSTRY()
         {
-            this.REC_CLIENT_COMPANY = new HashSet<REC_CLIENT_COMPANY>();
-            this.SYS_USER_GROUP = new HashSet<SYS_USER_GROUP>();
+            this.REC_CLIENT = new HashSet<REC_CLIENT>();
         }
     
         public int id { get; set; }
-        public string company_code { get; set; }
-        public string company_name { get; set; }
-        public string address { get; set; }
-        public string trunk_no { get; set; }
-        public string fax_no { get; set; }
-        public string TIN_no { get; set; }
+        public string industry_name { get; set; }
         public bool status { get; set; }
         public int user_id { get; set; }
         public System.DateTime date_created { get; set; }
-        public string CompanyWebsite { get; set; }
-        public string CompanyLogo { get; set; }
+        public string psic_code { get; set; }
         public int country_id { get; set; }
-        public string guid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<REC_CLIENT_COMPANY> REC_CLIENT_COMPANY { get; set; }
+        public virtual ICollection<REC_CLIENT> REC_CLIENT { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SYS_USER_GROUP> SYS_USER_GROUP { get; set; }
     }
 }

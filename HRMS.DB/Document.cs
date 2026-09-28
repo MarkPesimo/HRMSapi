@@ -19,6 +19,7 @@ namespace HRMS.DB
         {
             this.REC_CANDIDATE_DOCUMENT = new HashSet<REC_CANDIDATE_DOCUMENT>();
             this.Required_Document_details = new HashSet<Required_Document_details>();
+            this.REC_CLIENT_DOCUMENTS = new HashSet<REC_CLIENT_DOCUMENTS>();
         }
     
         public int DocId { get; set; }
@@ -35,5 +36,7 @@ namespace HRMS.DB
         public virtual SYS_USER SYS_USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Required_Document_details> Required_Document_details { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CLIENT_DOCUMENTS> REC_CLIENT_DOCUMENTS { get; set; }
     }
 }

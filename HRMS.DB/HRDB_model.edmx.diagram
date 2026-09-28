@@ -7,13 +7,10 @@
       <Diagram DiagramId="ac44f2c2e5624ec08007520427d074b6" Name="Diagram1" ZoomLevel="101" >
         <EntityTypeShape EntityType="apwdbModel.Employee" Width="1.5" PointX="9.25" PointY="13.25" IsExpanded="false" />
         <EntityTypeShape EntityType="apwdbModel.REC_USER_LOG" Width="1.5" PointX="0.875" PointY="7" IsExpanded="false" />
-        <EntityTypeShape EntityType="apwdbModel.sys_company" Width="1.5" PointX="3.75" PointY="9.75" IsExpanded="false" />
         <EntityTypeShape EntityType="apwdbModel.SYS_USER" Width="2.25" PointX="0.75" PointY="16" IsExpanded="false" />
         <EntityTypeShape EntityType="apwdbModel.SYS_USER_GROUP" Width="2.375" PointX="6" PointY="12.875" IsExpanded="false" />
         <EntityTypeShape EntityType="apwdbModel.SYS_USER_GROUP_DET" Width="2.25" PointX="10.125" PointY="14.5" IsExpanded="false" />
         <AssociationConnector Association="apwdbModel.FK_Employee_SYS_USER" />
-        <AssociationConnector Association="apwdbModel.FK_sys_company_SYS_USER" />
-        <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_sys_company" />
         <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" />
@@ -130,6 +127,40 @@
         <AssociationConnector Association="apwdbModel.FK_Required_Document_details_Required_Document" />
         <AssociationConnector Association="apwdbModel.FK_Required_Document_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_Required_Document_details_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_COMPANY" Width="1.5" PointX="10" PointY="3.75" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_COMPANY_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_COMPANY_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.INDUSTRY" Width="1.5" PointX="3.75" PointY="29.875" />
+        <AssociationConnector Association="apwdbModel.C_FK_Client_INDUSTRY" />
+        <AssociationConnector Association="apwdbModel.FK_INDUSTRY_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.EMPLOYER" Width="1.5" PointX="3.75" PointY="34" />
+        <AssociationConnector Association="apwdbModel.FK_EMPLOYER_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_EMPLOYER" />
+        <EntityTypeShape EntityType="apwdbModel.Adjustment" Width="1.5" PointX="9" PointY="20.625" />
+        <EntityTypeShape EntityType="apwdbModel.Deduction" Width="1.5" PointX="14" PointY="7.875" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_BANK" Width="1.5" PointX="6" PointY="20.625" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_CONTACTS" Width="1.5" PointX="14" PointY="19.625" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_DOCUMENTS" Width="1.5" PointX="12" PointY="23.625" />
+        <AssociationConnector Association="apwdbModel.C_FK_Adjustment_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.FK_Adjustment_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.C_FK_Deductions_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.FK_Deductions_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_DOCUMENTS_Document" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_BANK_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_CONTACTS_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_DOCUMENTS_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_BANK_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_CONTACTS_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_DOCUMENTS_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.sys_company" Width="1.5" PointX="3.75" PointY="38" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_COMPANY_sys_company" />
+        <AssociationConnector Association="apwdbModel.FK_sys_company_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_SYS_USER_GROUP_sys_company" />
+        <EntityTypeShape EntityType="apwdbModel.SYS_BANK" Width="1.5" PointX="3.75" PointY="43.875" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_BANK_SYS_BANK" />
+        <AssociationConnector Association="apwdbModel.FK_SYS_BANK_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.ADJUSTMENT_CLASSIFICATION" Width="3" PointX="6.5" PointY="1.875" IsExpanded="false" />
+        <AssociationConnector Association="apwdbModel.FK_Adjustment_ADJUSTMENT_CLASSIFICATION" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

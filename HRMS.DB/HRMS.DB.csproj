@@ -65,10 +65,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Access_model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Adjustment.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ADJUSTMENT_CLASSIFICATION.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="AreaLibrary.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Branch.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Deduction.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Degree.cs">
@@ -104,6 +113,9 @@
     <Compile Include="Employee_Separation.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="EMPLOYER.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="FloatingReason.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -131,6 +143,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HRDB_model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="INDUSTRY.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="LeaveType.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -156,7 +171,19 @@
     <Compile Include="REC_CLIENT.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_CLIENT_BANK.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_COMPANY.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_CONTACTS.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_CLIENT_DEPARTMENT.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_DOCUMENTS.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_CLIENT_SHIFT.cs">
@@ -196,6 +223,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Shift.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SYS_BANK.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="sys_company.cs">
@@ -294,7 +324,9 @@
     <None Include="Access_model.edmx.diagram">
       <DependentUpon>Access_model.edmx</DependentUpon>
     </None>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="HRDB_model.edmx.diagram">
       <DependentUpon>HRDB_model.edmx</DependentUpon>
     </None>

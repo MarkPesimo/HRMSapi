@@ -5,6 +5,30 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="apwdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adjustment">
+          <Key>
+            <PropertyRef Name="Adjustment_ID" />
+          </Key>
+          <Property Name="Adjustment_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adjustment_Desc" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="LastEditDate" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="billable" Type="bit" Nullable="false" />
+          <Property Name="adjustment_classification_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ADJUSTMENT_CLASSIFICATION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="classification" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="AreaLibrary">
           <Key>
             <PropertyRef Name="AreaID" />
@@ -33,6 +57,17 @@
           <Property Name="region_longitude" Type="decimal" Precision="18" Scale="8" />
           <Property Name="region_latitude" Type="decimal" Precision="18" Scale="8" />
           <Property Name="allowed_radius_meter" Type="int" />
+        </EntityType>
+        <EntityType Name="Deductions">
+          <Key>
+            <PropertyRef Name="Ded_id" />
+          </Key>
+          <Property Name="Ded_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ded_Desc" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="date_Created" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Degree">
           <Key>
@@ -290,6 +325,16 @@
           <Property Name="status" Type="bit" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="EMPLOYER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employer_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="employer_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="FloatingReason">
           <Key>
             <PropertyRef Name="id" />
@@ -343,6 +388,18 @@
           <Property Name="status" Type="bit" Nullable="false" />
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="INDUSTRY">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="industry_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="psic_code" Type="nvarchar" MaxLength="20" />
+          <Property Name="country_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="LeaveType">
           <Key>
@@ -575,6 +632,44 @@
           <Property Name="employer_id" Type="int" Nullable="false" />
           <Property Name="guid" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
+        <EntityType Name="REC_CLIENT_BANK">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="account_no" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Bank_id" Type="int" Nullable="false" />
+          <Property Name="bank_address" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Contact_Person" Type="nvarchar" MaxLength="150" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_added" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_COMPANY">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="company_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_CONTACTS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="contact_person" Type="nvarchar" MaxLength="150" />
+          <Property Name="contact_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="email_address" Type="nvarchar" MaxLength="150" />
+          <Property Name="file_status" Type="bit" Nullable="false" />
+          <Property Name="Position" Type="nvarchar" MaxLength="150" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="REC_CLIENT_DEPARTMENT">
           <Key>
             <PropertyRef Name="id" />
@@ -586,6 +681,28 @@
           <Property Name="status" Type="bit" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
           <Property Name="user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_DOCUMENTS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="doc_id" Type="int" Nullable="false" />
+          <Property Name="doc_no" Type="nvarchar" MaxLength="50" />
+          <Property Name="date_issued" Type="smalldatetime" />
+          <Property Name="date_expired" Type="smalldatetime" />
+          <Property Name="file_location" Type="nvarchar" MaxLength="200" />
+          <Property Name="remarks" Type="nvarchar" MaxLength="250" />
+          <Property Name="user_created" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="user_modified" Type="int" />
+          <Property Name="date_modified" Type="datetime" />
+          <Property Name="file_extension" Type="nvarchar" MaxLength="30" />
+          <Property Name="is_notarized" Type="bit" />
+          <Property Name="is_signed" Type="bit" />
+          <Property Name="is_withoriginal" Type="bit" />
+          <Property Name="is_history" Type="bit" />
         </EntityType>
         <EntityType Name="REC_CLIENT_SHIFT">
           <Key>
@@ -766,6 +883,18 @@
           <Property Name="is_compress" Type="bit" Nullable="false" />
           <Property Name="hours_worked" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="SYS_BANK">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bank_code" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Bank_Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="acct_code" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="sys_company">
           <Key>
             <PropertyRef Name="id" />
@@ -783,6 +912,7 @@
           <Property Name="CompanyWebsite" Type="nvarchar" MaxLength="500" />
           <Property Name="CompanyLogo" Type="nvarchar" MaxLength="50" />
           <Property Name="country_id" Type="int" Nullable="false" />
+          <Property Name="guid" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="SYS_USER">
           <Key>
@@ -822,6 +952,18 @@
           <Property Name="user_type" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
+        <Association Name=" FK_Adjustment_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="Adjustment" Type="Self.Adjustment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adjustment">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name=" FK_Branch_REC_CLIENT">
           <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
           <End Role="Branch" Type="Self.Branch" Multiplicity="*" />
@@ -843,6 +985,30 @@
             </Principal>
             <Dependent Role="Branch">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Client_INDUSTRY">
+          <End Role="INDUSTRY" Type="Self.INDUSTRY" Multiplicity="1" />
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INDUSTRY">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT">
+              <PropertyRef Name="industry_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_Deductions_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="Deductions" Type="Self.Deductions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deductions">
+              <PropertyRef Name="client_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1074,6 +1240,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name=" FK_REC_CLIENT_BANK_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="REC_CLIENT_BANK" Type="Self.REC_CLIENT_BANK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_BANK">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_CLIENT_BANK_SYS_BANK">
+          <End Role="SYS_BANK" Type="Self.SYS_BANK" Multiplicity="1" />
+          <End Role="REC_CLIENT_BANK" Type="Self.REC_CLIENT_BANK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_BANK">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_BANK">
+              <PropertyRef Name="Bank_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_CLIENT_CONTACTS_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="REC_CLIENT_CONTACTS" Type="Self.REC_CLIENT_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_CONTACTS">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name=" FK_REC_CLIENT_DEPARTMENT_Department">
           <End Role="Department" Type="Self.Department" Multiplicity="1" />
           <End Role="REC_CLIENT_DEPARTMENT" Type="Self.REC_CLIENT_DEPARTMENT" Multiplicity="*" />
@@ -1110,6 +1312,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Adjustment_ADJUSTMENT_CLASSIFICATION">
+          <End Role="ADJUSTMENT_CLASSIFICATION" Type="Self.ADJUSTMENT_CLASSIFICATION" Multiplicity="1" />
+          <End Role="Adjustment" Type="Self.Adjustment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ADJUSTMENT_CLASSIFICATION">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adjustment">
+              <PropertyRef Name="adjustment_classification_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adjustment_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Adjustment" Type="Self.Adjustment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adjustment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AreaLibrary_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="AreaLibrary" Type="Self.AreaLibrary" Multiplicity="*" />
@@ -1119,6 +1345,18 @@
             </Principal>
             <Dependent Role="AreaLibrary">
               <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deductions_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="Deductions" Type="Self.Deductions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deductions">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1338,6 +1576,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EMPLOYER_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="EMPLOYER" Type="Self.EMPLOYER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EMPLOYER">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HELPDESK_CONCERN_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="HELPDESK_CONCERN" Type="Self.HELPDESK_CONCERN" Multiplicity="*" />
@@ -1382,6 +1632,18 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="HELPDESK_CONCERN_TYPE">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INDUSTRY_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="INDUSTRY" Type="Self.INDUSTRY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="INDUSTRY">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -1530,6 +1792,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_REC_CLIENT_BANK_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_CLIENT_BANK" Type="Self.REC_CLIENT_BANK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_BANK">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_COMPANY_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="REC_CLIENT_COMPANY" Type="Self.REC_CLIENT_COMPANY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_COMPANY">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_COMPANY_sys_company">
+          <End Role="sys_company" Type="Self.sys_company" Multiplicity="1" />
+          <End Role="REC_CLIENT_COMPANY" Type="Self.REC_CLIENT_COMPANY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_COMPANY">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_COMPANY_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_CLIENT_COMPANY" Type="Self.REC_CLIENT_COMPANY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_COMPANY">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_CONTACTS_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_CLIENT_CONTACTS" Type="Self.REC_CLIENT_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_CONTACTS">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_REC_CLIENT_DEPARTMENT_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="REC_CLIENT_DEPARTMENT" Type="Self.REC_CLIENT_DEPARTMENT" Multiplicity="*" />
@@ -1539,6 +1861,18 @@
             </Principal>
             <Dependent Role="REC_CLIENT_DEPARTMENT">
               <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_EMPLOYER">
+          <End Role="EMPLOYER" Type="Self.EMPLOYER" Multiplicity="1" />
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT">
+              <PropertyRef Name="employer_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1746,6 +2080,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SYS_BANK_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="SYS_BANK" Type="Self.SYS_BANK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_BANK">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_sys_company_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="sys_company" Type="Self.sys_company" Multiplicity="*" />
@@ -1830,6 +2176,55 @@
           <Parameter Name="COUNTRY_ID" Type="int" Mode="In" />
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_I_MANAGE_CLIENT_DEPARTMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="DEPT_CODE" Type="nvarchar" Mode="In" />
+          <Parameter Name="DEPARTMENT_ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_I_MANAGE_CLIENT_DOCUMENTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENTID" Type="int" Mode="In" />
+          <Parameter Name="DOCID" Type="int" Mode="In" />
+          <Parameter Name="DATE_ISSUED" Type="smalldatetime" Mode="In" />
+          <Parameter Name="DATE_EXPIRED" Type="smalldatetime" Mode="In" />
+          <Parameter Name="FILE_LOCATION" Type="nvarchar" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="FILE_EXTENSION" Type="nvarchar" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+          <Parameter Name="IS_SIGNED" Type="bit" Mode="In" />
+          <Parameter Name="IS_WITHORIGINAL" Type="bit" Mode="In" />
+          <Parameter Name="IS_NOTARIZED" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_I_MASTER_CLIENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="CLIENT_ADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTACT_NO" Type="nvarchar" Mode="In" />
+          <Parameter Name="EMAIL_ADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTACT_PERSON" Type="nvarchar" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="STATUS" Type="bit" Mode="In" />
+          <Parameter Name="TIN_NO" Type="nvarchar" Mode="In" />
+          <Parameter Name="INDUSTRY_ID" Type="int" Mode="In" />
+          <Parameter Name="CONTACT_TITLE" Type="nvarchar" Mode="In" />
+          <Parameter Name="MOBILE_NO" Type="nvarchar" Mode="In" />
+          <Parameter Name="WEBSITE" Type="nvarchar" Mode="In" />
+          <Parameter Name="CLIENT_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="IS_WITHHOLDING_TAX" Type="bit" Mode="In" />
+          <Parameter Name="WITHHOLDING_TAX_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="vatable" Type="bit" Mode="In" />
+          <Parameter Name="VAT_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="BILLING_ADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
         <Function Name="SP_MANAGE_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -1949,6 +2344,34 @@
           <Parameter Name="OVERALL_STATUS_DATE" Type="smalldatetime" Mode="In" />
           <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="SP_MASTER_ADJUSTMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="ADJUSTMENT" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="BILLABLE" Type="bit" Mode="In" />
+          <Parameter Name="ADJUSTMENT_CLASSIFICATION_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_MASTER_BRANCH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="BRANCH_DESC" Type="nvarchar" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="NO_OF_DAYS" Type="decimal" Mode="In" />
+          <Parameter Name="REGION_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_MASTER_DEDUCTIONS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="DEDUCTION_DESC" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="SP_MASTER_DEPARTMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="DEPARTMENT_DESC" Type="nvarchar" Mode="In" />
@@ -2000,8 +2423,28 @@
           <Parameter Name="BREAK_TIME_START" Type="smalldatetime" Mode="In" />
           <Parameter Name="BREAK_TIME_END" Type="smalldatetime" Mode="In" />
         </Function>
+        <Function Name="SP_T_MANAGE_CLIENT_SHIFT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="SHIFT_ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_B_MANAGE_REC_CLIENT_CONTACTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="CONTACT_PERSON" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTACT_NO" Type="nvarchar" Mode="In" />
+          <Parameter Name="EMAIL_ADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="FILE_STATUS" Type="bit" Mode="In" />
+          <Parameter Name="POSITION" Type="nvarchar" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
         <Function Name="USP_C_MANAGE_COOR_NEW_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
@@ -2313,6 +2756,28 @@
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_I_MANAGE_CLIENT_BANK" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="ACCOUNT_NO" Type="nvarchar" Mode="In" />
+          <Parameter Name="BANK_ID" Type="int" Mode="In" />
+          <Parameter Name="BANK_ADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTACT_PERSON" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_I_MANAGE_CLIENT_CONTACT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="CONTACT_PERSON" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTACT_NO" Type="nvarchar" Mode="In" />
+          <Parameter Name="EMAIL_ADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="POSITION" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_P_MANAGE_SUBMIT_REQUIRED_DOCUMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="CANDIDATE_ID" Type="int" Mode="In" />
@@ -2324,8 +2789,11 @@
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
         <EntityContainer Name="apwdbModelStoreContainer">
+          <EntitySet Name="Adjustment" EntityType="Self.Adjustment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ADJUSTMENT_CLASSIFICATION" EntityType="Self.ADJUSTMENT_CLASSIFICATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AreaLibrary" EntityType="Self.AreaLibrary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deductions" EntityType="Self.Deductions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Degree" EntityType="Self.Degree" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
@@ -2337,10 +2805,12 @@
           <EntitySet Name="EmployeeLoanMaster" EntityType="Self.EmployeeLoanMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeRank" EntityType="Self.EmployeeRank" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeType" EntityType="Self.EmployeeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPLOYER" EntityType="Self.EMPLOYER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FloatingReason" EntityType="Self.FloatingReason" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HELPDESK_CONCERN" EntityType="Self.HELPDESK_CONCERN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HELPDESK_CONCERN_THREAD" EntityType="Self.HELPDESK_CONCERN_THREAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HELPDESK_CONCERN_TYPE" EntityType="Self.HELPDESK_CONCERN_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INDUSTRY" EntityType="Self.INDUSTRY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoanType" EntityType="Self.LoanType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="P_Leave" EntityType="Self.P_Leave" Schema="dbo" store:Type="Tables" />
@@ -2349,7 +2819,11 @@
           <EntitySet Name="REC_CANDIDATE_EDUCATION" EntityType="Self.REC_CANDIDATE_EDUCATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE_EMPLOYEE_LINK" EntityType="Self.REC_CANDIDATE_EMPLOYEE_LINK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT" EntityType="Self.REC_CLIENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_BANK" EntityType="Self.REC_CLIENT_BANK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_COMPANY" EntityType="Self.REC_CLIENT_COMPANY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_CONTACTS" EntityType="Self.REC_CLIENT_CONTACTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_DEPARTMENT" EntityType="Self.REC_CLIENT_DEPARTMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_DOCUMENTS" EntityType="Self.REC_CLIENT_DOCUMENTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_SHIFT" EntityType="Self.REC_CLIENT_SHIFT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CONTRACT_TYPE" EntityType="Self.REC_CONTRACT_TYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_NEW_HIRED_EMPLOYEE" EntityType="Self.REC_NEW_HIRED_EMPLOYEE" Schema="dbo" store:Type="Tables" />
@@ -2363,10 +2837,15 @@
           <EntitySet Name="SchoolLevel" EntityType="Self.SchoolLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Separation_Reason" EntityType="Self.Separation_Reason" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shift" EntityType="Self.Shift" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_BANK" EntityType="Self.SYS_BANK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sys_company" EntityType="Self.sys_company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER" EntityType="Self.SYS_USER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP" EntityType="Self.SYS_USER_GROUP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP_DET" EntityType="Self.SYS_USER_GROUP_DET" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name=" FK_Adjustment_REC_CLIENT" Association="Self. FK_Adjustment_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Adjustment" EntitySet="Adjustment" />
+          </AssociationSet>
           <AssociationSet Name=" FK_Branch_REC_CLIENT" Association="Self. FK_Branch_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
             <End Role="Branch" EntitySet="Branch" />
@@ -2374,6 +2853,14 @@
           <AssociationSet Name=" FK_Branch_SYS_USER" Association="Self. FK_Branch_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Branch" EntitySet="Branch" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Client_INDUSTRY" Association="Self. FK_Client_INDUSTRY">
+            <End Role="INDUSTRY" EntitySet="INDUSTRY" />
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_Deductions_REC_CLIENT" Association="Self. FK_Deductions_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Deductions" EntitySet="Deductions" />
           </AssociationSet>
           <AssociationSet Name=" FK_Employee_AreaLibrary" Association="Self. FK_Employee_AreaLibrary">
             <End Role="AreaLibrary" EntitySet="AreaLibrary" />
@@ -2451,6 +2938,18 @@
             <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
             <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
           </AssociationSet>
+          <AssociationSet Name=" FK_REC_CLIENT_BANK_REC_CLIENT" Association="Self. FK_REC_CLIENT_BANK_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_BANK" EntitySet="REC_CLIENT_BANK" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_CLIENT_BANK_SYS_BANK" Association="Self. FK_REC_CLIENT_BANK_SYS_BANK">
+            <End Role="SYS_BANK" EntitySet="SYS_BANK" />
+            <End Role="REC_CLIENT_BANK" EntitySet="REC_CLIENT_BANK" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_CLIENT_CONTACTS_REC_CLIENT" Association="Self. FK_REC_CLIENT_CONTACTS_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_CONTACTS" EntitySet="REC_CLIENT_CONTACTS" />
+          </AssociationSet>
           <AssociationSet Name=" FK_REC_CLIENT_DEPARTMENT_Department" Association="Self. FK_REC_CLIENT_DEPARTMENT_Department">
             <End Role="Department" EntitySet="Department" />
             <End Role="REC_CLIENT_DEPARTMENT" EntitySet="REC_CLIENT_DEPARTMENT" />
@@ -2463,9 +2962,21 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
           </AssociationSet>
+          <AssociationSet Name="FK_Adjustment_ADJUSTMENT_CLASSIFICATION" Association="Self.FK_Adjustment_ADJUSTMENT_CLASSIFICATION">
+            <End Role="ADJUSTMENT_CLASSIFICATION" EntitySet="ADJUSTMENT_CLASSIFICATION" />
+            <End Role="Adjustment" EntitySet="Adjustment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adjustment_SYS_USER" Association="Self.FK_Adjustment_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Adjustment" EntitySet="Adjustment" />
+          </AssociationSet>
           <AssociationSet Name="FK_AreaLibrary_SYS_USER" Association="Self.FK_AreaLibrary_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="AreaLibrary" EntitySet="AreaLibrary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deductions_SYS_USER" Association="Self.FK_Deductions_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Deductions" EntitySet="Deductions" />
           </AssociationSet>
           <AssociationSet Name="FK_Degree_SYS_USER" Association="Self.FK_Degree_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -2539,6 +3050,10 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="EmployeeType" EntitySet="EmployeeType" />
           </AssociationSet>
+          <AssociationSet Name="FK_EMPLOYER_SYS_USER" Association="Self.FK_EMPLOYER_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="EMPLOYER" EntitySet="EMPLOYER" />
+          </AssociationSet>
           <AssociationSet Name="FK_HELPDESK_CONCERN_Employee" Association="Self.FK_HELPDESK_CONCERN_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="HELPDESK_CONCERN" EntitySet="HELPDESK_CONCERN" />
@@ -2554,6 +3069,10 @@
           <AssociationSet Name="FK_HELPDESK_CONCERN_TYPE_SYS_USER" Association="Self.FK_HELPDESK_CONCERN_TYPE_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="HELPDESK_CONCERN_TYPE" EntitySet="HELPDESK_CONCERN_TYPE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INDUSTRY_SYS_USER" Association="Self.FK_INDUSTRY_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="INDUSTRY" EntitySet="INDUSTRY" />
           </AssociationSet>
           <AssociationSet Name="FK_LeaveType_SYS_USER" Association="Self.FK_LeaveType_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -2603,9 +3122,33 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
           </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_BANK_SYS_USER" Association="Self.FK_REC_CLIENT_BANK_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT_BANK" EntitySet="REC_CLIENT_BANK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_COMPANY_REC_CLIENT" Association="Self.FK_REC_CLIENT_COMPANY_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_COMPANY" EntitySet="REC_CLIENT_COMPANY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_COMPANY_sys_company" Association="Self.FK_REC_CLIENT_COMPANY_sys_company">
+            <End Role="sys_company" EntitySet="sys_company" />
+            <End Role="REC_CLIENT_COMPANY" EntitySet="REC_CLIENT_COMPANY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_COMPANY_SYS_USER" Association="Self.FK_REC_CLIENT_COMPANY_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT_COMPANY" EntitySet="REC_CLIENT_COMPANY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_CONTACTS_SYS_USER" Association="Self.FK_REC_CLIENT_CONTACTS_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT_CONTACTS" EntitySet="REC_CLIENT_CONTACTS" />
+          </AssociationSet>
           <AssociationSet Name="FK_REC_CLIENT_DEPARTMENT_SYS_USER" Association="Self.FK_REC_CLIENT_DEPARTMENT_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CLIENT_DEPARTMENT" EntitySet="REC_CLIENT_DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_EMPLOYER" Association="Self.FK_REC_CLIENT_EMPLOYER">
+            <End Role="EMPLOYER" EntitySet="EMPLOYER" />
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
           </AssociationSet>
           <AssociationSet Name="FK_REC_CLIENT_SHIFT_REC_CLIENT" Association="Self.FK_REC_CLIENT_SHIFT_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
@@ -2675,6 +3218,10 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Shift" EntitySet="Shift" />
           </AssociationSet>
+          <AssociationSet Name="FK_SYS_BANK_SYS_USER" Association="Self.FK_SYS_BANK_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_BANK" EntitySet="SYS_BANK" />
+          </AssociationSet>
           <AssociationSet Name="FK_sys_company_SYS_USER" Association="Self.FK_sys_company_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="sys_company" EntitySet="sys_company" />
@@ -2703,21 +3250,12 @@
         <EntityContainer Name="apwdbEntities" annotation:LazyLoadingEnabled="true" >
           <EntitySet Name="Employees" EntityType="apwdbModel.Employee" />
           <EntitySet Name="REC_USER_LOG" EntityType="apwdbModel.REC_USER_LOG" />
-          <EntitySet Name="sys_company" EntityType="apwdbModel.sys_company" />
           <EntitySet Name="SYS_USER" EntityType="apwdbModel.SYS_USER" />
           <EntitySet Name="SYS_USER_GROUP" EntityType="apwdbModel.SYS_USER_GROUP" />
           <EntitySet Name="SYS_USER_GROUP_DET" EntityType="apwdbModel.SYS_USER_GROUP_DET" />
           <AssociationSet Name="FK_Employee_SYS_USER" Association="apwdbModel.FK_Employee_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_sys_company_SYS_USER" Association="apwdbModel.FK_sys_company_SYS_USER">
-            <End Role="SYS_USER" EntitySet="SYS_USER" />
-            <End Role="sys_company" EntitySet="sys_company" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SYS_USER_GROUP_sys_company" Association="apwdbModel.FK_SYS_USER_GROUP_sys_company">
-            <End Role="sys_company" EntitySet="sys_company" />
-            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
           </AssociationSet>
           <AssociationSet Name="FK_SYS_USER_GROUP_DET_SYS_USER" Association="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -3589,6 +4127,228 @@
             <Parameter Name="USER_ID" Mode="In" Type="Int32" />
             <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="REC_CLIENT_COMPANY" EntityType="apwdbModel.REC_CLIENT_COMPANY" />
+          <AssociationSet Name="FK_REC_CLIENT_COMPANY_REC_CLIENT" Association="apwdbModel.FK_REC_CLIENT_COMPANY_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_COMPANY" EntitySet="REC_CLIENT_COMPANY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_COMPANY_SYS_USER" Association="apwdbModel.FK_REC_CLIENT_COMPANY_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT_COMPANY" EntitySet="REC_CLIENT_COMPANY" />
+          </AssociationSet>
+          <EntitySet Name="INDUSTRies" EntityType="apwdbModel.INDUSTRY" />
+          <AssociationSet Name="C_FK_Client_INDUSTRY" Association="apwdbModel.C_FK_Client_INDUSTRY">
+            <End Role="INDUSTRY" EntitySet="INDUSTRies" />
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INDUSTRY_SYS_USER" Association="apwdbModel.FK_INDUSTRY_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="INDUSTRY" EntitySet="INDUSTRies" />
+          </AssociationSet>
+          <EntitySet Name="EMPLOYERs" EntityType="apwdbModel.EMPLOYER" />
+          <AssociationSet Name="FK_EMPLOYER_SYS_USER" Association="apwdbModel.FK_EMPLOYER_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="EMPLOYER" EntitySet="EMPLOYERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_EMPLOYER" Association="apwdbModel.FK_REC_CLIENT_EMPLOYER">
+            <End Role="EMPLOYER" EntitySet="EMPLOYERs" />
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+          </AssociationSet>
+          <EntitySet Name="Adjustments" EntityType="apwdbModel.Adjustment" />
+          <EntitySet Name="Deductions" EntityType="apwdbModel.Deduction" />
+          <EntitySet Name="REC_CLIENT_BANK" EntityType="apwdbModel.REC_CLIENT_BANK" />
+          <EntitySet Name="REC_CLIENT_CONTACTS" EntityType="apwdbModel.REC_CLIENT_CONTACTS" />
+          <EntitySet Name="REC_CLIENT_DOCUMENTS" EntityType="apwdbModel.REC_CLIENT_DOCUMENTS" />
+          <AssociationSet Name="C_FK_Adjustment_REC_CLIENT" Association="apwdbModel.C_FK_Adjustment_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Adjustment" EntitySet="Adjustments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adjustment_SYS_USER" Association="apwdbModel.FK_Adjustment_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Adjustment" EntitySet="Adjustments" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_Deductions_REC_CLIENT" Association="apwdbModel.C_FK_Deductions_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Deduction" EntitySet="Deductions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deductions_SYS_USER" Association="apwdbModel.FK_Deductions_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="Deduction" EntitySet="Deductions" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CLIENT_DOCUMENTS_Document" Association="apwdbModel.C_FK_REC_CLIENT_DOCUMENTS_Document">
+            <End Role="Document" EntitySet="Documents" />
+            <End Role="REC_CLIENT_DOCUMENTS" EntitySet="REC_CLIENT_DOCUMENTS" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CLIENT_BANK_REC_CLIENT" Association="apwdbModel.C_FK_REC_CLIENT_BANK_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_BANK" EntitySet="REC_CLIENT_BANK" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CLIENT_CONTACTS_REC_CLIENT" Association="apwdbModel.C_FK_REC_CLIENT_CONTACTS_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_CONTACTS" EntitySet="REC_CLIENT_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CLIENT_DOCUMENTS_REC_CLIENT" Association="apwdbModel.C_FK_REC_CLIENT_DOCUMENTS_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_DOCUMENTS" EntitySet="REC_CLIENT_DOCUMENTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_BANK_SYS_USER" Association="apwdbModel.FK_REC_CLIENT_BANK_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT_BANK" EntitySet="REC_CLIENT_BANK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_CONTACTS_SYS_USER" Association="apwdbModel.FK_REC_CLIENT_CONTACTS_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT_CONTACTS" EntitySet="REC_CLIENT_CONTACTS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_DOCUMENTS_SYS_USER" Association="apwdbModel.FK_REC_CLIENT_DOCUMENTS_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CLIENT_DOCUMENTS" EntitySet="REC_CLIENT_DOCUMENTS" />
+          </AssociationSet>
+          <FunctionImport Name="SP_I_MANAGE_CLIENT_DOCUMENTS">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENTID" Mode="In" Type="Int32" />
+            <Parameter Name="DOCID" Mode="In" Type="Int32" />
+            <Parameter Name="DATE_ISSUED" Mode="In" Type="DateTime" />
+            <Parameter Name="DATE_EXPIRED" Mode="In" Type="DateTime" />
+            <Parameter Name="FILE_LOCATION" Mode="In" Type="String" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="FILE_EXTENSION" Mode="In" Type="String" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+            <Parameter Name="IS_SIGNED" Mode="In" Type="Boolean" />
+            <Parameter Name="IS_WITHORIGINAL" Mode="In" Type="Boolean" />
+            <Parameter Name="IS_NOTARIZED" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_I_MASTER_CLIENT" ReturnType="Collection(Int32)">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_NAME" Mode="In" Type="String" />
+            <Parameter Name="CLIENT_ADDRESS" Mode="In" Type="String" />
+            <Parameter Name="CONTACT_NO" Mode="In" Type="String" />
+            <Parameter Name="EMAIL_ADDRESS" Mode="In" Type="String" />
+            <Parameter Name="CONTACT_PERSON" Mode="In" Type="String" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="TIN_NO" Mode="In" Type="String" />
+            <Parameter Name="INDUSTRY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="CONTACT_TITLE" Mode="In" Type="String" />
+            <Parameter Name="MOBILE_NO" Mode="In" Type="String" />
+            <Parameter Name="WEBSITE" Mode="In" Type="String" />
+            <Parameter Name="CLIENT_TYPE" Mode="In" Type="String" />
+            <Parameter Name="IS_WITHHOLDING_TAX" Mode="In" Type="Boolean" />
+            <Parameter Name="WITHHOLDING_TAX_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="vatable" Mode="In" Type="Boolean" />
+            <Parameter Name="VAT_TYPE" Mode="In" Type="String" />
+            <Parameter Name="BILLING_ADDRESS" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="sys_company" EntityType="apwdbModel.sys_company" />
+          <AssociationSet Name="FK_REC_CLIENT_COMPANY_sys_company" Association="apwdbModel.FK_REC_CLIENT_COMPANY_sys_company">
+            <End Role="sys_company" EntitySet="sys_company" />
+            <End Role="REC_CLIENT_COMPANY" EntitySet="REC_CLIENT_COMPANY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sys_company_SYS_USER" Association="apwdbModel.FK_sys_company_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="sys_company" EntitySet="sys_company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_USER_GROUP_sys_company" Association="apwdbModel.FK_SYS_USER_GROUP_sys_company">
+            <End Role="sys_company" EntitySet="sys_company" />
+            <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+          </AssociationSet>
+          <FunctionImport Name="SP_I_MANAGE_CLIENT_DEPARTMENT">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="DEPT_CODE" Mode="In" Type="String" />
+            <Parameter Name="DEPARTMENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MASTER_BRANCH">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="BRANCH_DESC" Mode="In" Type="String" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="NO_OF_DAYS" Mode="In" Type="Decimal" />
+            <Parameter Name="REGION_NAME" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_I_MANAGE_CLIENT_BANK">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ACCOUNT_NO" Mode="In" Type="String" />
+            <Parameter Name="BANK_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BANK_ADDRESS" Mode="In" Type="String" />
+            <Parameter Name="CONTACT_PERSON" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_I_MANAGE_CLIENT_CONTACT">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="CONTACT_PERSON" Mode="In" Type="String" />
+            <Parameter Name="CONTACT_NO" Mode="In" Type="String" />
+            <Parameter Name="EMAIL_ADDRESS" Mode="In" Type="String" />
+            <Parameter Name="POSITION" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="SYS_BANK" EntityType="apwdbModel.SYS_BANK" />
+          <AssociationSet Name="C_FK_REC_CLIENT_BANK_SYS_BANK" Association="apwdbModel.C_FK_REC_CLIENT_BANK_SYS_BANK">
+            <End Role="SYS_BANK" EntitySet="SYS_BANK" />
+            <End Role="REC_CLIENT_BANK" EntitySet="REC_CLIENT_BANK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_BANK_SYS_USER" Association="apwdbModel.FK_SYS_BANK_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_BANK" EntitySet="SYS_BANK" />
+          </AssociationSet>
+          <FunctionImport Name="USP_B_MANAGE_REC_CLIENT_CONTACTS">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="CONTACT_PERSON" Mode="In" Type="String" />
+            <Parameter Name="CONTACT_NO" Mode="In" Type="String" />
+            <Parameter Name="EMAIL_ADDRESS" Mode="In" Type="String" />
+            <Parameter Name="FILE_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="POSITION" Mode="In" Type="String" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MASTER_ADJUSTMENT">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="ADJUSTMENT" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="BILLABLE" Mode="In" Type="Boolean" />
+            <Parameter Name="ADJUSTMENT_CLASSIFICATION_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MASTER_DEDUCTIONS">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="DEDUCTION_DESC" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="ADJUSTMENT_CLASSIFICATION" EntityType="apwdbModel.ADJUSTMENT_CLASSIFICATION" />
+          <AssociationSet Name="FK_Adjustment_ADJUSTMENT_CLASSIFICATION" Association="apwdbModel.FK_Adjustment_ADJUSTMENT_CLASSIFICATION">
+            <End Role="ADJUSTMENT_CLASSIFICATION" EntitySet="ADJUSTMENT_CLASSIFICATION" />
+            <End Role="Adjustment" EntitySet="Adjustments" />
+          </AssociationSet>
+          <FunctionImport Name="SP_T_MANAGE_CLIENT_SHIFT">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="SHIFT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -3715,26 +4475,6 @@
           <Property Name="user_id" Type="Int32" Nullable="false" />
           <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="sys_company">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="company_code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="company_name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="trunk_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fax_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TIN_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="status" Type="Boolean" Nullable="false" />
-          <Property Name="user_id" Type="Int32" Nullable="false" />
-          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CompanyWebsite" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyLogo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="country_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_sys_company_SYS_USER" FromRole="sys_company" ToRole="SYS_USER" />
-          <NavigationProperty Name="SYS_USER_GROUP" Relationship="apwdbModel.FK_SYS_USER_GROUP_sys_company" FromRole="sys_company" ToRole="SYS_USER_GROUP" />
-        </EntityType>
         <EntityType Name="SYS_USER">
           <Key>
             <PropertyRef Name="id" />
@@ -3750,7 +4490,6 @@
           <Property Name="date_modified" Type="DateTime" Precision="3" />
           <Property Name="emp_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employees" Relationship="apwdbModel.FK_Employee_SYS_USER" FromRole="SYS_USER" ToRole="Employee" />
-          <NavigationProperty Name="sys_company" Relationship="apwdbModel.FK_sys_company_SYS_USER" FromRole="SYS_USER" ToRole="sys_company" />
           <NavigationProperty Name="SYS_USER_GROUP_DET" Relationship="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER" FromRole="SYS_USER" ToRole="SYS_USER_GROUP_DET" />
           <NavigationProperty Name="SYS_USER_GROUP" Relationship="apwdbModel.FK_SYS_USER_GROUP_SYS_USER" FromRole="SYS_USER" ToRole="SYS_USER_GROUP" />
           <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.FK_REC_CANDIDATE_SYS_USER" FromRole="SYS_USER" ToRole="REC_CANDIDATE" />
@@ -3782,6 +4521,16 @@
           <NavigationProperty Name="Documents" Relationship="apwdbModel.FK_Document_SYS_USER" FromRole="SYS_USER" ToRole="Document" />
           <NavigationProperty Name="Required_Document" Relationship="apwdbModel.FK_Required_Document_SYS_USER" FromRole="SYS_USER" ToRole="Required_Document" />
           <NavigationProperty Name="Required_Document_details" Relationship="apwdbModel.FK_Required_Document_details_SYS_USER" FromRole="SYS_USER" ToRole="Required_Document_details" />
+          <NavigationProperty Name="REC_CLIENT_COMPANY" Relationship="apwdbModel.FK_REC_CLIENT_COMPANY_SYS_USER" FromRole="SYS_USER" ToRole="REC_CLIENT_COMPANY" />
+          <NavigationProperty Name="INDUSTRies" Relationship="apwdbModel.FK_INDUSTRY_SYS_USER" FromRole="SYS_USER" ToRole="INDUSTRY" />
+          <NavigationProperty Name="EMPLOYERs" Relationship="apwdbModel.FK_EMPLOYER_SYS_USER" FromRole="SYS_USER" ToRole="EMPLOYER" />
+          <NavigationProperty Name="Adjustments" Relationship="apwdbModel.FK_Adjustment_SYS_USER" FromRole="SYS_USER" ToRole="Adjustment" />
+          <NavigationProperty Name="Deductions" Relationship="apwdbModel.FK_Deductions_SYS_USER" FromRole="SYS_USER" ToRole="Deduction" />
+          <NavigationProperty Name="REC_CLIENT_BANK" Relationship="apwdbModel.FK_REC_CLIENT_BANK_SYS_USER" FromRole="SYS_USER" ToRole="REC_CLIENT_BANK" />
+          <NavigationProperty Name="REC_CLIENT_CONTACTS" Relationship="apwdbModel.FK_REC_CLIENT_CONTACTS_SYS_USER" FromRole="SYS_USER" ToRole="REC_CLIENT_CONTACTS" />
+          <NavigationProperty Name="REC_CLIENT_DOCUMENTS" Relationship="apwdbModel.FK_REC_CLIENT_DOCUMENTS_SYS_USER" FromRole="SYS_USER" ToRole="REC_CLIENT_DOCUMENTS" />
+          <NavigationProperty Name="sys_company" Relationship="apwdbModel.FK_sys_company_SYS_USER" FromRole="SYS_USER" ToRole="sys_company" />
+          <NavigationProperty Name="SYS_BANK" Relationship="apwdbModel.FK_SYS_BANK_SYS_USER" FromRole="SYS_USER" ToRole="SYS_BANK" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP">
           <Key>
@@ -3795,9 +4544,9 @@
           <Property Name="user_id" Type="Int32" Nullable="false" />
           <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="company_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="sys_company" Relationship="apwdbModel.FK_SYS_USER_GROUP_sys_company" FromRole="SYS_USER_GROUP" ToRole="sys_company" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_SYS_USER_GROUP_SYS_USER" FromRole="SYS_USER_GROUP" ToRole="SYS_USER" />
           <NavigationProperty Name="SYS_USER_GROUP_DET" Relationship="apwdbModel.FK_SYS_USER_GROUP_DET_SYS_USER_GROUP" FromRole="SYS_USER_GROUP" ToRole="SYS_USER_GROUP_DET" />
+          <NavigationProperty Name="sys_company" Relationship="apwdbModel.FK_SYS_USER_GROUP_sys_company" FromRole="SYS_USER_GROUP" ToRole="sys_company" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP_DET">
           <Key>
@@ -3820,30 +4569,6 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_sys_company_SYS_USER">
-          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
-          <End Type="apwdbModel.sys_company" Role="sys_company" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SYS_USER">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="sys_company">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SYS_USER_GROUP_sys_company">
-          <End Type="apwdbModel.sys_company" Role="sys_company" Multiplicity="1" />
-          <End Type="apwdbModel.SYS_USER_GROUP" Role="SYS_USER_GROUP" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="sys_company">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="SYS_USER_GROUP">
-              <PropertyRef Name="company_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4266,6 +4991,14 @@
           <NavigationProperty Name="REC_CLIENT_DEPARTMENT" Relationship="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_DEPARTMENT" />
           <NavigationProperty Name="REC_CLIENT_SHIFT" Relationship="apwdbModel.FK_REC_CLIENT_SHIFT_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_SHIFT" />
           <NavigationProperty Name="REC_NEW_HIRED_EMPLOYEE" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_NEW_HIRED_EMPLOYEE" />
+          <NavigationProperty Name="REC_CLIENT_COMPANY" Relationship="apwdbModel.FK_REC_CLIENT_COMPANY_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_COMPANY" />
+          <NavigationProperty Name="INDUSTRY" Relationship="apwdbModel.C_FK_Client_INDUSTRY" FromRole="REC_CLIENT" ToRole="INDUSTRY" />
+          <NavigationProperty Name="EMPLOYER" Relationship="apwdbModel.FK_REC_CLIENT_EMPLOYER" FromRole="REC_CLIENT" ToRole="EMPLOYER" />
+          <NavigationProperty Name="Adjustments" Relationship="apwdbModel.C_FK_Adjustment_REC_CLIENT" FromRole="REC_CLIENT" ToRole="Adjustment" />
+          <NavigationProperty Name="Deductions" Relationship="apwdbModel.C_FK_Deductions_REC_CLIENT" FromRole="REC_CLIENT" ToRole="Deduction" />
+          <NavigationProperty Name="REC_CLIENT_BANK" Relationship="apwdbModel.C_FK_REC_CLIENT_BANK_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_BANK" />
+          <NavigationProperty Name="REC_CLIENT_CONTACTS" Relationship="apwdbModel.C_FK_REC_CLIENT_CONTACTS_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_CONTACTS" />
+          <NavigationProperty Name="REC_CLIENT_DOCUMENTS" Relationship="apwdbModel.C_FK_REC_CLIENT_DOCUMENTS_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_DOCUMENTS" />
         </EntityType>
         <Association Name="FK_Employee_REC_CLIENT">
           <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
@@ -5716,6 +6449,7 @@
           <NavigationProperty Name="REC_CANDIDATE_DOCUMENT" Relationship="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_Document" FromRole="Document" ToRole="REC_CANDIDATE_DOCUMENT" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Document_SYS_USER" FromRole="Document" ToRole="SYS_USER" />
           <NavigationProperty Name="Required_Document_details" Relationship="apwdbModel.FK_Required_Document_details_Document" FromRole="Document" ToRole="Required_Document_details" />
+          <NavigationProperty Name="REC_CLIENT_DOCUMENTS" Relationship="apwdbModel.C_FK_REC_CLIENT_DOCUMENTS_Document" FromRole="Document" ToRole="REC_CLIENT_DOCUMENTS" />
         </EntityType>
         <Association Name="C_FK_REC_CANDIDATE_DOCUMENT_Document">
           <End Type="apwdbModel.Document" Role="Document" Multiplicity="1" />
@@ -5838,6 +6572,456 @@
           <Property Type="String" Name="Middlename" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="EmailAddress" Nullable="true" MaxLength="500" />
         </ComplexType>
+        <EntityType Name="REC_CLIENT_COMPANY">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="company_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.FK_REC_CLIENT_COMPANY_REC_CLIENT" FromRole="REC_CLIENT_COMPANY" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CLIENT_COMPANY_SYS_USER" FromRole="REC_CLIENT_COMPANY" ToRole="SYS_USER" />
+          <NavigationProperty Name="sys_company" Relationship="apwdbModel.FK_REC_CLIENT_COMPANY_sys_company" FromRole="REC_CLIENT_COMPANY" ToRole="sys_company" />
+        </EntityType>
+        <Association Name="FK_REC_CLIENT_COMPANY_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_COMPANY" Role="REC_CLIENT_COMPANY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_COMPANY">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_COMPANY_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_COMPANY" Role="REC_CLIENT_COMPANY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_COMPANY">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="INDUSTRY">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="industry_name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="psic_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="country_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_Client_INDUSTRY" FromRole="INDUSTRY" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_INDUSTRY_SYS_USER" FromRole="INDUSTRY" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="C_FK_Client_INDUSTRY">
+          <End Type="apwdbModel.INDUSTRY" Role="INDUSTRY" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INDUSTRY">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT">
+              <PropertyRef Name="industry_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INDUSTRY_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.INDUSTRY" Role="INDUSTRY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="INDUSTRY">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EMPLOYER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employer_name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="employer_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_EMPLOYER_SYS_USER" FromRole="EMPLOYER" ToRole="SYS_USER" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.FK_REC_CLIENT_EMPLOYER" FromRole="EMPLOYER" ToRole="REC_CLIENT" />
+        </EntityType>
+        <Association Name="FK_EMPLOYER_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.EMPLOYER" Role="EMPLOYER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EMPLOYER">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_EMPLOYER">
+          <End Type="apwdbModel.EMPLOYER" Role="EMPLOYER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Adjustment">
+          <Key>
+            <PropertyRef Name="Adjustment_ID" />
+          </Key>
+          <Property Name="Adjustment_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adjustment_Desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="billable" Type="Boolean" Nullable="false" />
+          <Property Name="adjustment_classification_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_Adjustment_REC_CLIENT" FromRole="Adjustment" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Adjustment_SYS_USER" FromRole="Adjustment" ToRole="SYS_USER" />
+          <NavigationProperty Name="ADJUSTMENT_CLASSIFICATION" Relationship="apwdbModel.FK_Adjustment_ADJUSTMENT_CLASSIFICATION" FromRole="Adjustment" ToRole="ADJUSTMENT_CLASSIFICATION" />
+        </EntityType>
+        <EntityType Name="Deduction">
+          <Key>
+            <PropertyRef Name="Ded_id" />
+          </Key>
+          <Property Name="Ded_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ded_Desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="date_Created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_Deductions_REC_CLIENT" FromRole="Deduction" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Deductions_SYS_USER" FromRole="Deduction" ToRole="SYS_USER" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_BANK">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="account_no" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bank_id" Type="Int32" Nullable="false" />
+          <Property Name="bank_address" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Contact_Person" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_added" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_CLIENT_BANK_REC_CLIENT" FromRole="REC_CLIENT_BANK" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CLIENT_BANK_SYS_USER" FromRole="REC_CLIENT_BANK" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_BANK" Relationship="apwdbModel.C_FK_REC_CLIENT_BANK_SYS_BANK" FromRole="REC_CLIENT_BANK" ToRole="SYS_BANK" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_CONTACTS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="contact_person" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="contact_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email_address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="file_status" Type="Boolean" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_CLIENT_CONTACTS_REC_CLIENT" FromRole="REC_CLIENT_CONTACTS" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CLIENT_CONTACTS_SYS_USER" FromRole="REC_CLIENT_CONTACTS" ToRole="SYS_USER" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_DOCUMENTS">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="doc_id" Type="Int32" Nullable="false" />
+          <Property Name="doc_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date_issued" Type="DateTime" Precision="0" />
+          <Property Name="date_expired" Type="DateTime" Precision="0" />
+          <Property Name="file_location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="user_created" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="user_modified" Type="Int32" />
+          <Property Name="date_modified" Type="DateTime" Precision="3" />
+          <Property Name="file_extension" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="is_notarized" Type="Boolean" />
+          <Property Name="is_signed" Type="Boolean" />
+          <Property Name="is_withoriginal" Type="Boolean" />
+          <Property Name="is_history" Type="Boolean" />
+          <NavigationProperty Name="Document" Relationship="apwdbModel.C_FK_REC_CLIENT_DOCUMENTS_Document" FromRole="REC_CLIENT_DOCUMENTS" ToRole="Document" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_CLIENT_DOCUMENTS_REC_CLIENT" FromRole="REC_CLIENT_DOCUMENTS" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CLIENT_DOCUMENTS_SYS_USER" FromRole="REC_CLIENT_DOCUMENTS" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="C_FK_Adjustment_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.Adjustment" Role="Adjustment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adjustment">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adjustment_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Adjustment" Role="Adjustment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adjustment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_Deductions_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.Deduction" Role="Deduction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deduction">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deductions_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.Deduction" Role="Deduction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Deduction">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CLIENT_DOCUMENTS_Document">
+          <End Type="apwdbModel.Document" Role="Document" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_DOCUMENTS" Role="REC_CLIENT_DOCUMENTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="DocId" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_DOCUMENTS">
+              <PropertyRef Name="doc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CLIENT_BANK_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_BANK" Role="REC_CLIENT_BANK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_BANK">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CLIENT_CONTACTS_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_CONTACTS" Role="REC_CLIENT_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_CONTACTS">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CLIENT_DOCUMENTS_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_DOCUMENTS" Role="REC_CLIENT_DOCUMENTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_DOCUMENTS">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_BANK_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_BANK" Role="REC_CLIENT_BANK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_BANK">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_CONTACTS_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_CONTACTS" Role="REC_CLIENT_CONTACTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_CONTACTS">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CLIENT_DOCUMENTS_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_DOCUMENTS" Role="REC_CLIENT_DOCUMENTS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_DOCUMENTS">
+              <PropertyRef Name="user_created" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="sys_company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company_code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="company_name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="trunk_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fax_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TIN_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CompanyWebsite" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyLogo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="country_id" Type="Int32" Nullable="false" />
+          <Property Name="guid" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="REC_CLIENT_COMPANY" Relationship="apwdbModel.FK_REC_CLIENT_COMPANY_sys_company" FromRole="sys_company" ToRole="REC_CLIENT_COMPANY" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_sys_company_SYS_USER" FromRole="sys_company" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_USER_GROUP" Relationship="apwdbModel.FK_SYS_USER_GROUP_sys_company" FromRole="sys_company" ToRole="SYS_USER_GROUP" />
+        </EntityType>
+        <Association Name="FK_REC_CLIENT_COMPANY_sys_company">
+          <End Type="apwdbModel.sys_company" Role="sys_company" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_COMPANY" Role="REC_CLIENT_COMPANY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_COMPANY">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sys_company_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.sys_company" Role="sys_company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_company">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_USER_GROUP_sys_company">
+          <End Type="apwdbModel.sys_company" Role="sys_company" Multiplicity="1" />
+          <End Type="apwdbModel.SYS_USER_GROUP" Role="SYS_USER_GROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_USER_GROUP">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SYS_BANK">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bank_code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Bank_Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="acct_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="REC_CLIENT_BANK" Relationship="apwdbModel.C_FK_REC_CLIENT_BANK_SYS_BANK" FromRole="SYS_BANK" ToRole="REC_CLIENT_BANK" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_SYS_BANK_SYS_USER" FromRole="SYS_BANK" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="C_FK_REC_CLIENT_BANK_SYS_BANK">
+          <End Type="apwdbModel.SYS_BANK" Role="SYS_BANK" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_BANK" Role="REC_CLIENT_BANK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_BANK">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_BANK">
+              <PropertyRef Name="Bank_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_BANK_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.SYS_BANK" Role="SYS_BANK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_BANK">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ADJUSTMENT_CLASSIFICATION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="classification" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Adjustments" Relationship="apwdbModel.FK_Adjustment_ADJUSTMENT_CLASSIFICATION" FromRole="ADJUSTMENT_CLASSIFICATION" ToRole="Adjustment" />
+        </EntityType>
+        <Association Name="FK_Adjustment_ADJUSTMENT_CLASSIFICATION">
+          <End Type="apwdbModel.ADJUSTMENT_CLASSIFICATION" Role="ADJUSTMENT_CLASSIFICATION" Multiplicity="1" />
+          <End Type="apwdbModel.Adjustment" Role="Adjustment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ADJUSTMENT_CLASSIFICATION">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Adjustment">
+              <PropertyRef Name="adjustment_classification_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5945,25 +7129,6 @@
               <MappingFragment StoreEntitySet="REC_USER_LOG">
                 <ScalarProperty Name="date_created" ColumnName="date_created" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_company">
-            <EntityTypeMapping TypeName="apwdbModel.sys_company">
-              <MappingFragment StoreEntitySet="sys_company">
-                <ScalarProperty Name="country_id" ColumnName="country_id" />
-                <ScalarProperty Name="CompanyLogo" ColumnName="CompanyLogo" />
-                <ScalarProperty Name="CompanyWebsite" ColumnName="CompanyWebsite" />
-                <ScalarProperty Name="date_created" ColumnName="date_created" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="TIN_no" ColumnName="TIN_no" />
-                <ScalarProperty Name="fax_no" ColumnName="fax_no" />
-                <ScalarProperty Name="trunk_no" ColumnName="trunk_no" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="company_name" ColumnName="company_name" />
-                <ScalarProperty Name="company_code" ColumnName="company_code" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -7022,6 +8187,175 @@
           <FunctionImportMapping FunctionImportName="USP_E_MANAGE_ACCOUNT" FunctionName="apwdbModel.Store.USP_E_MANAGE_ACCOUNT" />
           <FunctionImportMapping FunctionImportName="USP_H_MANAGE_LEAVE_ACCEPT" FunctionName="apwdbModel.Store.USP_H_MANAGE_LEAVE_ACCEPT" />
           <FunctionImportMapping FunctionImportName="USP_H_MANAGE_LEAVE_REVOKE" FunctionName="apwdbModel.Store.USP_H_MANAGE_LEAVE_REVOKE" />
+          <EntitySetMapping Name="REC_CLIENT_COMPANY">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_COMPANY">
+              <MappingFragment StoreEntitySet="REC_CLIENT_COMPANY">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INDUSTRies">
+            <EntityTypeMapping TypeName="apwdbModel.INDUSTRY">
+              <MappingFragment StoreEntitySet="INDUSTRY">
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="psic_code" ColumnName="psic_code" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="industry_name" ColumnName="industry_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYERs">
+            <EntityTypeMapping TypeName="apwdbModel.EMPLOYER">
+              <MappingFragment StoreEntitySet="EMPLOYER">
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="employer_type" ColumnName="employer_type" />
+                <ScalarProperty Name="employer_name" ColumnName="employer_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Adjustments">
+            <EntityTypeMapping TypeName="apwdbModel.Adjustment">
+              <MappingFragment StoreEntitySet="Adjustment">
+                <ScalarProperty Name="adjustment_classification_id" ColumnName="adjustment_classification_id" />
+                <ScalarProperty Name="billable" ColumnName="billable" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Adjustment_Desc" ColumnName="Adjustment_Desc" />
+                <ScalarProperty Name="Adjustment_ID" ColumnName="Adjustment_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deductions">
+            <EntityTypeMapping TypeName="apwdbModel.Deduction">
+              <MappingFragment StoreEntitySet="Deductions">
+                <ScalarProperty Name="date_Created" ColumnName="date_Created" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Ded_Desc" ColumnName="Ded_Desc" />
+                <ScalarProperty Name="Ded_id" ColumnName="Ded_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CLIENT_BANK">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_BANK">
+              <MappingFragment StoreEntitySet="REC_CLIENT_BANK">
+                <ScalarProperty Name="date_added" ColumnName="date_added" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Contact_Person" ColumnName="Contact_Person" />
+                <ScalarProperty Name="bank_address" ColumnName="bank_address" />
+                <ScalarProperty Name="Bank_id" ColumnName="Bank_id" />
+                <ScalarProperty Name="account_no" ColumnName="account_no" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CLIENT_CONTACTS">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_CONTACTS">
+              <MappingFragment StoreEntitySet="REC_CLIENT_CONTACTS">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="file_status" ColumnName="file_status" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="contact_person" ColumnName="contact_person" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CLIENT_DOCUMENTS">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_DOCUMENTS">
+              <MappingFragment StoreEntitySet="REC_CLIENT_DOCUMENTS">
+                <ScalarProperty Name="is_history" ColumnName="is_history" />
+                <ScalarProperty Name="is_withoriginal" ColumnName="is_withoriginal" />
+                <ScalarProperty Name="is_signed" ColumnName="is_signed" />
+                <ScalarProperty Name="is_notarized" ColumnName="is_notarized" />
+                <ScalarProperty Name="file_extension" ColumnName="file_extension" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+                <ScalarProperty Name="user_modified" ColumnName="user_modified" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_created" ColumnName="user_created" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="file_location" ColumnName="file_location" />
+                <ScalarProperty Name="date_expired" ColumnName="date_expired" />
+                <ScalarProperty Name="date_issued" ColumnName="date_issued" />
+                <ScalarProperty Name="doc_no" ColumnName="doc_no" />
+                <ScalarProperty Name="doc_id" ColumnName="doc_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_I_MANAGE_CLIENT_DOCUMENTS" FunctionName="apwdbModel.Store.SP_I_MANAGE_CLIENT_DOCUMENTS" />
+          <FunctionImportMapping FunctionImportName="SP_I_MASTER_CLIENT" FunctionName="apwdbModel.Store.SP_I_MASTER_CLIENT" />
+          <EntitySetMapping Name="sys_company">
+            <EntityTypeMapping TypeName="apwdbModel.sys_company">
+              <MappingFragment StoreEntitySet="sys_company">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="CompanyLogo" ColumnName="CompanyLogo" />
+                <ScalarProperty Name="CompanyWebsite" ColumnName="CompanyWebsite" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="TIN_no" ColumnName="TIN_no" />
+                <ScalarProperty Name="fax_no" ColumnName="fax_no" />
+                <ScalarProperty Name="trunk_no" ColumnName="trunk_no" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="company_code" ColumnName="company_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_I_MANAGE_CLIENT_DEPARTMENT" FunctionName="apwdbModel.Store.SP_I_MANAGE_CLIENT_DEPARTMENT" />
+          <FunctionImportMapping FunctionImportName="SP_MASTER_BRANCH" FunctionName="apwdbModel.Store.SP_MASTER_BRANCH" />
+          <FunctionImportMapping FunctionImportName="USP_I_MANAGE_CLIENT_BANK" FunctionName="apwdbModel.Store.USP_I_MANAGE_CLIENT_BANK" />
+          <FunctionImportMapping FunctionImportName="USP_I_MANAGE_CLIENT_CONTACT" FunctionName="apwdbModel.Store.USP_I_MANAGE_CLIENT_CONTACT" />
+          <EntitySetMapping Name="SYS_BANK">
+            <EntityTypeMapping TypeName="apwdbModel.SYS_BANK">
+              <MappingFragment StoreEntitySet="SYS_BANK">
+                <ScalarProperty Name="acct_code" ColumnName="acct_code" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Bank_Name" ColumnName="Bank_Name" />
+                <ScalarProperty Name="Bank_code" ColumnName="Bank_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_B_MANAGE_REC_CLIENT_CONTACTS" FunctionName="apwdbModel.Store.USP_B_MANAGE_REC_CLIENT_CONTACTS" />
+          <FunctionImportMapping FunctionImportName="SP_MASTER_ADJUSTMENT" FunctionName="apwdbModel.Store.SP_MASTER_ADJUSTMENT" />
+          <FunctionImportMapping FunctionImportName="SP_MASTER_DEDUCTIONS" FunctionName="apwdbModel.Store.SP_MASTER_DEDUCTIONS" />
+          <EntitySetMapping Name="ADJUSTMENT_CLASSIFICATION">
+            <EntityTypeMapping TypeName="apwdbModel.ADJUSTMENT_CLASSIFICATION">
+              <MappingFragment StoreEntitySet="ADJUSTMENT_CLASSIFICATION">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="classification" ColumnName="classification" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_T_MANAGE_CLIENT_SHIFT" FunctionName="apwdbModel.Store.SP_T_MANAGE_CLIENT_SHIFT" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

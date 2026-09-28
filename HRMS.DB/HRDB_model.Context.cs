@@ -29,7 +29,6 @@ namespace HRMS.DB
     
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<REC_USER_LOG> REC_USER_LOG { get; set; }
-        public virtual DbSet<sys_company> sys_company { get; set; }
         public virtual DbSet<SYS_USER> SYS_USER { get; set; }
         public virtual DbSet<SYS_USER_GROUP> SYS_USER_GROUP { get; set; }
         public virtual DbSet<SYS_USER_GROUP_DET> SYS_USER_GROUP_DET { get; set; }
@@ -70,6 +69,17 @@ namespace HRMS.DB
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Required_Document> Required_Document { get; set; }
         public virtual DbSet<Required_Document_details> Required_Document_details { get; set; }
+        public virtual DbSet<REC_CLIENT_COMPANY> REC_CLIENT_COMPANY { get; set; }
+        public virtual DbSet<INDUSTRY> INDUSTRies { get; set; }
+        public virtual DbSet<EMPLOYER> EMPLOYERs { get; set; }
+        public virtual DbSet<Adjustment> Adjustments { get; set; }
+        public virtual DbSet<Deduction> Deductions { get; set; }
+        public virtual DbSet<REC_CLIENT_BANK> REC_CLIENT_BANK { get; set; }
+        public virtual DbSet<REC_CLIENT_CONTACTS> REC_CLIENT_CONTACTS { get; set; }
+        public virtual DbSet<REC_CLIENT_DOCUMENTS> REC_CLIENT_DOCUMENTS { get; set; }
+        public virtual DbSet<sys_company> sys_company { get; set; }
+        public virtual DbSet<SYS_BANK> SYS_BANK { get; set; }
+        public virtual DbSet<ADJUSTMENT_CLASSIFICATION> ADJUSTMENT_CLASSIFICATION { get; set; }
     
         public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
         {
@@ -1895,6 +1905,412 @@ namespace HRMS.DB
                 new ObjectParameter("USER_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_LEAVE_REVOKE", iDParameter, p_LEAVE_IDParameter, dATE_CREATEDParameter, rEMARKSParameter, mODEParameter, uSER_IDParameter, rET_ID);
+        }
+    
+        public virtual int SP_I_MANAGE_CLIENT_DOCUMENTS(Nullable<int> mODE, Nullable<int> iD, Nullable<int> cLIENTID, Nullable<int> dOCID, Nullable<System.DateTime> dATE_ISSUED, Nullable<System.DateTime> dATE_EXPIRED, string fILE_LOCATION, string rEMARKS, string fILE_EXTENSION, Nullable<int> uSERID, ObjectParameter rET_ID, Nullable<bool> iS_SIGNED, Nullable<bool> iS_WITHORIGINAL, Nullable<bool> iS_NOTARIZED)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENTIDParameter = cLIENTID.HasValue ?
+                new ObjectParameter("CLIENTID", cLIENTID) :
+                new ObjectParameter("CLIENTID", typeof(int));
+    
+            var dOCIDParameter = dOCID.HasValue ?
+                new ObjectParameter("DOCID", dOCID) :
+                new ObjectParameter("DOCID", typeof(int));
+    
+            var dATE_ISSUEDParameter = dATE_ISSUED.HasValue ?
+                new ObjectParameter("DATE_ISSUED", dATE_ISSUED) :
+                new ObjectParameter("DATE_ISSUED", typeof(System.DateTime));
+    
+            var dATE_EXPIREDParameter = dATE_EXPIRED.HasValue ?
+                new ObjectParameter("DATE_EXPIRED", dATE_EXPIRED) :
+                new ObjectParameter("DATE_EXPIRED", typeof(System.DateTime));
+    
+            var fILE_LOCATIONParameter = fILE_LOCATION != null ?
+                new ObjectParameter("FILE_LOCATION", fILE_LOCATION) :
+                new ObjectParameter("FILE_LOCATION", typeof(string));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            var fILE_EXTENSIONParameter = fILE_EXTENSION != null ?
+                new ObjectParameter("FILE_EXTENSION", fILE_EXTENSION) :
+                new ObjectParameter("FILE_EXTENSION", typeof(string));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var iS_SIGNEDParameter = iS_SIGNED.HasValue ?
+                new ObjectParameter("IS_SIGNED", iS_SIGNED) :
+                new ObjectParameter("IS_SIGNED", typeof(bool));
+    
+            var iS_WITHORIGINALParameter = iS_WITHORIGINAL.HasValue ?
+                new ObjectParameter("IS_WITHORIGINAL", iS_WITHORIGINAL) :
+                new ObjectParameter("IS_WITHORIGINAL", typeof(bool));
+    
+            var iS_NOTARIZEDParameter = iS_NOTARIZED.HasValue ?
+                new ObjectParameter("IS_NOTARIZED", iS_NOTARIZED) :
+                new ObjectParameter("IS_NOTARIZED", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_MANAGE_CLIENT_DOCUMENTS", mODEParameter, iDParameter, cLIENTIDParameter, dOCIDParameter, dATE_ISSUEDParameter, dATE_EXPIREDParameter, fILE_LOCATIONParameter, rEMARKSParameter, fILE_EXTENSIONParameter, uSERIDParameter, rET_ID, iS_SIGNEDParameter, iS_WITHORIGINALParameter, iS_NOTARIZEDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> SP_I_MASTER_CLIENT(Nullable<int> mODE, string cLIENT_NAME, string cLIENT_ADDRESS, string cONTACT_NO, string eMAIL_ADDRESS, string cONTACT_PERSON, string rEMARKS, Nullable<bool> sTATUS, string tIN_NO, Nullable<int> iNDUSTRY_ID, string cONTACT_TITLE, string mOBILE_NO, string wEBSITE, string cLIENT_TYPE, Nullable<bool> iS_WITHHOLDING_TAX, Nullable<decimal> wITHHOLDING_TAX_RATE, Nullable<bool> vatable, string vAT_TYPE, string bILLING_ADDRESS, Nullable<int> iD, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var cLIENT_NAMEParameter = cLIENT_NAME != null ?
+                new ObjectParameter("CLIENT_NAME", cLIENT_NAME) :
+                new ObjectParameter("CLIENT_NAME", typeof(string));
+    
+            var cLIENT_ADDRESSParameter = cLIENT_ADDRESS != null ?
+                new ObjectParameter("CLIENT_ADDRESS", cLIENT_ADDRESS) :
+                new ObjectParameter("CLIENT_ADDRESS", typeof(string));
+    
+            var cONTACT_NOParameter = cONTACT_NO != null ?
+                new ObjectParameter("CONTACT_NO", cONTACT_NO) :
+                new ObjectParameter("CONTACT_NO", typeof(string));
+    
+            var eMAIL_ADDRESSParameter = eMAIL_ADDRESS != null ?
+                new ObjectParameter("EMAIL_ADDRESS", eMAIL_ADDRESS) :
+                new ObjectParameter("EMAIL_ADDRESS", typeof(string));
+    
+            var cONTACT_PERSONParameter = cONTACT_PERSON != null ?
+                new ObjectParameter("CONTACT_PERSON", cONTACT_PERSON) :
+                new ObjectParameter("CONTACT_PERSON", typeof(string));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            var sTATUSParameter = sTATUS.HasValue ?
+                new ObjectParameter("STATUS", sTATUS) :
+                new ObjectParameter("STATUS", typeof(bool));
+    
+            var tIN_NOParameter = tIN_NO != null ?
+                new ObjectParameter("TIN_NO", tIN_NO) :
+                new ObjectParameter("TIN_NO", typeof(string));
+    
+            var iNDUSTRY_IDParameter = iNDUSTRY_ID.HasValue ?
+                new ObjectParameter("INDUSTRY_ID", iNDUSTRY_ID) :
+                new ObjectParameter("INDUSTRY_ID", typeof(int));
+    
+            var cONTACT_TITLEParameter = cONTACT_TITLE != null ?
+                new ObjectParameter("CONTACT_TITLE", cONTACT_TITLE) :
+                new ObjectParameter("CONTACT_TITLE", typeof(string));
+    
+            var mOBILE_NOParameter = mOBILE_NO != null ?
+                new ObjectParameter("MOBILE_NO", mOBILE_NO) :
+                new ObjectParameter("MOBILE_NO", typeof(string));
+    
+            var wEBSITEParameter = wEBSITE != null ?
+                new ObjectParameter("WEBSITE", wEBSITE) :
+                new ObjectParameter("WEBSITE", typeof(string));
+    
+            var cLIENT_TYPEParameter = cLIENT_TYPE != null ?
+                new ObjectParameter("CLIENT_TYPE", cLIENT_TYPE) :
+                new ObjectParameter("CLIENT_TYPE", typeof(string));
+    
+            var iS_WITHHOLDING_TAXParameter = iS_WITHHOLDING_TAX.HasValue ?
+                new ObjectParameter("IS_WITHHOLDING_TAX", iS_WITHHOLDING_TAX) :
+                new ObjectParameter("IS_WITHHOLDING_TAX", typeof(bool));
+    
+            var wITHHOLDING_TAX_RATEParameter = wITHHOLDING_TAX_RATE.HasValue ?
+                new ObjectParameter("WITHHOLDING_TAX_RATE", wITHHOLDING_TAX_RATE) :
+                new ObjectParameter("WITHHOLDING_TAX_RATE", typeof(decimal));
+    
+            var vatableParameter = vatable.HasValue ?
+                new ObjectParameter("vatable", vatable) :
+                new ObjectParameter("vatable", typeof(bool));
+    
+            var vAT_TYPEParameter = vAT_TYPE != null ?
+                new ObjectParameter("VAT_TYPE", vAT_TYPE) :
+                new ObjectParameter("VAT_TYPE", typeof(string));
+    
+            var bILLING_ADDRESSParameter = bILLING_ADDRESS != null ?
+                new ObjectParameter("BILLING_ADDRESS", bILLING_ADDRESS) :
+                new ObjectParameter("BILLING_ADDRESS", typeof(string));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_I_MASTER_CLIENT", mODEParameter, cLIENT_NAMEParameter, cLIENT_ADDRESSParameter, cONTACT_NOParameter, eMAIL_ADDRESSParameter, cONTACT_PERSONParameter, rEMARKSParameter, sTATUSParameter, tIN_NOParameter, iNDUSTRY_IDParameter, cONTACT_TITLEParameter, mOBILE_NOParameter, wEBSITEParameter, cLIENT_TYPEParameter, iS_WITHHOLDING_TAXParameter, wITHHOLDING_TAX_RATEParameter, vatableParameter, vAT_TYPEParameter, bILLING_ADDRESSParameter, iDParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual int SP_I_MANAGE_CLIENT_DEPARTMENT(Nullable<int> mODE, Nullable<int> iD, Nullable<int> cLIENT_ID, string dEPT_CODE, Nullable<int> dEPARTMENT_ID, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var dEPT_CODEParameter = dEPT_CODE != null ?
+                new ObjectParameter("DEPT_CODE", dEPT_CODE) :
+                new ObjectParameter("DEPT_CODE", typeof(string));
+    
+            var dEPARTMENT_IDParameter = dEPARTMENT_ID.HasValue ?
+                new ObjectParameter("DEPARTMENT_ID", dEPARTMENT_ID) :
+                new ObjectParameter("DEPARTMENT_ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_I_MANAGE_CLIENT_DEPARTMENT", mODEParameter, iDParameter, cLIENT_IDParameter, dEPT_CODEParameter, dEPARTMENT_IDParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual int SP_MASTER_BRANCH(Nullable<int> mODE, string bRANCH_DESC, Nullable<int> cLIENT_ID, Nullable<decimal> nO_OF_DAYS, string rEGION_NAME, Nullable<int> iD, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var bRANCH_DESCParameter = bRANCH_DESC != null ?
+                new ObjectParameter("BRANCH_DESC", bRANCH_DESC) :
+                new ObjectParameter("BRANCH_DESC", typeof(string));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var nO_OF_DAYSParameter = nO_OF_DAYS.HasValue ?
+                new ObjectParameter("NO_OF_DAYS", nO_OF_DAYS) :
+                new ObjectParameter("NO_OF_DAYS", typeof(decimal));
+    
+            var rEGION_NAMEParameter = rEGION_NAME != null ?
+                new ObjectParameter("REGION_NAME", rEGION_NAME) :
+                new ObjectParameter("REGION_NAME", typeof(string));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MASTER_BRANCH", mODEParameter, bRANCH_DESCParameter, cLIENT_IDParameter, nO_OF_DAYSParameter, rEGION_NAMEParameter, iDParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual int USP_I_MANAGE_CLIENT_BANK(Nullable<int> iD, Nullable<int> cLIENT_ID, string aCCOUNT_NO, Nullable<int> bANK_ID, string bANK_ADDRESS, string cONTACT_PERSON, Nullable<int> mODE, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var aCCOUNT_NOParameter = aCCOUNT_NO != null ?
+                new ObjectParameter("ACCOUNT_NO", aCCOUNT_NO) :
+                new ObjectParameter("ACCOUNT_NO", typeof(string));
+    
+            var bANK_IDParameter = bANK_ID.HasValue ?
+                new ObjectParameter("BANK_ID", bANK_ID) :
+                new ObjectParameter("BANK_ID", typeof(int));
+    
+            var bANK_ADDRESSParameter = bANK_ADDRESS != null ?
+                new ObjectParameter("BANK_ADDRESS", bANK_ADDRESS) :
+                new ObjectParameter("BANK_ADDRESS", typeof(string));
+    
+            var cONTACT_PERSONParameter = cONTACT_PERSON != null ?
+                new ObjectParameter("CONTACT_PERSON", cONTACT_PERSON) :
+                new ObjectParameter("CONTACT_PERSON", typeof(string));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_I_MANAGE_CLIENT_BANK", iDParameter, cLIENT_IDParameter, aCCOUNT_NOParameter, bANK_IDParameter, bANK_ADDRESSParameter, cONTACT_PERSONParameter, mODEParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual int USP_I_MANAGE_CLIENT_CONTACT(Nullable<int> iD, Nullable<int> cLIENT_ID, string cONTACT_PERSON, string cONTACT_NO, string eMAIL_ADDRESS, string pOSITION, Nullable<int> mODE, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var cONTACT_PERSONParameter = cONTACT_PERSON != null ?
+                new ObjectParameter("CONTACT_PERSON", cONTACT_PERSON) :
+                new ObjectParameter("CONTACT_PERSON", typeof(string));
+    
+            var cONTACT_NOParameter = cONTACT_NO != null ?
+                new ObjectParameter("CONTACT_NO", cONTACT_NO) :
+                new ObjectParameter("CONTACT_NO", typeof(string));
+    
+            var eMAIL_ADDRESSParameter = eMAIL_ADDRESS != null ?
+                new ObjectParameter("EMAIL_ADDRESS", eMAIL_ADDRESS) :
+                new ObjectParameter("EMAIL_ADDRESS", typeof(string));
+    
+            var pOSITIONParameter = pOSITION != null ?
+                new ObjectParameter("POSITION", pOSITION) :
+                new ObjectParameter("POSITION", typeof(string));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_I_MANAGE_CLIENT_CONTACT", iDParameter, cLIENT_IDParameter, cONTACT_PERSONParameter, cONTACT_NOParameter, eMAIL_ADDRESSParameter, pOSITIONParameter, mODEParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual int USP_B_MANAGE_REC_CLIENT_CONTACTS(Nullable<int> iD, Nullable<int> cLIENT_ID, string cONTACT_PERSON, string cONTACT_NO, string eMAIL_ADDRESS, Nullable<bool> fILE_STATUS, string pOSITION, Nullable<int> uSERID, Nullable<int> mODE, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var cONTACT_PERSONParameter = cONTACT_PERSON != null ?
+                new ObjectParameter("CONTACT_PERSON", cONTACT_PERSON) :
+                new ObjectParameter("CONTACT_PERSON", typeof(string));
+    
+            var cONTACT_NOParameter = cONTACT_NO != null ?
+                new ObjectParameter("CONTACT_NO", cONTACT_NO) :
+                new ObjectParameter("CONTACT_NO", typeof(string));
+    
+            var eMAIL_ADDRESSParameter = eMAIL_ADDRESS != null ?
+                new ObjectParameter("EMAIL_ADDRESS", eMAIL_ADDRESS) :
+                new ObjectParameter("EMAIL_ADDRESS", typeof(string));
+    
+            var fILE_STATUSParameter = fILE_STATUS.HasValue ?
+                new ObjectParameter("FILE_STATUS", fILE_STATUS) :
+                new ObjectParameter("FILE_STATUS", typeof(bool));
+    
+            var pOSITIONParameter = pOSITION != null ?
+                new ObjectParameter("POSITION", pOSITION) :
+                new ObjectParameter("POSITION", typeof(string));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_B_MANAGE_REC_CLIENT_CONTACTS", iDParameter, cLIENT_IDParameter, cONTACT_PERSONParameter, cONTACT_NOParameter, eMAIL_ADDRESSParameter, fILE_STATUSParameter, pOSITIONParameter, uSERIDParameter, mODEParameter, rET_ID);
+        }
+    
+        public virtual int SP_MASTER_ADJUSTMENT(Nullable<int> mODE, string aDJUSTMENT, Nullable<int> iD, Nullable<int> cLIENT_ID, Nullable<int> uSERID, Nullable<bool> bILLABLE, Nullable<int> aDJUSTMENT_CLASSIFICATION_ID, ObjectParameter rET_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var aDJUSTMENTParameter = aDJUSTMENT != null ?
+                new ObjectParameter("ADJUSTMENT", aDJUSTMENT) :
+                new ObjectParameter("ADJUSTMENT", typeof(string));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var bILLABLEParameter = bILLABLE.HasValue ?
+                new ObjectParameter("BILLABLE", bILLABLE) :
+                new ObjectParameter("BILLABLE", typeof(bool));
+    
+            var aDJUSTMENT_CLASSIFICATION_IDParameter = aDJUSTMENT_CLASSIFICATION_ID.HasValue ?
+                new ObjectParameter("ADJUSTMENT_CLASSIFICATION_ID", aDJUSTMENT_CLASSIFICATION_ID) :
+                new ObjectParameter("ADJUSTMENT_CLASSIFICATION_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MASTER_ADJUSTMENT", mODEParameter, aDJUSTMENTParameter, iDParameter, cLIENT_IDParameter, uSERIDParameter, bILLABLEParameter, aDJUSTMENT_CLASSIFICATION_IDParameter, rET_ID);
+        }
+    
+        public virtual int SP_MASTER_DEDUCTIONS(Nullable<int> mODE, string dEDUCTION_DESC, Nullable<int> iD, Nullable<int> cLIENT_ID, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var dEDUCTION_DESCParameter = dEDUCTION_DESC != null ?
+                new ObjectParameter("DEDUCTION_DESC", dEDUCTION_DESC) :
+                new ObjectParameter("DEDUCTION_DESC", typeof(string));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MASTER_DEDUCTIONS", mODEParameter, dEDUCTION_DESCParameter, iDParameter, cLIENT_IDParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual int SP_T_MANAGE_CLIENT_SHIFT(Nullable<int> iD, Nullable<int> cLIENT_ID, Nullable<int> sHIFT_ID, Nullable<int> uSERID, Nullable<int> mODE, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var sHIFT_IDParameter = sHIFT_ID.HasValue ?
+                new ObjectParameter("SHIFT_ID", sHIFT_ID) :
+                new ObjectParameter("SHIFT_ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_T_MANAGE_CLIENT_SHIFT", iDParameter, cLIENT_IDParameter, sHIFT_IDParameter, uSERIDParameter, mODEParameter, rET_ID);
         }
     }
 }

@@ -12,26 +12,16 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class SYS_USER_GROUP
+    public partial class REC_CLIENT_COMPANY
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SYS_USER_GROUP()
-        {
-            this.SYS_USER_GROUP_DET = new HashSet<SYS_USER_GROUP_DET>();
-        }
-    
         public int id { get; set; }
-        public string group_code { get; set; }
-        public string group_name { get; set; }
-        public string description { get; set; }
-        public bool status { get; set; }
+        public int client_id { get; set; }
+        public int company_id { get; set; }
         public int user_id { get; set; }
         public System.DateTime date_created { get; set; }
-        public int company_id { get; set; }
     
+        public virtual REC_CLIENT REC_CLIENT { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SYS_USER_GROUP_DET> SYS_USER_GROUP_DET { get; set; }
         public virtual sys_company sys_company { get; set; }
     }
 }

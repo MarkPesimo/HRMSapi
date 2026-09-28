@@ -12,26 +12,21 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class SYS_USER_GROUP
+    public partial class ADJUSTMENT_CLASSIFICATION
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SYS_USER_GROUP()
+        public ADJUSTMENT_CLASSIFICATION()
         {
-            this.SYS_USER_GROUP_DET = new HashSet<SYS_USER_GROUP_DET>();
+            this.Adjustments = new HashSet<Adjustment>();
         }
     
         public int id { get; set; }
-        public string group_code { get; set; }
-        public string group_name { get; set; }
-        public string description { get; set; }
-        public bool status { get; set; }
+        public string classification { get; set; }
         public int user_id { get; set; }
+        public bool status { get; set; }
         public System.DateTime date_created { get; set; }
-        public int company_id { get; set; }
     
-        public virtual SYS_USER SYS_USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SYS_USER_GROUP_DET> SYS_USER_GROUP_DET { get; set; }
-        public virtual sys_company sys_company { get; set; }
+        public virtual ICollection<Adjustment> Adjustments { get; set; }
     }
 }
