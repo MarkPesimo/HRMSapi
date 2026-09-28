@@ -28,6 +28,7 @@ namespace HRModel.ViewModel.Loan
         {
             public bool ByLoan { get; set; }
             public int LoanTypeId { get; set; }
+            public string LoanType{ get; set; }
             public bool ByDate { get; set; }
             public DateTime From { get; set; }
             public DateTime To { get; set; }

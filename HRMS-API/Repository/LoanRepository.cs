@@ -1,4 +1,5 @@
-﻿using HRMS.DB;
+﻿using HRModel.ViewModel.Employees;
+using HRMS.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace HRMS_API.Repository
                {
                    Id = int.Parse(x.id.ToString()),
                    LoanGUID = x.loanGUID,
+                   LoanType = x.loan_typ,
                    LoanDate = x.date_loan.Value.ToShortDateString(),
                    ClientName = x.client_name,
                    EmployeeName = x.employee_name,
@@ -84,6 +86,20 @@ namespace HRMS_API.Repository
 
                 throw new Exception(ex.Message);
             }
+        }
+
+        public List<LoanTypeModel> GetLoanTypes()
+        {
+            return _conn.LoanTypes
+                .AsEnumerable()
+                .Select(x => new LoanTypeModel
+                {
+                    LoanTypeID = x.LoanType_ID,
+                    LoanTypeDesc = x.LoanType_Desc,
+                    UserID = x.UserID,
+                    DateCreated = Convert.ToDateTime(x.date_created)
+                })
+                .ToList();
         }
     }
 }

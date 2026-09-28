@@ -66,5 +66,39 @@ namespace HRModel.ViewModel.Contract.EmployeeTransaction
             public int EmployerId { get; set; }
             public string Guid { get; set; }
         }
+
+        public class EmployeeRehire_model
+        {
+            public int EmpId { get; set; }
+            public int EmployerId { get; set; }
+            public int CompanyId { get; set; }
+            public int ClientId { get; set; }
+            public int BranchId { get; set; }
+            public int ShiftId { get; set; }
+            public int DepartmentId { get; set; }
+            public int EmployeeRankId { get; set; }
+            public int EmployeeTypeId { get; set; }
+            public string Position { get; set; }
+            public int FunctionId { get; set; }
+            public string PayType { get; set; }
+            public int SalaryTypeId { get; set; }
+            public decimal MonthlySalary { get; set; }
+            public bool IsMinumum { get; set; }
+            public DateTime ContractStart { get; set; }
+            public DateTime ContractEnd { get; set; }
+            public int UserId { get; set; }
+        }
+
+
+        public class ContractRemarks
+        {
+            public int Id { get; set; }
+            public int TranId { get; set; }
+            public DateTime DateCreated { get; set; }
+            public int UserId { get; set; }
+            public string Username { get; set; }
+            public string Remarks { get; set; }
+            public int Mode { get; set; }
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace HRMS.DB
         public EmployeeType()
         {
             this.Employees = new HashSet<Employee>();
+            this.REC_NEW_HIRED_EMPLOYEE = new HashSet<REC_NEW_HIRED_EMPLOYEE>();
         }
     
         public int EmpType_ID { get; set; }
@@ -29,5 +30,7 @@ namespace HRMS.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_NEW_HIRED_EMPLOYEE> REC_NEW_HIRED_EMPLOYEE { get; set; }
     }
 }

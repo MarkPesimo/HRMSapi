@@ -14,12 +14,11 @@ namespace HRModel.ViewModel.Floating
             public string Reason { get; set; }
         }
 
-
-
         public class EmployeeFloatingRecord_model
         {
             public int Id { get; set; }
             public int EmpId { get; set; }
+            public string EmployeeName { get; set; }
 
             public string FloatingReason { get; set; }
             public int FloatingReasonId { get; set; }
@@ -41,6 +40,21 @@ namespace HRModel.ViewModel.Floating
 
             public int TransactionId { get; set; }              //contract id
             public bool ContractStatus { get; set; }
+        }
+
+        public class Floating
+        {
+            public int Id { get; set; }
+            public string ClientName { get; set; }
+            public string EmployeeName { get; set; }
+            public DateTime? DateResignationSubmitted { get; set; }
+            public DateTime? DateSeparated { get; set; }
+            public int SeparatedById { get; set; }
+            public string SeparatedBy { get; set; }
+            public int FloatingId { get; set; }
+
+            public int Mode { get; set; }
+            public int LoginUserId { get; set; }
         }
     }
 }

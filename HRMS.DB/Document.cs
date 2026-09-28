@@ -18,6 +18,7 @@ namespace HRMS.DB
         public Document()
         {
             this.REC_CANDIDATE_DOCUMENT = new HashSet<REC_CANDIDATE_DOCUMENT>();
+            this.Required_Document_details = new HashSet<Required_Document_details>();
         }
     
         public int DocId { get; set; }
@@ -29,8 +30,10 @@ namespace HRMS.DB
         public bool accessible_outside { get; set; }
         public int country_id { get; set; }
     
-        public virtual SYS_USER SYS_USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_CANDIDATE_DOCUMENT> REC_CANDIDATE_DOCUMENT { get; set; }
+        public virtual SYS_USER SYS_USER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Required_Document_details> Required_Document_details { get; set; }
     }
 }
