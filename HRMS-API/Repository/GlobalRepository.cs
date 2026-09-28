@@ -20,6 +20,17 @@ namespace HRMS_API.Repository
 
         }
 
+        public string GetFilePath(string _type)
+        {
+            string _path = string.Empty;
+
+            _path = (from d in _conn.REC_FILE_CONFIGURATION
+                     where d.attach_type == _type
+                     select d.attach_location).SingleOrDefault();
+
+            return _path ?? string.Empty;
+        }
+
         public EmployeeKeys GetEmployeeKey(string _guid)
         {
             EmployeeKeys _obj = new EmployeeKeys();
