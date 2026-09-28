@@ -96,9 +96,6 @@
         <AssociationConnector Association="apwdbModel.FK_HELPDESK_CONCERN_HELPDESK_CONCERN_TYPE" />
         <AssociationConnector Association="apwdbModel.FK_HELPDESK_CONCERN_THREAD_HELPDESK_CONCERN" />
         <AssociationConnector Association="apwdbModel.FK_HELPDESK_CONCERN_TYPE_SYS_USER" />
-        <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE_DOCUMENT" Width="2.5" PointX="6.625" PointY="14.375" IsExpanded="false" />
-        <AssociationConnector Association="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE" />
-        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_DOCUMENT_SYS_USER" />
         <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE_EDUCATION" Width="2.75" PointX="6.625" PointY="17.125" IsExpanded="false" />
         <AssociationConnector Association="apwdbModel.C_FK_REC_CANDIDATE_EDUCATION_REC_CANDIDATE" />
         <EntityTypeShape EntityType="apwdbModel.AreaLibrary" Width="1.5" PointX="3.75" PointY="20" IsExpanded="false" />
@@ -122,7 +119,6 @@
         <AssociationConnector Association="apwdbModel.C_FK_Employee_Salarytype" />
         <AssociationConnector Association="apwdbModel.FK_Salarytype_SYS_USER" />
         <EntityTypeShape EntityType="apwdbModel.Document" Width="1.5" PointX="3.75" PointY="27.75" IsExpanded="false" />
-        <AssociationConnector Association="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_Document" />
         <AssociationConnector Association="apwdbModel.FK_Document_SYS_USER" />
         <EntityTypeShape EntityType="apwdbModel.Required_Document" Width="2.375" PointX="3.75" PointY="0.75" IsExpanded="false" />
         <EntityTypeShape EntityType="apwdbModel.Required_Document_details" Width="3" PointX="10" PointY="7.125" IsExpanded="false" />
@@ -131,6 +127,18 @@
         <AssociationConnector Association="apwdbModel.FK_Required_Document_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_Required_Document_details_SYS_USER" />
         <EntityTypeShape EntityType="apwdbModel.REC_FILE_CONFIGURATION" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE_DOCUMENT" Width="1.5" PointX="6.625" PointY="20.75" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_Document" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_DOCUMENT_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE_SKILL" Width="1.5" PointX="14.625" PointY="7.5" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_CANDIDATE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_SKILL_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CANDIDATE_EMPLOYMENT" Width="1.5" PointX="6.625" PointY="25.5" />
+        <EntityTypeShape EntityType="apwdbModel.REC_Skill" Width="1.5" PointX="3.75" PointY="29.75" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_Skill" />
+        <AssociationConnector Association="apwdbModel.FK_REC_Skill_SYS_USER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

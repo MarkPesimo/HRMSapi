@@ -28,6 +28,5 @@ namespace HRMS.DB
         public virtual Document Document { get; set; }
         public virtual REC_CANDIDATE REC_CANDIDATE { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
-        public virtual Document Document { get; set; }
     }
 }
