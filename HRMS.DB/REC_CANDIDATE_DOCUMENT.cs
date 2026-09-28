@@ -25,6 +25,7 @@ namespace HRMS.DB
         public System.DateTime date_added { get; set; }
         public int added_by { get; set; }
     
+        public virtual Document Document { get; set; }
         public virtual REC_CANDIDATE REC_CANDIDATE { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
     }

@@ -37,6 +37,14 @@ namespace HRMS.DB
             this.REC_CLIENT_DEPARTMENT = new HashSet<REC_CLIENT_DEPARTMENT>();
             this.REC_CLIENT_SHIFT = new HashSet<REC_CLIENT_SHIFT>();
             this.Shifts = new HashSet<Shift>();
+            this.REC_CANDIDATE_SKILL = new HashSet<REC_CANDIDATE_SKILL>();
+            this.AreaLibraries = new HashSet<AreaLibrary>();
+            this.SchoolLevels = new HashSet<SchoolLevel>();
+            this.Degrees = new HashSet<Degree>();
+            this.Schools = new HashSet<School>();
+            this.REC_Skill = new HashSet<REC_Skill>();
+            this.Documents = new HashSet<Document>();
+            this.REC_CANDIDATE_DOCUMENT = new HashSet<REC_CANDIDATE_DOCUMENT>();
         }
     
         public int id { get; set; }
@@ -90,5 +98,21 @@ namespace HRMS.DB
         public virtual ICollection<REC_CLIENT_SHIFT> REC_CLIENT_SHIFT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Shift> Shifts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CANDIDATE_SKILL> REC_CANDIDATE_SKILL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AreaLibrary> AreaLibraries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SchoolLevel> SchoolLevels { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Degree> Degrees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<School> Schools { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_Skill> REC_Skill { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Document> Documents { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CANDIDATE_DOCUMENT> REC_CANDIDATE_DOCUMENT { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using HRMS.DB;
+using System.Globalization;
 
 namespace HRMS_API.Repository
 {
@@ -52,10 +53,11 @@ namespace HRMS_API.Repository
             int _empid = _globalrepository.GetEmployeeKey(GuId).EmpId;
             EmployeeProfile _profile = new EmployeeProfile
             {
-                Personal = GetPersonalInfo(_empid),
-                Spouse = GetSpouseInfo(_empid),
-                EmergencyContact = GetEmergencyContact(_empid),
-                CurrentEmployment = GetCurrentEmployment(_empid)
+                Personal            = GetPersonalInfo(_empid),
+                Spouse              = GetSpouseInfo(_empid),
+                EmergencyContact    = GetEmergencyContact(_empid),
+                CurrentEmployment   = GetCurrentEmployment(_empid),
+                GMBNos              = GetGovernmentNos(_empid)
             };
 
             return _profile;
@@ -156,7 +158,23 @@ namespace HRMS_API.Repository
             return _obj;
         }
 
-        public EmployeeEducation GetEmployeeEducation(string GuId)
+        public GovernmentNos GetGovernmentNos(int _empid)
+        {
+            GovernmentNos _obj = new GovernmentNos();
+
+            _obj = (from d in _conn.Employees
+                    where d.Emp_ID == _empid
+                    select new GovernmentNos
+                    {
+                        SSSNo               = d.SSS_no,
+                        PhilhealthNo        = d.Philhealth_no,
+                        PagibigNo           = d.Pagibig_no,
+                        TINNo               = d.Tax_no
+                    }).SingleOrDefault();
+
+            return _obj;
+        }
+                public EmployeeEducation GetEmployeeEducation(string GuId)
         {
             //get empid
             int _empid = _globalrepository.GetEmployeeKey(GuId).EmpId;
@@ -191,23 +209,103 @@ namespace HRMS_API.Repository
             return _obj;
         }
 
-        //public List<PreviousEmploymentViewModel> GetPreviousEmployment(int _empid)
-        //{
+        public PreviousEmployment GetPreviousEmployment(string GuId)
+        {
+            //get empid
+            int _empid = _globalrepository.GetEmployeeKey(GuId).EmpId;
+            PreviousEmployment _prevemployment = new PreviousEmployment
+            {
+                PreviousEmploymentList = GetPreviousEmployment(_empid)
+            };
 
-        //    List<PreviousEmploymentViewModel> _obj = new List<PreviousEmploymentViewModel>();
+            return _prevemployment;
+        }
 
-        //    _obj = (from d in _conn.REC_CANDIDATE_EDUCATION
-        //            join l in _conn.REC_CANDIDATE_EMPLOYEE_LINK on d.candidate_id equals l.candidate_id
-        //            join sl in _conn.SchoolLevels on d.SchoolLevelID equals sl.LevelID
-        //            join dg in _conn.Degrees on d.DegreeID equals dg.DegreeID
-        //            where l.emp_id == _empid
-        //            select d).AsEnumerable()
-        //          .Select(x => new PreviousEmploymentViewModel()
-        //          {
+        public List<PreviousEmploymentViewModel> GetPreviousEmployment(int _empid)
+        {
 
-        //          }).ToList();
+            List<PreviousEmploymentViewModel> _obj = new List<PreviousEmploymentViewModel>();
 
-        //    return _obj;
-        //}
+            _obj = (from d in _conn.REC_CANDIDATE_EMPLOYMENT
+                    join l in _conn.REC_CANDIDATE_EMPLOYEE_LINK on d.candidate_id equals l.candidate_id
+                    where l.emp_id == _empid
+                    select d).AsEnumerable()
+                  .Select(x => new PreviousEmploymentViewModel()
+                  {
+                      CompanyName           = x.Company_name,
+                      Position              = x.Company_position,
+                      EmploymentPeriod      = x.Company_from.HasValue ? x.Company_from.Value.ToString("MMMM yyyy", CultureInfo.InvariantCulture) + "-" + x.Company_to.Value.ToString("MMMM yyyy", CultureInfo.InvariantCulture) : "",
+                      Branch                = "",
+                      Department            = "",
+                      EmploymentType        = ""
+                  }).ToList();
+
+            return _obj;
+        }
+
+        public EmployeeSkills GetEmployeeSkills(string GuId)
+        {
+            //get empid
+            int _empid = _globalrepository.GetEmployeeKey(GuId).EmpId;
+            EmployeeSkills _skills = new EmployeeSkills
+            {
+                EmployeeSkillList = GetSkillsList(_empid)
+            };
+
+            return _skills;
+        }
+
+        public List<SkillViewModel> GetSkillsList(int _empid)
+        {
+
+            List<SkillViewModel> _obj = new List<SkillViewModel>();
+
+            _obj = (from d in _conn.REC_CANDIDATE_SKILL
+                    join s in _conn.REC_Skill on d.skill_id equals s.id
+                    join l in _conn.REC_CANDIDATE_EMPLOYEE_LINK on d.candidate_id equals l.candidate_id
+                    where l.emp_id == _empid
+                    select d).AsEnumerable()
+                  .Select(x => new SkillViewModel()
+                  {
+                      SkillName         = x.REC_Skill.Skill_description,
+                      Remarks           = x.REC_Skill.Skill_details
+                  }).ToList();
+
+            return _obj;
+        }
+
+        public EmployeeDocument GetEmployeeDocument(string GuId)
+        {
+            //get empid
+            int _empid = _globalrepository.GetEmployeeKey(GuId).EmpId;
+            EmployeeDocument _documents = new EmployeeDocument
+            {
+                EmployeeDocumentsList = GetEmployeeDocumentList(_empid)
+            };
+
+            return _documents;
+        }
+
+        public List<EmployeeDocumentViewModel> GetEmployeeDocumentList(int _empid)
+        {
+
+            List<EmployeeDocumentViewModel> _obj = new List<EmployeeDocumentViewModel>();
+
+            _obj = (from cd in _conn.REC_CANDIDATE_DOCUMENT
+                    join d in _conn.Documents on cd.doc_id equals d.DocId
+                    join l in _conn.REC_CANDIDATE_EMPLOYEE_LINK on cd.candidate_id equals l.candidate_id
+                    where l.emp_id == _empid
+                    select cd).AsEnumerable()
+                  .Select(x => new EmployeeDocumentViewModel()
+                  { 
+                      DocumentName          = x.Document.Description,
+                      DocumentType          = "",
+                      ReferenceNo           = x.DocNo,
+                      DateIssued            = x.date_issued.HasValue ? x.date_issued.Value.ToShortDateString() : "",
+                      FileLocation          = x.file_location
+                  }).ToList();
+
+            return _obj;
+        }
     }
 }

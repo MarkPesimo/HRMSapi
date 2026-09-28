@@ -135,5 +135,7 @@ namespace HRMS.DB
         public virtual EmployeeType EmployeeType { get; set; }
         public virtual EmployeeRank EmployeeRank { get; set; }
         public virtual Shift Shift { get; set; }
+        public virtual AreaLibrary AreaLibrary { get; set; }
+        public virtual AreaLibrary AreaLibrary1 { get; set; }
     }
 }

@@ -81,5 +81,65 @@ namespace HRMS_API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
             }
         }
+
+        [Route("api/Employee/GetPreviousEmployment/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetPreviousEmployment(string GUID)
+        {
+            try
+            {
+                PreviousEmployment _model = Employeerepository.GetPreviousEmployment(GUID);
+                if (_model != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/GetEmployeeSkills/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetEmployeeSkills(string GUID)
+        {
+            try
+            {
+                EmployeeSkills _model = Employeerepository.GetEmployeeSkills(GUID);
+                if (_model != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/GetEmployeeDocument/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetEmployeeDocument(string GUID)
+        {
+            try
+            {
+                EmployeeDocument _model = Employeerepository.GetEmployeeDocument(GUID);
+                if (_model != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
     }
 }

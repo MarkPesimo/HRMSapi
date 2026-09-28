@@ -50,10 +50,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreaLibrary.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Branch.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Degree.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Department.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Document.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Employee.cs">
@@ -95,6 +104,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HRDB_model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="HRDB_model2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="LoanType.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -105,7 +119,19 @@
     <Compile Include="REC_CANDIDATE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_CANDIDATE_DOCUMENT.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CANDIDATE_EDUCATION.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_CANDIDATE_EMPLOYEE_LINK.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CANDIDATE_EMPLOYMENT.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CANDIDATE_SKILL.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_CLIENT.cs">
@@ -120,10 +146,19 @@
     <Compile Include="REC_CONTRACT_TYPE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_Skill.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_SOURCE_TYPE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_USER_LOG.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="School.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolLevel.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Shift.cs">
@@ -185,7 +220,7 @@
     <Content Include="HRDB_model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HRDB_model.edmx</DependentUpon>
-      <LastGenOutput>HRDB_model.cs</LastGenOutput>
+      <LastGenOutput>HRDB_model2.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
