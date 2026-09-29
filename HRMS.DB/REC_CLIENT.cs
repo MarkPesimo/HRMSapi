@@ -31,6 +31,9 @@ namespace HRMS.DB
             this.REC_CLIENT_BANK = new HashSet<REC_CLIENT_BANK>();
             this.REC_CLIENT_CONTACTS = new HashSet<REC_CLIENT_CONTACTS>();
             this.REC_CLIENT_DOCUMENTS = new HashSet<REC_CLIENT_DOCUMENTS>();
+            this.REC_JOB_ORDER = new HashSet<REC_JOB_ORDER>();
+            this.REC_CLIENT_SETUP = new HashSet<REC_CLIENT_SETUP>();
+            this.REC_CLIENT_SETUP_EXT = new HashSet<REC_CLIENT_SETUP_EXT>();
         }
     
         public int id { get; set; }
@@ -97,5 +100,11 @@ namespace HRMS.DB
         public virtual ICollection<REC_CLIENT_CONTACTS> REC_CLIENT_CONTACTS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_CLIENT_DOCUMENTS> REC_CLIENT_DOCUMENTS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_JOB_ORDER> REC_JOB_ORDER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CLIENT_SETUP> REC_CLIENT_SETUP { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CLIENT_SETUP_EXT> REC_CLIENT_SETUP_EXT { get; set; }
     }
 }

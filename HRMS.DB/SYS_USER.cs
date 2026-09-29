@@ -59,6 +59,10 @@ namespace HRMS.DB
             this.REC_CLIENT_DOCUMENTS = new HashSet<REC_CLIENT_DOCUMENTS>();
             this.sys_company = new HashSet<sys_company>();
             this.SYS_BANK = new HashSet<SYS_BANK>();
+            this.REC_Skill = new HashSet<REC_Skill>();
+            this.REC_CANDIDATE_SKILL = new HashSet<REC_CANDIDATE_SKILL>();
+            this.REC_JOB_ORDER = new HashSet<REC_JOB_ORDER>();
+            this.REC_JOB_ORDER1 = new HashSet<REC_JOB_ORDER>();
         }
     
         public int id { get; set; }
@@ -156,5 +160,13 @@ namespace HRMS.DB
         public virtual ICollection<sys_company> sys_company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SYS_BANK> SYS_BANK { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_Skill> REC_Skill { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CANDIDATE_SKILL> REC_CANDIDATE_SKILL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_JOB_ORDER> REC_JOB_ORDER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_JOB_ORDER> REC_JOB_ORDER1 { get; set; }
     }
 }

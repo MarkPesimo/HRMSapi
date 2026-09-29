@@ -595,6 +595,52 @@
           <Property Name="salary_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="allowance_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="REC_CANDIDATE_EMPLOYMENT">
+          <Key>
+            <PropertyRef Name="Employ_ID" />
+          </Key>
+          <Property Name="candidate_id" Type="int" Nullable="false" />
+          <Property Name="Company_name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Company_Address" Type="nvarchar" MaxLength="250" />
+          <Property Name="Company_position" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company_Rank" Type="nvarchar" MaxLength="20" />
+          <Property Name="Reason_for_leaving" Type="nvarchar" MaxLength="250" />
+          <Property Name="Company_Salary" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Company_from" Type="smalldatetime" />
+          <Property Name="Company_to" Type="smalldatetime" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Employ_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emidiate_head" Type="nvarchar" MaxLength="150" />
+          <Property Name="employment_Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Internal_Tag" Type="int" />
+          <Property Name="NatureOfBusinessID" Type="int" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="function_id" Type="int" Nullable="false" />
+          <Property Name="industry_id" Type="int" Nullable="false" />
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="fixed_bonus_13" Type="bit" Nullable="false" />
+          <Property Name="fixed_bonus_14" Type="bit" Nullable="false" />
+          <Property Name="fixed_bonus_15" Type="bit" Nullable="false" />
+          <Property Name="fixed_bonus_16" Type="bit" Nullable="false" />
+          <Property Name="hmo_principal" Type="bit" Nullable="false" />
+          <Property Name="hmo_dependent" Type="bit" Nullable="false" />
+          <Property Name="is_tax_shield" Type="bit" Nullable="false" />
+          <Property Name="tax_shield_percentage" Type="int" Nullable="false" />
+          <Property Name="other_benifits" Type="nvarchar" MaxLength="500" />
+          <Property Name="job_description" Type="nvarchar(max)" />
+          <Property Name="is_currently_working" Type="bit" Nullable="false" />
+          <Property Name="company_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CANDIDATE_SKILL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="candidate_id" Type="int" Nullable="false" />
+          <Property Name="skill_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="REC_CLIENT">
           <Key>
             <PropertyRef Name="id" />
@@ -704,6 +750,95 @@
           <Property Name="is_withoriginal" Type="bit" />
           <Property Name="is_history" Type="bit" />
         </EntityType>
+        <EntityType Name="REC_CLIENT_SETUP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="working_days" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="source_rate" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="endorse_rate" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="seasonal_rate" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="sss_sched" Type="int" Nullable="false" />
+          <Property Name="philhealth_sched" Type="int" Nullable="false" />
+          <Property Name="pagibig_sched" Type="int" Nullable="false" />
+          <Property Name="sss_loan_sched" Type="int" Nullable="false" />
+          <Property Name="pagibig_loan_sched" Type="int" Nullable="false" />
+          <Property Name="allowance_sched" Type="int" Nullable="false" />
+          <Property Name="meal_allowance_sched" Type="int" Nullable="false" />
+          <Property Name="rice_allowance_sched" Type="int" Nullable="false" />
+          <Property Name="philhealth_computation" Type="int" Nullable="false" />
+          <Property Name="sss_computation" Type="int" Nullable="false" />
+          <Property Name="ps_max_process_employee_count" Type="int" Nullable="false" />
+          <Property Name="ps_regular_process_fee" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ps_special_process_fee" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ps_one_time_fee" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ps_additional_fee" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="rope_admin_fee" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="payroll_payment_1st_cutoff" Type="int" Nullable="false" />
+          <Property Name="payroll_payment_2nd_cutoff" Type="int" Nullable="false" />
+          <Property Name="other_loan_sched" Type="int" Nullable="false" />
+          <Property Name="is_include_thirteen" Type="bit" Nullable="false" />
+          <Property Name="is_include_separation_pay" Type="bit" Nullable="false" />
+          <Property Name="is_include_hmo" Type="bit" Nullable="false" />
+          <Property Name="is_include_silp" Type="bit" Nullable="false" />
+          <Property Name="is_include_allowance" Type="bit" Nullable="false" />
+          <Property Name="separation_pay_basis" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="thirteen_month_pay_basis" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="silp_days" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="hmo_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="is_include_ward" Type="bit" Nullable="false" />
+          <Property Name="ward_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="silp_basis" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="sep_pay_basis" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="overtime_setup_id" Type="int" Nullable="false" />
+          <Property Name="insurance_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="include_insurance" Type="bit" Nullable="false" />
+          <Property Name="allowance_deduct_basis" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="include_adjustment" Type="bit" Nullable="false" />
+          <Property Name="adjustment_basis" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_SETUP_CUTOFF">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="first_cutoff_from_month" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="first_cutoff_from_day" Type="int" Nullable="false" />
+          <Property Name="first_cutoff_to_month" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="first_cutoff_to_day" Type="int" Nullable="false" />
+          <Property Name="second_cutoff_from_month" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="second_cutoff_from_day" Type="int" Nullable="false" />
+          <Property Name="second_cutoff_to_month" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="second_cutoff_to_day" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_SETUP_EXT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="Proc_billing_rate" Type="bit" Nullable="false" />
+          <Property Name="proc_processing_fee" Type="bit" Nullable="false" />
+          <Property Name="term_thirty" Type="bit" Nullable="false" />
+          <Property Name="term_fourtyfive" Type="bit" Nullable="false" />
+          <Property Name="term_sixty" Type="bit" Nullable="false" />
+          <Property Name="term_ninety" Type="bit" Nullable="false" />
+          <Property Name="comp_all" Type="bit" Nullable="false" />
+          <Property Name="comp_salary_overtime" Type="bit" Nullable="false" />
+          <Property Name="comp_salary_only" Type="bit" Nullable="false" />
+          <Property Name="comp_overtime_only" Type="bit" Nullable="false" />
+          <Property Name="comp_adjustment_only" Type="bit" Nullable="false" />
+          <Property Name="term_fifteen" Type="bit" Nullable="false" />
+          <Property Name="term_immediate" Type="bit" Nullable="false" />
+          <Property Name="proc_billing_card" Type="bit" Nullable="false" />
+          <Property Name="term_forty" Type="bit" Nullable="false" />
+          <Property Name="term_twenty" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="REC_CLIENT_SHIFT">
           <Key>
             <PropertyRef Name="id" />
@@ -724,6 +859,50 @@
           <Property Name="status" Type="bit" Nullable="false" />
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_FILE_CONFIGURATION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="attach_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="attach_location" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="REC_JOB_ORDER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="jo_date" Type="smalldatetime" Nullable="false" />
+          <Property Name="position" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="eto" Type="nvarchar" MaxLength="150" />
+          <Property Name="estimated_salary" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="fee_rate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="jo_status" Type="int" />
+          <Property Name="jq_location" Type="nvarchar" MaxLength="250" />
+          <Property Name="jd_location" Type="nvarchar" MaxLength="250" />
+          <Property Name="lost_id" Type="int" Nullable="false" />
+          <Property Name="lost_remarks" Type="nvarchar" MaxLength="250" />
+          <Property Name="user_created" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="smalldatetime" />
+          <Property Name="user_modified" Type="int" Nullable="false" />
+          <Property Name="date_modified" Type="smalldatetime" />
+          <Property Name="contracttype_id" Type="int" />
+          <Property Name="start_date" Type="smalldatetime" />
+          <Property Name="end_date" Type="smalldatetime" />
+          <Property Name="date_complete" Type="datetime" />
+          <Property Name="from_what" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="industry_id" Type="int" Nullable="false" />
+          <Property Name="function_id" Type="int" Nullable="false" />
+          <Property Name="hold_qty" Type="int" Nullable="false" />
+          <Property Name="lost_qty" Type="int" Nullable="false" />
+          <Property Name="cancel_qty" Type="int" Nullable="false" />
+          <Property Name="po_number" Type="nvarchar" MaxLength="150" />
+          <Property Name="lost_date" Type="date" />
+          <Property Name="purpose_type_id" Type="int" Nullable="false" />
+          <Property Name="guid" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="REC_NEW_HIRED_EMPLOYEE">
           <Key>
@@ -772,6 +951,19 @@
           <Property Name="date_created" Type="datetime" Nullable="false" />
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="remarks" Type="nvarchar" MaxLength="1200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_Skill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="function_id" Type="int" Nullable="false" />
+          <Property Name="skill_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Skill_description" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Skill_details" Type="nvarchar" MaxLength="500" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="REC_SOURCE_TYPE">
           <Key>
@@ -1240,6 +1432,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name=" FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE">
+          <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_EMPLOYMENT" Type="Self.REC_CANDIDATE_EMPLOYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EMPLOYMENT">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name=" FK_REC_CLIENT_BANK_REC_CLIENT">
           <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
           <End Role="REC_CLIENT_BANK" Type="Self.REC_CLIENT_BANK" Multiplicity="*" />
@@ -1300,6 +1504,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name=" FK_REC_CLIENT_SETUP_EXT_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="REC_CLIENT_SETUP_EXT" Type="Self.REC_CLIENT_SETUP_EXT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SETUP_EXT">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_CLIENT_SETUP_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="REC_CLIENT_SETUP" Type="Self.REC_CLIENT_SETUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SETUP">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name=" FK_REC_CLIENT_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="*" />
@@ -1309,6 +1537,54 @@
             </Principal>
             <Dependent Role="REC_CLIENT">
               <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_JOB_ORDER_Client">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="REC_JOB_ORDER" Type="Self.REC_JOB_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_JOB_ORDER">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_JOB_ORDER_REC_CONTRACT_TYPE">
+          <End Role="REC_CONTRACT_TYPE" Type="Self.REC_CONTRACT_TYPE" Multiplicity="0..1" />
+          <End Role="REC_JOB_ORDER" Type="Self.REC_JOB_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CONTRACT_TYPE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_JOB_ORDER">
+              <PropertyRef Name="contracttype_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_JOB_ORDER_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_JOB_ORDER" Type="Self.REC_JOB_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_JOB_ORDER">
+              <PropertyRef Name="user_created" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_JOB_ORDER_SYS_USER1">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_JOB_ORDER" Type="Self.REC_JOB_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_JOB_ORDER">
+              <PropertyRef Name="user_modified" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1780,6 +2056,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_REC_CANDIDATE_EMPLOYMENT_INDUSTRY">
+          <End Role="INDUSTRY" Type="Self.INDUSTRY" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_EMPLOYMENT" Type="Self.REC_CANDIDATE_EMPLOYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INDUSTRY">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EMPLOYMENT">
+              <PropertyRef Name="industry_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_SKILL_REC_CANDIDATE">
+          <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_SKILL" Type="Self.REC_CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_SKILL">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_SKILL_REC_Skill">
+          <End Role="REC_Skill" Type="Self.REC_Skill" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_SKILL" Type="Self.REC_CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_Skill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_SKILL">
+              <PropertyRef Name="skill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_SKILL_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_CANDIDATE_SKILL" Type="Self.REC_CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_SKILL">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_REC_CANDIDATE_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="REC_CANDIDATE" Type="Self.REC_CANDIDATE" Multiplicity="*" />
@@ -1912,6 +2236,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_REC_JOB_ORDER_INDUSTRY">
+          <End Role="INDUSTRY" Type="Self.INDUSTRY" Multiplicity="1" />
+          <End Role="REC_JOB_ORDER" Type="Self.REC_JOB_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INDUSTRY">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_JOB_ORDER">
+              <PropertyRef Name="industry_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_REC_NEW_HIRED_EMPLOYEE_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="REC_NEW_HIRED_EMPLOYEE" Type="Self.REC_NEW_HIRED_EMPLOYEE" Multiplicity="*" />
@@ -1980,6 +2316,18 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="REC_NEW_HIRED_EMPLOYEE">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_Skill_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="REC_Skill" Type="Self.REC_Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_Skill">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -2434,6 +2782,48 @@
         <Function Name="USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="USP_B_GET_CREDIT_MEMO_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BY_CLIENT" Type="bit" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="BY_CM_TYPE" Type="bit" Mode="In" />
+          <Parameter Name="CM_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="BY_DATE" Type="bit" Mode="In" />
+          <Parameter Name="DATE_FROM" Type="date" Mode="In" />
+          <Parameter Name="DATE_TO" Type="date" Mode="In" />
+          <Parameter Name="BY_STATUS" Type="bit" Mode="In" />
+          <Parameter Name="STATUS" Type="nvarchar" Mode="In" />
+          <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="USP_B_GET_OFFICIAL_RECEIPT_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BY_CLIENT" Type="bit" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="BY_DATE" Type="bit" Mode="In" />
+          <Parameter Name="FROM" Type="date" Mode="In" />
+          <Parameter Name="TO" Type="date" Mode="In" />
+          <Parameter Name="BY_STATUS" Type="bit" Mode="In" />
+          <Parameter Name="STATUS" Type="nvarchar" Mode="In" />
+          <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
+          <Parameter Name="BY_USER" Type="bit" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_B_GET_SALES_INVOICE_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BY_CLIENT" Type="bit" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="BY_INVOICE_TYPE" Type="bit" Mode="In" />
+          <Parameter Name="INVOICE_TYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="BY_DATE" Type="bit" Mode="In" />
+          <Parameter Name="DATE_FROM" Type="date" Mode="In" />
+          <Parameter Name="DATE_TO" Type="date" Mode="In" />
+          <Parameter Name="BY_STATUS" Type="bit" Mode="In" />
+          <Parameter Name="STATUS" Type="nvarchar" Mode="In" />
+          <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
+          <Parameter Name="BY_USER" Type="bit" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="BY_PAYTYPE" Type="bit" Mode="In" />
+          <Parameter Name="PAY_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="BY_COMPUTATION_TYPE" Type="bit" Mode="In" />
+          <Parameter Name="COMPUTATION_TYPE" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="USP_B_MANAGE_REC_CLIENT_CONTACTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
@@ -2593,6 +2983,67 @@
           <Parameter Name="SSS_EXT" Type="nvarchar" Mode="In" />
           <Parameter Name="DATE_COMPLETED" Type="datetime" Mode="In" />
           <Parameter Name="COMPLETED_BY" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_MANAGE_CLIENT_INTERIM_SETUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="SOURCE_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="ENDORSE_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="SEASONAL_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="IS_INCLUDE_THIRTEEN" Type="bit" Mode="In" />
+          <Parameter Name="THIRTEEN_MONTH_PAY_BASIS" Type="nvarchar" Mode="In" />
+          <Parameter Name="IS_INCLUDE_SEPARATION_PAY" Type="bit" Mode="In" />
+          <Parameter Name="SEPARATION_PAY_BASIS" Type="nvarchar" Mode="In" />
+          <Parameter Name="SEP_PAY_BASIS" Type="nvarchar" Mode="In" />
+          <Parameter Name="IS_INCLUDE_HMO" Type="bit" Mode="In" />
+          <Parameter Name="HMO_AMOUNT" Type="decimal" Mode="In" />
+          <Parameter Name="IS_INCLUDE_SILP" Type="bit" Mode="In" />
+          <Parameter Name="SILP_DAYS" Type="decimal" Mode="In" />
+          <Parameter Name="SILP_BASIS" Type="nvarchar" Mode="In" />
+          <Parameter Name="IS_INCLUDE_WARD" Type="bit" Mode="In" />
+          <Parameter Name="WARD_AMOUNT" Type="decimal" Mode="In" />
+          <Parameter Name="IS_INCLUDE_ALLOWANCE" Type="bit" Mode="In" />
+          <Parameter Name="INCLUDE_INSURANCE" Type="bit" Mode="In" />
+          <Parameter Name="INSURANCE_AMOUNT" Type="decimal" Mode="In" />
+          <Parameter Name="INCLUDE_ADJUSTMENT" Type="bit" Mode="In" />
+          <Parameter Name="ADJUSTMENT_BASIS" Type="nvarchar" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_MANAGE_CLIENT_SETUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="SSS_SCHED" Type="int" Mode="In" />
+          <Parameter Name="PHILHEALTH_SCHED" Type="int" Mode="In" />
+          <Parameter Name="PAGIBIG_SCHED" Type="int" Mode="In" />
+          <Parameter Name="ALLOWANCE_SCHED" Type="int" Mode="In" />
+          <Parameter Name="ALLOWANCE_DEDUCT_BASIS" Type="nvarchar" Mode="In" />
+          <Parameter Name="MEAL_ALLOWANCE_SCHED" Type="int" Mode="In" />
+          <Parameter Name="RICE_ALLOWANCE_SCHED" Type="int" Mode="In" />
+          <Parameter Name="PAYROLL_PAYMENT_1ST_CUTOFFF" Type="int" Mode="In" />
+          <Parameter Name="PAYROLL_PAYMENT_2ND_CUTOFFF" Type="int" Mode="In" />
+          <Parameter Name="SSS_COMP_BASIS" Type="int" Mode="In" />
+          <Parameter Name="PHILHEALTH_COMP_BASIS" Type="int" Mode="In" />
+          <Parameter Name="SSS_LOAN_SCHED" Type="int" Mode="In" />
+          <Parameter Name="PAGIBIG_LOAN_SCHED" Type="int" Mode="In" />
+          <Parameter Name="OTHER_LOAN_SCHED" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_MANAGE_CLIENT_SETUP_PAYROLL_SERVICE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="PS_MAX_PROCESS_EMPLOYEE_COUNT" Type="int" Mode="In" />
+          <Parameter Name="PS_REGULAR_PROCESS_FEE" Type="decimal" Mode="In" />
+          <Parameter Name="PS_SPECIAL_PROCESS_FEE" Type="decimal" Mode="In" />
+          <Parameter Name="PS_ONE_TIME_FEE" Type="decimal" Mode="In" />
+          <Parameter Name="PS_ADDITIONAL_FEE" Type="decimal" Mode="In" />
+          <Parameter Name="ROPE_ADMIN_FEE" Type="decimal" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
@@ -2778,6 +3229,57 @@
           <Parameter Name="USERID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_I_MANAGE_CLIENT_CUTOFF_SETUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="FIRST_CUTOFF_FROM_MONTH" Type="nvarchar" Mode="In" />
+          <Parameter Name="FIRST_CUTOFF_FROM_DAY" Type="int" Mode="In" />
+          <Parameter Name="FIRST_CUTOFF_TO_MONTH" Type="nvarchar" Mode="In" />
+          <Parameter Name="FIRST_CUTOFF_TO_DAY" Type="int" Mode="In" />
+          <Parameter Name="SECOND_CUTOFF_FROM_MONTH" Type="nvarchar" Mode="In" />
+          <Parameter Name="SECOND_CUTOFF_FROM_DAY" Type="int" Mode="In" />
+          <Parameter Name="SECOND_CUTOFF_TO_MONTH" Type="nvarchar" Mode="In" />
+          <Parameter Name="SECOND_CUTOFF_TO_DAY" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_I_MASTER_CLIENT_SETUP_EXT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="PROC_BILLING_RATE" Type="bit" Mode="In" />
+          <Parameter Name="PROC_PROCESSING_FEE" Type="bit" Mode="In" />
+          <Parameter Name="TERM_THIRTY" Type="bit" Mode="In" />
+          <Parameter Name="TERM_FOURTYFIVE" Type="bit" Mode="In" />
+          <Parameter Name="TERM_SIXTY" Type="bit" Mode="In" />
+          <Parameter Name="TERM_NINETY" Type="bit" Mode="In" />
+          <Parameter Name="COMP_ALL" Type="bit" Mode="In" />
+          <Parameter Name="COMP_SALARY_OVERTIME" Type="bit" Mode="In" />
+          <Parameter Name="COMP_SALARY_ONLY" Type="bit" Mode="In" />
+          <Parameter Name="COMP_OVERTIME_ONLY" Type="bit" Mode="In" />
+          <Parameter Name="COMP_ADJUSTMENT_ONLY" Type="bit" Mode="In" />
+          <Parameter Name="TERM_FIFTEEN" Type="bit" Mode="In" />
+          <Parameter Name="TERM_IMMEDIATE" Type="bit" Mode="In" />
+          <Parameter Name="PROC_BILLING_CARD" Type="bit" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+          <Parameter Name="TERM_TWENTY" Type="bit" Mode="In" />
+          <Parameter Name="TERM_FORTY" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="USP_M_GET_PAYROLL_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BY_CLIENT" Type="bit" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="BY_STATUS" Type="bit" Mode="In" />
+          <Parameter Name="STATUS" Type="int" Mode="In" />
+          <Parameter Name="MONTH" Type="int" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
+          <Parameter Name="BY_PAYDATE" Type="bit" Mode="In" />
+          <Parameter Name="PAY_DATE_FROM" Type="date" Mode="In" />
+          <Parameter Name="PAY_DATE_TO" Type="date" Mode="In" />
+          <Parameter Name="BY_USER" Type="bit" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="BY_PAYROLL_TYPE" Type="bit" Mode="In" />
+          <Parameter Name="PAYROLL_TYPE_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_P_MANAGE_SUBMIT_REQUIRED_DOCUMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="CANDIDATE_ID" Type="int" Mode="In" />
@@ -2818,16 +3320,24 @@
           <EntitySet Name="REC_CANDIDATE_DOCUMENT" EntityType="Self.REC_CANDIDATE_DOCUMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE_EDUCATION" EntityType="Self.REC_CANDIDATE_EDUCATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE_EMPLOYEE_LINK" EntityType="Self.REC_CANDIDATE_EMPLOYEE_LINK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CANDIDATE_EMPLOYMENT" EntityType="Self.REC_CANDIDATE_EMPLOYMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CANDIDATE_SKILL" EntityType="Self.REC_CANDIDATE_SKILL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT" EntityType="Self.REC_CLIENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_BANK" EntityType="Self.REC_CLIENT_BANK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_COMPANY" EntityType="Self.REC_CLIENT_COMPANY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_CONTACTS" EntityType="Self.REC_CLIENT_CONTACTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_DEPARTMENT" EntityType="Self.REC_CLIENT_DEPARTMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_DOCUMENTS" EntityType="Self.REC_CLIENT_DOCUMENTS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_SETUP" EntityType="Self.REC_CLIENT_SETUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_SETUP_CUTOFF" EntityType="Self.REC_CLIENT_SETUP_CUTOFF" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_SETUP_EXT" EntityType="Self.REC_CLIENT_SETUP_EXT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_SHIFT" EntityType="Self.REC_CLIENT_SHIFT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CONTRACT_TYPE" EntityType="Self.REC_CONTRACT_TYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_FILE_CONFIGURATION" EntityType="Self.REC_FILE_CONFIGURATION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_JOB_ORDER" EntityType="Self.REC_JOB_ORDER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_NEW_HIRED_EMPLOYEE" EntityType="Self.REC_NEW_HIRED_EMPLOYEE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_NEW_HIRED_EMPLOYEE_REMARKS" EntityType="Self.REC_NEW_HIRED_EMPLOYEE_REMARKS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_Skill" EntityType="Self.REC_Skill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_SOURCE_TYPE" EntityType="Self.REC_SOURCE_TYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_USER_LOG" EntityType="Self.REC_USER_LOG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Required_Document" EntityType="Self.Required_Document" Schema="dbo" store:Type="Tables" />
@@ -2938,6 +3448,10 @@
             <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
             <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
           </AssociationSet>
+          <AssociationSet Name=" FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE" Association="Self. FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_EMPLOYMENT" EntitySet="REC_CANDIDATE_EMPLOYMENT" />
+          </AssociationSet>
           <AssociationSet Name=" FK_REC_CLIENT_BANK_REC_CLIENT" Association="Self. FK_REC_CLIENT_BANK_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
             <End Role="REC_CLIENT_BANK" EntitySet="REC_CLIENT_BANK" />
@@ -2958,9 +3472,33 @@
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
             <End Role="REC_CLIENT_DEPARTMENT" EntitySet="REC_CLIENT_DEPARTMENT" />
           </AssociationSet>
+          <AssociationSet Name=" FK_REC_CLIENT_SETUP_EXT_REC_CLIENT" Association="Self. FK_REC_CLIENT_SETUP_EXT_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_SETUP_EXT" EntitySet="REC_CLIENT_SETUP_EXT" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_CLIENT_SETUP_REC_CLIENT" Association="Self. FK_REC_CLIENT_SETUP_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_SETUP" EntitySet="REC_CLIENT_SETUP" />
+          </AssociationSet>
           <AssociationSet Name=" FK_REC_CLIENT_SYS_USER" Association="Self. FK_REC_CLIENT_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_JOB_ORDER_Client" Association="Self. FK_REC_JOB_ORDER_Client">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_JOB_ORDER" EntitySet="REC_JOB_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_JOB_ORDER_REC_CONTRACT_TYPE" Association="Self. FK_REC_JOB_ORDER_REC_CONTRACT_TYPE">
+            <End Role="REC_CONTRACT_TYPE" EntitySet="REC_CONTRACT_TYPE" />
+            <End Role="REC_JOB_ORDER" EntitySet="REC_JOB_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_JOB_ORDER_SYS_USER" Association="Self. FK_REC_JOB_ORDER_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_JOB_ORDER" EntitySet="REC_JOB_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_JOB_ORDER_SYS_USER1" Association="Self. FK_REC_JOB_ORDER_SYS_USER1">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_JOB_ORDER" EntitySet="REC_JOB_ORDER" />
           </AssociationSet>
           <AssociationSet Name="FK_Adjustment_ADJUSTMENT_CLASSIFICATION" Association="Self.FK_Adjustment_ADJUSTMENT_CLASSIFICATION">
             <End Role="ADJUSTMENT_CLASSIFICATION" EntitySet="ADJUSTMENT_CLASSIFICATION" />
@@ -3118,6 +3656,22 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CANDIDATE_EMPLOYEE_LINK" EntitySet="REC_CANDIDATE_EMPLOYEE_LINK" />
           </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_EMPLOYMENT_INDUSTRY" Association="Self.FK_REC_CANDIDATE_EMPLOYMENT_INDUSTRY">
+            <End Role="INDUSTRY" EntitySet="INDUSTRY" />
+            <End Role="REC_CANDIDATE_EMPLOYMENT" EntitySet="REC_CANDIDATE_EMPLOYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_SKILL_REC_CANDIDATE" Association="Self.FK_REC_CANDIDATE_SKILL_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_SKILL" EntitySet="REC_CANDIDATE_SKILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_SKILL_REC_Skill" Association="Self.FK_REC_CANDIDATE_SKILL_REC_Skill">
+            <End Role="REC_Skill" EntitySet="REC_Skill" />
+            <End Role="REC_CANDIDATE_SKILL" EntitySet="REC_CANDIDATE_SKILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_SKILL_SYS_USER" Association="Self.FK_REC_CANDIDATE_SKILL_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CANDIDATE_SKILL" EntitySet="REC_CANDIDATE_SKILL" />
+          </AssociationSet>
           <AssociationSet Name="FK_REC_CANDIDATE_SYS_USER" Association="Self.FK_REC_CANDIDATE_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
@@ -3162,6 +3716,10 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_CLIENT_SHIFT" EntitySet="REC_CLIENT_SHIFT" />
           </AssociationSet>
+          <AssociationSet Name="FK_REC_JOB_ORDER_INDUSTRY" Association="Self.FK_REC_JOB_ORDER_INDUSTRY">
+            <End Role="INDUSTRY" EntitySet="INDUSTRY" />
+            <End Role="REC_JOB_ORDER" EntitySet="REC_JOB_ORDER" />
+          </AssociationSet>
           <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_Employee" Association="Self.FK_REC_NEW_HIRED_EMPLOYEE_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
@@ -3185,6 +3743,10 @@
           <AssociationSet Name="FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER" Association="Self.FK_REC_NEW_HIRED_EMPLOYEE_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_NEW_HIRED_EMPLOYEE" EntitySet="REC_NEW_HIRED_EMPLOYEE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_Skill_SYS_USER" Association="Self.FK_REC_Skill_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_Skill" EntitySet="REC_Skill" />
           </AssociationSet>
           <AssociationSet Name="FK_Required_Document_details_Document" Association="Self.FK_Required_Document_details_Document">
             <End Role="Document" EntitySet="Document" />
@@ -4349,6 +4911,220 @@
             <Parameter Name="MODE" Mode="In" Type="Int32" />
             <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="REC_CANDIDATE_EMPLOYMENT" EntityType="apwdbModel.REC_CANDIDATE_EMPLOYMENT" />
+          <AssociationSet Name="FK_REC_CANDIDATE_EMPLOYMENT_INDUSTRY" Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYMENT_INDUSTRY">
+            <End Role="INDUSTRY" EntitySet="INDUSTRies" />
+            <End Role="REC_CANDIDATE_EMPLOYMENT" EntitySet="REC_CANDIDATE_EMPLOYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE" Association="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_EMPLOYMENT" EntitySet="REC_CANDIDATE_EMPLOYMENT" />
+          </AssociationSet>
+          <EntitySet Name="REC_Skill" EntityType="apwdbModel.REC_Skill" />
+          <AssociationSet Name="FK_REC_Skill_SYS_USER" Association="apwdbModel.FK_REC_Skill_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_Skill" EntitySet="REC_Skill" />
+          </AssociationSet>
+          <EntitySet Name="REC_CANDIDATE_SKILL" EntityType="apwdbModel.REC_CANDIDATE_SKILL" />
+          <AssociationSet Name="FK_REC_CANDIDATE_SKILL_REC_CANDIDATE" Association="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_CANDIDATE">
+            <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
+            <End Role="REC_CANDIDATE_SKILL" EntitySet="REC_CANDIDATE_SKILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_SKILL_REC_Skill" Association="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_Skill">
+            <End Role="REC_Skill" EntitySet="REC_Skill" />
+            <End Role="REC_CANDIDATE_SKILL" EntitySet="REC_CANDIDATE_SKILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REC_CANDIDATE_SKILL_SYS_USER" Association="apwdbModel.FK_REC_CANDIDATE_SKILL_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_CANDIDATE_SKILL" EntitySet="REC_CANDIDATE_SKILL" />
+          </AssociationSet>
+          <EntitySet Name="REC_FILE_CONFIGURATION" EntityType="apwdbModel.REC_FILE_CONFIGURATION" />
+          <EntitySet Name="REC_JOB_ORDER" EntityType="apwdbModel.REC_JOB_ORDER" />
+          <AssociationSet Name="FK_REC_JOB_ORDER_INDUSTRY" Association="apwdbModel.FK_REC_JOB_ORDER_INDUSTRY">
+            <End Role="INDUSTRY" EntitySet="INDUSTRies" />
+            <End Role="REC_JOB_ORDER" EntitySet="REC_JOB_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_JOB_ORDER_Client" Association="apwdbModel.C_FK_REC_JOB_ORDER_Client">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_JOB_ORDER" EntitySet="REC_JOB_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_JOB_ORDER_REC_CONTRACT_TYPE" Association="apwdbModel.C_FK_REC_JOB_ORDER_REC_CONTRACT_TYPE">
+            <End Role="REC_CONTRACT_TYPE" EntitySet="REC_CONTRACT_TYPE" />
+            <End Role="REC_JOB_ORDER" EntitySet="REC_JOB_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_JOB_ORDER_SYS_USER" Association="apwdbModel.C_FK_REC_JOB_ORDER_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_JOB_ORDER" EntitySet="REC_JOB_ORDER" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_JOB_ORDER_SYS_USER1" Association="apwdbModel.C_FK_REC_JOB_ORDER_SYS_USER1">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="REC_JOB_ORDER" EntitySet="REC_JOB_ORDER" />
+          </AssociationSet>
+          <FunctionImport Name="USP_M_GET_PAYROLL_MONITORING" ReturnType="Collection(apwdbModel.USP_M_GET_PAYROLL_MONITORING_Result)">
+            <Parameter Name="BY_CLIENT" Mode="In" Type="Boolean" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="STATUS" Mode="In" Type="Int32" />
+            <Parameter Name="MONTH" Mode="In" Type="Int32" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
+            <Parameter Name="BY_PAYDATE" Mode="In" Type="Boolean" />
+            <Parameter Name="PAY_DATE_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="PAY_DATE_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="BY_USER" Mode="In" Type="Boolean" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_PAYROLL_TYPE" Mode="In" Type="Boolean" />
+            <Parameter Name="PAYROLL_TYPE_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_B_GET_SALES_INVOICE_MONITORING" ReturnType="Collection(apwdbModel.USP_B_GET_SALES_INVOICE_MONITORING_Result)">
+            <Parameter Name="BY_CLIENT" Mode="In" Type="Boolean" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_INVOICE_TYPE" Mode="In" Type="Boolean" />
+            <Parameter Name="INVOICE_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_DATE" Mode="In" Type="Boolean" />
+            <Parameter Name="DATE_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="DATE_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="BY_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="STATUS" Mode="In" Type="String" />
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
+            <Parameter Name="BY_USER" Mode="In" Type="Boolean" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_PAYTYPE" Mode="In" Type="Boolean" />
+            <Parameter Name="PAY_TYPE" Mode="In" Type="String" />
+            <Parameter Name="BY_COMPUTATION_TYPE" Mode="In" Type="Boolean" />
+            <Parameter Name="COMPUTATION_TYPE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_B_GET_CREDIT_MEMO_MONITORING" ReturnType="Collection(apwdbModel.USP_B_GET_CREDIT_MEMO_MONITORING_Result)">
+            <Parameter Name="BY_CLIENT" Mode="In" Type="Boolean" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_CM_TYPE" Mode="In" Type="Boolean" />
+            <Parameter Name="CM_TYPE" Mode="In" Type="String" />
+            <Parameter Name="BY_DATE" Mode="In" Type="Boolean" />
+            <Parameter Name="DATE_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="DATE_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="BY_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="STATUS" Mode="In" Type="String" />
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_B_GET_OFFICIAL_RECEIPT_MONITORING" ReturnType="Collection(apwdbModel.USP_B_GET_OFFICIAL_RECEIPT_MONITORING_Result)">
+            <Parameter Name="BY_CLIENT" Mode="In" Type="Boolean" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_DATE" Mode="In" Type="Boolean" />
+            <Parameter Name="FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="TO" Mode="In" Type="DateTime" />
+            <Parameter Name="BY_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="STATUS" Mode="In" Type="String" />
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
+            <Parameter Name="BY_USER" Mode="In" Type="Boolean" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="REC_CLIENT_SETUP" EntityType="apwdbModel.REC_CLIENT_SETUP" />
+          <EntitySet Name="REC_CLIENT_SETUP_CUTOFF" EntityType="apwdbModel.REC_CLIENT_SETUP_CUTOFF" />
+          <AssociationSet Name="C_FK_REC_CLIENT_SETUP_REC_CLIENT" Association="apwdbModel.C_FK_REC_CLIENT_SETUP_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_SETUP" EntitySet="REC_CLIENT_SETUP" />
+          </AssociationSet>
+          <FunctionImport Name="USP_H_MANAGE_CLIENT_SETUP">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="SSS_SCHED" Mode="In" Type="Int32" />
+            <Parameter Name="PHILHEALTH_SCHED" Mode="In" Type="Int32" />
+            <Parameter Name="PAGIBIG_SCHED" Mode="In" Type="Int32" />
+            <Parameter Name="ALLOWANCE_SCHED" Mode="In" Type="Int32" />
+            <Parameter Name="ALLOWANCE_DEDUCT_BASIS" Mode="In" Type="String" />
+            <Parameter Name="MEAL_ALLOWANCE_SCHED" Mode="In" Type="Int32" />
+            <Parameter Name="RICE_ALLOWANCE_SCHED" Mode="In" Type="Int32" />
+            <Parameter Name="PAYROLL_PAYMENT_1ST_CUTOFFF" Mode="In" Type="Int32" />
+            <Parameter Name="PAYROLL_PAYMENT_2ND_CUTOFFF" Mode="In" Type="Int32" />
+            <Parameter Name="SSS_COMP_BASIS" Mode="In" Type="Int32" />
+            <Parameter Name="PHILHEALTH_COMP_BASIS" Mode="In" Type="Int32" />
+            <Parameter Name="SSS_LOAN_SCHED" Mode="In" Type="Int32" />
+            <Parameter Name="PAGIBIG_LOAN_SCHED" Mode="In" Type="Int32" />
+            <Parameter Name="OTHER_LOAN_SCHED" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_I_MANAGE_CLIENT_CUTOFF_SETUP">
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="FIRST_CUTOFF_FROM_MONTH" Mode="In" Type="String" />
+            <Parameter Name="FIRST_CUTOFF_FROM_DAY" Mode="In" Type="Int32" />
+            <Parameter Name="FIRST_CUTOFF_TO_MONTH" Mode="In" Type="String" />
+            <Parameter Name="FIRST_CUTOFF_TO_DAY" Mode="In" Type="Int32" />
+            <Parameter Name="SECOND_CUTOFF_FROM_MONTH" Mode="In" Type="String" />
+            <Parameter Name="SECOND_CUTOFF_FROM_DAY" Mode="In" Type="Int32" />
+            <Parameter Name="SECOND_CUTOFF_TO_MONTH" Mode="In" Type="String" />
+            <Parameter Name="SECOND_CUTOFF_TO_DAY" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="REC_CLIENT_SETUP_EXT" EntityType="apwdbModel.REC_CLIENT_SETUP_EXT" />
+          <AssociationSet Name="C_FK_REC_CLIENT_SETUP_EXT_REC_CLIENT" Association="apwdbModel.C_FK_REC_CLIENT_SETUP_EXT_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_SETUP_EXT" EntitySet="REC_CLIENT_SETUP_EXT" />
+          </AssociationSet>
+          <FunctionImport Name="USP_I_MASTER_CLIENT_SETUP_EXT">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="PROC_BILLING_RATE" Mode="In" Type="Boolean" />
+            <Parameter Name="PROC_PROCESSING_FEE" Mode="In" Type="Boolean" />
+            <Parameter Name="TERM_THIRTY" Mode="In" Type="Boolean" />
+            <Parameter Name="TERM_FOURTYFIVE" Mode="In" Type="Boolean" />
+            <Parameter Name="TERM_SIXTY" Mode="In" Type="Boolean" />
+            <Parameter Name="TERM_NINETY" Mode="In" Type="Boolean" />
+            <Parameter Name="COMP_ALL" Mode="In" Type="Boolean" />
+            <Parameter Name="COMP_SALARY_OVERTIME" Mode="In" Type="Boolean" />
+            <Parameter Name="COMP_SALARY_ONLY" Mode="In" Type="Boolean" />
+            <Parameter Name="COMP_OVERTIME_ONLY" Mode="In" Type="Boolean" />
+            <Parameter Name="COMP_ADJUSTMENT_ONLY" Mode="In" Type="Boolean" />
+            <Parameter Name="TERM_FIFTEEN" Mode="In" Type="Boolean" />
+            <Parameter Name="TERM_IMMEDIATE" Mode="In" Type="Boolean" />
+            <Parameter Name="PROC_BILLING_CARD" Mode="In" Type="Boolean" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+            <Parameter Name="TERM_TWENTY" Mode="In" Type="Boolean" />
+            <Parameter Name="TERM_FORTY" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_CLIENT_INTERIM_SETUP">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="SOURCE_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="ENDORSE_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="SEASONAL_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="IS_INCLUDE_THIRTEEN" Mode="In" Type="Boolean" />
+            <Parameter Name="THIRTEEN_MONTH_PAY_BASIS" Mode="In" Type="String" />
+            <Parameter Name="IS_INCLUDE_SEPARATION_PAY" Mode="In" Type="Boolean" />
+            <Parameter Name="SEPARATION_PAY_BASIS" Mode="In" Type="String" />
+            <Parameter Name="SEP_PAY_BASIS" Mode="In" Type="String" />
+            <Parameter Name="IS_INCLUDE_HMO" Mode="In" Type="Boolean" />
+            <Parameter Name="HMO_AMOUNT" Mode="In" Type="Decimal" />
+            <Parameter Name="IS_INCLUDE_SILP" Mode="In" Type="Boolean" />
+            <Parameter Name="SILP_DAYS" Mode="In" Type="Decimal" />
+            <Parameter Name="SILP_BASIS" Mode="In" Type="String" />
+            <Parameter Name="IS_INCLUDE_WARD" Mode="In" Type="Boolean" />
+            <Parameter Name="WARD_AMOUNT" Mode="In" Type="Decimal" />
+            <Parameter Name="IS_INCLUDE_ALLOWANCE" Mode="In" Type="Boolean" />
+            <Parameter Name="INCLUDE_INSURANCE" Mode="In" Type="Boolean" />
+            <Parameter Name="INSURANCE_AMOUNT" Mode="In" Type="Decimal" />
+            <Parameter Name="INCLUDE_ADJUSTMENT" Mode="In" Type="Boolean" />
+            <Parameter Name="ADJUSTMENT_BASIS" Mode="In" Type="String" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_CLIENT_SETUP_PAYROLL_SERVICE">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="PS_MAX_PROCESS_EMPLOYEE_COUNT" Mode="In" Type="Int32" />
+            <Parameter Name="PS_REGULAR_PROCESS_FEE" Mode="In" Type="Decimal" />
+            <Parameter Name="PS_SPECIAL_PROCESS_FEE" Mode="In" Type="Decimal" />
+            <Parameter Name="PS_ONE_TIME_FEE" Mode="In" Type="Decimal" />
+            <Parameter Name="PS_ADDITIONAL_FEE" Mode="In" Type="Decimal" />
+            <Parameter Name="ROPE_ADMIN_FEE" Mode="In" Type="Decimal" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -4531,6 +5307,10 @@
           <NavigationProperty Name="REC_CLIENT_DOCUMENTS" Relationship="apwdbModel.FK_REC_CLIENT_DOCUMENTS_SYS_USER" FromRole="SYS_USER" ToRole="REC_CLIENT_DOCUMENTS" />
           <NavigationProperty Name="sys_company" Relationship="apwdbModel.FK_sys_company_SYS_USER" FromRole="SYS_USER" ToRole="sys_company" />
           <NavigationProperty Name="SYS_BANK" Relationship="apwdbModel.FK_SYS_BANK_SYS_USER" FromRole="SYS_USER" ToRole="SYS_BANK" />
+          <NavigationProperty Name="REC_Skill" Relationship="apwdbModel.FK_REC_Skill_SYS_USER" FromRole="SYS_USER" ToRole="REC_Skill" />
+          <NavigationProperty Name="REC_CANDIDATE_SKILL" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_SYS_USER" FromRole="SYS_USER" ToRole="REC_CANDIDATE_SKILL" />
+          <NavigationProperty Name="REC_JOB_ORDER" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_SYS_USER" FromRole="SYS_USER" ToRole="REC_JOB_ORDER" />
+          <NavigationProperty Name="REC_JOB_ORDER1" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_SYS_USER1" FromRole="SYS_USER" ToRole="REC_JOB_ORDER" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP">
           <Key>
@@ -4723,6 +5503,8 @@
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CANDIDATE_SYS_USER" FromRole="REC_CANDIDATE" ToRole="SYS_USER" />
           <NavigationProperty Name="REC_CANDIDATE_DOCUMENT" Relationship="apwdbModel.C_FK_REC_CANDIDATE_DOCUMENT_REC_CANDIDATE" FromRole="REC_CANDIDATE" ToRole="REC_CANDIDATE_DOCUMENT" />
           <NavigationProperty Name="REC_CANDIDATE_EDUCATION" Relationship="apwdbModel.C_FK_REC_CANDIDATE_EDUCATION_REC_CANDIDATE" FromRole="REC_CANDIDATE" ToRole="REC_CANDIDATE_EDUCATION" />
+          <NavigationProperty Name="REC_CANDIDATE_EMPLOYMENT" Relationship="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE" FromRole="REC_CANDIDATE" ToRole="REC_CANDIDATE_EMPLOYMENT" />
+          <NavigationProperty Name="REC_CANDIDATE_SKILL" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_CANDIDATE" FromRole="REC_CANDIDATE" ToRole="REC_CANDIDATE_SKILL" />
         </EntityType>
         <EntityType Name="REC_CANDIDATE_EMPLOYEE_LINK">
           <Key>
@@ -4999,6 +5781,9 @@
           <NavigationProperty Name="REC_CLIENT_BANK" Relationship="apwdbModel.C_FK_REC_CLIENT_BANK_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_BANK" />
           <NavigationProperty Name="REC_CLIENT_CONTACTS" Relationship="apwdbModel.C_FK_REC_CLIENT_CONTACTS_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_CONTACTS" />
           <NavigationProperty Name="REC_CLIENT_DOCUMENTS" Relationship="apwdbModel.C_FK_REC_CLIENT_DOCUMENTS_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_DOCUMENTS" />
+          <NavigationProperty Name="REC_JOB_ORDER" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_Client" FromRole="REC_CLIENT" ToRole="REC_JOB_ORDER" />
+          <NavigationProperty Name="REC_CLIENT_SETUP" Relationship="apwdbModel.C_FK_REC_CLIENT_SETUP_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_SETUP" />
+          <NavigationProperty Name="REC_CLIENT_SETUP_EXT" Relationship="apwdbModel.C_FK_REC_CLIENT_SETUP_EXT_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_SETUP_EXT" />
         </EntityType>
         <Association Name="FK_Employee_REC_CLIENT">
           <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
@@ -5399,6 +6184,7 @@
           <Property Name="user_id" Type="Int32" Nullable="false" />
           <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_REC_CONTRACT_TYPE" FromRole="REC_CONTRACT_TYPE" ToRole="Employee" />
+          <NavigationProperty Name="REC_JOB_ORDER" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_REC_CONTRACT_TYPE" FromRole="REC_CONTRACT_TYPE" ToRole="REC_JOB_ORDER" />
         </EntityType>
         <Association Name="C_FK_Employee_REC_CONTRACT_TYPE">
           <End Type="apwdbModel.REC_CONTRACT_TYPE" Role="REC_CONTRACT_TYPE" Multiplicity="1" />
@@ -6622,6 +7408,8 @@
           <Property Name="country_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_Client_INDUSTRY" FromRole="INDUSTRY" ToRole="REC_CLIENT" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_INDUSTRY_SYS_USER" FromRole="INDUSTRY" ToRole="SYS_USER" />
+          <NavigationProperty Name="REC_CANDIDATE_EMPLOYMENT" Relationship="apwdbModel.FK_REC_CANDIDATE_EMPLOYMENT_INDUSTRY" FromRole="INDUSTRY" ToRole="REC_CANDIDATE_EMPLOYMENT" />
+          <NavigationProperty Name="REC_JOB_ORDER" Relationship="apwdbModel.FK_REC_JOB_ORDER_INDUSTRY" FromRole="INDUSTRY" ToRole="REC_JOB_ORDER" />
         </EntityType>
         <Association Name="C_FK_Client_INDUSTRY">
           <End Type="apwdbModel.INDUSTRY" Role="INDUSTRY" Multiplicity="1" />
@@ -7019,6 +7807,458 @@
             </Principal>
             <Dependent Role="Adjustment">
               <PropertyRef Name="adjustment_classification_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_CANDIDATE_EMPLOYMENT">
+          <Key>
+            <PropertyRef Name="Employ_ID" />
+          </Key>
+          <Property Name="candidate_id" Type="Int32" Nullable="false" />
+          <Property Name="Company_name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Company_Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Company_position" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Company_Rank" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Reason_for_leaving" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Company_Salary" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Company_from" Type="DateTime" Precision="0" />
+          <Property Name="Company_to" Type="DateTime" Precision="0" />
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Employ_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emidiate_head" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="employment_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Internal_Tag" Type="Int32" />
+          <Property Name="NatureOfBusinessID" Type="Int32" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="function_id" Type="Int32" Nullable="false" />
+          <Property Name="industry_id" Type="Int32" Nullable="false" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <Property Name="fixed_bonus_13" Type="Boolean" Nullable="false" />
+          <Property Name="fixed_bonus_14" Type="Boolean" Nullable="false" />
+          <Property Name="fixed_bonus_15" Type="Boolean" Nullable="false" />
+          <Property Name="fixed_bonus_16" Type="Boolean" Nullable="false" />
+          <Property Name="hmo_principal" Type="Boolean" Nullable="false" />
+          <Property Name="hmo_dependent" Type="Boolean" Nullable="false" />
+          <Property Name="is_tax_shield" Type="Boolean" Nullable="false" />
+          <Property Name="tax_shield_percentage" Type="Int32" Nullable="false" />
+          <Property Name="other_benifits" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="job_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="is_currently_working" Type="Boolean" Nullable="false" />
+          <Property Name="company_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="INDUSTRY" Relationship="apwdbModel.FK_REC_CANDIDATE_EMPLOYMENT_INDUSTRY" FromRole="REC_CANDIDATE_EMPLOYMENT" ToRole="INDUSTRY" />
+          <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.C_FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE" FromRole="REC_CANDIDATE_EMPLOYMENT" ToRole="REC_CANDIDATE" />
+        </EntityType>
+        <Association Name="FK_REC_CANDIDATE_EMPLOYMENT_INDUSTRY">
+          <End Type="apwdbModel.INDUSTRY" Role="INDUSTRY" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_EMPLOYMENT" Role="REC_CANDIDATE_EMPLOYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INDUSTRY">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EMPLOYMENT">
+              <PropertyRef Name="industry_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CANDIDATE_EMPLOYMENT_REC_CANDIDATE">
+          <End Type="apwdbModel.REC_CANDIDATE" Role="REC_CANDIDATE" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_EMPLOYMENT" Role="REC_CANDIDATE_EMPLOYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_EMPLOYMENT">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_Skill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="function_id" Type="Int32" Nullable="false" />
+          <Property Name="skill_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Skill_description" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Skill_details" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_Skill_SYS_USER" FromRole="REC_Skill" ToRole="SYS_USER" />
+          <NavigationProperty Name="REC_CANDIDATE_SKILL" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_Skill" FromRole="REC_Skill" ToRole="REC_CANDIDATE_SKILL" />
+        </EntityType>
+        <Association Name="FK_REC_Skill_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_Skill" Role="REC_Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_Skill">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_CANDIDATE_SKILL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="candidate_id" Type="Int32" Nullable="false" />
+          <Property Name="skill_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="REC_CANDIDATE" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_CANDIDATE" FromRole="REC_CANDIDATE_SKILL" ToRole="REC_CANDIDATE" />
+          <NavigationProperty Name="REC_Skill" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_REC_Skill" FromRole="REC_CANDIDATE_SKILL" ToRole="REC_Skill" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_SYS_USER" FromRole="REC_CANDIDATE_SKILL" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_REC_CANDIDATE_SKILL_REC_CANDIDATE">
+          <End Type="apwdbModel.REC_CANDIDATE" Role="REC_CANDIDATE" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_SKILL" Role="REC_CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CANDIDATE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_SKILL">
+              <PropertyRef Name="candidate_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_SKILL_REC_Skill">
+          <End Type="apwdbModel.REC_Skill" Role="REC_Skill" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_SKILL" Role="REC_CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_Skill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_SKILL">
+              <PropertyRef Name="skill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REC_CANDIDATE_SKILL_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CANDIDATE_SKILL" Role="REC_CANDIDATE_SKILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CANDIDATE_SKILL">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_FILE_CONFIGURATION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="attach_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="attach_location" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="REC_JOB_ORDER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="jo_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="position" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="eto" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="estimated_salary" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="fee_rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="jo_status" Type="Int32" />
+          <Property Name="jq_location" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="jd_location" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="lost_id" Type="Int32" Nullable="false" />
+          <Property Name="lost_remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="user_created" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Precision="0" />
+          <Property Name="user_modified" Type="Int32" Nullable="false" />
+          <Property Name="date_modified" Type="DateTime" Precision="0" />
+          <Property Name="contracttype_id" Type="Int32" />
+          <Property Name="start_date" Type="DateTime" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Precision="0" />
+          <Property Name="date_complete" Type="DateTime" Precision="3" />
+          <Property Name="from_what" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="industry_id" Type="Int32" Nullable="false" />
+          <Property Name="function_id" Type="Int32" Nullable="false" />
+          <Property Name="hold_qty" Type="Int32" Nullable="false" />
+          <Property Name="lost_qty" Type="Int32" Nullable="false" />
+          <Property Name="cancel_qty" Type="Int32" Nullable="false" />
+          <Property Name="po_number" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="lost_date" Type="DateTime" Precision="0" />
+          <Property Name="purpose_type_id" Type="Int32" Nullable="false" />
+          <Property Name="guid" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="INDUSTRY" Relationship="apwdbModel.FK_REC_JOB_ORDER_INDUSTRY" FromRole="REC_JOB_ORDER" ToRole="INDUSTRY" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_Client" FromRole="REC_JOB_ORDER" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="REC_CONTRACT_TYPE" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_REC_CONTRACT_TYPE" FromRole="REC_JOB_ORDER" ToRole="REC_CONTRACT_TYPE" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_SYS_USER" FromRole="REC_JOB_ORDER" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_USER1" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_SYS_USER1" FromRole="REC_JOB_ORDER" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_REC_JOB_ORDER_INDUSTRY">
+          <End Type="apwdbModel.INDUSTRY" Role="INDUSTRY" Multiplicity="1" />
+          <End Type="apwdbModel.REC_JOB_ORDER" Role="REC_JOB_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INDUSTRY">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_JOB_ORDER">
+              <PropertyRef Name="industry_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_JOB_ORDER_Client">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.REC_JOB_ORDER" Role="REC_JOB_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_JOB_ORDER">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_JOB_ORDER_REC_CONTRACT_TYPE">
+          <End Type="apwdbModel.REC_CONTRACT_TYPE" Role="REC_CONTRACT_TYPE" Multiplicity="0..1" />
+          <End Type="apwdbModel.REC_JOB_ORDER" Role="REC_JOB_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CONTRACT_TYPE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_JOB_ORDER">
+              <PropertyRef Name="contracttype_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_JOB_ORDER_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_JOB_ORDER" Role="REC_JOB_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_JOB_ORDER">
+              <PropertyRef Name="user_created" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_JOB_ORDER_SYS_USER1">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.REC_JOB_ORDER" Role="REC_JOB_ORDER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_JOB_ORDER">
+              <PropertyRef Name="user_modified" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_M_GET_PAYROLL_MONITORING_Result">
+          <Property Type="Int32" Name="payroll_id" Nullable="true" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="pay_type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="title" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="pay_date" Nullable="true" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="client_id" Nullable="true" />
+          <Property Type="Int32" Name="payroll_type_id" Nullable="true" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="gross_pay" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="total_deduction" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="net" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="head_count" Nullable="true" />
+          <Property Type="Boolean" Name="publish_status" Nullable="true" />
+          <Property Type="Int32" Name="userid" Nullable="true" />
+          <Property Type="Int32" Name="batch_id" Nullable="true" />
+          <Property Type="Int32" Name="jv_id" Nullable="true" />
+          <Property Type="String" Name="jv_no" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="pay_id" Nullable="true" />
+          <Property Type="Int32" Name="inv_id" Nullable="true" />
+          <Property Type="String" Name="soa_no" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="or_id" Nullable="true" />
+          <Property Type="String" Name="or_no" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="USP_B_GET_SALES_INVOICE_MONITORING_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="soa_no" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="soa_date" Nullable="true" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="particulars" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="InvoiceType" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="terms" Nullable="true" />
+          <Property Type="Int32" Name="Aging" Nullable="true" />
+          <Property Type="DateTime" Name="Duedate" Nullable="true" />
+          <Property Type="Decimal" Name="inv_sub_total" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="vat_amount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="inv_grand_total" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="file_status" Nullable="true" />
+          <Property Type="Int32" Name="invoice_type_id" Nullable="true" />
+          <Property Type="Int32" Name="client_id" Nullable="true" />
+          <Property Type="Decimal" Name="remaining_amount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="userid" Nullable="true" />
+          <Property Type="String" Name="po_no" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="department" Nullable="true" MaxLength="1500" />
+          <Property Type="String" Name="pay_type" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="inv_balance" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="cm_cnt" Nullable="true" />
+          <Property Type="Int32" Name="head_cnt" Nullable="true" />
+          <Property Type="String" Name="computation_type" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="USP_B_GET_CREDIT_MEMO_MONITORING_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="cm_no" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="cm_date" Nullable="true" />
+          <Property Type="String" Name="soa_no" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="client_id" Nullable="true" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="particulars" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="status" Nullable="true" />
+          <Property Type="String" Name="cm_type" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="inv_sub_total" Nullable="true" Precision="18" Scale="3" />
+          <Property Type="Decimal" Name="vat_amount" Nullable="true" Precision="18" Scale="3" />
+          <Property Type="Decimal" Name="inv_grand_total" Nullable="true" Precision="18" Scale="3" />
+          <Property Type="String" Name="operation" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="USP_B_GET_OFFICIAL_RECEIPT_MONITORING_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="or_no" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="or_date" Nullable="true" />
+          <Property Type="Int32" Name="client_id" Nullable="true" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="bank_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="particulars" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="int_qty" Nullable="true" />
+          <Property Type="String" Name="payment_type" Nullable="true" MaxLength="15" />
+          <Property Type="Decimal" Name="or_amount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="applied_amount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="balance_amount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Boolean" Name="file_status" Nullable="true" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="apply_amount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="write_amount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="discount_amount" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <EntityType Name="REC_CLIENT_SETUP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="working_days" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="source_rate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="endorse_rate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="seasonal_rate" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="sss_sched" Type="Int32" Nullable="false" />
+          <Property Name="philhealth_sched" Type="Int32" Nullable="false" />
+          <Property Name="pagibig_sched" Type="Int32" Nullable="false" />
+          <Property Name="sss_loan_sched" Type="Int32" Nullable="false" />
+          <Property Name="pagibig_loan_sched" Type="Int32" Nullable="false" />
+          <Property Name="allowance_sched" Type="Int32" Nullable="false" />
+          <Property Name="meal_allowance_sched" Type="Int32" Nullable="false" />
+          <Property Name="rice_allowance_sched" Type="Int32" Nullable="false" />
+          <Property Name="philhealth_computation" Type="Int32" Nullable="false" />
+          <Property Name="sss_computation" Type="Int32" Nullable="false" />
+          <Property Name="ps_max_process_employee_count" Type="Int32" Nullable="false" />
+          <Property Name="ps_regular_process_fee" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ps_special_process_fee" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ps_one_time_fee" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ps_additional_fee" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="rope_admin_fee" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="payroll_payment_1st_cutoff" Type="Int32" Nullable="false" />
+          <Property Name="payroll_payment_2nd_cutoff" Type="Int32" Nullable="false" />
+          <Property Name="other_loan_sched" Type="Int32" Nullable="false" />
+          <Property Name="is_include_thirteen" Type="Boolean" Nullable="false" />
+          <Property Name="is_include_separation_pay" Type="Boolean" Nullable="false" />
+          <Property Name="is_include_hmo" Type="Boolean" Nullable="false" />
+          <Property Name="is_include_silp" Type="Boolean" Nullable="false" />
+          <Property Name="is_include_allowance" Type="Boolean" Nullable="false" />
+          <Property Name="separation_pay_basis" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="thirteen_month_pay_basis" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="silp_days" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="hmo_amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="is_include_ward" Type="Boolean" Nullable="false" />
+          <Property Name="ward_amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="silp_basis" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="sep_pay_basis" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="overtime_setup_id" Type="Int32" Nullable="false" />
+          <Property Name="insurance_amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="include_insurance" Type="Boolean" Nullable="false" />
+          <Property Name="allowance_deduct_basis" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="include_adjustment" Type="Boolean" Nullable="false" />
+          <Property Name="adjustment_basis" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_CLIENT_SETUP_REC_CLIENT" FromRole="REC_CLIENT_SETUP" ToRole="REC_CLIENT" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_SETUP_CUTOFF">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="first_cutoff_from_month" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="first_cutoff_from_day" Type="Int32" Nullable="false" />
+          <Property Name="first_cutoff_to_month" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="first_cutoff_to_day" Type="Int32" Nullable="false" />
+          <Property Name="second_cutoff_from_month" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="second_cutoff_from_day" Type="Int32" Nullable="false" />
+          <Property Name="second_cutoff_to_month" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="second_cutoff_to_day" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="C_FK_REC_CLIENT_SETUP_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_SETUP" Role="REC_CLIENT_SETUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SETUP">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_CLIENT_SETUP_EXT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="Proc_billing_rate" Type="Boolean" Nullable="false" />
+          <Property Name="proc_processing_fee" Type="Boolean" Nullable="false" />
+          <Property Name="term_thirty" Type="Boolean" Nullable="false" />
+          <Property Name="term_fourtyfive" Type="Boolean" Nullable="false" />
+          <Property Name="term_sixty" Type="Boolean" Nullable="false" />
+          <Property Name="term_ninety" Type="Boolean" Nullable="false" />
+          <Property Name="comp_all" Type="Boolean" Nullable="false" />
+          <Property Name="comp_salary_overtime" Type="Boolean" Nullable="false" />
+          <Property Name="comp_salary_only" Type="Boolean" Nullable="false" />
+          <Property Name="comp_overtime_only" Type="Boolean" Nullable="false" />
+          <Property Name="comp_adjustment_only" Type="Boolean" Nullable="false" />
+          <Property Name="term_fifteen" Type="Boolean" Nullable="false" />
+          <Property Name="term_immediate" Type="Boolean" Nullable="false" />
+          <Property Name="proc_billing_card" Type="Boolean" Nullable="false" />
+          <Property Name="term_forty" Type="Boolean" Nullable="false" />
+          <Property Name="term_twenty" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_CLIENT_SETUP_EXT_REC_CLIENT" FromRole="REC_CLIENT_SETUP_EXT" ToRole="REC_CLIENT" />
+        </EntityType>
+        <Association Name="C_FK_REC_CLIENT_SETUP_EXT_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_SETUP_EXT" Role="REC_CLIENT_SETUP_EXT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SETUP_EXT">
+              <PropertyRef Name="client_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8356,6 +9596,317 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_T_MANAGE_CLIENT_SHIFT" FunctionName="apwdbModel.Store.SP_T_MANAGE_CLIENT_SHIFT" />
+          <EntitySetMapping Name="REC_CANDIDATE_EMPLOYMENT">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CANDIDATE_EMPLOYMENT">
+              <MappingFragment StoreEntitySet="REC_CANDIDATE_EMPLOYMENT">
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="is_currently_working" ColumnName="is_currently_working" />
+                <ScalarProperty Name="job_description" ColumnName="job_description" />
+                <ScalarProperty Name="other_benifits" ColumnName="other_benifits" />
+                <ScalarProperty Name="tax_shield_percentage" ColumnName="tax_shield_percentage" />
+                <ScalarProperty Name="is_tax_shield" ColumnName="is_tax_shield" />
+                <ScalarProperty Name="hmo_dependent" ColumnName="hmo_dependent" />
+                <ScalarProperty Name="hmo_principal" ColumnName="hmo_principal" />
+                <ScalarProperty Name="fixed_bonus_16" ColumnName="fixed_bonus_16" />
+                <ScalarProperty Name="fixed_bonus_15" ColumnName="fixed_bonus_15" />
+                <ScalarProperty Name="fixed_bonus_14" ColumnName="fixed_bonus_14" />
+                <ScalarProperty Name="fixed_bonus_13" ColumnName="fixed_bonus_13" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="industry_id" ColumnName="industry_id" />
+                <ScalarProperty Name="function_id" ColumnName="function_id" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="NatureOfBusinessID" ColumnName="NatureOfBusinessID" />
+                <ScalarProperty Name="Internal_Tag" ColumnName="Internal_Tag" />
+                <ScalarProperty Name="employment_Status" ColumnName="employment_Status" />
+                <ScalarProperty Name="Emidiate_head" ColumnName="Emidiate_head" />
+                <ScalarProperty Name="Employ_ID" ColumnName="Employ_ID" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Company_to" ColumnName="Company_to" />
+                <ScalarProperty Name="Company_from" ColumnName="Company_from" />
+                <ScalarProperty Name="Company_Salary" ColumnName="Company_Salary" />
+                <ScalarProperty Name="Reason_for_leaving" ColumnName="Reason_for_leaving" />
+                <ScalarProperty Name="Company_Rank" ColumnName="Company_Rank" />
+                <ScalarProperty Name="Company_position" ColumnName="Company_position" />
+                <ScalarProperty Name="Company_Address" ColumnName="Company_Address" />
+                <ScalarProperty Name="Company_name" ColumnName="Company_name" />
+                <ScalarProperty Name="candidate_id" ColumnName="candidate_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_Skill">
+            <EntityTypeMapping TypeName="apwdbModel.REC_Skill">
+              <MappingFragment StoreEntitySet="REC_Skill">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Skill_details" ColumnName="Skill_details" />
+                <ScalarProperty Name="Skill_description" ColumnName="Skill_description" />
+                <ScalarProperty Name="skill_type" ColumnName="skill_type" />
+                <ScalarProperty Name="function_id" ColumnName="function_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CANDIDATE_SKILL">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CANDIDATE_SKILL">
+              <MappingFragment StoreEntitySet="REC_CANDIDATE_SKILL">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="skill_id" ColumnName="skill_id" />
+                <ScalarProperty Name="candidate_id" ColumnName="candidate_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_FILE_CONFIGURATION">
+            <EntityTypeMapping TypeName="apwdbModel.REC_FILE_CONFIGURATION">
+              <MappingFragment StoreEntitySet="REC_FILE_CONFIGURATION">
+                <ScalarProperty Name="attach_location" ColumnName="attach_location" />
+                <ScalarProperty Name="attach_type" ColumnName="attach_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_JOB_ORDER">
+            <EntityTypeMapping TypeName="apwdbModel.REC_JOB_ORDER">
+              <MappingFragment StoreEntitySet="REC_JOB_ORDER">
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="purpose_type_id" ColumnName="purpose_type_id" />
+                <ScalarProperty Name="lost_date" ColumnName="lost_date" />
+                <ScalarProperty Name="po_number" ColumnName="po_number" />
+                <ScalarProperty Name="cancel_qty" ColumnName="cancel_qty" />
+                <ScalarProperty Name="lost_qty" ColumnName="lost_qty" />
+                <ScalarProperty Name="hold_qty" ColumnName="hold_qty" />
+                <ScalarProperty Name="function_id" ColumnName="function_id" />
+                <ScalarProperty Name="industry_id" ColumnName="industry_id" />
+                <ScalarProperty Name="from_what" ColumnName="from_what" />
+                <ScalarProperty Name="date_complete" ColumnName="date_complete" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="contracttype_id" ColumnName="contracttype_id" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+                <ScalarProperty Name="user_modified" ColumnName="user_modified" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_created" ColumnName="user_created" />
+                <ScalarProperty Name="lost_remarks" ColumnName="lost_remarks" />
+                <ScalarProperty Name="lost_id" ColumnName="lost_id" />
+                <ScalarProperty Name="jd_location" ColumnName="jd_location" />
+                <ScalarProperty Name="jq_location" ColumnName="jq_location" />
+                <ScalarProperty Name="jo_status" ColumnName="jo_status" />
+                <ScalarProperty Name="fee_rate" ColumnName="fee_rate" />
+                <ScalarProperty Name="estimated_salary" ColumnName="estimated_salary" />
+                <ScalarProperty Name="eto" ColumnName="eto" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="jo_date" ColumnName="jo_date" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_M_GET_PAYROLL_MONITORING" FunctionName="apwdbModel.Store.USP_M_GET_PAYROLL_MONITORING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_M_GET_PAYROLL_MONITORING_Result">
+                <ScalarProperty Name="payroll_id" ColumnName="payroll_id" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="pay_type" ColumnName="pay_type" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="pay_date" ColumnName="pay_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="payroll_type_id" ColumnName="payroll_type_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="gross_pay" ColumnName="gross_pay" />
+                <ScalarProperty Name="total_deduction" ColumnName="total_deduction" />
+                <ScalarProperty Name="net" ColumnName="net" />
+                <ScalarProperty Name="head_count" ColumnName="head_count" />
+                <ScalarProperty Name="publish_status" ColumnName="publish_status" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="jv_id" ColumnName="jv_id" />
+                <ScalarProperty Name="jv_no" ColumnName="jv_no" />
+                <ScalarProperty Name="pay_id" ColumnName="pay_id" />
+                <ScalarProperty Name="inv_id" ColumnName="inv_id" />
+                <ScalarProperty Name="soa_no" ColumnName="soa_no" />
+                <ScalarProperty Name="or_id" ColumnName="or_id" />
+                <ScalarProperty Name="or_no" ColumnName="or_no" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_B_GET_SALES_INVOICE_MONITORING" FunctionName="apwdbModel.Store.USP_B_GET_SALES_INVOICE_MONITORING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_B_GET_SALES_INVOICE_MONITORING_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="soa_no" ColumnName="soa_no" />
+                <ScalarProperty Name="soa_date" ColumnName="soa_date" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="particulars" ColumnName="particulars" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+                <ScalarProperty Name="terms" ColumnName="terms" />
+                <ScalarProperty Name="Aging" ColumnName="Aging" />
+                <ScalarProperty Name="Duedate" ColumnName="Duedate" />
+                <ScalarProperty Name="inv_sub_total" ColumnName="inv_sub_total" />
+                <ScalarProperty Name="vat_amount" ColumnName="vat_amount" />
+                <ScalarProperty Name="inv_grand_total" ColumnName="inv_grand_total" />
+                <ScalarProperty Name="file_status" ColumnName="file_status" />
+                <ScalarProperty Name="invoice_type_id" ColumnName="invoice_type_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="remaining_amount" ColumnName="remaining_amount" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="po_no" ColumnName="po_no" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="pay_type" ColumnName="pay_type" />
+                <ScalarProperty Name="inv_balance" ColumnName="inv_balance" />
+                <ScalarProperty Name="cm_cnt" ColumnName="cm_cnt" />
+                <ScalarProperty Name="head_cnt" ColumnName="head_cnt" />
+                <ScalarProperty Name="computation_type" ColumnName="computation_type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_B_GET_CREDIT_MEMO_MONITORING" FunctionName="apwdbModel.Store.USP_B_GET_CREDIT_MEMO_MONITORING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_B_GET_CREDIT_MEMO_MONITORING_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cm_no" ColumnName="cm_no" />
+                <ScalarProperty Name="cm_date" ColumnName="cm_date" />
+                <ScalarProperty Name="soa_no" ColumnName="soa_no" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="particulars" ColumnName="particulars" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="cm_type" ColumnName="cm_type" />
+                <ScalarProperty Name="inv_sub_total" ColumnName="inv_sub_total" />
+                <ScalarProperty Name="vat_amount" ColumnName="vat_amount" />
+                <ScalarProperty Name="inv_grand_total" ColumnName="inv_grand_total" />
+                <ScalarProperty Name="operation" ColumnName="operation" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_B_GET_OFFICIAL_RECEIPT_MONITORING" FunctionName="apwdbModel.Store.USP_B_GET_OFFICIAL_RECEIPT_MONITORING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_B_GET_OFFICIAL_RECEIPT_MONITORING_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="or_no" ColumnName="or_no" />
+                <ScalarProperty Name="or_date" ColumnName="or_date" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="bank_name" ColumnName="bank_name" />
+                <ScalarProperty Name="particulars" ColumnName="particulars" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="int_qty" ColumnName="int_qty" />
+                <ScalarProperty Name="payment_type" ColumnName="payment_type" />
+                <ScalarProperty Name="or_amount" ColumnName="or_amount" />
+                <ScalarProperty Name="applied_amount" ColumnName="applied_amount" />
+                <ScalarProperty Name="balance_amount" ColumnName="balance_amount" />
+                <ScalarProperty Name="file_status" ColumnName="file_status" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="apply_amount" ColumnName="apply_amount" />
+                <ScalarProperty Name="write_amount" ColumnName="write_amount" />
+                <ScalarProperty Name="discount_amount" ColumnName="discount_amount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="REC_CLIENT_SETUP">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_SETUP">
+              <MappingFragment StoreEntitySet="REC_CLIENT_SETUP">
+                <ScalarProperty Name="adjustment_basis" ColumnName="adjustment_basis" />
+                <ScalarProperty Name="include_adjustment" ColumnName="include_adjustment" />
+                <ScalarProperty Name="allowance_deduct_basis" ColumnName="allowance_deduct_basis" />
+                <ScalarProperty Name="include_insurance" ColumnName="include_insurance" />
+                <ScalarProperty Name="insurance_amount" ColumnName="insurance_amount" />
+                <ScalarProperty Name="overtime_setup_id" ColumnName="overtime_setup_id" />
+                <ScalarProperty Name="sep_pay_basis" ColumnName="sep_pay_basis" />
+                <ScalarProperty Name="silp_basis" ColumnName="silp_basis" />
+                <ScalarProperty Name="ward_amount" ColumnName="ward_amount" />
+                <ScalarProperty Name="is_include_ward" ColumnName="is_include_ward" />
+                <ScalarProperty Name="hmo_amount" ColumnName="hmo_amount" />
+                <ScalarProperty Name="silp_days" ColumnName="silp_days" />
+                <ScalarProperty Name="thirteen_month_pay_basis" ColumnName="thirteen_month_pay_basis" />
+                <ScalarProperty Name="separation_pay_basis" ColumnName="separation_pay_basis" />
+                <ScalarProperty Name="is_include_allowance" ColumnName="is_include_allowance" />
+                <ScalarProperty Name="is_include_silp" ColumnName="is_include_silp" />
+                <ScalarProperty Name="is_include_hmo" ColumnName="is_include_hmo" />
+                <ScalarProperty Name="is_include_separation_pay" ColumnName="is_include_separation_pay" />
+                <ScalarProperty Name="is_include_thirteen" ColumnName="is_include_thirteen" />
+                <ScalarProperty Name="other_loan_sched" ColumnName="other_loan_sched" />
+                <ScalarProperty Name="payroll_payment_2nd_cutoff" ColumnName="payroll_payment_2nd_cutoff" />
+                <ScalarProperty Name="payroll_payment_1st_cutoff" ColumnName="payroll_payment_1st_cutoff" />
+                <ScalarProperty Name="rope_admin_fee" ColumnName="rope_admin_fee" />
+                <ScalarProperty Name="ps_additional_fee" ColumnName="ps_additional_fee" />
+                <ScalarProperty Name="ps_one_time_fee" ColumnName="ps_one_time_fee" />
+                <ScalarProperty Name="ps_special_process_fee" ColumnName="ps_special_process_fee" />
+                <ScalarProperty Name="ps_regular_process_fee" ColumnName="ps_regular_process_fee" />
+                <ScalarProperty Name="ps_max_process_employee_count" ColumnName="ps_max_process_employee_count" />
+                <ScalarProperty Name="sss_computation" ColumnName="sss_computation" />
+                <ScalarProperty Name="philhealth_computation" ColumnName="philhealth_computation" />
+                <ScalarProperty Name="rice_allowance_sched" ColumnName="rice_allowance_sched" />
+                <ScalarProperty Name="meal_allowance_sched" ColumnName="meal_allowance_sched" />
+                <ScalarProperty Name="allowance_sched" ColumnName="allowance_sched" />
+                <ScalarProperty Name="pagibig_loan_sched" ColumnName="pagibig_loan_sched" />
+                <ScalarProperty Name="sss_loan_sched" ColumnName="sss_loan_sched" />
+                <ScalarProperty Name="pagibig_sched" ColumnName="pagibig_sched" />
+                <ScalarProperty Name="philhealth_sched" ColumnName="philhealth_sched" />
+                <ScalarProperty Name="sss_sched" ColumnName="sss_sched" />
+                <ScalarProperty Name="seasonal_rate" ColumnName="seasonal_rate" />
+                <ScalarProperty Name="endorse_rate" ColumnName="endorse_rate" />
+                <ScalarProperty Name="source_rate" ColumnName="source_rate" />
+                <ScalarProperty Name="working_days" ColumnName="working_days" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CLIENT_SETUP_CUTOFF">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_SETUP_CUTOFF">
+              <MappingFragment StoreEntitySet="REC_CLIENT_SETUP_CUTOFF">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="second_cutoff_to_day" ColumnName="second_cutoff_to_day" />
+                <ScalarProperty Name="second_cutoff_to_month" ColumnName="second_cutoff_to_month" />
+                <ScalarProperty Name="second_cutoff_from_day" ColumnName="second_cutoff_from_day" />
+                <ScalarProperty Name="second_cutoff_from_month" ColumnName="second_cutoff_from_month" />
+                <ScalarProperty Name="first_cutoff_to_day" ColumnName="first_cutoff_to_day" />
+                <ScalarProperty Name="first_cutoff_to_month" ColumnName="first_cutoff_to_month" />
+                <ScalarProperty Name="first_cutoff_from_day" ColumnName="first_cutoff_from_day" />
+                <ScalarProperty Name="first_cutoff_from_month" ColumnName="first_cutoff_from_month" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_CLIENT_SETUP" FunctionName="apwdbModel.Store.USP_H_MANAGE_CLIENT_SETUP" />
+          <FunctionImportMapping FunctionImportName="USP_I_MANAGE_CLIENT_CUTOFF_SETUP" FunctionName="apwdbModel.Store.USP_I_MANAGE_CLIENT_CUTOFF_SETUP" />
+          <EntitySetMapping Name="REC_CLIENT_SETUP_EXT">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_SETUP_EXT">
+              <MappingFragment StoreEntitySet="REC_CLIENT_SETUP_EXT">
+                <ScalarProperty Name="term_twenty" ColumnName="term_twenty" />
+                <ScalarProperty Name="term_forty" ColumnName="term_forty" />
+                <ScalarProperty Name="proc_billing_card" ColumnName="proc_billing_card" />
+                <ScalarProperty Name="term_immediate" ColumnName="term_immediate" />
+                <ScalarProperty Name="term_fifteen" ColumnName="term_fifteen" />
+                <ScalarProperty Name="comp_adjustment_only" ColumnName="comp_adjustment_only" />
+                <ScalarProperty Name="comp_overtime_only" ColumnName="comp_overtime_only" />
+                <ScalarProperty Name="comp_salary_only" ColumnName="comp_salary_only" />
+                <ScalarProperty Name="comp_salary_overtime" ColumnName="comp_salary_overtime" />
+                <ScalarProperty Name="comp_all" ColumnName="comp_all" />
+                <ScalarProperty Name="term_ninety" ColumnName="term_ninety" />
+                <ScalarProperty Name="term_sixty" ColumnName="term_sixty" />
+                <ScalarProperty Name="term_fourtyfive" ColumnName="term_fourtyfive" />
+                <ScalarProperty Name="term_thirty" ColumnName="term_thirty" />
+                <ScalarProperty Name="proc_processing_fee" ColumnName="proc_processing_fee" />
+                <ScalarProperty Name="Proc_billing_rate" ColumnName="Proc_billing_rate" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_I_MASTER_CLIENT_SETUP_EXT" FunctionName="apwdbModel.Store.USP_I_MASTER_CLIENT_SETUP_EXT" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_CLIENT_INTERIM_SETUP" FunctionName="apwdbModel.Store.USP_H_MANAGE_CLIENT_INTERIM_SETUP" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_CLIENT_SETUP_PAYROLL_SERVICE" FunctionName="apwdbModel.Store.USP_H_MANAGE_CLIENT_SETUP_PAYROLL_SERVICE" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

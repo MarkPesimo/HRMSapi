@@ -192,6 +192,15 @@
     <Compile Include="REC_CLIENT_DOCUMENTS.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_CLIENT_SETUP.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_SETUP_CUTOFF.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_SETUP_EXT.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_CLIENT_SHIFT.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -199,6 +208,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_FILE_CONFIGURATION.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_JOB_ORDER.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_NEW_HIRED_EMPLOYEE.cs">
@@ -261,6 +273,15 @@
     <Compile Include="USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="USP_B_GET_CREDIT_MEMO_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_B_GET_OFFICIAL_RECEIPT_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_B_GET_SALES_INVOICE_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -319,6 +340,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_M_GET_PAYROLL_MONITORING_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
   </ItemGroup>

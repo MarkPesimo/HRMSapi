@@ -80,6 +80,14 @@ namespace HRMS.DB
         public virtual DbSet<sys_company> sys_company { get; set; }
         public virtual DbSet<SYS_BANK> SYS_BANK { get; set; }
         public virtual DbSet<ADJUSTMENT_CLASSIFICATION> ADJUSTMENT_CLASSIFICATION { get; set; }
+        public virtual DbSet<REC_CANDIDATE_EMPLOYMENT> REC_CANDIDATE_EMPLOYMENT { get; set; }
+        public virtual DbSet<REC_Skill> REC_Skill { get; set; }
+        public virtual DbSet<REC_CANDIDATE_SKILL> REC_CANDIDATE_SKILL { get; set; }
+        public virtual DbSet<REC_FILE_CONFIGURATION> REC_FILE_CONFIGURATION { get; set; }
+        public virtual DbSet<REC_JOB_ORDER> REC_JOB_ORDER { get; set; }
+        public virtual DbSet<REC_CLIENT_SETUP> REC_CLIENT_SETUP { get; set; }
+        public virtual DbSet<REC_CLIENT_SETUP_CUTOFF> REC_CLIENT_SETUP_CUTOFF { get; set; }
+        public virtual DbSet<REC_CLIENT_SETUP_EXT> REC_CLIENT_SETUP_EXT { get; set; }
     
         public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
         {
@@ -2311,6 +2319,579 @@ namespace HRMS.DB
                 new ObjectParameter("MODE", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_T_MANAGE_CLIENT_SHIFT", iDParameter, cLIENT_IDParameter, sHIFT_IDParameter, uSERIDParameter, mODEParameter, rET_ID);
+        }
+    
+        public virtual ObjectResult<USP_M_GET_PAYROLL_MONITORING_Result> USP_M_GET_PAYROLL_MONITORING(Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<bool> bY_STATUS, Nullable<int> sTATUS, Nullable<int> mONTH, Nullable<int> yEAR, string kEYWORD, Nullable<bool> bY_PAYDATE, Nullable<System.DateTime> pAY_DATE_FROM, Nullable<System.DateTime> pAY_DATE_TO, Nullable<bool> bY_USER, Nullable<int> uSER_ID, Nullable<bool> bY_PAYROLL_TYPE, Nullable<int> pAYROLL_TYPE_ID)
+        {
+            var bY_CLIENTParameter = bY_CLIENT.HasValue ?
+                new ObjectParameter("BY_CLIENT", bY_CLIENT) :
+                new ObjectParameter("BY_CLIENT", typeof(bool));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var bY_STATUSParameter = bY_STATUS.HasValue ?
+                new ObjectParameter("BY_STATUS", bY_STATUS) :
+                new ObjectParameter("BY_STATUS", typeof(bool));
+    
+            var sTATUSParameter = sTATUS.HasValue ?
+                new ObjectParameter("STATUS", sTATUS) :
+                new ObjectParameter("STATUS", typeof(int));
+    
+            var mONTHParameter = mONTH.HasValue ?
+                new ObjectParameter("MONTH", mONTH) :
+                new ObjectParameter("MONTH", typeof(int));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kEYWORDParameter = kEYWORD != null ?
+                new ObjectParameter("KEYWORD", kEYWORD) :
+                new ObjectParameter("KEYWORD", typeof(string));
+    
+            var bY_PAYDATEParameter = bY_PAYDATE.HasValue ?
+                new ObjectParameter("BY_PAYDATE", bY_PAYDATE) :
+                new ObjectParameter("BY_PAYDATE", typeof(bool));
+    
+            var pAY_DATE_FROMParameter = pAY_DATE_FROM.HasValue ?
+                new ObjectParameter("PAY_DATE_FROM", pAY_DATE_FROM) :
+                new ObjectParameter("PAY_DATE_FROM", typeof(System.DateTime));
+    
+            var pAY_DATE_TOParameter = pAY_DATE_TO.HasValue ?
+                new ObjectParameter("PAY_DATE_TO", pAY_DATE_TO) :
+                new ObjectParameter("PAY_DATE_TO", typeof(System.DateTime));
+    
+            var bY_USERParameter = bY_USER.HasValue ?
+                new ObjectParameter("BY_USER", bY_USER) :
+                new ObjectParameter("BY_USER", typeof(bool));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var bY_PAYROLL_TYPEParameter = bY_PAYROLL_TYPE.HasValue ?
+                new ObjectParameter("BY_PAYROLL_TYPE", bY_PAYROLL_TYPE) :
+                new ObjectParameter("BY_PAYROLL_TYPE", typeof(bool));
+    
+            var pAYROLL_TYPE_IDParameter = pAYROLL_TYPE_ID.HasValue ?
+                new ObjectParameter("PAYROLL_TYPE_ID", pAYROLL_TYPE_ID) :
+                new ObjectParameter("PAYROLL_TYPE_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_M_GET_PAYROLL_MONITORING_Result>("USP_M_GET_PAYROLL_MONITORING", bY_CLIENTParameter, cLIENT_IDParameter, bY_STATUSParameter, sTATUSParameter, mONTHParameter, yEARParameter, kEYWORDParameter, bY_PAYDATEParameter, pAY_DATE_FROMParameter, pAY_DATE_TOParameter, bY_USERParameter, uSER_IDParameter, bY_PAYROLL_TYPEParameter, pAYROLL_TYPE_IDParameter);
+        }
+    
+        public virtual ObjectResult<USP_B_GET_SALES_INVOICE_MONITORING_Result> USP_B_GET_SALES_INVOICE_MONITORING(Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<bool> bY_INVOICE_TYPE, Nullable<int> iNVOICE_TYPE_ID, Nullable<bool> bY_DATE, Nullable<System.DateTime> dATE_FROM, Nullable<System.DateTime> dATE_TO, Nullable<bool> bY_STATUS, string sTATUS, string kEYWORD, Nullable<bool> bY_USER, Nullable<int> uSER_ID, Nullable<bool> bY_PAYTYPE, string pAY_TYPE, Nullable<bool> bY_COMPUTATION_TYPE, string cOMPUTATION_TYPE)
+        {
+            var bY_CLIENTParameter = bY_CLIENT.HasValue ?
+                new ObjectParameter("BY_CLIENT", bY_CLIENT) :
+                new ObjectParameter("BY_CLIENT", typeof(bool));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var bY_INVOICE_TYPEParameter = bY_INVOICE_TYPE.HasValue ?
+                new ObjectParameter("BY_INVOICE_TYPE", bY_INVOICE_TYPE) :
+                new ObjectParameter("BY_INVOICE_TYPE", typeof(bool));
+    
+            var iNVOICE_TYPE_IDParameter = iNVOICE_TYPE_ID.HasValue ?
+                new ObjectParameter("INVOICE_TYPE_ID", iNVOICE_TYPE_ID) :
+                new ObjectParameter("INVOICE_TYPE_ID", typeof(int));
+    
+            var bY_DATEParameter = bY_DATE.HasValue ?
+                new ObjectParameter("BY_DATE", bY_DATE) :
+                new ObjectParameter("BY_DATE", typeof(bool));
+    
+            var dATE_FROMParameter = dATE_FROM.HasValue ?
+                new ObjectParameter("DATE_FROM", dATE_FROM) :
+                new ObjectParameter("DATE_FROM", typeof(System.DateTime));
+    
+            var dATE_TOParameter = dATE_TO.HasValue ?
+                new ObjectParameter("DATE_TO", dATE_TO) :
+                new ObjectParameter("DATE_TO", typeof(System.DateTime));
+    
+            var bY_STATUSParameter = bY_STATUS.HasValue ?
+                new ObjectParameter("BY_STATUS", bY_STATUS) :
+                new ObjectParameter("BY_STATUS", typeof(bool));
+    
+            var sTATUSParameter = sTATUS != null ?
+                new ObjectParameter("STATUS", sTATUS) :
+                new ObjectParameter("STATUS", typeof(string));
+    
+            var kEYWORDParameter = kEYWORD != null ?
+                new ObjectParameter("KEYWORD", kEYWORD) :
+                new ObjectParameter("KEYWORD", typeof(string));
+    
+            var bY_USERParameter = bY_USER.HasValue ?
+                new ObjectParameter("BY_USER", bY_USER) :
+                new ObjectParameter("BY_USER", typeof(bool));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var bY_PAYTYPEParameter = bY_PAYTYPE.HasValue ?
+                new ObjectParameter("BY_PAYTYPE", bY_PAYTYPE) :
+                new ObjectParameter("BY_PAYTYPE", typeof(bool));
+    
+            var pAY_TYPEParameter = pAY_TYPE != null ?
+                new ObjectParameter("PAY_TYPE", pAY_TYPE) :
+                new ObjectParameter("PAY_TYPE", typeof(string));
+    
+            var bY_COMPUTATION_TYPEParameter = bY_COMPUTATION_TYPE.HasValue ?
+                new ObjectParameter("BY_COMPUTATION_TYPE", bY_COMPUTATION_TYPE) :
+                new ObjectParameter("BY_COMPUTATION_TYPE", typeof(bool));
+    
+            var cOMPUTATION_TYPEParameter = cOMPUTATION_TYPE != null ?
+                new ObjectParameter("COMPUTATION_TYPE", cOMPUTATION_TYPE) :
+                new ObjectParameter("COMPUTATION_TYPE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_B_GET_SALES_INVOICE_MONITORING_Result>("USP_B_GET_SALES_INVOICE_MONITORING", bY_CLIENTParameter, cLIENT_IDParameter, bY_INVOICE_TYPEParameter, iNVOICE_TYPE_IDParameter, bY_DATEParameter, dATE_FROMParameter, dATE_TOParameter, bY_STATUSParameter, sTATUSParameter, kEYWORDParameter, bY_USERParameter, uSER_IDParameter, bY_PAYTYPEParameter, pAY_TYPEParameter, bY_COMPUTATION_TYPEParameter, cOMPUTATION_TYPEParameter);
+        }
+    
+        public virtual ObjectResult<USP_B_GET_CREDIT_MEMO_MONITORING_Result> USP_B_GET_CREDIT_MEMO_MONITORING(Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<bool> bY_CM_TYPE, string cM_TYPE, Nullable<bool> bY_DATE, Nullable<System.DateTime> dATE_FROM, Nullable<System.DateTime> dATE_TO, Nullable<bool> bY_STATUS, string sTATUS, string kEYWORD)
+        {
+            var bY_CLIENTParameter = bY_CLIENT.HasValue ?
+                new ObjectParameter("BY_CLIENT", bY_CLIENT) :
+                new ObjectParameter("BY_CLIENT", typeof(bool));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var bY_CM_TYPEParameter = bY_CM_TYPE.HasValue ?
+                new ObjectParameter("BY_CM_TYPE", bY_CM_TYPE) :
+                new ObjectParameter("BY_CM_TYPE", typeof(bool));
+    
+            var cM_TYPEParameter = cM_TYPE != null ?
+                new ObjectParameter("CM_TYPE", cM_TYPE) :
+                new ObjectParameter("CM_TYPE", typeof(string));
+    
+            var bY_DATEParameter = bY_DATE.HasValue ?
+                new ObjectParameter("BY_DATE", bY_DATE) :
+                new ObjectParameter("BY_DATE", typeof(bool));
+    
+            var dATE_FROMParameter = dATE_FROM.HasValue ?
+                new ObjectParameter("DATE_FROM", dATE_FROM) :
+                new ObjectParameter("DATE_FROM", typeof(System.DateTime));
+    
+            var dATE_TOParameter = dATE_TO.HasValue ?
+                new ObjectParameter("DATE_TO", dATE_TO) :
+                new ObjectParameter("DATE_TO", typeof(System.DateTime));
+    
+            var bY_STATUSParameter = bY_STATUS.HasValue ?
+                new ObjectParameter("BY_STATUS", bY_STATUS) :
+                new ObjectParameter("BY_STATUS", typeof(bool));
+    
+            var sTATUSParameter = sTATUS != null ?
+                new ObjectParameter("STATUS", sTATUS) :
+                new ObjectParameter("STATUS", typeof(string));
+    
+            var kEYWORDParameter = kEYWORD != null ?
+                new ObjectParameter("KEYWORD", kEYWORD) :
+                new ObjectParameter("KEYWORD", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_B_GET_CREDIT_MEMO_MONITORING_Result>("USP_B_GET_CREDIT_MEMO_MONITORING", bY_CLIENTParameter, cLIENT_IDParameter, bY_CM_TYPEParameter, cM_TYPEParameter, bY_DATEParameter, dATE_FROMParameter, dATE_TOParameter, bY_STATUSParameter, sTATUSParameter, kEYWORDParameter);
+        }
+    
+        public virtual ObjectResult<USP_B_GET_OFFICIAL_RECEIPT_MONITORING_Result> USP_B_GET_OFFICIAL_RECEIPT_MONITORING(Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<bool> bY_DATE, Nullable<System.DateTime> fROM, Nullable<System.DateTime> tO, Nullable<bool> bY_STATUS, string sTATUS, string kEYWORD, Nullable<bool> bY_USER, Nullable<int> uSER_ID)
+        {
+            var bY_CLIENTParameter = bY_CLIENT.HasValue ?
+                new ObjectParameter("BY_CLIENT", bY_CLIENT) :
+                new ObjectParameter("BY_CLIENT", typeof(bool));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var bY_DATEParameter = bY_DATE.HasValue ?
+                new ObjectParameter("BY_DATE", bY_DATE) :
+                new ObjectParameter("BY_DATE", typeof(bool));
+    
+            var fROMParameter = fROM.HasValue ?
+                new ObjectParameter("FROM", fROM) :
+                new ObjectParameter("FROM", typeof(System.DateTime));
+    
+            var tOParameter = tO.HasValue ?
+                new ObjectParameter("TO", tO) :
+                new ObjectParameter("TO", typeof(System.DateTime));
+    
+            var bY_STATUSParameter = bY_STATUS.HasValue ?
+                new ObjectParameter("BY_STATUS", bY_STATUS) :
+                new ObjectParameter("BY_STATUS", typeof(bool));
+    
+            var sTATUSParameter = sTATUS != null ?
+                new ObjectParameter("STATUS", sTATUS) :
+                new ObjectParameter("STATUS", typeof(string));
+    
+            var kEYWORDParameter = kEYWORD != null ?
+                new ObjectParameter("KEYWORD", kEYWORD) :
+                new ObjectParameter("KEYWORD", typeof(string));
+    
+            var bY_USERParameter = bY_USER.HasValue ?
+                new ObjectParameter("BY_USER", bY_USER) :
+                new ObjectParameter("BY_USER", typeof(bool));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_B_GET_OFFICIAL_RECEIPT_MONITORING_Result>("USP_B_GET_OFFICIAL_RECEIPT_MONITORING", bY_CLIENTParameter, cLIENT_IDParameter, bY_DATEParameter, fROMParameter, tOParameter, bY_STATUSParameter, sTATUSParameter, kEYWORDParameter, bY_USERParameter, uSER_IDParameter);
+        }
+    
+        public virtual int USP_H_MANAGE_CLIENT_SETUP(Nullable<int> iD, Nullable<int> cLIENT_ID, Nullable<int> sSS_SCHED, Nullable<int> pHILHEALTH_SCHED, Nullable<int> pAGIBIG_SCHED, Nullable<int> aLLOWANCE_SCHED, string aLLOWANCE_DEDUCT_BASIS, Nullable<int> mEAL_ALLOWANCE_SCHED, Nullable<int> rICE_ALLOWANCE_SCHED, Nullable<int> pAYROLL_PAYMENT_1ST_CUTOFFF, Nullable<int> pAYROLL_PAYMENT_2ND_CUTOFFF, Nullable<int> sSS_COMP_BASIS, Nullable<int> pHILHEALTH_COMP_BASIS, Nullable<int> sSS_LOAN_SCHED, Nullable<int> pAGIBIG_LOAN_SCHED, Nullable<int> oTHER_LOAN_SCHED, Nullable<int> uSERID, Nullable<int> mODE, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var sSS_SCHEDParameter = sSS_SCHED.HasValue ?
+                new ObjectParameter("SSS_SCHED", sSS_SCHED) :
+                new ObjectParameter("SSS_SCHED", typeof(int));
+    
+            var pHILHEALTH_SCHEDParameter = pHILHEALTH_SCHED.HasValue ?
+                new ObjectParameter("PHILHEALTH_SCHED", pHILHEALTH_SCHED) :
+                new ObjectParameter("PHILHEALTH_SCHED", typeof(int));
+    
+            var pAGIBIG_SCHEDParameter = pAGIBIG_SCHED.HasValue ?
+                new ObjectParameter("PAGIBIG_SCHED", pAGIBIG_SCHED) :
+                new ObjectParameter("PAGIBIG_SCHED", typeof(int));
+    
+            var aLLOWANCE_SCHEDParameter = aLLOWANCE_SCHED.HasValue ?
+                new ObjectParameter("ALLOWANCE_SCHED", aLLOWANCE_SCHED) :
+                new ObjectParameter("ALLOWANCE_SCHED", typeof(int));
+    
+            var aLLOWANCE_DEDUCT_BASISParameter = aLLOWANCE_DEDUCT_BASIS != null ?
+                new ObjectParameter("ALLOWANCE_DEDUCT_BASIS", aLLOWANCE_DEDUCT_BASIS) :
+                new ObjectParameter("ALLOWANCE_DEDUCT_BASIS", typeof(string));
+    
+            var mEAL_ALLOWANCE_SCHEDParameter = mEAL_ALLOWANCE_SCHED.HasValue ?
+                new ObjectParameter("MEAL_ALLOWANCE_SCHED", mEAL_ALLOWANCE_SCHED) :
+                new ObjectParameter("MEAL_ALLOWANCE_SCHED", typeof(int));
+    
+            var rICE_ALLOWANCE_SCHEDParameter = rICE_ALLOWANCE_SCHED.HasValue ?
+                new ObjectParameter("RICE_ALLOWANCE_SCHED", rICE_ALLOWANCE_SCHED) :
+                new ObjectParameter("RICE_ALLOWANCE_SCHED", typeof(int));
+    
+            var pAYROLL_PAYMENT_1ST_CUTOFFFParameter = pAYROLL_PAYMENT_1ST_CUTOFFF.HasValue ?
+                new ObjectParameter("PAYROLL_PAYMENT_1ST_CUTOFFF", pAYROLL_PAYMENT_1ST_CUTOFFF) :
+                new ObjectParameter("PAYROLL_PAYMENT_1ST_CUTOFFF", typeof(int));
+    
+            var pAYROLL_PAYMENT_2ND_CUTOFFFParameter = pAYROLL_PAYMENT_2ND_CUTOFFF.HasValue ?
+                new ObjectParameter("PAYROLL_PAYMENT_2ND_CUTOFFF", pAYROLL_PAYMENT_2ND_CUTOFFF) :
+                new ObjectParameter("PAYROLL_PAYMENT_2ND_CUTOFFF", typeof(int));
+    
+            var sSS_COMP_BASISParameter = sSS_COMP_BASIS.HasValue ?
+                new ObjectParameter("SSS_COMP_BASIS", sSS_COMP_BASIS) :
+                new ObjectParameter("SSS_COMP_BASIS", typeof(int));
+    
+            var pHILHEALTH_COMP_BASISParameter = pHILHEALTH_COMP_BASIS.HasValue ?
+                new ObjectParameter("PHILHEALTH_COMP_BASIS", pHILHEALTH_COMP_BASIS) :
+                new ObjectParameter("PHILHEALTH_COMP_BASIS", typeof(int));
+    
+            var sSS_LOAN_SCHEDParameter = sSS_LOAN_SCHED.HasValue ?
+                new ObjectParameter("SSS_LOAN_SCHED", sSS_LOAN_SCHED) :
+                new ObjectParameter("SSS_LOAN_SCHED", typeof(int));
+    
+            var pAGIBIG_LOAN_SCHEDParameter = pAGIBIG_LOAN_SCHED.HasValue ?
+                new ObjectParameter("PAGIBIG_LOAN_SCHED", pAGIBIG_LOAN_SCHED) :
+                new ObjectParameter("PAGIBIG_LOAN_SCHED", typeof(int));
+    
+            var oTHER_LOAN_SCHEDParameter = oTHER_LOAN_SCHED.HasValue ?
+                new ObjectParameter("OTHER_LOAN_SCHED", oTHER_LOAN_SCHED) :
+                new ObjectParameter("OTHER_LOAN_SCHED", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_CLIENT_SETUP", iDParameter, cLIENT_IDParameter, sSS_SCHEDParameter, pHILHEALTH_SCHEDParameter, pAGIBIG_SCHEDParameter, aLLOWANCE_SCHEDParameter, aLLOWANCE_DEDUCT_BASISParameter, mEAL_ALLOWANCE_SCHEDParameter, rICE_ALLOWANCE_SCHEDParameter, pAYROLL_PAYMENT_1ST_CUTOFFFParameter, pAYROLL_PAYMENT_2ND_CUTOFFFParameter, sSS_COMP_BASISParameter, pHILHEALTH_COMP_BASISParameter, sSS_LOAN_SCHEDParameter, pAGIBIG_LOAN_SCHEDParameter, oTHER_LOAN_SCHEDParameter, uSERIDParameter, mODEParameter, rET_ID);
+        }
+    
+        public virtual int USP_I_MANAGE_CLIENT_CUTOFF_SETUP(Nullable<int> cLIENT_ID, string fIRST_CUTOFF_FROM_MONTH, Nullable<int> fIRST_CUTOFF_FROM_DAY, string fIRST_CUTOFF_TO_MONTH, Nullable<int> fIRST_CUTOFF_TO_DAY, string sECOND_CUTOFF_FROM_MONTH, Nullable<int> sECOND_CUTOFF_FROM_DAY, string sECOND_CUTOFF_TO_MONTH, Nullable<int> sECOND_CUTOFF_TO_DAY, Nullable<int> uSER_ID)
+        {
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var fIRST_CUTOFF_FROM_MONTHParameter = fIRST_CUTOFF_FROM_MONTH != null ?
+                new ObjectParameter("FIRST_CUTOFF_FROM_MONTH", fIRST_CUTOFF_FROM_MONTH) :
+                new ObjectParameter("FIRST_CUTOFF_FROM_MONTH", typeof(string));
+    
+            var fIRST_CUTOFF_FROM_DAYParameter = fIRST_CUTOFF_FROM_DAY.HasValue ?
+                new ObjectParameter("FIRST_CUTOFF_FROM_DAY", fIRST_CUTOFF_FROM_DAY) :
+                new ObjectParameter("FIRST_CUTOFF_FROM_DAY", typeof(int));
+    
+            var fIRST_CUTOFF_TO_MONTHParameter = fIRST_CUTOFF_TO_MONTH != null ?
+                new ObjectParameter("FIRST_CUTOFF_TO_MONTH", fIRST_CUTOFF_TO_MONTH) :
+                new ObjectParameter("FIRST_CUTOFF_TO_MONTH", typeof(string));
+    
+            var fIRST_CUTOFF_TO_DAYParameter = fIRST_CUTOFF_TO_DAY.HasValue ?
+                new ObjectParameter("FIRST_CUTOFF_TO_DAY", fIRST_CUTOFF_TO_DAY) :
+                new ObjectParameter("FIRST_CUTOFF_TO_DAY", typeof(int));
+    
+            var sECOND_CUTOFF_FROM_MONTHParameter = sECOND_CUTOFF_FROM_MONTH != null ?
+                new ObjectParameter("SECOND_CUTOFF_FROM_MONTH", sECOND_CUTOFF_FROM_MONTH) :
+                new ObjectParameter("SECOND_CUTOFF_FROM_MONTH", typeof(string));
+    
+            var sECOND_CUTOFF_FROM_DAYParameter = sECOND_CUTOFF_FROM_DAY.HasValue ?
+                new ObjectParameter("SECOND_CUTOFF_FROM_DAY", sECOND_CUTOFF_FROM_DAY) :
+                new ObjectParameter("SECOND_CUTOFF_FROM_DAY", typeof(int));
+    
+            var sECOND_CUTOFF_TO_MONTHParameter = sECOND_CUTOFF_TO_MONTH != null ?
+                new ObjectParameter("SECOND_CUTOFF_TO_MONTH", sECOND_CUTOFF_TO_MONTH) :
+                new ObjectParameter("SECOND_CUTOFF_TO_MONTH", typeof(string));
+    
+            var sECOND_CUTOFF_TO_DAYParameter = sECOND_CUTOFF_TO_DAY.HasValue ?
+                new ObjectParameter("SECOND_CUTOFF_TO_DAY", sECOND_CUTOFF_TO_DAY) :
+                new ObjectParameter("SECOND_CUTOFF_TO_DAY", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_I_MANAGE_CLIENT_CUTOFF_SETUP", cLIENT_IDParameter, fIRST_CUTOFF_FROM_MONTHParameter, fIRST_CUTOFF_FROM_DAYParameter, fIRST_CUTOFF_TO_MONTHParameter, fIRST_CUTOFF_TO_DAYParameter, sECOND_CUTOFF_FROM_MONTHParameter, sECOND_CUTOFF_FROM_DAYParameter, sECOND_CUTOFF_TO_MONTHParameter, sECOND_CUTOFF_TO_DAYParameter, uSER_IDParameter);
+        }
+    
+        public virtual int USP_I_MASTER_CLIENT_SETUP_EXT(Nullable<int> iD, Nullable<int> cLIENT_ID, Nullable<bool> pROC_BILLING_RATE, Nullable<bool> pROC_PROCESSING_FEE, Nullable<bool> tERM_THIRTY, Nullable<bool> tERM_FOURTYFIVE, Nullable<bool> tERM_SIXTY, Nullable<bool> tERM_NINETY, Nullable<bool> cOMP_ALL, Nullable<bool> cOMP_SALARY_OVERTIME, Nullable<bool> cOMP_SALARY_ONLY, Nullable<bool> cOMP_OVERTIME_ONLY, Nullable<bool> cOMP_ADJUSTMENT_ONLY, Nullable<bool> tERM_FIFTEEN, Nullable<bool> tERM_IMMEDIATE, Nullable<bool> pROC_BILLING_CARD, Nullable<int> mODE, Nullable<int> uSERID, ObjectParameter rET_ID, Nullable<bool> tERM_TWENTY, Nullable<bool> tERM_FORTY)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var pROC_BILLING_RATEParameter = pROC_BILLING_RATE.HasValue ?
+                new ObjectParameter("PROC_BILLING_RATE", pROC_BILLING_RATE) :
+                new ObjectParameter("PROC_BILLING_RATE", typeof(bool));
+    
+            var pROC_PROCESSING_FEEParameter = pROC_PROCESSING_FEE.HasValue ?
+                new ObjectParameter("PROC_PROCESSING_FEE", pROC_PROCESSING_FEE) :
+                new ObjectParameter("PROC_PROCESSING_FEE", typeof(bool));
+    
+            var tERM_THIRTYParameter = tERM_THIRTY.HasValue ?
+                new ObjectParameter("TERM_THIRTY", tERM_THIRTY) :
+                new ObjectParameter("TERM_THIRTY", typeof(bool));
+    
+            var tERM_FOURTYFIVEParameter = tERM_FOURTYFIVE.HasValue ?
+                new ObjectParameter("TERM_FOURTYFIVE", tERM_FOURTYFIVE) :
+                new ObjectParameter("TERM_FOURTYFIVE", typeof(bool));
+    
+            var tERM_SIXTYParameter = tERM_SIXTY.HasValue ?
+                new ObjectParameter("TERM_SIXTY", tERM_SIXTY) :
+                new ObjectParameter("TERM_SIXTY", typeof(bool));
+    
+            var tERM_NINETYParameter = tERM_NINETY.HasValue ?
+                new ObjectParameter("TERM_NINETY", tERM_NINETY) :
+                new ObjectParameter("TERM_NINETY", typeof(bool));
+    
+            var cOMP_ALLParameter = cOMP_ALL.HasValue ?
+                new ObjectParameter("COMP_ALL", cOMP_ALL) :
+                new ObjectParameter("COMP_ALL", typeof(bool));
+    
+            var cOMP_SALARY_OVERTIMEParameter = cOMP_SALARY_OVERTIME.HasValue ?
+                new ObjectParameter("COMP_SALARY_OVERTIME", cOMP_SALARY_OVERTIME) :
+                new ObjectParameter("COMP_SALARY_OVERTIME", typeof(bool));
+    
+            var cOMP_SALARY_ONLYParameter = cOMP_SALARY_ONLY.HasValue ?
+                new ObjectParameter("COMP_SALARY_ONLY", cOMP_SALARY_ONLY) :
+                new ObjectParameter("COMP_SALARY_ONLY", typeof(bool));
+    
+            var cOMP_OVERTIME_ONLYParameter = cOMP_OVERTIME_ONLY.HasValue ?
+                new ObjectParameter("COMP_OVERTIME_ONLY", cOMP_OVERTIME_ONLY) :
+                new ObjectParameter("COMP_OVERTIME_ONLY", typeof(bool));
+    
+            var cOMP_ADJUSTMENT_ONLYParameter = cOMP_ADJUSTMENT_ONLY.HasValue ?
+                new ObjectParameter("COMP_ADJUSTMENT_ONLY", cOMP_ADJUSTMENT_ONLY) :
+                new ObjectParameter("COMP_ADJUSTMENT_ONLY", typeof(bool));
+    
+            var tERM_FIFTEENParameter = tERM_FIFTEEN.HasValue ?
+                new ObjectParameter("TERM_FIFTEEN", tERM_FIFTEEN) :
+                new ObjectParameter("TERM_FIFTEEN", typeof(bool));
+    
+            var tERM_IMMEDIATEParameter = tERM_IMMEDIATE.HasValue ?
+                new ObjectParameter("TERM_IMMEDIATE", tERM_IMMEDIATE) :
+                new ObjectParameter("TERM_IMMEDIATE", typeof(bool));
+    
+            var pROC_BILLING_CARDParameter = pROC_BILLING_CARD.HasValue ?
+                new ObjectParameter("PROC_BILLING_CARD", pROC_BILLING_CARD) :
+                new ObjectParameter("PROC_BILLING_CARD", typeof(bool));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var tERM_TWENTYParameter = tERM_TWENTY.HasValue ?
+                new ObjectParameter("TERM_TWENTY", tERM_TWENTY) :
+                new ObjectParameter("TERM_TWENTY", typeof(bool));
+    
+            var tERM_FORTYParameter = tERM_FORTY.HasValue ?
+                new ObjectParameter("TERM_FORTY", tERM_FORTY) :
+                new ObjectParameter("TERM_FORTY", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_I_MASTER_CLIENT_SETUP_EXT", iDParameter, cLIENT_IDParameter, pROC_BILLING_RATEParameter, pROC_PROCESSING_FEEParameter, tERM_THIRTYParameter, tERM_FOURTYFIVEParameter, tERM_SIXTYParameter, tERM_NINETYParameter, cOMP_ALLParameter, cOMP_SALARY_OVERTIMEParameter, cOMP_SALARY_ONLYParameter, cOMP_OVERTIME_ONLYParameter, cOMP_ADJUSTMENT_ONLYParameter, tERM_FIFTEENParameter, tERM_IMMEDIATEParameter, pROC_BILLING_CARDParameter, mODEParameter, uSERIDParameter, rET_ID, tERM_TWENTYParameter, tERM_FORTYParameter);
+        }
+    
+        public virtual int USP_H_MANAGE_CLIENT_INTERIM_SETUP(Nullable<int> iD, Nullable<int> cLIENT_ID, Nullable<decimal> sOURCE_RATE, Nullable<decimal> eNDORSE_RATE, Nullable<decimal> sEASONAL_RATE, Nullable<bool> iS_INCLUDE_THIRTEEN, string tHIRTEEN_MONTH_PAY_BASIS, Nullable<bool> iS_INCLUDE_SEPARATION_PAY, string sEPARATION_PAY_BASIS, string sEP_PAY_BASIS, Nullable<bool> iS_INCLUDE_HMO, Nullable<decimal> hMO_AMOUNT, Nullable<bool> iS_INCLUDE_SILP, Nullable<decimal> sILP_DAYS, string sILP_BASIS, Nullable<bool> iS_INCLUDE_WARD, Nullable<decimal> wARD_AMOUNT, Nullable<bool> iS_INCLUDE_ALLOWANCE, Nullable<bool> iNCLUDE_INSURANCE, Nullable<decimal> iNSURANCE_AMOUNT, Nullable<bool> iNCLUDE_ADJUSTMENT, string aDJUSTMENT_BASIS, Nullable<int> uSERID, Nullable<int> mODE, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var sOURCE_RATEParameter = sOURCE_RATE.HasValue ?
+                new ObjectParameter("SOURCE_RATE", sOURCE_RATE) :
+                new ObjectParameter("SOURCE_RATE", typeof(decimal));
+    
+            var eNDORSE_RATEParameter = eNDORSE_RATE.HasValue ?
+                new ObjectParameter("ENDORSE_RATE", eNDORSE_RATE) :
+                new ObjectParameter("ENDORSE_RATE", typeof(decimal));
+    
+            var sEASONAL_RATEParameter = sEASONAL_RATE.HasValue ?
+                new ObjectParameter("SEASONAL_RATE", sEASONAL_RATE) :
+                new ObjectParameter("SEASONAL_RATE", typeof(decimal));
+    
+            var iS_INCLUDE_THIRTEENParameter = iS_INCLUDE_THIRTEEN.HasValue ?
+                new ObjectParameter("IS_INCLUDE_THIRTEEN", iS_INCLUDE_THIRTEEN) :
+                new ObjectParameter("IS_INCLUDE_THIRTEEN", typeof(bool));
+    
+            var tHIRTEEN_MONTH_PAY_BASISParameter = tHIRTEEN_MONTH_PAY_BASIS != null ?
+                new ObjectParameter("THIRTEEN_MONTH_PAY_BASIS", tHIRTEEN_MONTH_PAY_BASIS) :
+                new ObjectParameter("THIRTEEN_MONTH_PAY_BASIS", typeof(string));
+    
+            var iS_INCLUDE_SEPARATION_PAYParameter = iS_INCLUDE_SEPARATION_PAY.HasValue ?
+                new ObjectParameter("IS_INCLUDE_SEPARATION_PAY", iS_INCLUDE_SEPARATION_PAY) :
+                new ObjectParameter("IS_INCLUDE_SEPARATION_PAY", typeof(bool));
+    
+            var sEPARATION_PAY_BASISParameter = sEPARATION_PAY_BASIS != null ?
+                new ObjectParameter("SEPARATION_PAY_BASIS", sEPARATION_PAY_BASIS) :
+                new ObjectParameter("SEPARATION_PAY_BASIS", typeof(string));
+    
+            var sEP_PAY_BASISParameter = sEP_PAY_BASIS != null ?
+                new ObjectParameter("SEP_PAY_BASIS", sEP_PAY_BASIS) :
+                new ObjectParameter("SEP_PAY_BASIS", typeof(string));
+    
+            var iS_INCLUDE_HMOParameter = iS_INCLUDE_HMO.HasValue ?
+                new ObjectParameter("IS_INCLUDE_HMO", iS_INCLUDE_HMO) :
+                new ObjectParameter("IS_INCLUDE_HMO", typeof(bool));
+    
+            var hMO_AMOUNTParameter = hMO_AMOUNT.HasValue ?
+                new ObjectParameter("HMO_AMOUNT", hMO_AMOUNT) :
+                new ObjectParameter("HMO_AMOUNT", typeof(decimal));
+    
+            var iS_INCLUDE_SILPParameter = iS_INCLUDE_SILP.HasValue ?
+                new ObjectParameter("IS_INCLUDE_SILP", iS_INCLUDE_SILP) :
+                new ObjectParameter("IS_INCLUDE_SILP", typeof(bool));
+    
+            var sILP_DAYSParameter = sILP_DAYS.HasValue ?
+                new ObjectParameter("SILP_DAYS", sILP_DAYS) :
+                new ObjectParameter("SILP_DAYS", typeof(decimal));
+    
+            var sILP_BASISParameter = sILP_BASIS != null ?
+                new ObjectParameter("SILP_BASIS", sILP_BASIS) :
+                new ObjectParameter("SILP_BASIS", typeof(string));
+    
+            var iS_INCLUDE_WARDParameter = iS_INCLUDE_WARD.HasValue ?
+                new ObjectParameter("IS_INCLUDE_WARD", iS_INCLUDE_WARD) :
+                new ObjectParameter("IS_INCLUDE_WARD", typeof(bool));
+    
+            var wARD_AMOUNTParameter = wARD_AMOUNT.HasValue ?
+                new ObjectParameter("WARD_AMOUNT", wARD_AMOUNT) :
+                new ObjectParameter("WARD_AMOUNT", typeof(decimal));
+    
+            var iS_INCLUDE_ALLOWANCEParameter = iS_INCLUDE_ALLOWANCE.HasValue ?
+                new ObjectParameter("IS_INCLUDE_ALLOWANCE", iS_INCLUDE_ALLOWANCE) :
+                new ObjectParameter("IS_INCLUDE_ALLOWANCE", typeof(bool));
+    
+            var iNCLUDE_INSURANCEParameter = iNCLUDE_INSURANCE.HasValue ?
+                new ObjectParameter("INCLUDE_INSURANCE", iNCLUDE_INSURANCE) :
+                new ObjectParameter("INCLUDE_INSURANCE", typeof(bool));
+    
+            var iNSURANCE_AMOUNTParameter = iNSURANCE_AMOUNT.HasValue ?
+                new ObjectParameter("INSURANCE_AMOUNT", iNSURANCE_AMOUNT) :
+                new ObjectParameter("INSURANCE_AMOUNT", typeof(decimal));
+    
+            var iNCLUDE_ADJUSTMENTParameter = iNCLUDE_ADJUSTMENT.HasValue ?
+                new ObjectParameter("INCLUDE_ADJUSTMENT", iNCLUDE_ADJUSTMENT) :
+                new ObjectParameter("INCLUDE_ADJUSTMENT", typeof(bool));
+    
+            var aDJUSTMENT_BASISParameter = aDJUSTMENT_BASIS != null ?
+                new ObjectParameter("ADJUSTMENT_BASIS", aDJUSTMENT_BASIS) :
+                new ObjectParameter("ADJUSTMENT_BASIS", typeof(string));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_CLIENT_INTERIM_SETUP", iDParameter, cLIENT_IDParameter, sOURCE_RATEParameter, eNDORSE_RATEParameter, sEASONAL_RATEParameter, iS_INCLUDE_THIRTEENParameter, tHIRTEEN_MONTH_PAY_BASISParameter, iS_INCLUDE_SEPARATION_PAYParameter, sEPARATION_PAY_BASISParameter, sEP_PAY_BASISParameter, iS_INCLUDE_HMOParameter, hMO_AMOUNTParameter, iS_INCLUDE_SILPParameter, sILP_DAYSParameter, sILP_BASISParameter, iS_INCLUDE_WARDParameter, wARD_AMOUNTParameter, iS_INCLUDE_ALLOWANCEParameter, iNCLUDE_INSURANCEParameter, iNSURANCE_AMOUNTParameter, iNCLUDE_ADJUSTMENTParameter, aDJUSTMENT_BASISParameter, uSERIDParameter, mODEParameter, rET_ID);
+        }
+    
+        public virtual int USP_H_MANAGE_CLIENT_SETUP_PAYROLL_SERVICE(Nullable<int> iD, Nullable<int> cLIENT_ID, Nullable<int> pS_MAX_PROCESS_EMPLOYEE_COUNT, Nullable<decimal> pS_REGULAR_PROCESS_FEE, Nullable<decimal> pS_SPECIAL_PROCESS_FEE, Nullable<decimal> pS_ONE_TIME_FEE, Nullable<decimal> pS_ADDITIONAL_FEE, Nullable<decimal> rOPE_ADMIN_FEE, Nullable<int> uSERID, Nullable<int> mODE, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var pS_MAX_PROCESS_EMPLOYEE_COUNTParameter = pS_MAX_PROCESS_EMPLOYEE_COUNT.HasValue ?
+                new ObjectParameter("PS_MAX_PROCESS_EMPLOYEE_COUNT", pS_MAX_PROCESS_EMPLOYEE_COUNT) :
+                new ObjectParameter("PS_MAX_PROCESS_EMPLOYEE_COUNT", typeof(int));
+    
+            var pS_REGULAR_PROCESS_FEEParameter = pS_REGULAR_PROCESS_FEE.HasValue ?
+                new ObjectParameter("PS_REGULAR_PROCESS_FEE", pS_REGULAR_PROCESS_FEE) :
+                new ObjectParameter("PS_REGULAR_PROCESS_FEE", typeof(decimal));
+    
+            var pS_SPECIAL_PROCESS_FEEParameter = pS_SPECIAL_PROCESS_FEE.HasValue ?
+                new ObjectParameter("PS_SPECIAL_PROCESS_FEE", pS_SPECIAL_PROCESS_FEE) :
+                new ObjectParameter("PS_SPECIAL_PROCESS_FEE", typeof(decimal));
+    
+            var pS_ONE_TIME_FEEParameter = pS_ONE_TIME_FEE.HasValue ?
+                new ObjectParameter("PS_ONE_TIME_FEE", pS_ONE_TIME_FEE) :
+                new ObjectParameter("PS_ONE_TIME_FEE", typeof(decimal));
+    
+            var pS_ADDITIONAL_FEEParameter = pS_ADDITIONAL_FEE.HasValue ?
+                new ObjectParameter("PS_ADDITIONAL_FEE", pS_ADDITIONAL_FEE) :
+                new ObjectParameter("PS_ADDITIONAL_FEE", typeof(decimal));
+    
+            var rOPE_ADMIN_FEEParameter = rOPE_ADMIN_FEE.HasValue ?
+                new ObjectParameter("ROPE_ADMIN_FEE", rOPE_ADMIN_FEE) :
+                new ObjectParameter("ROPE_ADMIN_FEE", typeof(decimal));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_CLIENT_SETUP_PAYROLL_SERVICE", iDParameter, cLIENT_IDParameter, pS_MAX_PROCESS_EMPLOYEE_COUNTParameter, pS_REGULAR_PROCESS_FEEParameter, pS_SPECIAL_PROCESS_FEEParameter, pS_ONE_TIME_FEEParameter, pS_ADDITIONAL_FEEParameter, rOPE_ADMIN_FEEParameter, uSERIDParameter, mODEParameter, rET_ID);
         }
     }
 }

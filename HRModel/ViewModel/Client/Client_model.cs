@@ -275,6 +275,10 @@ namespace HRModel.ViewModel.Client
             public DateTime DateCreated { get; set; }
             public int Mode { get; set; }
         }
+
+ 
+
+       
     }
 
 

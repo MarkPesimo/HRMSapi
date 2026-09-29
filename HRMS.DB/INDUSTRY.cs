@@ -18,6 +18,8 @@ namespace HRMS.DB
         public INDUSTRY()
         {
             this.REC_CLIENT = new HashSet<REC_CLIENT>();
+            this.REC_CANDIDATE_EMPLOYMENT = new HashSet<REC_CANDIDATE_EMPLOYMENT>();
+            this.REC_JOB_ORDER = new HashSet<REC_JOB_ORDER>();
         }
     
         public int id { get; set; }
@@ -31,5 +33,9 @@ namespace HRMS.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_CLIENT> REC_CLIENT { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CANDIDATE_EMPLOYMENT> REC_CANDIDATE_EMPLOYMENT { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_JOB_ORDER> REC_JOB_ORDER { get; set; }
     }
 }

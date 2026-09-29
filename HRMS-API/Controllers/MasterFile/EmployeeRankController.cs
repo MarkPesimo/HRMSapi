@@ -24,7 +24,7 @@ namespace HRMS_API.Controllers.MasterFile
             if (_masterrepository == null) { _masterrepository = new EmployeeType_repository(); }
         }
 
-        [Route("api/EmployeeType/Get")]
+        [Route("api/EmployeeRank/Get")]
         [HttpGet]
         public HttpResponseMessage Get()
         {
@@ -41,7 +41,7 @@ namespace HRMS_API.Controllers.MasterFile
             }
         }
 
-        [Route("api/EmployeeType/Get/{Id}")]
+        [Route("api/EmployeeRank/Get/{Id}")]
         [HttpGet]
         public HttpResponseMessage Get(int Id)
         {
@@ -58,7 +58,7 @@ namespace HRMS_API.Controllers.MasterFile
             }
         }
 
-        [Route("api/EmployeeType/Manage")]
+        [Route("api/EmployeeRank/Manage")]
         [HttpPost]
         public HttpResponseMessage Manage([FromBody] EmployeeType_model model)
         {

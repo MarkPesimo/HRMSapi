@@ -18,10 +18,10 @@ namespace HRMS.DB
         public REC_CANDIDATE()
         {
             this.REC_CANDIDATE_EMPLOYEE_LINK = new HashSet<REC_CANDIDATE_EMPLOYEE_LINK>();
-            this.REC_CANDIDATE_EDUCATION = new HashSet<REC_CANDIDATE_EDUCATION>();
             this.REC_CANDIDATE_DOCUMENT = new HashSet<REC_CANDIDATE_DOCUMENT>();
-            this.REC_CANDIDATE_SKILL = new HashSet<REC_CANDIDATE_SKILL>();
+            this.REC_CANDIDATE_EDUCATION = new HashSet<REC_CANDIDATE_EDUCATION>();
             this.REC_CANDIDATE_EMPLOYMENT = new HashSet<REC_CANDIDATE_EMPLOYMENT>();
+            this.REC_CANDIDATE_SKILL = new HashSet<REC_CANDIDATE_SKILL>();
         }
     
         public int id { get; set; }
@@ -91,12 +91,12 @@ namespace HRMS.DB
         public virtual ICollection<REC_CANDIDATE_EMPLOYEE_LINK> REC_CANDIDATE_EMPLOYEE_LINK { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<REC_CANDIDATE_EDUCATION> REC_CANDIDATE_EDUCATION { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_CANDIDATE_DOCUMENT> REC_CANDIDATE_DOCUMENT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<REC_CANDIDATE_SKILL> REC_CANDIDATE_SKILL { get; set; }
+        public virtual ICollection<REC_CANDIDATE_EDUCATION> REC_CANDIDATE_EDUCATION { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_CANDIDATE_EMPLOYMENT> REC_CANDIDATE_EMPLOYMENT { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_CANDIDATE_SKILL> REC_CANDIDATE_SKILL { get; set; }
     }
 }
