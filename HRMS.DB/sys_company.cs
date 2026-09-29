@@ -33,6 +33,7 @@ namespace HRMS.DB
         public string CompanyWebsite { get; set; }
         public string CompanyLogo { get; set; }
         public int country_id { get; set; }
+        public string guid { get; set; }
     
         public virtual SYS_USER SYS_USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

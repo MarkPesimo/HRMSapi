@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ac44f2c2e5624ec08007520427d074b6" Name="Diagram1" ZoomLevel="101" >
+      <Diagram DiagramId="ac44f2c2e5624ec08007520427d074b6" Name="Diagram1" ZoomLevel="56" >
         <EntityTypeShape EntityType="apwdbModel.Employee" Width="1.5" PointX="9.25" PointY="13.25" IsExpanded="false" />
         <EntityTypeShape EntityType="apwdbModel.REC_USER_LOG" Width="1.5" PointX="0.875" PointY="7" IsExpanded="false" />
         <EntityTypeShape EntityType="apwdbModel.sys_company" Width="1.5" PointX="3.75" PointY="9.75" IsExpanded="false" />
@@ -131,6 +131,9 @@
         <AssociationConnector Association="apwdbModel.FK_Required_Document_SYS_USER" />
         <AssociationConnector Association="apwdbModel.FK_Required_Document_details_SYS_USER" />
         <EntityTypeShape EntityType="apwdbModel.REC_FILE_CONFIGURATION" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="apwdbModel.TAMS_LOCAL_HOLIDAY_DET" Width="1.5" PointX="15.5" PointY="9.625" />
+        <AssociationConnector Association="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_Employee" />
+        <AssociationConnector Association="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

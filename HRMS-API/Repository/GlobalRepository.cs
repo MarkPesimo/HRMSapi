@@ -283,5 +283,50 @@ namespace HRMS_API.Repository
                 return (DateTime.Now - _bbdate).Days / 365;
             }
         }
+
+        public List<ClientListPerCompanyModel> GetClientsByCompany(int companyId)
+        {
+            var query = from c in _conn.REC_CLIENT
+                        where c.employer_id == companyId && c.status == true
+                        orderby c.client_name
+                        select new ClientListPerCompanyModel
+                        {
+                            Id = c.id,
+                            ClientName = c.client_name,
+                            ClientAddress = c.client_address,
+                            Status = c.status,
+                            EmployerId = c.employer_id,
+                            Guid = c.guid
+                        };
+
+            return query.ToList();
+        }
+
+        public List<EmployeeListModel> GetEmployeesByClient(int clientId)
+        {
+            var query = from e in _conn.Employees
+                        where e.client_id == clientId && e.ActiveInactive == 1
+                        orderby e.Lastname, e.Firstname
+                        select new EmployeeListModel
+                        {
+                            EmpId = e.Emp_ID,
+                            EmpTypeId = e.EmpType_ID,
+                            EmpRankId = e.EmpRank_ID,
+                            BranchId = e.Branch_ID,
+                            DepartmentId = e.Department_ID,
+                            Position = e.Position,
+                            ShiftId = e.Shift_ID,
+                            PayrollGroupId = e.PayrollGroup_ID,
+                            SalaryTypeId = e.SalaryType_ID,
+                            EmpNo = e.Emp_No,
+                            FullName = (e.Firstname + " " + (string.IsNullOrEmpty(e.Middlename) ? "" : e.Middlename + " ") + e.Lastname).Trim(),
+                            Address = e.Address,
+                            EmailAddress = e.EmailAddress,
+                            DateHired = e.Datehired,
+                            ActiveInactive = e.ActiveInactive == 1
+                        };
+
+            return query.ToList();
+        }
     }
 }

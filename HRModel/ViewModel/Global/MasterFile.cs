@@ -168,5 +168,50 @@ namespace HRModel.ViewModel.Global
             }
         }
 
+        public class LocalHoliday_Input_model
+        {
+            public int Id { get; set; } = 0;
+            public DateTime HolidayDate { get; set; }
+            public string HolidayDescription { get; set; }
+            public string HolidayType { get; set; }
+            public int Mode { get; set; }
+            public int UserId { get; set; } = 0;
+        }
+
+        public class LocalHolidayDetail_Input_model
+        {
+            public int Id { get; set; } = 0;
+            public int HolidayId { get; set; }
+            public int EmpId { get; set; }
+            public int Mode { get; set; } = 0;
+            public int UserId { get; set; }
+        }
+
+        public class HolidayList_model
+        {
+            public int HolidayId { get; set; }
+            public string HolidayDescription { get; set; }
+            public DateTime? HolidayDate { get; set; }
+            public int? UserId { get; set; }
+            public string HolidayType { get; set; }
+            public string HolidayTypeDesc { get; set; }
+            public bool WorkingHoliday { get; set; }
+            public DateTime? DateCreated { get; set; }
+
+            public int AssignedCount { get; set; }
+        }
+
+        public class LocalHolidayDetailViewModel
+        {
+            public int Id { get; set; }
+            public int HolidayId { get; set; }
+            public int EmpId { get; set; }
+            public int UserId { get; set; }
+            public DateTime DateCreated { get; set; }
+
+            public string EmployeeName { get; set; }
+            public string EmpNo { get; set; }
+        }
+
     }
 }

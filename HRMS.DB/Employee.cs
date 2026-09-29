@@ -26,6 +26,7 @@ namespace HRMS.DB
             this.Employee_Separation1 = new HashSet<Employee_Separation>();
             this.REC_NEW_HIRED_EMPLOYEE = new HashSet<REC_NEW_HIRED_EMPLOYEE>();
             this.HELPDESK_CONCERN = new HashSet<HELPDESK_CONCERN>();
+            this.TAMS_LOCAL_HOLIDAY_DET = new HashSet<TAMS_LOCAL_HOLIDAY_DET>();
         }
     
         public int Emp_ID { get; set; }
@@ -150,5 +151,7 @@ namespace HRMS.DB
         public virtual AreaLibrary AreaLibrary { get; set; }
         public virtual AreaLibrary AreaLibrary1 { get; set; }
         public virtual Salarytype Salarytype { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TAMS_LOCAL_HOLIDAY_DET> TAMS_LOCAL_HOLIDAY_DET { get; set; }
     }
 }

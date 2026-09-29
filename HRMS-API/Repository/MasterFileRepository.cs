@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using static HRModel.ViewModel.Global.MasterFile;
 using static HRModel.ViewModel.Global.MasterFile.DepartmentModel;
 using static HRModel.ViewModel.Global.MasterFile.DocumentTypeModel;
 using static HRModel.ViewModel.Global.MasterFile.EmployeeRankModel;
@@ -27,6 +28,10 @@ namespace HRMS_API.Repository
 
         public class Department_repository
         {
+            public Department_repository()
+            {
+                if (_conn == null) { _conn = new apwdbEntities(); }
+            }
             public List<Department_list_model> Get()
             {
                 return (from x in _conn.Departments
@@ -45,6 +50,7 @@ namespace HRMS_API.Repository
             public Department_model Get(int _id)
             {
                 return (from x in _conn.Departments
+                        where x.Dept_ID == _id 
                         select x
                 ).AsEnumerable()
                 .Select(d => new Department_model()
@@ -53,7 +59,7 @@ namespace HRMS_API.Repository
                     Description = d.Dept_Name,
                     Status = d.Status,
                     UserId = d.UserID,
-                    CreatedBy = d.SYS_USER.username,
+                    CreatedBy = d.SYS_USER != null ? d.SYS_USER.username : "",
                     DateCreated = d.date_created
                 }).SingleOrDefault();
             }
@@ -76,6 +82,11 @@ namespace HRMS_API.Repository
 
         public class EmployeeType_repository
         {
+            public EmployeeType_repository()
+            {
+                if (_conn == null) { _conn = new apwdbEntities(); }
+            }
+
             public List<EmployeeType_list_model> Get()
             {
                 return (from x in _conn.EmployeeTypes
@@ -125,6 +136,11 @@ namespace HRMS_API.Repository
 
         public class EmployeeRank_repository
         {
+            public EmployeeRank_repository()
+            {
+                if (_conn == null) { _conn = new apwdbEntities(); }
+            }
+
             public List<EmployeeRank_list_model> Get()
             {
                 return (from x in _conn.EmployeeRanks
@@ -174,6 +190,11 @@ namespace HRMS_API.Repository
 
         public class SalaryType_repository
         {
+            public SalaryType_repository()
+            {
+                if (_conn == null) { _conn = new apwdbEntities(); }
+            }
+
             public List<SalaryType_list_model> Get()
             {
                 return (from x in _conn.Salarytypes
@@ -223,6 +244,11 @@ namespace HRMS_API.Repository
 
         public class Shift_repository
         {
+            public Shift_repository()
+            {
+                if (_conn == null) { _conn = new apwdbEntities(); }
+            }
+
             public List<Shift_list_model> Get()
             {
                 return (from x in _conn.Shifts
@@ -244,6 +270,7 @@ namespace HRMS_API.Repository
             public Shift_model Get(int _id)
             {
                 return (from x in _conn.Shifts
+                        where x.Shift_ID == _id
                         select x
                 ).AsEnumerable()
                 .Select(d => new Shift_model()
@@ -261,11 +288,9 @@ namespace HRMS_API.Repository
                     GraveTimeOut = d.grave_time_out,
                     IsHalfDay = d.is_halfday,
                     IsCompress = d.is_compress,
-
-
                     Status = d.status,
                     UserId = d.UserID,
-                    CreatedBy = d.SYS_USER.username,
+                    CreatedBy = d.SYS_USER != null ? d.SYS_USER.username : string.Empty,
                     DateCreated = d.date_created
                 }).SingleOrDefault();
             }
@@ -295,6 +320,11 @@ namespace HRMS_API.Repository
 
         public class DocumentType_repository
         {
+            public DocumentType_repository()
+            {
+                if (_conn == null) { _conn = new apwdbEntities(); }
+            }
+
             public List<DocumentType_list_model> Get()
             {
                 return (from x in _conn.Documents
@@ -348,5 +378,111 @@ namespace HRMS_API.Repository
             }
         }
 
+        public class Holiday_repository
+        {
+            public Holiday_repository()
+            {
+                if (_conn == null) { _conn = new apwdbEntities(); }
+            }
+
+            public List<HolidayList_model> Get(int? year = null)
+            {
+                int targetYear = year ?? DateTime.Now.Year;
+
+                var holidays = _conn.USP_C_GET_HOLIDAYS(targetYear).ToList();
+
+                return holidays.Select(h => new HolidayList_model
+                {
+                    HolidayId = h.HolidayId ?? 0,
+                    HolidayDescription = h.HolidayDescription,
+                    HolidayDate = h.HolidayDate,
+                    UserId = h.UserId,
+                    HolidayType = h.HolidayType?.ToString() ?? "0",
+                    HolidayTypeDesc = h.HolidayTypeDesc,
+                    WorkingHoliday = h.WorkingHoliday ?? false,
+                    DateCreated = h.DateCreated,
+                    AssignedCount = _conn.TAMS_LOCAL_HOLIDAY_DET.Count(d => d.holiday_id == (h.HolidayId ?? 0))
+                })
+                .OrderBy(h => h.HolidayDate)
+                .ToList();
+            }
+
+            public List<LocalHolidayDetailViewModel> GetLocalHolidayDetails(int holidayId)
+            {
+                return (from d in _conn.TAMS_LOCAL_HOLIDAY_DET
+                        join e in _conn.Employees on d.emp_id equals e.Emp_ID
+                        where d.holiday_id == holidayId
+                        orderby d.date_created descending
+                        select new LocalHolidayDetailViewModel
+                        {
+                            Id = d.id,
+                            HolidayId = d.holiday_id,
+                            EmpId = d.emp_id,
+                            UserId = d.user_id,
+                            DateCreated = d.date_created,
+                            EmployeeName = e.Firstname + " " + e.Lastname,
+                            EmpNo = e.Emp_No
+                        }).ToList();
+            }
+
+            public int ManageLocalHoliday(LocalHoliday_Input_model _model)
+            {
+                System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RET_ID", typeof(int));
+
+                _conn.USP_T_MANAGE_LOCAL_HOLIDAY(
+                    _model.Id,
+                    _model.HolidayDate,
+                    _model.HolidayDescription,
+                    _model.HolidayType,
+                    _model.Mode,
+                    _model.UserId,
+                    _return_value
+                );
+
+                return Convert.ToInt32(_return_value.Value);
+            }
+
+            public int ManageLocalHolidayBulkInsert(List<LocalHolidayDetail_Input_model> modelList)
+            {
+                if (modelList == null || !modelList.Any())
+                    return 0;
+
+                int processedCount = 0;
+                
+                using (var transaction = _conn.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (var item in modelList)
+                        {
+                            var returnParam = new System.Data.Entity.Core.Objects.ObjectParameter("RET_ID", typeof(int));
+
+                            _conn.USP_T_MANAGE_LOCAL_HOLIDAY_DET(
+                                item.Id,
+                                item.HolidayId,
+                                item.EmpId,
+                                item.Mode,
+                                item.UserId,
+                                returnParam
+                            );
+
+                            if (returnParam.Value != null && returnParam.Value != DBNull.Value && Convert.ToInt32(returnParam.Value) > 0)
+                            {
+                                processedCount++;
+                            }
+                        }
+
+                        transaction.Commit();
+                        return processedCount;
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw; 
+                    }
+                }
+            }
+        }
+        
     }
 }

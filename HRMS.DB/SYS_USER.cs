@@ -50,6 +50,7 @@ namespace HRMS.DB
             this.Documents = new HashSet<Document>();
             this.Required_Document = new HashSet<Required_Document>();
             this.Required_Document_details = new HashSet<Required_Document_details>();
+            this.TAMS_LOCAL_HOLIDAY_DET = new HashSet<TAMS_LOCAL_HOLIDAY_DET>();
         }
     
         public int id { get; set; }
@@ -129,5 +130,7 @@ namespace HRMS.DB
         public virtual ICollection<Required_Document> Required_Document { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Required_Document_details> Required_Document_details { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TAMS_LOCAL_HOLIDAY_DET> TAMS_LOCAL_HOLIDAY_DET { get; set; }
     }
 }

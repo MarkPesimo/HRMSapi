@@ -181,6 +181,7 @@
     <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Controllers\MasterFile\DepartmentController.cs" />
     <Compile Include="Controllers\MasterFile\EmployeeRankController.cs" />
+    <Compile Include="Controllers\MasterFile\HolidayController.cs" />
     <Compile Include="Controllers\MasterFile\SalaryTypeController.cs" />
     <Compile Include="Controllers\MasterFile\DocumentTypeController.cs" />
     <Compile Include="Controllers\MasterFile\ShiftController.cs" />
@@ -269,6 +270,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Contract\" />
+    <Folder Include="Views\Holiday\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
