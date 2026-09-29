@@ -63,7 +63,7 @@ namespace HRMS_API.Repository
 
                 _conn.SP_FUNCTION_ACCESS(
                     _model.ModuleName,
-                    _model.Action,
+                    _model.FunctionAction,
                     _model.AppName,
                     _model.UserId,
                     _access_value);

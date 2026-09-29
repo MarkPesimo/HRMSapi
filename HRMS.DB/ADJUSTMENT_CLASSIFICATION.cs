@@ -12,16 +12,21 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class REC_CANDIDATE_SKILL
+    public partial class ADJUSTMENT_CLASSIFICATION
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ADJUSTMENT_CLASSIFICATION()
+        {
+            this.Adjustments = new HashSet<Adjustment>();
+        }
+    
         public int id { get; set; }
-        public int candidate_id { get; set; }
-        public int skill_id { get; set; }
+        public string classification { get; set; }
         public int user_id { get; set; }
+        public bool status { get; set; }
         public System.DateTime date_created { get; set; }
     
-        public virtual REC_CANDIDATE REC_CANDIDATE { get; set; }
-        public virtual REC_Skill REC_Skill { get; set; }
-        public virtual SYS_USER SYS_USER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Adjustment> Adjustments { get; set; }
     }
 }

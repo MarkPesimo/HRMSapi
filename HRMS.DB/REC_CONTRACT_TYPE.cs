@@ -18,6 +18,7 @@ namespace HRMS.DB
         public REC_CONTRACT_TYPE()
         {
             this.Employees = new HashSet<Employee>();
+            this.REC_JOB_ORDER = new HashSet<REC_JOB_ORDER>();
         }
     
         public int id { get; set; }
@@ -28,5 +29,7 @@ namespace HRMS.DB
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_JOB_ORDER> REC_JOB_ORDER { get; set; }
     }
 }

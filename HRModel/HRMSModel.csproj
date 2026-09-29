@@ -43,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\Client\ClientHistory_model.cs" />
+    <Compile Include="ViewModel\Client\ClientSetting_model.cs" />
+    <Compile Include="ViewModel\Client\Client_model.cs" />
     <Compile Include="ViewModel\Contract\EmployeeTransaction\EmployeeTransaction.cs" />
     <Compile Include="ViewModel\Contract\EmployeeTransaction\ReactivationModel.cs" />
     <Compile Include="ViewModel\Employees\Document\RequiredDocument_model.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="ViewModel\Global\PortalAccount_model.cs" />
     <Compile Include="ViewModel\Global\SecretKeys.cs" />
     <Compile Include="ViewModel\Global\Serialize_LoginUser_model.cs" />
+    <Compile Include="ViewModel\Global\SystemVariable_model.cs" />
     <Compile Include="ViewModel\Helpdesk\Helpdesk_model.cs" />
     <Compile Include="ViewModel\Leave\EmployeeLeaveBalanceMonitoring_model.cs" />
     <Compile Include="ViewModel\Leave\Leave_model.cs" />

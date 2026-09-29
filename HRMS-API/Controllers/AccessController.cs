@@ -54,7 +54,7 @@ namespace HRMS_API.Controllers
                 FunctionAccess_model _model = new FunctionAccess_model
                 {
                     ModuleName = ModuleName,
-                    Action = FunctionAction,
+                    FunctionAction = FunctionAction,
                     AppName = AppName,
                     UserId = UserId 
                 };

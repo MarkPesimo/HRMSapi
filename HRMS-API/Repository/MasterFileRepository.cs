@@ -15,15 +15,11 @@ namespace HRMS_API.Repository
 {
     public class MasterFileRepository
     {
-        public static apwdbEntities _conn { get; set; }
-        //private GlobalRepository _globalrepository { get; set; }
-        //private UserRepository _userrepository { get; set; }
+        public static apwdbEntities _conn { get; set; } 
 
         public MasterFileRepository()
         {
-            if (_conn == null) { _conn = new apwdbEntities(); }
-            //if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
-            //if (_userrepository == null) { _userrepository = new UserRepository(); }
+            if (_conn == null) { _conn = new apwdbEntities(); } 
         }
 
         public class Department_repository
@@ -32,6 +28,7 @@ namespace HRMS_API.Repository
             {
                 if (_conn == null) { _conn = new apwdbEntities(); }
             }
+
             public List<Department_list_model> Get()
             {
                 return (from x in _conn.Departments
@@ -105,6 +102,7 @@ namespace HRMS_API.Repository
             public EmployeeType_model Get(int _id)
             {
                 return (from x in _conn.EmployeeTypes
+                        where x.EmpType_ID == _id
                         select x
                 ).AsEnumerable()
                 .Select(d => new EmployeeType_model()
@@ -159,6 +157,7 @@ namespace HRMS_API.Repository
             public EmployeeRank_model Get(int _id)
             {
                 return (from x in _conn.EmployeeRanks
+                        where x.EmpRank_ID == _id
                         select x
                 ).AsEnumerable()
                 .Select(d => new EmployeeRank_model()
@@ -213,6 +212,7 @@ namespace HRMS_API.Repository
             public SalaryType_model Get(int _id)
             {
                 return (from x in _conn.Salarytypes
+                        where x.Salarytype_ID == _id
                         select x
                 ).AsEnumerable()
                 .Select(d => new SalaryType_model()
@@ -344,6 +344,7 @@ namespace HRMS_API.Repository
             public DocumentType_model Get(int _id)
             {
                 return (from x in _conn.Documents
+                        where x.DocId == _id
                         select x
                 ).AsEnumerable()
                 .Select(d => new DocumentType_model()

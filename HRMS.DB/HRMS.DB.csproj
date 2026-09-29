@@ -65,10 +65,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Access_model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Adjustment.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ADJUSTMENT_CLASSIFICATION.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="AreaLibrary.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Branch.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Deduction.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Degree.cs">
@@ -104,6 +113,9 @@
     <Compile Include="Employee_Separation.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="EMPLOYER.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="FloatingReason.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -131,6 +143,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HRDB_model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="INDUSTRY.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="LeaveType.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -153,10 +168,37 @@
     <Compile Include="REC_CANDIDATE_EMPLOYEE_LINK.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_CANDIDATE_EMPLOYMENT.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CANDIDATE_SKILL.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_CLIENT.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_CLIENT_BANK.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_COMPANY.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_CONTACTS.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_CLIENT_DEPARTMENT.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_DOCUMENTS.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_SETUP.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_SETUP_CUTOFF.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_SETUP_EXT.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_CLIENT_SHIFT.cs">
@@ -168,10 +210,16 @@
     <Compile Include="REC_FILE_CONFIGURATION.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_JOB_ORDER.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_NEW_HIRED_EMPLOYEE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_NEW_HIRED_EMPLOYEE_REMARKS.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_Skill.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_SOURCE_TYPE.cs">
@@ -201,6 +249,9 @@
     <Compile Include="Shift.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="SYS_BANK.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="sys_company.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -219,13 +270,16 @@
     <Compile Include="SYS_USER_GROUP_DET.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
-    <Compile Include="TAMS_LOCAL_HOLIDAY_DET.cs">
-      <DependentUpon>HRDB_model.tt</DependentUpon>
-    </Compile>
     <Compile Include="USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
-    <Compile Include="USP_C_GET_HOLIDAYS_Result.cs">
+    <Compile Include="USP_B_GET_CREDIT_MEMO_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_B_GET_OFFICIAL_RECEIPT_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_B_GET_SALES_INVOICE_MONITORING_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result.cs">
@@ -288,6 +342,9 @@
     <Compile Include="USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="USP_M_GET_PAYROLL_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="HRDB_model.edmx">
@@ -303,7 +360,9 @@
     <None Include="Access_model.edmx.diagram">
       <DependentUpon>Access_model.edmx</DependentUpon>
     </None>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="HRDB_model.edmx.diagram">
       <DependentUpon>HRDB_model.edmx</DependentUpon>
     </None>

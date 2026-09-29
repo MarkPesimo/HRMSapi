@@ -29,8 +29,8 @@ namespace HRMS.DB
         public int user_id { get; set; }
         public System.DateTime date_created { get; set; }
     
+        public virtual SYS_USER SYS_USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_CANDIDATE_SKILL> REC_CANDIDATE_SKILL { get; set; }
-        public virtual SYS_USER SYS_USER { get; set; }
     }
 }

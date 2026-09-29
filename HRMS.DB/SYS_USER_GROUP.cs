@@ -29,9 +29,9 @@ namespace HRMS.DB
         public System.DateTime date_created { get; set; }
         public int company_id { get; set; }
     
-        public virtual sys_company sys_company { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SYS_USER_GROUP_DET> SYS_USER_GROUP_DET { get; set; }
+        public virtual sys_company sys_company { get; set; }
     }
 }

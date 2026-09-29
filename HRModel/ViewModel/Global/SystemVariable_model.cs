@@ -6,8 +6,27 @@ using System.Threading.Tasks;
 
 namespace HRModel.ViewModel.Global
 {
-    public class AccessModel
+    public class SystemVariable_model
     {
+        public static class AppModuleId
+        {
+            public const int ISEARCH = 1;
+            public const int IHOPS = 2;
+            public const int HRMS = 3;
+            public const int MIPAY = 4;
+            public const int BCS = 5;
+            public const int TAMS = 6;
+        }
+
+        public static class AppModuleName
+        {
+            public const string HRMS = "HRMS";
+            public const string ISEARCH = "iSEARCH";
+            public const string MIPAY = "MiPAY";
+            public const string BCS = "BCS";
+            public const string TAMS = "TAMS";
+        }
+
         public static class Feature
         {
             public const string Add = "ADD";
@@ -20,6 +39,7 @@ namespace HRModel.ViewModel.Global
             public const string Void = "VOID";
         }
 
+
         public static class SystemModuleType
         {
             public const int Masterfile = 1;
@@ -30,24 +50,5 @@ namespace HRModel.ViewModel.Global
             public const int Process = 6;
         }
 
-        public class ModuleAccess_model
-        {
-            public string ModuleName { get; set; }
-            public int ModuleTypeId { get; set; }
-            public int UserId { get; set; }
-            public string UserType { get; set; }
-            public int AppId { get; set; }
-        }
-
-        public class FunctionAccess_model
-        {
-            public string ModuleName { get; set; }
-            public string FunctionAction { get; set; }
-            public int ModuleTypeId { get; set; }
-            public int UserId { get; set; }
-            public string UserType { get; set; }
-            public int AppId { get; set; }
-            public string AppName { get; set; }
-        }
     }
 }

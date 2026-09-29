@@ -12,16 +12,16 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class REC_CANDIDATE_SKILL
+    public partial class Deduction
     {
-        public int id { get; set; }
-        public int candidate_id { get; set; }
-        public int skill_id { get; set; }
-        public int user_id { get; set; }
-        public System.DateTime date_created { get; set; }
+        public int Ded_id { get; set; }
+        public string Ded_Desc { get; set; }
+        public int UserID { get; set; }
+        public int client_id { get; set; }
+        public bool status { get; set; }
+        public System.DateTime date_Created { get; set; }
     
-        public virtual REC_CANDIDATE REC_CANDIDATE { get; set; }
-        public virtual REC_Skill REC_Skill { get; set; }
+        public virtual REC_CLIENT REC_CLIENT { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
     }
 }

@@ -12,16 +12,19 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class REC_CANDIDATE_SKILL
+    public partial class REC_CLIENT_SETUP_CUTOFF
     {
         public int id { get; set; }
-        public int candidate_id { get; set; }
-        public int skill_id { get; set; }
+        public int client_id { get; set; }
+        public string first_cutoff_from_month { get; set; }
+        public int first_cutoff_from_day { get; set; }
+        public string first_cutoff_to_month { get; set; }
+        public int first_cutoff_to_day { get; set; }
+        public string second_cutoff_from_month { get; set; }
+        public int second_cutoff_from_day { get; set; }
+        public string second_cutoff_to_month { get; set; }
+        public int second_cutoff_to_day { get; set; }
         public int user_id { get; set; }
         public System.DateTime date_created { get; set; }
-    
-        public virtual REC_CANDIDATE REC_CANDIDATE { get; set; }
-        public virtual REC_Skill REC_Skill { get; set; }
-        public virtual SYS_USER SYS_USER { get; set; }
     }
 }

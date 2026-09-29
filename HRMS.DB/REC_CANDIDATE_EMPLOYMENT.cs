@@ -46,6 +46,7 @@ namespace HRMS.DB
         public bool is_currently_working { get; set; }
         public int company_id { get; set; }
     
+        public virtual INDUSTRY INDUSTRY { get; set; }
         public virtual REC_CANDIDATE REC_CANDIDATE { get; set; }
     }
 }
