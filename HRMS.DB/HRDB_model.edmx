@@ -1144,6 +1144,16 @@
           <Property Name="user_type" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="TAMS_LOCAL_HOLIDAY_DET">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="holiday_id" Type="int" Nullable="false" />
+          <Property Name="emp_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
         <Association Name=" FK_Adjustment_REC_CLIENT">
           <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
           <End Role="Adjustment" Type="Self.Adjustment" Multiplicity="*" />
@@ -2500,6 +2510,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TAMS_LOCAL_HOLIDAY_DET_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="TAMS_LOCAL_HOLIDAY_DET" Type="Self.TAMS_LOCAL_HOLIDAY_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="TAMS_LOCAL_HOLIDAY_DET">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="TAMS_LOCAL_HOLIDAY_DET" Type="Self.TAMS_LOCAL_HOLIDAY_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TAMS_LOCAL_HOLIDAY_DET">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="SP_EMPLOYEE_LOAN_MASTER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LOANID" Type="int" Mode="In" />
           <Parameter Name="EMPID" Type="int" Mode="In" />
@@ -2835,6 +2869,9 @@
           <Parameter Name="USERID" Type="int" Mode="In" />
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_C_GET_HOLIDAYS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
         </Function>
         <Function Name="USP_C_MANAGE_COOR_NEW_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
@@ -3290,6 +3327,23 @@
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_T_MANAGE_LOCAL_HOLIDAY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="HOLIDAY_DATE" Type="date" Mode="In" />
+          <Parameter Name="HOLIDAY_DESCRIPTION" Type="nvarchar" Mode="In" />
+          <Parameter Name="HOLIDAY_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_T_MANAGE_LOCAL_HOLIDAY_DET" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="HOLIDAY_ID" Type="int" Mode="In" />
+          <Parameter Name="EMP_ID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <EntityContainer Name="apwdbModelStoreContainer">
           <EntitySet Name="Adjustment" EntityType="Self.Adjustment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ADJUSTMENT_CLASSIFICATION" EntityType="Self.ADJUSTMENT_CLASSIFICATION" Schema="dbo" store:Type="Tables" />
@@ -3352,6 +3406,7 @@
           <EntitySet Name="SYS_USER" EntityType="Self.SYS_USER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP" EntityType="Self.SYS_USER_GROUP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP_DET" EntityType="Self.SYS_USER_GROUP_DET" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAMS_LOCAL_HOLIDAY_DET" EntityType="Self.TAMS_LOCAL_HOLIDAY_DET" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name=" FK_Adjustment_REC_CLIENT" Association="Self. FK_Adjustment_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
             <End Role="Adjustment" EntitySet="Adjustment" />
@@ -3803,6 +3858,14 @@
           <AssociationSet Name="FK_SYS_USER_GROUP_SYS_USER" Association="Self.FK_SYS_USER_GROUP_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAMS_LOCAL_HOLIDAY_DET_Employee" Association="Self.FK_TAMS_LOCAL_HOLIDAY_DET_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="TAMS_LOCAL_HOLIDAY_DET" EntitySet="TAMS_LOCAL_HOLIDAY_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" Association="Self.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="TAMS_LOCAL_HOLIDAY_DET" EntitySet="TAMS_LOCAL_HOLIDAY_DET" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -5125,6 +5188,35 @@
             <Parameter Name="MODE" Mode="In" Type="Int32" />
             <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="TAMS_LOCAL_HOLIDAY_DET" EntityType="apwdbModel.TAMS_LOCAL_HOLIDAY_DET" />
+          <AssociationSet Name="FK_TAMS_LOCAL_HOLIDAY_DET_Employee" Association="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="TAMS_LOCAL_HOLIDAY_DET" EntitySet="TAMS_LOCAL_HOLIDAY_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" Association="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="TAMS_LOCAL_HOLIDAY_DET" EntitySet="TAMS_LOCAL_HOLIDAY_DET" />
+          </AssociationSet>
+          <FunctionImport Name="USP_C_GET_HOLIDAYS" ReturnType="Collection(apwdbModel.USP_C_GET_HOLIDAYS_Result)">
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_T_MANAGE_LOCAL_HOLIDAY">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="HOLIDAY_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="HOLIDAY_DESCRIPTION" Mode="In" Type="String" />
+            <Parameter Name="HOLIDAY_TYPE" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_T_MANAGE_LOCAL_HOLIDAY_DET">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="HOLIDAY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="EMP_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -5242,6 +5334,7 @@
           <NavigationProperty Name="AreaLibrary" Relationship="apwdbModel.C_FK_Employee_AreaLibrary" FromRole="Employee" ToRole="AreaLibrary" />
           <NavigationProperty Name="AreaLibrary1" Relationship="apwdbModel.C_FK_Employee_AreaLibrary1" FromRole="Employee" ToRole="AreaLibrary" />
           <NavigationProperty Name="Salarytype" Relationship="apwdbModel.C_FK_Employee_Salarytype" FromRole="Employee" ToRole="Salarytype" />
+          <NavigationProperty Name="TAMS_LOCAL_HOLIDAY_DET" Relationship="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_Employee" FromRole="Employee" ToRole="TAMS_LOCAL_HOLIDAY_DET" />
         </EntityType>
         <EntityType Name="REC_USER_LOG">
           <Key>
@@ -5311,6 +5404,7 @@
           <NavigationProperty Name="REC_CANDIDATE_SKILL" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_SYS_USER" FromRole="SYS_USER" ToRole="REC_CANDIDATE_SKILL" />
           <NavigationProperty Name="REC_JOB_ORDER" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_SYS_USER" FromRole="SYS_USER" ToRole="REC_JOB_ORDER" />
           <NavigationProperty Name="REC_JOB_ORDER1" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_SYS_USER1" FromRole="SYS_USER" ToRole="REC_JOB_ORDER" />
+          <NavigationProperty Name="TAMS_LOCAL_HOLIDAY_DET" Relationship="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" FromRole="SYS_USER" ToRole="TAMS_LOCAL_HOLIDAY_DET" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP">
           <Key>
@@ -8262,6 +8356,52 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TAMS_LOCAL_HOLIDAY_DET">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="holiday_id" Type="Int32" Nullable="false" />
+          <Property Name="emp_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_Employee" FromRole="TAMS_LOCAL_HOLIDAY_DET" ToRole="Employee" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" FromRole="TAMS_LOCAL_HOLIDAY_DET" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_TAMS_LOCAL_HOLIDAY_DET_Employee">
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="apwdbModel.TAMS_LOCAL_HOLIDAY_DET" Role="TAMS_LOCAL_HOLIDAY_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="TAMS_LOCAL_HOLIDAY_DET">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.TAMS_LOCAL_HOLIDAY_DET" Role="TAMS_LOCAL_HOLIDAY_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TAMS_LOCAL_HOLIDAY_DET">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_C_GET_HOLIDAYS_Result">
+          <Property Type="Int32" Name="HolidayId" Nullable="true" />
+          <Property Type="String" Name="HolidayDescription" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="HolidayDate" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="Int32" Name="HolidayType" Nullable="true" />
+          <Property Type="String" Name="HolidayTypeDesc" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="WorkingHoliday" Nullable="true" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="true" Precision="23" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9907,6 +10047,33 @@
           <FunctionImportMapping FunctionImportName="USP_I_MASTER_CLIENT_SETUP_EXT" FunctionName="apwdbModel.Store.USP_I_MASTER_CLIENT_SETUP_EXT" />
           <FunctionImportMapping FunctionImportName="USP_H_MANAGE_CLIENT_INTERIM_SETUP" FunctionName="apwdbModel.Store.USP_H_MANAGE_CLIENT_INTERIM_SETUP" />
           <FunctionImportMapping FunctionImportName="USP_H_MANAGE_CLIENT_SETUP_PAYROLL_SERVICE" FunctionName="apwdbModel.Store.USP_H_MANAGE_CLIENT_SETUP_PAYROLL_SERVICE" />
+          <EntitySetMapping Name="TAMS_LOCAL_HOLIDAY_DET">
+            <EntityTypeMapping TypeName="apwdbModel.TAMS_LOCAL_HOLIDAY_DET">
+              <MappingFragment StoreEntitySet="TAMS_LOCAL_HOLIDAY_DET">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="holiday_id" ColumnName="holiday_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_C_GET_HOLIDAYS" FunctionName="apwdbModel.Store.USP_C_GET_HOLIDAYS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_C_GET_HOLIDAYS_Result">
+                <ScalarProperty Name="HolidayId" ColumnName="HolidayId" />
+                <ScalarProperty Name="HolidayDescription" ColumnName="HolidayDescription" />
+                <ScalarProperty Name="HolidayDate" ColumnName="HolidayDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="HolidayType" ColumnName="HolidayType" />
+                <ScalarProperty Name="HolidayTypeDesc" ColumnName="HolidayTypeDesc" />
+                <ScalarProperty Name="WorkingHoliday" ColumnName="WorkingHoliday" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_T_MANAGE_LOCAL_HOLIDAY" FunctionName="apwdbModel.Store.USP_T_MANAGE_LOCAL_HOLIDAY" />
+          <FunctionImportMapping FunctionImportName="USP_T_MANAGE_LOCAL_HOLIDAY_DET" FunctionName="apwdbModel.Store.USP_T_MANAGE_LOCAL_HOLIDAY_DET" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

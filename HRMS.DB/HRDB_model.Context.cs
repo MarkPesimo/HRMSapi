@@ -88,6 +88,7 @@ namespace HRMS.DB
         public virtual DbSet<REC_CLIENT_SETUP> REC_CLIENT_SETUP { get; set; }
         public virtual DbSet<REC_CLIENT_SETUP_CUTOFF> REC_CLIENT_SETUP_CUTOFF { get; set; }
         public virtual DbSet<REC_CLIENT_SETUP_EXT> REC_CLIENT_SETUP_EXT { get; set; }
+        public virtual DbSet<TAMS_LOCAL_HOLIDAY_DET> TAMS_LOCAL_HOLIDAY_DET { get; set; }
     
         public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
         {
@@ -2892,6 +2893,69 @@ namespace HRMS.DB
                 new ObjectParameter("MODE", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_CLIENT_SETUP_PAYROLL_SERVICE", iDParameter, cLIENT_IDParameter, pS_MAX_PROCESS_EMPLOYEE_COUNTParameter, pS_REGULAR_PROCESS_FEEParameter, pS_SPECIAL_PROCESS_FEEParameter, pS_ONE_TIME_FEEParameter, pS_ADDITIONAL_FEEParameter, rOPE_ADMIN_FEEParameter, uSERIDParameter, mODEParameter, rET_ID);
+        }
+    
+        public virtual ObjectResult<USP_C_GET_HOLIDAYS_Result> USP_C_GET_HOLIDAYS(Nullable<int> year)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_C_GET_HOLIDAYS_Result>("USP_C_GET_HOLIDAYS", yearParameter);
+        }
+    
+        public virtual int USP_T_MANAGE_LOCAL_HOLIDAY(Nullable<int> iD, Nullable<System.DateTime> hOLIDAY_DATE, string hOLIDAY_DESCRIPTION, string hOLIDAY_TYPE, Nullable<int> mODE, Nullable<int> uSER_ID, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var hOLIDAY_DATEParameter = hOLIDAY_DATE.HasValue ?
+                new ObjectParameter("HOLIDAY_DATE", hOLIDAY_DATE) :
+                new ObjectParameter("HOLIDAY_DATE", typeof(System.DateTime));
+    
+            var hOLIDAY_DESCRIPTIONParameter = hOLIDAY_DESCRIPTION != null ?
+                new ObjectParameter("HOLIDAY_DESCRIPTION", hOLIDAY_DESCRIPTION) :
+                new ObjectParameter("HOLIDAY_DESCRIPTION", typeof(string));
+    
+            var hOLIDAY_TYPEParameter = hOLIDAY_TYPE != null ?
+                new ObjectParameter("HOLIDAY_TYPE", hOLIDAY_TYPE) :
+                new ObjectParameter("HOLIDAY_TYPE", typeof(string));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_T_MANAGE_LOCAL_HOLIDAY", iDParameter, hOLIDAY_DATEParameter, hOLIDAY_DESCRIPTIONParameter, hOLIDAY_TYPEParameter, mODEParameter, uSER_IDParameter, rET_ID);
+        }
+    
+        public virtual int USP_T_MANAGE_LOCAL_HOLIDAY_DET(Nullable<int> iD, Nullable<int> hOLIDAY_ID, Nullable<int> eMP_ID, Nullable<int> mODE, Nullable<int> uSER_ID, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var hOLIDAY_IDParameter = hOLIDAY_ID.HasValue ?
+                new ObjectParameter("HOLIDAY_ID", hOLIDAY_ID) :
+                new ObjectParameter("HOLIDAY_ID", typeof(int));
+    
+            var eMP_IDParameter = eMP_ID.HasValue ?
+                new ObjectParameter("EMP_ID", eMP_ID) :
+                new ObjectParameter("EMP_ID", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_T_MANAGE_LOCAL_HOLIDAY_DET", iDParameter, hOLIDAY_IDParameter, eMP_IDParameter, mODEParameter, uSER_IDParameter, rET_ID);
         }
     }
 }

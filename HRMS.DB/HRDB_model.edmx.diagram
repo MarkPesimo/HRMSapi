@@ -182,6 +182,9 @@
         <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_SETUP_REC_CLIENT" />
         <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_SETUP_EXT" Width="2.875" PointX="10" PointY="0.75" IsExpanded="false" />
         <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_SETUP_EXT_REC_CLIENT" />
+        <EntityTypeShape EntityType="apwdbModel.TAMS_LOCAL_HOLIDAY_DET" Width="1.5" PointX="16" PointY="7.125" />
+        <AssociationConnector Association="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_Employee" />
+        <AssociationConnector Association="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -270,6 +270,9 @@
     <Compile Include="SYS_USER_GROUP_DET.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="TAMS_LOCAL_HOLIDAY_DET.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -280,6 +283,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_B_GET_SALES_INVOICE_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_C_GET_HOLIDAYS_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result.cs">
