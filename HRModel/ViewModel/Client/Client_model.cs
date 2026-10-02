@@ -58,6 +58,9 @@ namespace HRModel.ViewModel.Client
             public DateTime DateCreated { get; set; }
 
             public int Mode { get; set; }
+            public bool Status{ get; set; }
+
+            public string ClientLogo{ get; set; }
         }
 
         //========================CLIENT DOCUMENT========================
@@ -276,9 +279,14 @@ namespace HRModel.ViewModel.Client
             public int Mode { get; set; }
         }
 
- 
+        public class ShiftDropdown_model
+        {
+            public int Id { get; set; }
+            public string Description { get; set; }
+        }
 
-       
+
+
     }
 
 

@@ -19,10 +19,23 @@ namespace HRMS_API.Repository
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
         }
 
+        public List<ShiftDropdown_model> GetShiftDropdownList()
+        {
+            return (from x in _conn.Shifts
+                    where x.status == true
+                    select x
+            ).AsEnumerable()
+            .Select(d => new ShiftDropdown_model()
+            {
+                Id = d.Shift_ID,
+                Description = d.Description
+            }).OrderBy(x => x.Description).ToList();
+        }
+
         public List<ClientShift_vw_model> GetList(int _clientid)
         {
             return (from x in _conn.REC_CLIENT_SHIFT
-                    where x.client_id == _clientid
+                    where x.client_id == _clientid && x.status == true
                     select x
             ).AsEnumerable()
             .Select(d => new ClientShift_vw_model()

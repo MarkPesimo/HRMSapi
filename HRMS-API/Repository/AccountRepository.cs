@@ -80,6 +80,7 @@ namespace HRMS_API.Repository
                 _obj.UserClass = GetUserGroup(_obj.UserId).user_type;
                 _obj.Companyid = GetIsearchUserCompany(_obj.UserId);
                 _obj.CountryId = GetIsearchUserCountry(_obj.UserId);
+                _obj.CompanyGuid = GetUserCompany(_obj.UserId);
             }
            
             return _obj;
@@ -102,6 +103,18 @@ namespace HRMS_API.Repository
             }
 
             return 0;
+        }
+
+        string GetUserCompany(int _userid)
+        {
+            SYS_USER_GROUP_DET _gd = (from d in _conn.SYS_USER_GROUP_DET where d.user_id == _userid select d).SingleOrDefault();
+            if (_gd != null)
+            {
+                return _gd.SYS_USER_GROUP.sys_company.guid;
+
+            }
+
+            return "";
         }
 
         int GetIsearchUserCountry(int _userid)
