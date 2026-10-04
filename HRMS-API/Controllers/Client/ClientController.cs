@@ -65,6 +65,29 @@ namespace HRMS_API.Controllers.Client
             }
         }
 
+        [Route("api/Client/GetShiftDropdownList")]
+        [HttpGet]
+        public HttpResponseMessage GetShiftDropdownList()
+        {
+            try
+            {
+                var _list = _shiftrepository.GetShiftDropdownList();
+                if (_list != null && _list.Any())
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _list);
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, new List<ShiftDropdown_model>());
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
         [Route("api/Client/Shift/{Id}")]
         [HttpGet]
         public HttpResponseMessage Shift(int Id)
@@ -166,6 +189,29 @@ namespace HRMS_API.Controllers.Client
                 List<ClientAdjustment_vw_model> _model = _adjustmentrepository.GetList(_clientid);
                 if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
                 else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Client/GetClassificationList")]
+        [HttpGet]
+        public HttpResponseMessage GetClassificationList()
+        {
+            try
+            {
+                var _list = _adjustmentrepository.GetClassificationList();
+                if (_list != null && _list.Any())
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _list);
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, new List<ClientAdjustment_vw_model>());
+                }
             }
             catch (Exception ex)
             {

@@ -102,5 +102,34 @@ namespace HRModel.ViewModel.Global
 
             public int mode { get; set; }
         }
+
+        public class ClientListPerCompanyModel
+        {
+            public int Id { get; set; }
+            public string ClientName { get; set; }
+            public string ClientAddress { get; set; }
+            public bool? Status { get; set; }
+            public int? EmployerId { get; set; }
+            public string Guid { get; set; }
+        }
+
+        public class EmployeeListModel
+        {
+            public int EmpId { get; set; }
+            public int EmpTypeId { get; set; }
+            public int EmpRankId { get; set; }
+            public int BranchId { get; set; }
+            public int DepartmentId { get; set; }
+            public string Position { get; set; }
+            public int ShiftId { get; set; }
+            public int? PayrollGroupId { get; set; }
+            public int? SalaryTypeId { get; set; }
+            public string EmpNo { get; set; }
+            public string FullName { get; set; }
+            public string Address { get; set; }
+            public string EmailAddress { get; set; }
+            public DateTime? DateHired { get; set; }
+            public bool ActiveInactive { get; set; }
+        }
     }
 }

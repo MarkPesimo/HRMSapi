@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\APW SYSTEM\SOURCE CODE 092026\HRMS-API\HRMS.DB\HRDB_model.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\APW System\APW SYSTEM\SOURCE CODE 092026\HRMSNET-API\HRMS.DB\HRDB_model.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

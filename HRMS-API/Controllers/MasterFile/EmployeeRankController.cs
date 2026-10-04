@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using static HRModel.ViewModel.Global.MasterFile.EmployeeRankModel;
 using static HRModel.ViewModel.Global.MasterFile.EmployeeTypeModel;
 using static HRMS_API.Repository.MasterFileRepository;
 
@@ -16,12 +17,12 @@ namespace HRMS_API.Controllers.MasterFile
     public class EmployeeRankController : ApiController
     {
         private GlobalRepository _globalrepository { get; set; }
-        private EmployeeType_repository _masterrepository { get; set; }
+        private EmployeeRank_repository _masterrepository { get; set; }
 
         public EmployeeRankController()
         {
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
-            if (_masterrepository == null) { _masterrepository = new EmployeeType_repository(); }
+            if (_masterrepository == null) { _masterrepository = new EmployeeRank_repository(); }
         }
 
         [Route("api/EmployeeRank/Get")]
@@ -30,7 +31,7 @@ namespace HRMS_API.Controllers.MasterFile
         {
             try
             {
-                List<EmployeeType_list_model> _model = _masterrepository.Get();
+                List<EmployeeRank_list_model> _model = _masterrepository.Get();
                 if (_model != null && _model.Count > 0) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
                 else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
             }
@@ -47,7 +48,7 @@ namespace HRMS_API.Controllers.MasterFile
         {
             try
             {
-                EmployeeType_model _model = _masterrepository.Get(Id);
+                EmployeeRank_model _model = _masterrepository.Get(Id);
                 if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
                 else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
             }
@@ -60,7 +61,7 @@ namespace HRMS_API.Controllers.MasterFile
 
         [Route("api/EmployeeRank/Manage")]
         [HttpPost]
-        public HttpResponseMessage Manage([FromBody] EmployeeType_model model)
+        public HttpResponseMessage Manage([FromBody] EmployeeRank_model model)
         {
             try
             {
