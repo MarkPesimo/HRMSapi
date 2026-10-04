@@ -117,5 +117,75 @@ namespace HRModel.ViewModel.Client
             public int Mode { get; set; }
         }
 
+        public class OvertimeRate
+        {
+            public int Id { get; set; }
+            public int ClientId { get; set; }
+            public decimal Reg { get; set; }
+            public decimal RegND { get; set; }
+            public decimal RegN8 { get; set; }
+
+            public decimal Rd { get; set; }
+            public decimal RdND { get; set; }
+            public decimal RdN8 { get; set; }
+
+            public decimal SHMonthly { get; set; }
+            public decimal SHDaily { get; set; }
+            public decimal SHND { get; set; }
+            public decimal SHN8 { get; set; }
+
+            public decimal LHMonthly { get; set; }
+            public decimal LHDaily { get; set; }
+            public decimal LHND { get; set; }
+            public decimal LHN8 { get; set; }
+
+            public decimal RDSH { get; set; }
+            public decimal RDSHND { get; set; }
+            public decimal RDSHN8 { get; set; }
+
+            public decimal RDLH { get; set; }
+            public decimal RDLHND { get; set; }
+            public decimal RDLHN8 { get; set; }
+
+            public int UserId { get; set; }
+            public int Mode { get; set; }
+        }
+
+
+        public class AccountMapping
+        {
+            public class Account_model
+            {
+                public int Id { get; set; }
+                public int ClientId { get; set; }
+                public decimal SortNo { get; set; }
+                public string AccountNo { get; set; }
+                public string AccountDescription { get; set; }
+                public string AccountType { get; set; }
+                public string MappingType { get; set; }
+                public string EntryType { get; set; }
+                public bool ByDepartment { get; set; }
+                public bool IsMinimun { get; set; }
+
+                public int UserId { get; set; }
+                public int Mode { get; set; }
+                public string CreatedBy { get; set; }
+                public DateTime DateCreated { get; set; }
+            }
+
+
+            public class AccountDetail_model
+            {
+                public int Id { get; set; }
+                public int AccountId { get; set; }
+                public int LinkId { get; set; }
+                public string Description { get; set; }
+
+                public int UserId { get; set; }
+                public int Mode { get; set; }
+                public string CreatedBy { get; set; }
+                public DateTime DateCreated { get; set; }
+            }
+        }
     }
 }

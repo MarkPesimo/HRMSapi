@@ -9,6 +9,7 @@ using System.Web.Http;
 using static HRModel.ViewModel.Client.Client_model;
 using static HRModel.ViewModel.Client.ClientHistory_model;
 using static HRModel.ViewModel.Client.ClientSetting_model;
+using static HRModel.ViewModel.Client.ClientSetting_model.AccountMapping;
 
 namespace HRMS_API.Controllers.Client
 {
@@ -27,6 +28,7 @@ namespace HRMS_API.Controllers.Client
         private ClientShiftRepository _shiftrepository { get; set; }
         private ClientHistoryRepository _historyrepository { get; set; }
         private ClientSetupRepository _setuprepository { get; set; }
+
 
         public ClientController()
         {
@@ -736,5 +738,148 @@ namespace HRMS_API.Controllers.Client
             }
         }
         //=========================================CLIENT SETUP==========================================
+
+        //=========================================CLIENT OVERTIME RATE SETUP==========================================
+        [Route("api/Client/GetOvertimeRate/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetOvertimeRate(string GUID)
+        {
+            try
+            {
+                int _clientid = _profilerepository.GetClientId(GUID);
+                OvertimeRate _model = _setuprepository.GetOvertimeRate(_clientid);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Client/ManageOvertimeRate")]
+        [HttpPost]
+        public HttpResponseMessage ManageOvertimeRate([FromBody] OvertimeRate model)
+        {
+            try
+            {
+                int result = _setuprepository.ManageOvertimeRate(model);
+                if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, model.ClientId); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+        //=========================================CLIENT OVERTIME RATE SETUP==========================================
+
+        //=========================================CLIENT ACCOUNT SETUP==========================================
+        [Route("api/Client/GetAccounts/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetAccounts(string GUID)
+        {
+            try
+            {
+                int _clientid = _profilerepository.GetClientId(GUID);
+                List<Account_model> _model = _setuprepository.GetAccounts(_clientid);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Client/GetAccount/{Id}")]
+        [HttpPost]
+        public HttpResponseMessage GetAccount(int Id)
+        {
+            try
+            {
+                Account_model _model = _setuprepository.GetAccount(Id);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Client/ManageAccount")]
+        [HttpPost]
+        public HttpResponseMessage ManageAccount([FromBody] Account_model model)
+        {
+            try
+            {
+                int result = _setuprepository.ManageAccount(model);
+                if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, model.ClientId); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+
+        [Route("api/Client/GetAccountDetail/{Id}")]
+        [HttpPost]
+        public HttpResponseMessage GetAccountDetail(int Id)
+        {
+            try
+            {
+                AccountDetail_model _model = _setuprepository.GetAccountDetail(Id);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Client/GetAccountDetails/{AccountId}")]
+        [HttpPost]
+        public HttpResponseMessage GetAccountDetails(int AccountId)
+        {
+            try
+            {
+                List<AccountDetail_model> _model = _setuprepository.GetAccountDetails(AccountId);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Client/ManageAccountDetail")]
+        [HttpPost]
+        public HttpResponseMessage ManageAccountDetail([FromBody] AccountDetail_model model)
+        {
+            try
+            {
+                int result = _setuprepository.ManageAccountDetail(model);
+                if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, model.AccountId); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+        //=========================================CLIENT ACCOUNT SETUP==========================================
     }
 }

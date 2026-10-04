@@ -678,6 +678,34 @@
           <Property Name="employer_id" Type="int" Nullable="false" />
           <Property Name="guid" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
+        <EntityType Name="REC_CLIENT_ACCOUNT_MAP_FIELD">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="map_id" Type="int" Nullable="false" />
+          <Property Name="entry_id" Type="int" Nullable="false" />
+          <Property Name="date_added" Type="smalldatetime" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_ACCOUNT_MAPPING">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="sort_no" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="acct_code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="account_description" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="account_type" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="is_minimum" Type="bit" Nullable="false" />
+          <Property Name="by_dept" Type="bit" Nullable="false" />
+          <Property Name="dept_id" Type="int" Nullable="false" />
+          <Property Name="mapping_cnt" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="entry_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="REC_CLIENT_BANK">
           <Key>
             <PropertyRef Name="id" />
@@ -749,6 +777,33 @@
           <Property Name="is_signed" Type="bit" />
           <Property Name="is_withoriginal" Type="bit" />
           <Property Name="is_history" Type="bit" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_OT_RATE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="reg_ot_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="reg_ot_n8_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="reg_ot_nd_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="rest_day_ot_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="rest_day_ot_n8_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="rest_day_ot_nd_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="spc_hol_ot_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="spc_hol_ot_n8_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="spc_hol_ot_nd_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="legal_hol_ot_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="legal_hol_ot_n8_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="legal_hol_ot_nd_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="rest_day_spc_hol_ot_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="rest_day_spc_hol_ot_n8_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="rest_day_spc_hol_ot_nd_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="rest_day_legal_hol_ot_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="rest_day_legal_hol_n8_ot_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="rest_day_legal_hol_nd_ot_rate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="spc_hol_ot_rate_daily" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="leg_hol_ot_rate_daily" Type="decimal" Precision="18" Scale="4" Nullable="false" />
         </EntityType>
         <EntityType Name="REC_CLIENT_SETUP">
           <Key>
@@ -1444,6 +1499,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name=" FK_REC_CLIENT_ACCOUNT_MAP_FIELD_REC_CLIENT_ACCOUNT_MAPPING">
+          <End Role="REC_CLIENT_ACCOUNT_MAPPING" Type="Self.REC_CLIENT_ACCOUNT_MAPPING" Multiplicity="1" />
+          <End Role="REC_CLIENT_ACCOUNT_MAP_FIELD" Type="Self.REC_CLIENT_ACCOUNT_MAP_FIELD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT_ACCOUNT_MAPPING">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_ACCOUNT_MAP_FIELD">
+              <PropertyRef Name="map_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_CLIENT_ACCOUNT_MAPPING_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="REC_CLIENT_ACCOUNT_MAPPING" Type="Self.REC_CLIENT_ACCOUNT_MAPPING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_ACCOUNT_MAPPING">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name=" FK_REC_CLIENT_BANK_REC_CLIENT">
           <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
           <End Role="REC_CLIENT_BANK" Type="Self.REC_CLIENT_BANK" Multiplicity="*" />
@@ -1500,6 +1579,18 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="REC_CLIENT_DEPARTMENT">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name=" FK_REC_CLIENT_OT_RATE_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="REC_CLIENT_OT_RATE" Type="Self.REC_CLIENT_OT_RATE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_OT_RATE">
               <PropertyRef Name="client_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -2551,6 +2642,56 @@
           <Parameter Name="IS_WITHORIGINAL" Type="bit" Mode="In" />
           <Parameter Name="IS_NOTARIZED" Type="bit" Mode="In" />
         </Function>
+        <Function Name="SP_I_MANAGE_DOCUMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CANDIDATEID" Type="int" Mode="In" />
+          <Parameter Name="DOCNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="DATE_ISSUED" Type="date" Mode="In" />
+          <Parameter Name="FILE_LOCATION" Type="nvarchar" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="DOCID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_I_MANAGE_EDUCATION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="CANDIDATEID" Type="int" Mode="In" />
+          <Parameter Name="SCHOOL_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="SCHOOL_LEVEL" Type="nvarchar" Mode="In" />
+          <Parameter Name="SCHOOL_REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="SCHOOL_GRADE" Type="nvarchar" Mode="In" />
+          <Parameter Name="SCHOOL_FROM" Type="smalldatetime" Mode="In" />
+          <Parameter Name="SCHOOL_TO" Type="smalldatetime" Mode="In" />
+          <Parameter Name="SCHOOLLIBID" Type="int" Mode="In" />
+          <Parameter Name="SCHOOLLEVELID" Type="int" Mode="In" />
+          <Parameter Name="DEGREEID" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="AWARDS" Type="nvarchar" Mode="In" />
+          <Parameter Name="GRADUATED" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_I_MANAGE_EMPLOYMENT_HISTORY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="CANDIDATEID" Type="int" Mode="In" />
+          <Parameter Name="COMPANY_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="COMPANY_ADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="COMPANY_POSITION" Type="nvarchar" Mode="In" />
+          <Parameter Name="COMPANY_RANK" Type="nvarchar" Mode="In" />
+          <Parameter Name="REASON" Type="nvarchar" Mode="In" />
+          <Parameter Name="COMPANY_SALARY" Type="decimal" Mode="In" />
+          <Parameter Name="COMPANY_FROM" Type="smalldatetime" Mode="In" />
+          <Parameter Name="COMPANY_TO" Type="smalldatetime" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="EMMEDIATE_HEAD" Type="nvarchar" Mode="In" />
+          <Parameter Name="EMPLOYMENT_STATUS" Type="nvarchar" Mode="In" />
+          <Parameter Name="ISINTERNAL" Type="int" Mode="In" />
+          <Parameter Name="FUNCTION_ID" Type="int" Mode="In" />
+          <Parameter Name="INDUSTRY_ID" Type="int" Mode="In" />
+          <Parameter Name="ROLE_ID" Type="int" Mode="In" />
+          <Parameter Name="job_description" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="SP_I_MASTER_CLIENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="CLIENT_NAME" Type="nvarchar" Mode="In" />
@@ -3072,6 +3213,16 @@
           <Parameter Name="USERID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_H_MANAGE_EMPLOYEE_EMERGENCY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="CONTACTPERSON" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTACTNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTACTRELATION" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTACTADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_H_MANAGE_EMPLOYEE_FLOATING_STATUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="ID" Type="int" Mode="In" />
@@ -3085,6 +3236,37 @@
           <Parameter Name="WITH_SEPARATION_PAY" Type="bit" Mode="In" />
           <Parameter Name="REPLACEMENT_DATE" Type="date" Mode="In" />
           <Parameter Name="REPLACEMENT_REMARKS" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="USP_H_MANAGE_EMPLOYEE_GOVERNMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="PHILHEALTHNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="PAGIBIGNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="TINNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="SSSNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_MANAGE_EMPLOYEE_PERSONAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMP_ID" Type="int" Mode="In" />
+          <Parameter Name="EMPNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="FNAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="LNAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="MNAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="BDATE" Type="datetime" Mode="In" />
+          <Parameter Name="GENDER" Type="nvarchar" Mode="In" />
+          <Parameter Name="CIVISSTATUS" Type="nvarchar" Mode="In" />
+          <Parameter Name="CITIZENSHIP" Type="nvarchar" Mode="In" />
+          <Parameter Name="BPLACE" Type="nvarchar" Mode="In" />
+          <Parameter Name="EMAIL" Type="nvarchar" Mode="In" />
+          <Parameter Name="HOBBIES" Type="nvarchar" Mode="In" />
+          <Parameter Name="CITY_ID" Type="int" Mode="In" />
+          <Parameter Name="PROVINCE_ID" Type="int" Mode="In" />
+          <Parameter Name="ADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="PROVADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
         </Function>
         <Function Name="USP_H_MANAGE_EMPLOYEE_REPLACEMENT_HD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MODE" Type="int" Mode="In" />
@@ -3105,6 +3287,15 @@
           <Parameter Name="REASON" Type="nvarchar" Mode="In" />
           <Parameter Name="CREATED_BY" Type="int" Mode="In" />
           <Parameter Name="MODE" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_MANAGE_EMPLOYEE_SPOUSE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="SPOUSENAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="SPOUSECOMPANY" Type="nvarchar" Mode="In" />
+          <Parameter Name="SPOUSECOMADDRESS" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
         </Function>
         <Function Name="USP_H_MANAGE_EMPLOYEE_TRANSACTION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
@@ -3207,6 +3398,38 @@
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_I_MANAGE_CANDIDATE_SKILL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CANDIDATE_ID" Type="int" Mode="In" />
+          <Parameter Name="SKILL_ID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_I_MANAGE_CLIENT_ACCOUNT_MAP_FIELD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="MAP_ID" Type="int" Mode="In" />
+          <Parameter Name="ENTRY_ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_I_MANAGE_CLIENT_ACCOUNT_MAPPING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="SORT_NO" Type="decimal" Mode="In" />
+          <Parameter Name="ACCT_CODE" Type="nvarchar" Mode="In" />
+          <Parameter Name="ACCOUNT_DESCRIPTION" Type="nvarchar" Mode="In" />
+          <Parameter Name="ACCOUNT_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="IS_MINIMUM" Type="bit" Mode="In" />
+          <Parameter Name="BY_DEPT" Type="bit" Mode="In" />
+          <Parameter Name="DEPT_ID" Type="int" Mode="In" />
+          <Parameter Name="MAPPING_CNT" Type="nvarchar" Mode="In" />
+          <Parameter Name="ENTRY_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_I_MANAGE_CLIENT_BANK" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
@@ -3240,6 +3463,33 @@
           <Parameter Name="SECOND_CUTOFF_TO_MONTH" Type="nvarchar" Mode="In" />
           <Parameter Name="SECOND_CUTOFF_TO_DAY" Type="int" Mode="In" />
           <Parameter Name="USER_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_I_MANAGE_CLIENT_OT_RATE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="REG_OT_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="REG_OT_N8_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="REG_OT_ND_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="REST_DAY_OT_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="REST_DAY_OT_N8_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="REST_DAY_OT_ND_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="SPC_HOL_OT_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="SPC_HOL_OT_N8_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="SPC_HOL_OT_ND_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="LEGAL_HOL_OT_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="LEGAL_HOL_OT_N8_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="LEGAL_HOL_OT_ND_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="REST_DAY_SPC_HOL_OT_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="REST_DAY_SPC_HOL_OT_N8_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="REST_DAY_SPC_HOL_OT_ND_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="REST_DAY_LEGAL_HOL_OT_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="REST_DAY_LEGAL_HOL_N8_OT_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="REST_DAY_LEGAL_HOL_ND_OT_RATE" Type="decimal" Mode="In" />
+          <Parameter Name="SPC_HOL_OT_RATE_DAILY" Type="decimal" Mode="In" />
+          <Parameter Name="LEG_HOL_OT_RATE_DAILY" Type="decimal" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
         <Function Name="USP_I_MASTER_CLIENT_SETUP_EXT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
@@ -3290,6 +3540,10 @@
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_SYS_UPDATE_USER_PASSWORD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="PASSWORD" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="apwdbModelStoreContainer">
           <EntitySet Name="Adjustment" EntityType="Self.Adjustment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ADJUSTMENT_CLASSIFICATION" EntityType="Self.ADJUSTMENT_CLASSIFICATION" Schema="dbo" store:Type="Tables" />
@@ -3323,11 +3577,14 @@
           <EntitySet Name="REC_CANDIDATE_EMPLOYMENT" EntityType="Self.REC_CANDIDATE_EMPLOYMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE_SKILL" EntityType="Self.REC_CANDIDATE_SKILL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT" EntityType="Self.REC_CLIENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_ACCOUNT_MAP_FIELD" EntityType="Self.REC_CLIENT_ACCOUNT_MAP_FIELD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_ACCOUNT_MAPPING" EntityType="Self.REC_CLIENT_ACCOUNT_MAPPING" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_BANK" EntityType="Self.REC_CLIENT_BANK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_COMPANY" EntityType="Self.REC_CLIENT_COMPANY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_CONTACTS" EntityType="Self.REC_CLIENT_CONTACTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_DEPARTMENT" EntityType="Self.REC_CLIENT_DEPARTMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_DOCUMENTS" EntityType="Self.REC_CLIENT_DOCUMENTS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_OT_RATE" EntityType="Self.REC_CLIENT_OT_RATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_SETUP" EntityType="Self.REC_CLIENT_SETUP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_SETUP_CUTOFF" EntityType="Self.REC_CLIENT_SETUP_CUTOFF" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_SETUP_EXT" EntityType="Self.REC_CLIENT_SETUP_EXT" Schema="dbo" store:Type="Tables" />
@@ -3452,6 +3709,14 @@
             <End Role="REC_CANDIDATE" EntitySet="REC_CANDIDATE" />
             <End Role="REC_CANDIDATE_EMPLOYMENT" EntitySet="REC_CANDIDATE_EMPLOYMENT" />
           </AssociationSet>
+          <AssociationSet Name=" FK_REC_CLIENT_ACCOUNT_MAP_FIELD_REC_CLIENT_ACCOUNT_MAPPING" Association="Self. FK_REC_CLIENT_ACCOUNT_MAP_FIELD_REC_CLIENT_ACCOUNT_MAPPING">
+            <End Role="REC_CLIENT_ACCOUNT_MAPPING" EntitySet="REC_CLIENT_ACCOUNT_MAPPING" />
+            <End Role="REC_CLIENT_ACCOUNT_MAP_FIELD" EntitySet="REC_CLIENT_ACCOUNT_MAP_FIELD" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_CLIENT_ACCOUNT_MAPPING_REC_CLIENT" Association="Self. FK_REC_CLIENT_ACCOUNT_MAPPING_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_ACCOUNT_MAPPING" EntitySet="REC_CLIENT_ACCOUNT_MAPPING" />
+          </AssociationSet>
           <AssociationSet Name=" FK_REC_CLIENT_BANK_REC_CLIENT" Association="Self. FK_REC_CLIENT_BANK_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
             <End Role="REC_CLIENT_BANK" EntitySet="REC_CLIENT_BANK" />
@@ -3471,6 +3736,10 @@
           <AssociationSet Name=" FK_REC_CLIENT_DEPARTMENT_REC_CLIENT" Association="Self. FK_REC_CLIENT_DEPARTMENT_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
             <End Role="REC_CLIENT_DEPARTMENT" EntitySet="REC_CLIENT_DEPARTMENT" />
+          </AssociationSet>
+          <AssociationSet Name=" FK_REC_CLIENT_OT_RATE_REC_CLIENT" Association="Self. FK_REC_CLIENT_OT_RATE_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_OT_RATE" EntitySet="REC_CLIENT_OT_RATE" />
           </AssociationSet>
           <AssociationSet Name=" FK_REC_CLIENT_SETUP_EXT_REC_CLIENT" Association="Self. FK_REC_CLIENT_SETUP_EXT_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
@@ -5125,6 +5394,184 @@
             <Parameter Name="MODE" Mode="In" Type="Int32" />
             <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="REC_CLIENT_OT_RATE" EntityType="apwdbModel.REC_CLIENT_OT_RATE" />
+          <AssociationSet Name="C_FK_REC_CLIENT_OT_RATE_REC_CLIENT" Association="apwdbModel.C_FK_REC_CLIENT_OT_RATE_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_OT_RATE" EntitySet="REC_CLIENT_OT_RATE" />
+          </AssociationSet>
+          <FunctionImport Name="USP_I_MANAGE_CLIENT_OT_RATE">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="REG_OT_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="REG_OT_N8_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="REG_OT_ND_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="REST_DAY_OT_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="REST_DAY_OT_N8_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="REST_DAY_OT_ND_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="SPC_HOL_OT_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="SPC_HOL_OT_N8_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="SPC_HOL_OT_ND_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="LEGAL_HOL_OT_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="LEGAL_HOL_OT_N8_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="LEGAL_HOL_OT_ND_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="REST_DAY_SPC_HOL_OT_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="REST_DAY_SPC_HOL_OT_N8_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="REST_DAY_SPC_HOL_OT_ND_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="REST_DAY_LEGAL_HOL_OT_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="REST_DAY_LEGAL_HOL_N8_OT_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="REST_DAY_LEGAL_HOL_ND_OT_RATE" Mode="In" Type="Decimal" />
+            <Parameter Name="SPC_HOL_OT_RATE_DAILY" Mode="In" Type="Decimal" />
+            <Parameter Name="LEG_HOL_OT_RATE_DAILY" Mode="In" Type="Decimal" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="REC_CLIENT_ACCOUNT_MAP_FIELD" EntityType="apwdbModel.REC_CLIENT_ACCOUNT_MAP_FIELD" />
+          <EntitySet Name="REC_CLIENT_ACCOUNT_MAPPING" EntityType="apwdbModel.REC_CLIENT_ACCOUNT_MAPPING" />
+          <AssociationSet Name="C_FK_REC_CLIENT_ACCOUNT_MAPPING_REC_CLIENT" Association="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAPPING_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="REC_CLIENT_ACCOUNT_MAPPING" EntitySet="REC_CLIENT_ACCOUNT_MAPPING" />
+          </AssociationSet>
+          <AssociationSet Name="C_FK_REC_CLIENT_ACCOUNT_MAP_FIELD_REC_CLIENT_ACCOUNT_MAPPING" Association="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAP_FIELD_REC_CLIENT_ACCOUNT_MAPPING">
+            <End Role="REC_CLIENT_ACCOUNT_MAPPING" EntitySet="REC_CLIENT_ACCOUNT_MAPPING" />
+            <End Role="REC_CLIENT_ACCOUNT_MAP_FIELD" EntitySet="REC_CLIENT_ACCOUNT_MAP_FIELD" />
+          </AssociationSet>
+          <FunctionImport Name="USP_I_MANAGE_CLIENT_ACCOUNT_MAP_FIELD">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="MAP_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ENTRY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_I_MANAGE_CLIENT_ACCOUNT_MAPPING">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="SORT_NO" Mode="In" Type="Decimal" />
+            <Parameter Name="ACCT_CODE" Mode="In" Type="String" />
+            <Parameter Name="ACCOUNT_DESCRIPTION" Mode="In" Type="String" />
+            <Parameter Name="ACCOUNT_TYPE" Mode="In" Type="String" />
+            <Parameter Name="IS_MINIMUM" Mode="In" Type="Boolean" />
+            <Parameter Name="BY_DEPT" Mode="In" Type="Boolean" />
+            <Parameter Name="DEPT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MAPPING_CNT" Mode="In" Type="String" />
+            <Parameter Name="ENTRY_TYPE" Mode="In" Type="String" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_EMPLOYEE_PERSONAL">
+            <Parameter Name="EMP_ID" Mode="In" Type="Int32" />
+            <Parameter Name="EMPNO" Mode="In" Type="String" />
+            <Parameter Name="FNAME" Mode="In" Type="String" />
+            <Parameter Name="LNAME" Mode="In" Type="String" />
+            <Parameter Name="MNAME" Mode="In" Type="String" />
+            <Parameter Name="BDATE" Mode="In" Type="DateTime" />
+            <Parameter Name="GENDER" Mode="In" Type="String" />
+            <Parameter Name="CIVISSTATUS" Mode="In" Type="String" />
+            <Parameter Name="CITIZENSHIP" Mode="In" Type="String" />
+            <Parameter Name="BPLACE" Mode="In" Type="String" />
+            <Parameter Name="EMAIL" Mode="In" Type="String" />
+            <Parameter Name="HOBBIES" Mode="In" Type="String" />
+            <Parameter Name="CITY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="PROVINCE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ADDRESS" Mode="In" Type="String" />
+            <Parameter Name="PROVADDRESS" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RETURN_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_EMPLOYEE_SPOUSE">
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="SPOUSENAME" Mode="In" Type="String" />
+            <Parameter Name="SPOUSECOMPANY" Mode="In" Type="String" />
+            <Parameter Name="SPOUSECOMADDRESS" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RETURN_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_EMPLOYEE_EMERGENCY">
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="CONTACTPERSON" Mode="In" Type="String" />
+            <Parameter Name="CONTACTNO" Mode="In" Type="String" />
+            <Parameter Name="CONTACTRELATION" Mode="In" Type="String" />
+            <Parameter Name="CONTACTADDRESS" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RETURN_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_I_MANAGE_EDUCATION">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="CANDIDATEID" Mode="In" Type="Int32" />
+            <Parameter Name="SCHOOL_NAME" Mode="In" Type="String" />
+            <Parameter Name="SCHOOL_LEVEL" Mode="In" Type="String" />
+            <Parameter Name="SCHOOL_REMARKS" Mode="In" Type="String" />
+            <Parameter Name="SCHOOL_GRADE" Mode="In" Type="String" />
+            <Parameter Name="SCHOOL_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="SCHOOL_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="SCHOOLLIBID" Mode="In" Type="Int32" />
+            <Parameter Name="SCHOOLLEVELID" Mode="In" Type="Int32" />
+            <Parameter Name="DEGREEID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="AWARDS" Mode="In" Type="String" />
+            <Parameter Name="GRADUATED" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="USP_I_MANAGE_CANDIDATE_SKILL">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CANDIDATE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="SKILL_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_EMPLOYEE_GOVERNMENT">
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="PHILHEALTHNO" Mode="In" Type="String" />
+            <Parameter Name="PAGIBIGNO" Mode="In" Type="String" />
+            <Parameter Name="TINNO" Mode="In" Type="String" />
+            <Parameter Name="SSSNO" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RETURN_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_I_MANAGE_DOCUMENT">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CANDIDATEID" Mode="In" Type="Int32" />
+            <Parameter Name="DOCNO" Mode="In" Type="String" />
+            <Parameter Name="DATE_ISSUED" Mode="In" Type="DateTime" />
+            <Parameter Name="FILE_LOCATION" Mode="In" Type="String" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="DOCID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_SYS_UPDATE_USER_PASSWORD">
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="PASSWORD" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_I_MANAGE_EMPLOYMENT_HISTORY">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="CANDIDATEID" Mode="In" Type="Int32" />
+            <Parameter Name="COMPANY_NAME" Mode="In" Type="String" />
+            <Parameter Name="COMPANY_ADDRESS" Mode="In" Type="String" />
+            <Parameter Name="COMPANY_POSITION" Mode="In" Type="String" />
+            <Parameter Name="COMPANY_RANK" Mode="In" Type="String" />
+            <Parameter Name="REASON" Mode="In" Type="String" />
+            <Parameter Name="COMPANY_SALARY" Mode="In" Type="Decimal" />
+            <Parameter Name="COMPANY_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="COMPANY_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="EMMEDIATE_HEAD" Mode="In" Type="String" />
+            <Parameter Name="EMPLOYMENT_STATUS" Mode="In" Type="String" />
+            <Parameter Name="ISINTERNAL" Mode="In" Type="Int32" />
+            <Parameter Name="FUNCTION_ID" Mode="In" Type="Int32" />
+            <Parameter Name="INDUSTRY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ROLE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="job_description" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -5784,6 +6231,8 @@
           <NavigationProperty Name="REC_JOB_ORDER" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_Client" FromRole="REC_CLIENT" ToRole="REC_JOB_ORDER" />
           <NavigationProperty Name="REC_CLIENT_SETUP" Relationship="apwdbModel.C_FK_REC_CLIENT_SETUP_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_SETUP" />
           <NavigationProperty Name="REC_CLIENT_SETUP_EXT" Relationship="apwdbModel.C_FK_REC_CLIENT_SETUP_EXT_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_SETUP_EXT" />
+          <NavigationProperty Name="REC_CLIENT_OT_RATE" Relationship="apwdbModel.C_FK_REC_CLIENT_OT_RATE_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_OT_RATE" />
+          <NavigationProperty Name="REC_CLIENT_ACCOUNT_MAPPING" Relationship="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAPPING_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_ACCOUNT_MAPPING" />
         </EntityType>
         <Association Name="FK_Employee_REC_CLIENT">
           <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
@@ -8262,6 +8711,101 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="REC_CLIENT_OT_RATE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="reg_ot_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="reg_ot_n8_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="reg_ot_nd_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="rest_day_ot_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="rest_day_ot_n8_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="rest_day_ot_nd_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="spc_hol_ot_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="spc_hol_ot_n8_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="spc_hol_ot_nd_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="legal_hol_ot_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="legal_hol_ot_n8_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="legal_hol_ot_nd_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="rest_day_spc_hol_ot_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="rest_day_spc_hol_ot_n8_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="rest_day_spc_hol_ot_nd_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="rest_day_legal_hol_ot_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="rest_day_legal_hol_n8_ot_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="rest_day_legal_hol_nd_ot_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="spc_hol_ot_rate_daily" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="leg_hol_ot_rate_daily" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_CLIENT_OT_RATE_REC_CLIENT" FromRole="REC_CLIENT_OT_RATE" ToRole="REC_CLIENT" />
+        </EntityType>
+        <Association Name="C_FK_REC_CLIENT_OT_RATE_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_OT_RATE" Role="REC_CLIENT_OT_RATE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_OT_RATE">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="REC_CLIENT_ACCOUNT_MAP_FIELD">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="map_id" Type="Int32" Nullable="false" />
+          <Property Name="entry_id" Type="Int32" Nullable="false" />
+          <Property Name="date_added" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="REC_CLIENT_ACCOUNT_MAPPING" Relationship="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAP_FIELD_REC_CLIENT_ACCOUNT_MAPPING" FromRole="REC_CLIENT_ACCOUNT_MAP_FIELD" ToRole="REC_CLIENT_ACCOUNT_MAPPING" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_ACCOUNT_MAPPING">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="sort_no" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="acct_code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="account_description" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="account_type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="is_minimum" Type="Boolean" Nullable="false" />
+          <Property Name="by_dept" Type="Boolean" Nullable="false" />
+          <Property Name="dept_id" Type="Int32" Nullable="false" />
+          <Property Name="mapping_cnt" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="entry_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAPPING_REC_CLIENT" FromRole="REC_CLIENT_ACCOUNT_MAPPING" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="REC_CLIENT_ACCOUNT_MAP_FIELD" Relationship="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAP_FIELD_REC_CLIENT_ACCOUNT_MAPPING" FromRole="REC_CLIENT_ACCOUNT_MAPPING" ToRole="REC_CLIENT_ACCOUNT_MAP_FIELD" />
+        </EntityType>
+        <Association Name="C_FK_REC_CLIENT_ACCOUNT_MAPPING_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_ACCOUNT_MAPPING" Role="REC_CLIENT_ACCOUNT_MAPPING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_ACCOUNT_MAPPING">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="C_FK_REC_CLIENT_ACCOUNT_MAP_FIELD_REC_CLIENT_ACCOUNT_MAPPING">
+          <End Type="apwdbModel.REC_CLIENT_ACCOUNT_MAPPING" Role="REC_CLIENT_ACCOUNT_MAPPING" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_ACCOUNT_MAP_FIELD" Role="REC_CLIENT_ACCOUNT_MAP_FIELD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT_ACCOUNT_MAPPING">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_ACCOUNT_MAP_FIELD">
+              <PropertyRef Name="map_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9907,6 +10451,76 @@
           <FunctionImportMapping FunctionImportName="USP_I_MASTER_CLIENT_SETUP_EXT" FunctionName="apwdbModel.Store.USP_I_MASTER_CLIENT_SETUP_EXT" />
           <FunctionImportMapping FunctionImportName="USP_H_MANAGE_CLIENT_INTERIM_SETUP" FunctionName="apwdbModel.Store.USP_H_MANAGE_CLIENT_INTERIM_SETUP" />
           <FunctionImportMapping FunctionImportName="USP_H_MANAGE_CLIENT_SETUP_PAYROLL_SERVICE" FunctionName="apwdbModel.Store.USP_H_MANAGE_CLIENT_SETUP_PAYROLL_SERVICE" />
+          <EntitySetMapping Name="REC_CLIENT_OT_RATE">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_OT_RATE">
+              <MappingFragment StoreEntitySet="REC_CLIENT_OT_RATE">
+                <ScalarProperty Name="leg_hol_ot_rate_daily" ColumnName="leg_hol_ot_rate_daily" />
+                <ScalarProperty Name="spc_hol_ot_rate_daily" ColumnName="spc_hol_ot_rate_daily" />
+                <ScalarProperty Name="rest_day_legal_hol_nd_ot_rate" ColumnName="rest_day_legal_hol_nd_ot_rate" />
+                <ScalarProperty Name="rest_day_legal_hol_n8_ot_rate" ColumnName="rest_day_legal_hol_n8_ot_rate" />
+                <ScalarProperty Name="rest_day_legal_hol_ot_rate" ColumnName="rest_day_legal_hol_ot_rate" />
+                <ScalarProperty Name="rest_day_spc_hol_ot_nd_rate" ColumnName="rest_day_spc_hol_ot_nd_rate" />
+                <ScalarProperty Name="rest_day_spc_hol_ot_n8_rate" ColumnName="rest_day_spc_hol_ot_n8_rate" />
+                <ScalarProperty Name="rest_day_spc_hol_ot_rate" ColumnName="rest_day_spc_hol_ot_rate" />
+                <ScalarProperty Name="legal_hol_ot_nd_rate" ColumnName="legal_hol_ot_nd_rate" />
+                <ScalarProperty Name="legal_hol_ot_n8_rate" ColumnName="legal_hol_ot_n8_rate" />
+                <ScalarProperty Name="legal_hol_ot_rate" ColumnName="legal_hol_ot_rate" />
+                <ScalarProperty Name="spc_hol_ot_nd_rate" ColumnName="spc_hol_ot_nd_rate" />
+                <ScalarProperty Name="spc_hol_ot_n8_rate" ColumnName="spc_hol_ot_n8_rate" />
+                <ScalarProperty Name="spc_hol_ot_rate" ColumnName="spc_hol_ot_rate" />
+                <ScalarProperty Name="rest_day_ot_nd_rate" ColumnName="rest_day_ot_nd_rate" />
+                <ScalarProperty Name="rest_day_ot_n8_rate" ColumnName="rest_day_ot_n8_rate" />
+                <ScalarProperty Name="rest_day_ot_rate" ColumnName="rest_day_ot_rate" />
+                <ScalarProperty Name="reg_ot_nd_rate" ColumnName="reg_ot_nd_rate" />
+                <ScalarProperty Name="reg_ot_n8_rate" ColumnName="reg_ot_n8_rate" />
+                <ScalarProperty Name="reg_ot_rate" ColumnName="reg_ot_rate" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_I_MANAGE_CLIENT_OT_RATE" FunctionName="apwdbModel.Store.USP_I_MANAGE_CLIENT_OT_RATE" />
+          <EntitySetMapping Name="REC_CLIENT_ACCOUNT_MAP_FIELD">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_ACCOUNT_MAP_FIELD">
+              <MappingFragment StoreEntitySet="REC_CLIENT_ACCOUNT_MAP_FIELD">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="date_added" ColumnName="date_added" />
+                <ScalarProperty Name="entry_id" ColumnName="entry_id" />
+                <ScalarProperty Name="map_id" ColumnName="map_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CLIENT_ACCOUNT_MAPPING">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_ACCOUNT_MAPPING">
+              <MappingFragment StoreEntitySet="REC_CLIENT_ACCOUNT_MAPPING">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="entry_type" ColumnName="entry_type" />
+                <ScalarProperty Name="mapping_cnt" ColumnName="mapping_cnt" />
+                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+                <ScalarProperty Name="by_dept" ColumnName="by_dept" />
+                <ScalarProperty Name="is_minimum" ColumnName="is_minimum" />
+                <ScalarProperty Name="account_type" ColumnName="account_type" />
+                <ScalarProperty Name="account_description" ColumnName="account_description" />
+                <ScalarProperty Name="acct_code" ColumnName="acct_code" />
+                <ScalarProperty Name="sort_no" ColumnName="sort_no" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_I_MANAGE_CLIENT_ACCOUNT_MAP_FIELD" FunctionName="apwdbModel.Store.USP_I_MANAGE_CLIENT_ACCOUNT_MAP_FIELD" />
+          <FunctionImportMapping FunctionImportName="USP_I_MANAGE_CLIENT_ACCOUNT_MAPPING" FunctionName="apwdbModel.Store.USP_I_MANAGE_CLIENT_ACCOUNT_MAPPING" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_PERSONAL" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_PERSONAL" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_SPOUSE" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_SPOUSE" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_EMERGENCY" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_EMERGENCY" />
+          <FunctionImportMapping FunctionImportName="SP_I_MANAGE_EDUCATION" FunctionName="apwdbModel.Store.SP_I_MANAGE_EDUCATION" />
+          <FunctionImportMapping FunctionImportName="USP_I_MANAGE_CANDIDATE_SKILL" FunctionName="apwdbModel.Store.USP_I_MANAGE_CANDIDATE_SKILL" />
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_GOVERNMENT" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_GOVERNMENT" />
+          <FunctionImportMapping FunctionImportName="SP_I_MANAGE_DOCUMENT" FunctionName="apwdbModel.Store.SP_I_MANAGE_DOCUMENT" />
+          <FunctionImportMapping FunctionImportName="USP_SYS_UPDATE_USER_PASSWORD" FunctionName="apwdbModel.Store.USP_SYS_UPDATE_USER_PASSWORD" />
+          <FunctionImportMapping FunctionImportName="SP_I_MANAGE_EMPLOYMENT_HISTORY" FunctionName="apwdbModel.Store.SP_I_MANAGE_EMPLOYMENT_HISTORY" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

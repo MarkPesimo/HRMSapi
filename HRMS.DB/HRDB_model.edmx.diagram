@@ -182,6 +182,12 @@
         <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_SETUP_REC_CLIENT" />
         <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_SETUP_EXT" Width="2.875" PointX="10" PointY="0.75" IsExpanded="false" />
         <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_SETUP_EXT_REC_CLIENT" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_OT_RATE" Width="1.5" PointX="10" PointY="38.5" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_OT_RATE_REC_CLIENT" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_ACCOUNT_MAP_FIELD" Width="1.5" PointX="12.25" PointY="46.125" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_ACCOUNT_MAPPING" Width="1.5" PointX="10" PointY="45.25" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAPPING_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAP_FIELD_REC_CLIENT_ACCOUNT_MAPPING" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

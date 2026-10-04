@@ -177,6 +177,12 @@
     <Compile Include="REC_CLIENT.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_CLIENT_ACCOUNT_MAPPING.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_ACCOUNT_MAP_FIELD.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_CLIENT_BANK.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -190,6 +196,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_CLIENT_DOCUMENTS.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_OT_RATE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_CLIENT_SETUP.cs">

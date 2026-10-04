@@ -16,9 +16,9 @@ namespace HRMS_API.Repository
         public AccountRepository()
         {
             if (_conn == null) { _conn = new apwdbEntities(); }
-           
         }
 
+        //===========================USER=============================================
         public LoginUser_model Get(string _username, string _password, int _appmoduleid)
         {
             LoginUser_model _obj = new LoginUser_model();
@@ -143,6 +143,22 @@ namespace HRMS_API.Repository
             _conn.SaveChanges();
         }
 
+        public bool UpdatePassword(int _userid, string _password)
+        {
+            try
+            {
+                _conn.USP_SYS_UPDATE_USER_PASSWORD(_userid, _password);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        //===========================USER=============================================
+
+        //===========================PORTAL ACCOUNT=============================================
         public List<NotYetRegisteredEmployee_model> GetEmployeesWithNoPortalAccount(int _clientid)
         {
             return (from x in _conn.USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE(_clientid)
@@ -168,7 +184,8 @@ namespace HRMS_API.Repository
                    _model.Username,
                    _model.Password,
                    _model.HashPassword,
-                   _model.EmpId,
+         
+          _model.EmpId,
                    _model.EmailAddress,
                    _model.UserId);
 
@@ -180,5 +197,9 @@ namespace HRMS_API.Repository
             }
            
         }
+        //===========================PORTAL ACCOUNT=============================================
+        
+
+
     }
 }
