@@ -208,7 +208,12 @@
     <Compile Include="Repository\Client\ClientProfileRepository.cs" />
     <Compile Include="Repository\Client\CompanyRepository.cs" />
     <Compile Include="Repository\ContractRepository.cs" />
-    <Compile Include="Repository\EmployeeRepository.cs" />
+    <Compile Include="Repository\Employee\EmployeeDocumentRepository.cs" />
+    <Compile Include="Repository\Employee\EmployeeEducationRepository.cs" />
+    <Compile Include="Repository\Employee\EmployeeEmploymentRepository.cs" />
+    <Compile Include="Repository\Employee\EmployeeGovernmentRepository.cs" />
+    <Compile Include="Repository\Employee\EmployeeRepository.cs" />
+    <Compile Include="Repository\Employee\EmployeeSkillRepository.cs" />
     <Compile Include="Repository\FloatingRepository.cs" />
     <Compile Include="Repository\GlobalRepository.cs" />
     <Compile Include="Repository\HelpdeskRepository.cs" />

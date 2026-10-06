@@ -26,4 +26,10 @@ namespace HRModel.ViewModel.Global
         public string Remarks { get; set; }
         public string CompanyLogo { get; set; }
     }
+
+    public class ChangePasswordModel
+    {
+        public int UserId { get; set; }
+        public string Password { get; set; }
+    }
 }

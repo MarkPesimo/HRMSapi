@@ -46,6 +46,23 @@ namespace HRMS_API.Controllers
             }
         }
 
+        [Route("api/Account/UpdatePassword")]
+        [HttpPost]
+        public HttpResponseMessage UpdatePassword([FromBody] ChangePasswordModel _model)
+        {
+            try
+            {
+                bool _result = accountrepository.UpdatePassword(_model.UserId, _model.Password);
+                return Request.CreateResponse(HttpStatusCode.OK, _result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+
+
         [Route("api/Account/GetByUserName/{Username}/{AppModuleId}")]
         [HttpGet]
         public HttpResponseMessage Get(string Username, int AppModuleId)
@@ -66,6 +83,8 @@ namespace HRMS_API.Controllers
             }
         }
 
+
+        //===========================PORTAL ACCOUNT=============================================
         [Route("api/Account/GetEmployeesWithNoPortalAccount/{Clientid}")]
         [HttpGet]
         public HttpResponseMessage GetEmployeesWithNoPortalAccount(int Clientid)
@@ -100,5 +119,6 @@ namespace HRMS_API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
             }
         }
+        //===========================PORTAL ACCOUNT=============================================
     }
 }
