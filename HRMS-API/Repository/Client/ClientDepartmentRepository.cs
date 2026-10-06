@@ -36,6 +36,23 @@ namespace HRMS_API.Repository
             }).ToList();
         }
 
+        public List<Department_vw_model> GetDepartmentList()
+        {
+            return (from x in _conn.Departments
+                    orderby x.Dept_Name ascending
+                    select x
+            ).AsEnumerable()
+            .Select(d => new Department_vw_model()
+            {
+                Id = Convert.ToInt32(d.Dept_ID),
+                DepartmentName = d.Dept_Name,
+                UserId = d.UserID,
+                CreatedBy = d.SYS_USER != null ? d.SYS_USER.username : "",
+                DateCreated = d.date_created.ToShortDateString(),
+                Status = d.Status == true ? "Active" : "Inactive"
+            }).ToList();
+        }
+
         public ClientDepartment_model Get(int _id)
         {
             return (from x in _conn.REC_CLIENT_DEPARTMENT

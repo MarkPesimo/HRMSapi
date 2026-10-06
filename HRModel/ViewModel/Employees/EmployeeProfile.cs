@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HRModel.ViewModel.Employees
 {
@@ -28,7 +25,9 @@ namespace HRModel.ViewModel.Employees
         public string Province { get; set; }    
         public int CityId { get; set; }
         public int ProvinceId { get; set; }
-        public string Skills { get; set; }
+        public string Hobbies { get; set; }
+        public int Mode { get; set; }
+        public int UserId { get; set; }
     }
 
     public class SpouseInfo
@@ -37,6 +36,8 @@ namespace HRModel.ViewModel.Employees
         public string SpouseName { get; set; }
         public string SpouseCompany { get; set; }
         public string SpouseCompanyAdd { get; set; }
+        public int UserId { get; set; }
+        public int Mode { get; set; }
     }
 
     public class EmergencyContactInfo
@@ -46,6 +47,8 @@ namespace HRModel.ViewModel.Employees
         public string ContactRelation { get; set; }
         public string ContactNo { get; set; }
         public string ContactAdd { get; set; }
+        public int UserId { get; set; }
+        public int Mode { get; set; }
     }
 
     public class GovernmentNos
@@ -55,6 +58,11 @@ namespace HRModel.ViewModel.Employees
         public string PhilhealthNo { get; set; }
         public string PagibigNo { get; set; }
         public string TINNo { get; set; }
+
+        public int UserId { get; set; }
+        public int Mode { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string CreatedBy { get; set; }
     }
 
     public class EmploymentInfo
@@ -86,6 +94,8 @@ namespace HRModel.ViewModel.Employees
         public int FunctionId { get; set; }
     }
 
+
+    //==============================EMPLOYEE EDUCATION=========================================
     public class EducationalBackgroundViewModel
     {
         public int Id { get; set; }
@@ -100,20 +110,28 @@ namespace HRModel.ViewModel.Employees
     public class EducationalBackgroundModel
     {
         public int Id { get; set; }
-        public int EmpId { get; set; }
-        public string SchoolName { get; set; }
-        public string Level { get; set; }
-        public string Degree { get; set; }
-        public string Awards { get; set; }
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
-        public string Remarks { get; set; }
-        public bool Graduated { get; set; }
+        public int CandidateId { get; set; }
         public int SchoolId { get; set; }
-        public int SchoolLevelId { get; set; }
-        public int DegreeId { get; set; }
-    }
+        public string SchoolName { get; set; }
 
+        public int SchoolLevelId { get; set; }
+        public string SchoolLevel { get; set; }
+
+        public int DegreeId { get; set; }
+        public string DegreeName { get; set; }
+        public string Awards { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public string Remarks { get; set; }
+        public bool IsGraduated { get; set; }
+
+        public int UserId { get; set; }
+        public int Mode { get; set; }
+
+    }
+    //==============================EMPLOYEE EDUCATION=========================================
+
+    //==============================EMPLOYEE SKILL=========================================
     public class SkillViewModel
     {
         public int Id { get; set; }
@@ -127,25 +145,37 @@ namespace HRModel.ViewModel.Employees
     public class SkillModel
     {
         public int Id { get; set; }
-        public int EmpId { get; set; }
-        public string SkillName { get; set; }
-        public string SkillLevel { get; set; }
-        public int YearsOfExperience { get; set; }
-        public string Remarks { get; set; }
+        public int CandidateId { get; set; }
         public int SkillId { get; set; }
-        public int SkillLevelId { get; set; }
-    }
+        public string SkillName { get; set; }
 
+        public int UserId { get; set; }
+        public int Mode { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime DateCreated { get; set; }
+                                   
+        //public string SkillLevel { get; set; }
+                                           //public int YearsOfExperience { get; set; }
+                                           //public string Remarks { get; set; }
+
+        //public int SkillLevelId { get; set; }
+    }
+    //==============================EMPLOYEE SKILL=========================================
+
+    //==============================INTERNAL EMPLOYMENT=========================================
     public class InternalEmploymentViewModel
     {
         public int Id { get; set; }
         public int EmpId { get; set; }
-        public string CompanyName { get; set; }
+        public string ClientName { get; set; }
         public string Position { get; set; }
-        public string Branch { get; set; }
-        public string Department { get; set; }
-        public string EmploymentPeriod { get; set; }
-        public string Reason { get; set; }
+        public string HireType { get; set; }
+        public string EmployeeType { get; set; }
+        public string ContractStart { get; set; }
+        public string ContractEnd { get; set; }
+        public string SeparationDate { get; set; }
+        public string InactiveDate { get; set; }
+        public string ContractStatus { get; set; }
     }
 
     public class InternalEmploymentModel
@@ -169,7 +199,9 @@ namespace HRModel.ViewModel.Employees
         public int SourceTypeId { get; set; }
         public int SeparationId { get; set; }
     }
+    //==============================INTERNAL EMPLOYMENT=========================================
 
+    //==============================EXTERNAL EMPLOYMENT=========================================
     public class PreviousEmploymentViewModel
     {
         public int Id { get; set; }
@@ -191,9 +223,13 @@ namespace HRModel.ViewModel.Employees
     {
         public int Id { get; set; }
         public int CandidateId { get; set; }
+        public int CompanyId { get; set; }
         public string CompanyName { get; set; }
         public string CompanyAddress { get; set; }
-        public string Industry { get; set; }
+        public decimal? Salary { get; set; }
+
+        public int IndustryId { get; set; }
+        public string IndustryName { get; set; }
         public string Function { get; set; }
         public string Role { get; set; }
         public string Position { get; set; }
@@ -201,15 +237,24 @@ namespace HRModel.ViewModel.Employees
         public string Department { get; set; }
         public string EmploymentType { get; set; }
         public string EmploymentRank { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public int EmploymentTypeId { get; set; }
-        public int IndustryId { get; set; }
+        
         public int FunctionId { get; set; }
+        public string FunctionName { get; set; }
         public int RoleId { get; set; }
-        public int CompanyId { get; set; }
-    }
+        public string RoleName { get; set; }
+        public string ReasonForLeaving { get; set; }
 
+        public string JobDescription { get; set; }
+        public int UserId { get; set; }
+        public int Mode { get; set; }
+    }
+    //==============================EXTERNAL EMPLOYMENT=========================================
+
+
+    //==============================EMPLOYEE DOCUMENT=========================================
     public class EmployeeDocumentViewModel
     {
         public int Id { get; set; }
@@ -225,13 +270,20 @@ namespace HRModel.ViewModel.Employees
     public class EmployeeDocumentModel
     {
         public int Id { get; set; }
-        public int EmpId { get; set; }
+
+        public int CandidateId { get; set; }
+        public int DocumentId { get; set; }
         public string DocumentName { get; set; }
         public string ReferenceNo { get; set; }
-        public string DateIssued { get; set; }
+        public DateTime? DateIssued { get; set; }
         public string FileLocation { get; set; }
-        public int DocId { get; set; }
+        public string Remarks { get; set; }
+        public int UserId { get; set; }
+        public int Mode { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime DateCreated { get; set; }
     }
+    //==============================EMPLOYEE DOCUMENT=========================================
 
     public class EmployeeProfile
     {
@@ -241,18 +293,26 @@ namespace HRModel.ViewModel.Employees
         public EmergencyContactInfo EmergencyContact { get; set; }
         public EmploymentInfo CurrentEmployment { get; set; }
         public GovernmentNos GMBNos { get; set; }
+        public List<EducationalBackgroundViewModel> EducationalBackgroundList { get; set; }
+        public List<EmployeeDocumentViewModel> DocumentList { get; set; }
+        public List<SkillViewModel> SkillList { get; set; }
+        public List<PreviousEmploymentViewModel> ExternalEmployments { get; set; }
+        //public List<>
     }
+
+
+
 
     public class EmployeeEducation
     {
         public List<EducationalBackgroundViewModel> EducationalBackgroundList { get; set; }
-        public EducationalBackgroundModel EducationalBackgroundInfo { get; set; }
+        //public EducationalBackgroundModel EducationalBackgroundInfo { get; set; }
     }
 
     public class PreviousEmployment
     {
         public List<PreviousEmploymentViewModel> PreviousEmploymentList { get; set; }
-        public PreviousEmploymentModel PreviousEmploymentInfo { get; set; }
+        //public PreviousEmploymentModel PreviousEmploymentInfo { get; set; }
     }
 
     public class EmployeeSkills
@@ -267,11 +327,13 @@ namespace HRModel.ViewModel.Employees
         public EmployeeDocumentModel EmployeeDocumentRecord { get; set; }
 
     }
+
     public class EmployeeKeys
     {
         public int EmpId { get; set; }
         public string EmpNo { get; set; }
         public string EmployeeGUID { get; set; }
+        public int CandidateId { get; set; }
     }
 
     public class LoanTypeModel

@@ -19,6 +19,24 @@ namespace HRMS_API.Repository
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
         }
 
+        public List<Document_vw_model> GetDocumentDropdown()
+        {
+            return (from x in _conn.Documents
+                    select x
+            ).AsEnumerable()
+            .Select(d => new Document_vw_model()
+            {
+                DocId = d.DocId,
+                Description = d.Description,
+                DocumentClass = d.Document_class,
+                Status = d.status.ToString(),
+                CreatedBy = d.SYS_USER != null ? d.SYS_USER.username : d.user_id.ToString(),
+                DateCreated = d.date_created != null ? Convert.ToDateTime(d.date_created).ToShortDateString() : string.Empty,
+                AccessibleOutside = d.accessible_outside,
+                CountryId = d.country_id
+            }).ToList();
+        }
+
         public List<ClientDocument_vw_model> GetList(int _clientid)
         {
             return (from x in _conn.REC_CLIENT_DOCUMENTS
@@ -58,7 +76,8 @@ namespace HRMS_API.Repository
                 FileExtension = d.file_extension,
                 IsSigned = d.is_signed,
                 IsOriginal = d.is_withoriginal,
-                IsNotarized = d.is_notarized
+                IsNotarized = d.is_notarized,
+                Remarks = d.remarks
             }).SingleOrDefault();
         }
 

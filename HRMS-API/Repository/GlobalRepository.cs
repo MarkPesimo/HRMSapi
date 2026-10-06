@@ -43,7 +43,8 @@ namespace HRMS_API.Repository
                     {
                         EmpId = e.Emp_ID,
                         EmpNo = e.Emp_No,
-                        EmployeeGUID = _guid
+                        EmployeeGUID = _guid,
+                        CandidateId = d.id
                     }).SingleOrDefault();
 
             return _obj;

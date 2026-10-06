@@ -31,6 +31,7 @@ namespace HRModel.ViewModel.Global
         public int Companyid { get; set; }
         public string CompanyWebsite { get; set; }
         public string CompanyLogo { get; set; }
+        public string CompanyGuid{ get; set; }
 
         public string PayrollMenuVisibility { get; set; }
         public string DocumentMenuVisibility { get; set; }

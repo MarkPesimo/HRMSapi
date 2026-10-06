@@ -108,7 +108,7 @@ namespace HRMS_API.Repository
                         Remarks = d.remarks,
                         EmployerId = d.employer_id,
                         EmployerName = d.EMPLOYER.employer_name,
-
+                        Status = d.status ?? false,
 
                         UserId = d.userid,
                         CreatedBy = d.SYS_USER.username,

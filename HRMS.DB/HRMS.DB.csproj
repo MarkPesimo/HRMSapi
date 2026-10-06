@@ -161,6 +161,9 @@
     <Compile Include="LoanType.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="OvertimeBasi.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="P_Leave.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
@@ -186,6 +189,12 @@
     <Compile Include="REC_CLIENT.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_CLIENT_ACCOUNT_MAPPING.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_ACCOUNT_MAP_FIELD.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_CLIENT_BANK.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -199,6 +208,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_CLIENT_DOCUMENTS.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_OT_RATE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_CLIENT_SETUP.cs">
@@ -269,6 +281,9 @@
     </Compile>
     <Compile Include="sys_module_type.cs">
       <DependentUpon>Access_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SYS_REGION.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="SYS_USER.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>

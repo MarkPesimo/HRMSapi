@@ -58,9 +58,24 @@ namespace HRModel.ViewModel.Client
             public DateTime DateCreated { get; set; }
 
             public int Mode { get; set; }
+            public bool Status{ get; set; }
+
+            public string ClientLogo{ get; set; }
         }
 
         //========================CLIENT DOCUMENT========================
+        public class Document_vw_model
+        {
+            public int DocId { get; set; }
+            public string Description { get; set; }
+            public string DocumentClass { get; set; }
+            public string Status { get; set; }
+            public string CreatedBy { get; set; }
+            public string DateCreated { get; set; }
+            public bool AccessibleOutside { get; set; }
+            public int? CountryId { get; set; }
+        }
+
         public class ClientDocument_model
         {
             public int Id { get; set; }
@@ -93,6 +108,16 @@ namespace HRModel.ViewModel.Client
         }
 
         //========================CLIENT DEPARTMENT========================
+        public class Department_vw_model
+        {
+            public int Id { get; set; }
+            public string DepartmentName { get; set; }
+            public int? UserId { get; set; }
+            public string CreatedBy { get; set; }
+            public string DateCreated { get; set; }
+            public string Status { get; set; }
+        }
+
         public class ClientDepartment_vw_model
         {
             public int Id { get; set; }
@@ -117,6 +142,16 @@ namespace HRModel.ViewModel.Client
         }
 
         //========================CLIENT BRANCH========================
+        public class SysRegion_vw_model
+        {
+            public int Id { get; set; }
+            public string RegionCode { get; set; }
+            public string RegionName { get; set; }
+            public string Status { get; set; }
+            public string CreatedBy { get; set; }
+            public string DateCreated { get; set; }
+        }
+
         public class ClientBranch_vw_model
         {
             public int Id { get; set; }
@@ -166,6 +201,17 @@ namespace HRModel.ViewModel.Client
             public int UserId { get; set; }
             public DateTime DateCreated { get; set; }
             public int Mode { get; set; }
+        }
+
+        public class SysBank_vw_model
+        {
+            public int Id { get; set; }
+            public string BankCode { get; set; }
+            public string BankName { get; set; }
+            public string AcctCode { get; set; }
+            public string Status { get; set; }
+            public string CreatedBy { get; set; }
+            public string DateCreated { get; set; }
         }
 
         //========================CLIENT CONTACTS========================
@@ -276,9 +322,14 @@ namespace HRModel.ViewModel.Client
             public int Mode { get; set; }
         }
 
- 
+        public class ShiftDropdown_model
+        {
+            public int Id { get; set; }
+            public string Description { get; set; }
+        }
 
-       
+
+
     }
 
 

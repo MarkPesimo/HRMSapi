@@ -16,9 +16,9 @@ namespace HRMS_API.Repository
         public AccountRepository()
         {
             if (_conn == null) { _conn = new apwdbEntities(); }
-           
         }
 
+        //===========================USER=============================================
         public LoginUser_model Get(string _username, string _password, int _appmoduleid)
         {
             LoginUser_model _obj = new LoginUser_model();
@@ -80,6 +80,7 @@ namespace HRMS_API.Repository
                 _obj.UserClass = GetUserGroup(_obj.UserId).user_type;
                 _obj.Companyid = GetIsearchUserCompany(_obj.UserId);
                 _obj.CountryId = GetIsearchUserCountry(_obj.UserId);
+                _obj.CompanyGuid = GetUserCompany(_obj.UserId);
             }
            
             return _obj;
@@ -102,6 +103,18 @@ namespace HRMS_API.Repository
             }
 
             return 0;
+        }
+
+        string GetUserCompany(int _userid)
+        {
+            SYS_USER_GROUP_DET _gd = (from d in _conn.SYS_USER_GROUP_DET where d.user_id == _userid select d).SingleOrDefault();
+            if (_gd != null)
+            {
+                return _gd.SYS_USER_GROUP.sys_company.guid;
+
+            }
+
+            return "";
         }
 
         int GetIsearchUserCountry(int _userid)
@@ -143,6 +156,22 @@ namespace HRMS_API.Repository
             _conn.SaveChanges();
         }
 
+        public bool UpdatePassword(int _userid, string _password)
+        {
+            try
+            {
+                _conn.USP_SYS_UPDATE_USER_PASSWORD(_userid, _password);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        //===========================USER=============================================
+
+        //===========================PORTAL ACCOUNT=============================================
         public List<NotYetRegisteredEmployee_model> GetEmployeesWithNoPortalAccount(int _clientid)
         {
             return (from x in _conn.USP_B_GENERATE_NOT_YET_REGISTERED_EMPLOYEE(_clientid)
@@ -168,7 +197,8 @@ namespace HRMS_API.Repository
                    _model.Username,
                    _model.Password,
                    _model.HashPassword,
-                   _model.EmpId,
+         
+          _model.EmpId,
                    _model.EmailAddress,
                    _model.UserId);
 
@@ -180,5 +210,9 @@ namespace HRMS_API.Repository
             }
            
         }
+        //===========================PORTAL ACCOUNT=============================================
+        
+
+
     }
 }

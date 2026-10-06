@@ -12,29 +12,30 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class AreaLibrary
+    public partial class REC_CLIENT_ACCOUNT_MAPPING
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AreaLibrary()
+        public REC_CLIENT_ACCOUNT_MAPPING()
         {
-            this.Employees = new HashSet<Employee>();
-            this.Employees1 = new HashSet<Employee>();
+            this.REC_CLIENT_ACCOUNT_MAP_FIELD = new HashSet<REC_CLIENT_ACCOUNT_MAP_FIELD>();
         }
     
-        public int AreaID { get; set; }
-        public string AreaDescription { get; set; }
-        public int ProvinceID { get; set; }
-        public Nullable<int> UserID { get; set; }
+        public int id { get; set; }
+        public int client_id { get; set; }
+        public decimal sort_no { get; set; }
+        public string acct_code { get; set; }
+        public string account_description { get; set; }
+        public string account_type { get; set; }
+        public bool is_minimum { get; set; }
+        public bool by_dept { get; set; }
+        public int dept_id { get; set; }
+        public string mapping_cnt { get; set; }
+        public string entry_type { get; set; }
         public int user_id { get; set; }
         public System.DateTime date_created { get; set; }
-        public bool status { get; set; }
-        public int region_id { get; set; }
     
+        public virtual REC_CLIENT REC_CLIENT { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees1 { get; set; }
-        public virtual SYS_USER SYS_USER { get; set; }
-        public virtual SYS_REGION SYS_REGION { get; set; }
+        public virtual ICollection<REC_CLIENT_ACCOUNT_MAP_FIELD> REC_CLIENT_ACCOUNT_MAP_FIELD { get; set; }
     }
 }

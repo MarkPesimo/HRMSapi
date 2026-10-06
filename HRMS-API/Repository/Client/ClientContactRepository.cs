@@ -22,12 +22,12 @@ namespace HRMS_API.Repository
         public List<ClientContact_vw_model> GetList(int _clientid)
         {
             return (from x in _conn.REC_CLIENT_CONTACTS
-                    where x.client_id == _clientid
+                    where x.client_id == _clientid && x.file_status == true
                     select x
             ).AsEnumerable()
             .Select(d => new ClientContact_vw_model()
             {
-                Id = int.Parse(d.id.ToString()),                
+                Id = int.Parse(d.id.ToString()),
                 ContactPerson = d.contact_person,
                 ContactNo = d.contact_no,
                 EmailAddress = d.email_address,
@@ -67,7 +67,7 @@ namespace HRMS_API.Repository
                 _model.ContactPerson,
                 _model.ContactNo,
                 _model.EmailAddress,
-                false,
+                true,
                 _model.PositionTitle,
                 _model.Mode,
                 _model.UserId,
