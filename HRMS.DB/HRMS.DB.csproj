@@ -152,6 +152,9 @@
     <Compile Include="LoanType.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="OvertimeBasi.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="P_Leave.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
@@ -260,6 +263,9 @@
     </Compile>
     <Compile Include="sys_module_type.cs">
       <DependentUpon>Access_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SYS_REGION.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="SYS_USER.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>

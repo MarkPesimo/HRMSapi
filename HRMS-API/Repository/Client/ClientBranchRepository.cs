@@ -19,6 +19,22 @@ namespace HRMS_API.Repository
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
         }
 
+        public List<SysRegion_vw_model> GetRegionDropdown()
+        {
+            return (from x in _conn.SYS_REGION
+                    select x
+            ).AsEnumerable()
+            .Select(d => new SysRegion_vw_model()
+            {
+                Id = int.Parse(d.id.ToString()),
+                RegionCode = d.region_code,
+                RegionName = d.region_name,
+                Status = d.status == true ? "Active" : "Inactive",
+                CreatedBy = d.SYS_USER.username,
+                DateCreated = d.date_created.ToShortDateString()
+            }).ToList();
+        }
+
         public List<ClientBranch_vw_model> GetList(int _clientid)
         {
             return (from x in _conn.Branches

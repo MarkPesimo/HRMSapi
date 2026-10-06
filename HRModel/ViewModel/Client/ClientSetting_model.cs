@@ -53,6 +53,14 @@ namespace HRModel.ViewModel.Client
                 public string SecondCutoffToMonth { get; set; }
                 public int SecondCutoffToDay { get; set; }
             }
+
+            public class OvertimeBasis_vw_model
+            {
+                public int Id { get; set; }
+                public string OvertimeBasisDesc { get; set; }
+                public decimal MinTime { get; set; }
+                public decimal SucceedingTime { get; set; }
+            }
         }
 
         public class InterimSetup
@@ -80,6 +88,7 @@ namespace HRModel.ViewModel.Client
             public bool IncludeBillableAdjustment { get; set; }
             public string BillableAdjustmentBasis { get; set; }
 
+            public int ExtId{ get; set; }
             public bool AllowProcessingFee { get; set; }
             public bool AllowBillingRate { get; set; }
             public bool AllowBillingCard { get; set; }

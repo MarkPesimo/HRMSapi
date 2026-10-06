@@ -421,6 +421,17 @@
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="OvertimeBasis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OvertimeBasis_Desc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Min_Time" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Succeeding_Time" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
         <EntityType Name="P_Leave">
           <Key>
             <PropertyRef Name="P_LeaveID" />
@@ -1106,6 +1117,18 @@
           <Property Name="country_id" Type="int" Nullable="false" />
           <Property Name="guid" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
+        <EntityType Name="SYS_REGION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="region_code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="region_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SYS_USER">
           <Key>
             <PropertyRef Name="id" />
@@ -1619,6 +1642,18 @@
             </Principal>
             <Dependent Role="Adjustment">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaLibrary_SYS_REGION">
+          <End Role="SYS_REGION" Type="Self.SYS_REGION" Multiplicity="1" />
+          <End Role="AreaLibrary" Type="Self.AreaLibrary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_REGION">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AreaLibrary">
+              <PropertyRef Name="region_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2210,6 +2245,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_REC_CLIENT_SETUP_OvertimeBasis">
+          <End Role="OvertimeBasis" Type="Self.OvertimeBasis" Multiplicity="1" />
+          <End Role="REC_CLIENT_SETUP" Type="Self.REC_CLIENT_SETUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OvertimeBasis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SETUP">
+              <PropertyRef Name="overtime_setup_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_REC_CLIENT_SHIFT_REC_CLIENT">
           <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
           <End Role="REC_CLIENT_SHIFT" Type="Self.REC_CLIENT_SHIFT" Multiplicity="*" />
@@ -2402,6 +2449,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_School_SYS_REGION">
+          <End Role="SYS_REGION" Type="Self.SYS_REGION" Multiplicity="1" />
+          <End Role="School" Type="Self.School" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_REGION">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="School">
+              <PropertyRef Name="region_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_School_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="School" Type="Self.School" Multiplicity="*" />
@@ -2458,6 +2517,18 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="sys_company">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_REGION_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="SYS_REGION" Type="Self.SYS_REGION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_REGION">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -3369,6 +3440,7 @@
           <EntitySet Name="INDUSTRY" EntityType="Self.INDUSTRY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoanType" EntityType="Self.LoanType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OvertimeBasis" EntityType="Self.OvertimeBasis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="P_Leave" EntityType="Self.P_Leave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE" EntityType="Self.REC_CANDIDATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE_DOCUMENT" EntityType="Self.REC_CANDIDATE_DOCUMENT" Schema="dbo" store:Type="Tables" />
@@ -3403,6 +3475,7 @@
           <EntitySet Name="Shift" EntityType="Self.Shift" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_BANK" EntityType="Self.SYS_BANK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sys_company" EntityType="Self.sys_company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_REGION" EntityType="Self.SYS_REGION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER" EntityType="Self.SYS_USER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP" EntityType="Self.SYS_USER_GROUP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP_DET" EntityType="Self.SYS_USER_GROUP_DET" Schema="dbo" store:Type="Tables" />
@@ -3562,6 +3635,10 @@
           <AssociationSet Name="FK_Adjustment_SYS_USER" Association="Self.FK_Adjustment_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Adjustment" EntitySet="Adjustment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaLibrary_SYS_REGION" Association="Self.FK_AreaLibrary_SYS_REGION">
+            <End Role="SYS_REGION" EntitySet="SYS_REGION" />
+            <End Role="AreaLibrary" EntitySet="AreaLibrary" />
           </AssociationSet>
           <AssociationSet Name="FK_AreaLibrary_SYS_USER" Association="Self.FK_AreaLibrary_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -3759,6 +3836,10 @@
             <End Role="EMPLOYER" EntitySet="EMPLOYER" />
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
           </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_SETUP_OvertimeBasis" Association="Self.FK_REC_CLIENT_SETUP_OvertimeBasis">
+            <End Role="OvertimeBasis" EntitySet="OvertimeBasis" />
+            <End Role="REC_CLIENT_SETUP" EntitySet="REC_CLIENT_SETUP" />
+          </AssociationSet>
           <AssociationSet Name="FK_REC_CLIENT_SHIFT_REC_CLIENT" Association="Self.FK_REC_CLIENT_SHIFT_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
             <End Role="REC_CLIENT_SHIFT" EntitySet="REC_CLIENT_SHIFT" />
@@ -3823,6 +3904,10 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Salarytype" EntitySet="Salarytype" />
           </AssociationSet>
+          <AssociationSet Name="FK_School_SYS_REGION" Association="Self.FK_School_SYS_REGION">
+            <End Role="SYS_REGION" EntitySet="SYS_REGION" />
+            <End Role="School" EntitySet="School" />
+          </AssociationSet>
           <AssociationSet Name="FK_School_SYS_USER" Association="Self.FK_School_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="School" EntitySet="School" />
@@ -3842,6 +3927,10 @@
           <AssociationSet Name="FK_sys_company_SYS_USER" Association="Self.FK_sys_company_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="sys_company" EntitySet="sys_company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_REGION_SYS_USER" Association="Self.FK_SYS_REGION_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_REGION" EntitySet="SYS_REGION" />
           </AssociationSet>
           <AssociationSet Name="FK_SYS_USER_GROUP_DET_SYS_USER" Association="Self.FK_SYS_USER_GROUP_DET_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -5198,7 +5287,7 @@
             <End Role="TAMS_LOCAL_HOLIDAY_DET" EntitySet="TAMS_LOCAL_HOLIDAY_DET" />
           </AssociationSet>
           <FunctionImport Name="USP_C_GET_HOLIDAYS" ReturnType="Collection(apwdbModel.USP_C_GET_HOLIDAYS_Result)">
-            <Parameter Name="Year" Mode="In" Type="Int32" />
+          <Parameter Name="Year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="USP_T_MANAGE_LOCAL_HOLIDAY">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -5217,6 +5306,24 @@
             <Parameter Name="USER_ID" Mode="In" Type="Int32" />
             <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="SYS_REGION" EntityType="apwdbModel.SYS_REGION" />
+          <AssociationSet Name="FK_AreaLibrary_SYS_REGION" Association="apwdbModel.FK_AreaLibrary_SYS_REGION">
+            <End Role="SYS_REGION" EntitySet="SYS_REGION" />
+            <End Role="AreaLibrary" EntitySet="AreaLibraries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_School_SYS_REGION" Association="apwdbModel.FK_School_SYS_REGION">
+            <End Role="SYS_REGION" EntitySet="SYS_REGION" />
+            <End Role="School" EntitySet="Schools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_REGION_SYS_USER" Association="apwdbModel.FK_SYS_REGION_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_REGION" EntitySet="SYS_REGION" />
+          </AssociationSet>
+          <EntitySet Name="OvertimeBasis" EntityType="apwdbModel.OvertimeBasi" />
+          <AssociationSet Name="FK_REC_CLIENT_SETUP_OvertimeBasis" Association="apwdbModel.FK_REC_CLIENT_SETUP_OvertimeBasis">
+            <End Role="OvertimeBasi" EntitySet="OvertimeBasis" />
+            <End Role="REC_CLIENT_SETUP" EntitySet="REC_CLIENT_SETUP" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -5405,6 +5512,7 @@
           <NavigationProperty Name="REC_JOB_ORDER" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_SYS_USER" FromRole="SYS_USER" ToRole="REC_JOB_ORDER" />
           <NavigationProperty Name="REC_JOB_ORDER1" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_SYS_USER1" FromRole="SYS_USER" ToRole="REC_JOB_ORDER" />
           <NavigationProperty Name="TAMS_LOCAL_HOLIDAY_DET" Relationship="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" FromRole="SYS_USER" ToRole="TAMS_LOCAL_HOLIDAY_DET" />
+          <NavigationProperty Name="SYS_REGION" Relationship="apwdbModel.FK_SYS_REGION_SYS_USER" FromRole="SYS_USER" ToRole="SYS_REGION" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP">
           <Key>
@@ -7071,6 +7179,7 @@
           <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_AreaLibrary" FromRole="AreaLibrary" ToRole="Employee" />
           <NavigationProperty Name="Employees1" Relationship="apwdbModel.C_FK_Employee_AreaLibrary1" FromRole="AreaLibrary" ToRole="Employee" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_AreaLibrary_SYS_USER" FromRole="AreaLibrary" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_REGION" Relationship="apwdbModel.FK_AreaLibrary_SYS_REGION" FromRole="AreaLibrary" ToRole="SYS_REGION" />
         </EntityType>
         <Association Name="C_FK_Employee_AreaLibrary">
           <End Type="apwdbModel.AreaLibrary" Role="AreaLibrary" Multiplicity="1" />
@@ -7203,6 +7312,7 @@
           <Property Name="country_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="REC_CANDIDATE_EDUCATION" Relationship="apwdbModel.FK_REC_CANDIDATE_EDUCATION_School" FromRole="School" ToRole="REC_CANDIDATE_EDUCATION" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_School_SYS_USER" FromRole="School" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_REGION" Relationship="apwdbModel.FK_School_SYS_REGION" FromRole="School" ToRole="SYS_REGION" />
         </EntityType>
         <Association Name="FK_REC_CANDIDATE_EDUCATION_School">
           <End Type="apwdbModel.School" Role="School" Multiplicity="1" />
@@ -8290,6 +8400,7 @@
           <Property Name="include_adjustment" Type="Boolean" Nullable="false" />
           <Property Name="adjustment_basis" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_CLIENT_SETUP_REC_CLIENT" FromRole="REC_CLIENT_SETUP" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="OvertimeBasi" Relationship="apwdbModel.FK_REC_CLIENT_SETUP_OvertimeBasis" FromRole="REC_CLIENT_SETUP" ToRole="OvertimeBasi" />
         </EntityType>
         <EntityType Name="REC_CLIENT_SETUP_CUTOFF">
           <Key>
@@ -8402,6 +8513,81 @@
           <Property Type="Boolean" Name="WorkingHoliday" Nullable="true" />
           <Property Type="DateTime" Name="DateCreated" Nullable="true" Precision="23" />
         </ComplexType>
+        <EntityType Name="SYS_REGION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="region_code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="region_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="country_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AreaLibraries" Relationship="apwdbModel.FK_AreaLibrary_SYS_REGION" FromRole="SYS_REGION" ToRole="AreaLibrary" />
+          <NavigationProperty Name="Schools" Relationship="apwdbModel.FK_School_SYS_REGION" FromRole="SYS_REGION" ToRole="School" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_SYS_REGION_SYS_USER" FromRole="SYS_REGION" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_AreaLibrary_SYS_REGION">
+          <End Type="apwdbModel.SYS_REGION" Role="SYS_REGION" Multiplicity="1" />
+          <End Type="apwdbModel.AreaLibrary" Role="AreaLibrary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_REGION">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AreaLibrary">
+              <PropertyRef Name="region_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_School_SYS_REGION">
+          <End Type="apwdbModel.SYS_REGION" Role="SYS_REGION" Multiplicity="1" />
+          <End Type="apwdbModel.School" Role="School" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_REGION">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="School">
+              <PropertyRef Name="region_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_REGION_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.SYS_REGION" Role="SYS_REGION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_REGION">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OvertimeBasi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OvertimeBasis_Desc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Min_Time" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Succeeding_Time" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="REC_CLIENT_SETUP" Relationship="apwdbModel.FK_REC_CLIENT_SETUP_OvertimeBasis" FromRole="OvertimeBasi" ToRole="REC_CLIENT_SETUP" />
+        </EntityType>
+        <Association Name="FK_REC_CLIENT_SETUP_OvertimeBasis">
+          <End Type="apwdbModel.OvertimeBasi" Role="OvertimeBasi" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_SETUP" Role="REC_CLIENT_SETUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OvertimeBasi">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SETUP">
+              <PropertyRef Name="overtime_setup_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10074,6 +10260,31 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_T_MANAGE_LOCAL_HOLIDAY" FunctionName="apwdbModel.Store.USP_T_MANAGE_LOCAL_HOLIDAY" />
           <FunctionImportMapping FunctionImportName="USP_T_MANAGE_LOCAL_HOLIDAY_DET" FunctionName="apwdbModel.Store.USP_T_MANAGE_LOCAL_HOLIDAY_DET" />
+          <EntitySetMapping Name="SYS_REGION">
+            <EntityTypeMapping TypeName="apwdbModel.SYS_REGION">
+              <MappingFragment StoreEntitySet="SYS_REGION">
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="region_name" ColumnName="region_name" />
+                <ScalarProperty Name="region_code" ColumnName="region_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OvertimeBasis">
+            <EntityTypeMapping TypeName="apwdbModel.OvertimeBasi">
+              <MappingFragment StoreEntitySet="OvertimeBasis">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Succeeding_Time" ColumnName="Succeeding_Time" />
+                <ScalarProperty Name="Min_Time" ColumnName="Min_Time" />
+                <ScalarProperty Name="OvertimeBasis_Desc" ColumnName="OvertimeBasis_Desc" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -12,29 +12,27 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class AreaLibrary
+    public partial class SYS_REGION
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AreaLibrary()
+        public SYS_REGION()
         {
-            this.Employees = new HashSet<Employee>();
-            this.Employees1 = new HashSet<Employee>();
+            this.AreaLibraries = new HashSet<AreaLibrary>();
+            this.Schools = new HashSet<School>();
         }
     
-        public int AreaID { get; set; }
-        public string AreaDescription { get; set; }
-        public int ProvinceID { get; set; }
-        public Nullable<int> UserID { get; set; }
+        public int id { get; set; }
+        public string region_code { get; set; }
+        public string region_name { get; set; }
+        public bool status { get; set; }
         public int user_id { get; set; }
         public System.DateTime date_created { get; set; }
-        public bool status { get; set; }
-        public int region_id { get; set; }
+        public int country_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<AreaLibrary> AreaLibraries { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees1 { get; set; }
+        public virtual ICollection<School> Schools { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
-        public virtual SYS_REGION SYS_REGION { get; set; }
     }
 }

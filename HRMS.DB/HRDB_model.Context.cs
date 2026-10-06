@@ -89,6 +89,8 @@ namespace HRMS.DB
         public virtual DbSet<REC_CLIENT_SETUP_CUTOFF> REC_CLIENT_SETUP_CUTOFF { get; set; }
         public virtual DbSet<REC_CLIENT_SETUP_EXT> REC_CLIENT_SETUP_EXT { get; set; }
         public virtual DbSet<TAMS_LOCAL_HOLIDAY_DET> TAMS_LOCAL_HOLIDAY_DET { get; set; }
+        public virtual DbSet<SYS_REGION> SYS_REGION { get; set; }
+        public virtual DbSet<OvertimeBasi> OvertimeBasis { get; set; }
     
         public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
         {

@@ -61,6 +61,20 @@ namespace HRMS_API.Repository.Client
             return _return;
         }
 
+        public List<OvertimeBasis_vw_model> GetOvertimeBasisList()
+        {
+            return (from x in _conn.OvertimeBasis
+                    select x
+            ).AsEnumerable()
+            .Select(d => new OvertimeBasis_vw_model()
+            {
+                Id = d.Id,
+                OvertimeBasisDesc = d.OvertimeBasis_Desc,
+                MinTime = d.Min_Time ?? 0,
+                SucceedingTime = d.Succeeding_Time ?? 0
+            }).ToList();
+        }
+
         public PayrollSetup GetPayrollSetup(int _clientid)
         {
             PayrollSetup _object = new PayrollSetup();
@@ -85,7 +99,6 @@ namespace HRMS_API.Repository.Client
                                               SSSLoanDeductionSetup = GetCutoff(x.sss_loan_sched),
                                               pagIbigLoanDeductionSetup = GetCutoff(x.pagibig_loan_sched),
                                               OtherLoanDeductionSetup = GetCutoff(x.other_loan_sched),
-                                              
                                           }).SingleOrDefault();
 
             if (_object != null)
@@ -156,73 +169,76 @@ namespace HRMS_API.Repository.Client
 
             return Convert.ToInt32(_model.ClientId);
         }
-         
+
 
 
         public InterimSetup GetInterimSetup(int _clientid)
         {
             InterimSetup _obj = (from d in _conn.REC_CLIENT_SETUP
-                                          where d.client_id == _clientid
-                                          select d).AsEnumerable()
-                                         .Select(x => new InterimSetup()
-                                         {
-                                             Id = x.id,
-                                             ClientId = x.client_id,
-                                             SourceFee = x.source_rate,
-                                             EndorseFee = x.endorse_rate,
-                                             SeasonalRate = x.seasonal_rate,
+                                 where d.client_id == _clientid
+                                 select d).AsEnumerable()
+                                 .Select(x => new InterimSetup()
+                                 {
+                                     Id = x.id,
+                                     ClientId = x.client_id,
+                                     SourceFee = x.source_rate,
+                                     EndorseFee = x.endorse_rate,
+                                     SeasonalRate = x.seasonal_rate,
 
-                                             IncludeThirteenMonth  = x.is_include_thirteen,
-                                             ThirteenMonthBasis = x.thirteen_month_pay_basis,
+                                     IncludeThirteenMonth = x.is_include_thirteen,
+                                     ThirteenMonthBasis = x.thirteen_month_pay_basis,
 
-                                             IncludeSepartionPay = x.is_include_separation_pay,
-                                             SeparationCategory = x.separation_pay_basis,
-                                             SeparationBasis = x.sep_pay_basis,
+                                     IncludeSepartionPay = x.is_include_separation_pay,
+                                     SeparationCategory = x.separation_pay_basis,
+                                     SeparationBasis = x.sep_pay_basis,
 
-                                             IncludeHMO= x.is_include_hmo,
-                                             HMORate = x.hmo_amount,
+                                     IncludeHMO = x.is_include_hmo,
+                                     HMORate = x.hmo_amount,
 
-                                             IncludeSILP = x.is_include_silp,
-                                             SILPDays = x.silp_days,
-                                             SILPBasic = x.silp_basis,
+                                     IncludeSILP = x.is_include_silp,
+                                     SILPDays = x.silp_days,
+                                     SILPBasic = x.silp_basis,
 
-                                             IncludeWard = x.is_include_ward,
-                                             WardRate = x.ward_amount,
+                                     IncludeWard = x.is_include_ward,
+                                     WardRate = x.ward_amount,
 
-                                             IncludeAllowance = x.is_include_allowance,
-                                             IncludeInsurance = x.include_insurance,
-                                             InsuranceRate = x.insurance_amount,
+                                     IncludeAllowance = x.is_include_allowance,
+                                     IncludeInsurance = x.include_insurance,
+                                     InsuranceRate = x.insurance_amount,
 
-                                             IncludeBillableAdjustment = x.include_adjustment,
-                                             BillableAdjustmentBasis = x.adjustment_basis
+                                     IncludeBillableAdjustment = x.include_adjustment,
+                                     BillableAdjustmentBasis = x.adjustment_basis
+                                 }).SingleOrDefault();
 
-                                         }).SingleOrDefault();
-
-            if (_obj != null)
+            if (_obj == null)
             {
-                REC_CLIENT_SETUP_EXT _ext = (from d in _conn.REC_CLIENT_SETUP_EXT where d.client_id == _clientid select d).SingleOrDefault();
-                if (_ext != null)
-                {
-                    _obj.AllowProcessingFee = _ext.proc_processing_fee;
-                    _obj.AllowBillingRate = _ext.Proc_billing_rate;
-                    _obj.AllowBillingCard = _ext.proc_billing_card;
+                _obj = new InterimSetup { ClientId = _clientid };
+            }
 
-                    _obj.ImmediateTerm = _ext.term_immediate;
-                    _obj.FifteenDaysTerm = _ext.term_fifteen;
-                    _obj.TwentyDaysTerm = _ext.term_twenty;
-                    _obj.ThirtyDaysTerm = _ext.term_thirty;
-                    _obj.FortyDaysTerm = _ext.term_forty;
-                    _obj.FortyFiveDaysTerm = _ext.term_fourtyfive;
-                    _obj.SixtyDaysTerm = _ext.term_sixty;
-                    _obj.NinetyDaysTerm = _ext.term_ninety;
+            REC_CLIENT_SETUP_EXT _ext = (from d in _conn.REC_CLIENT_SETUP_EXT
+                                         where d.client_id == _clientid
+                                         select d).SingleOrDefault();
+            if (_ext != null)
+            {
+                _obj.ExtId = _ext.id;
+                _obj.AllowProcessingFee = _ext.proc_processing_fee;
+                _obj.AllowBillingRate = _ext.Proc_billing_rate;
+                _obj.AllowBillingCard = _ext.proc_billing_card;
 
-                    _obj.ComputationTypeAll = _ext.comp_all;
-                    _obj.ComputationTypeSalaryOT = _ext.comp_salary_overtime;
-                    _obj.ComputationTypeSalaryOnly = _ext.comp_salary_only;
-                    _obj.ComputationTypeOTOnly = _ext.comp_overtime_only;
-                    _obj.ComputationTypeAdjustmentOnly = _ext.comp_adjustment_only;
-                }
+                _obj.ImmediateTerm = _ext.term_immediate;
+                _obj.FifteenDaysTerm = _ext.term_fifteen;
+                _obj.TwentyDaysTerm = _ext.term_twenty;
+                _obj.ThirtyDaysTerm = _ext.term_thirty;
+                _obj.FortyDaysTerm = _ext.term_forty;
+                _obj.FortyFiveDaysTerm = _ext.term_fourtyfive;
+                _obj.SixtyDaysTerm = _ext.term_sixty;
+                _obj.NinetyDaysTerm = _ext.term_ninety;
 
+                _obj.ComputationTypeAll = _ext.comp_all;
+                _obj.ComputationTypeSalaryOT = _ext.comp_salary_overtime;
+                _obj.ComputationTypeSalaryOnly = _ext.comp_salary_only;
+                _obj.ComputationTypeOTOnly = _ext.comp_overtime_only;
+                _obj.ComputationTypeAdjustmentOnly = _ext.comp_adjustment_only;
             }
 
             return _obj;
@@ -233,7 +249,7 @@ namespace HRMS_API.Repository.Client
             System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RET_ID", typeof(int));
 
             _conn.USP_I_MASTER_CLIENT_SETUP_EXT(
-                _model.Id,
+                _model.ExtId,
                 _model.ClientId,
                 _model.AllowProcessingFee,
                 _model.AllowBillingRate,
@@ -251,12 +267,11 @@ namespace HRMS_API.Repository.Client
                 _model.AllowBillingCard,
                 _model.Mode,
                 _model.Userid,
-                 
                 _return_value,
                 _model.TwentyDaysTerm,
                 _model.FortyDaysTerm
             );
-              
+
             return Convert.ToInt32(_model.ClientId);
         }
 

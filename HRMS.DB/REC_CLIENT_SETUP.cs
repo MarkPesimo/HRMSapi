@@ -60,5 +60,6 @@ namespace HRMS.DB
         public string adjustment_basis { get; set; }
     
         public virtual REC_CLIENT REC_CLIENT { get; set; }
+        public virtual OvertimeBasi OvertimeBasi { get; set; }
     }
 }
