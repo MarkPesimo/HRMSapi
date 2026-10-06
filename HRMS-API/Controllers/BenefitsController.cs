@@ -22,7 +22,7 @@ namespace HRMS_API.Controllers
             if (_benefitsrepository == null) { _benefitsrepository = new BenefitsRepository(); }
         }
 
-        [Route("api/Benefits/GetBenefitsMonitoring/{Keyword}/{ByClient}/{ClientID}/{PageNo}/{PageSize}/{CompanyID}")]
+        [Route("api/Benefits/GetBenefitsMonitoring/{Keyword}/{ByClient}/{ClientID}/{ByDate}/{DateFrom}/{DateTo}/{PageNo}/{PageSize}/{CompanyID}")]
         [HttpGet]
         public HttpResponseMessage GetBenefitsMonitoring(string Keyword, bool ByClient, int ClientID, bool ByDate, DateTime DateFrom, DateTime DateTo, int PageNo, int PageSize, int CompanyID)
         {
@@ -88,6 +88,24 @@ namespace HRMS_API.Controllers
 
                 return results != null && results.Count > 0
                     ? Request.CreateResponse(HttpStatusCode.OK, results)
+                    : Request.CreateErrorResponse(HttpStatusCode.NotFound, "No records found.");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/Benefits/GetBenefitsRecord/{Id}")]
+        [HttpGet]
+        public HttpResponseMessage GetBenefitsRecord(int Id)
+        {
+            try
+            {
+                BenefitsRecord_model _obj = _benefitsrepository.GetBenefitsRecord(Id);
+
+                return _obj != null
+                    ? Request.CreateResponse(HttpStatusCode.OK, _obj)
                     : Request.CreateErrorResponse(HttpStatusCode.NotFound, "No records found.");
             }
             catch (Exception ex)

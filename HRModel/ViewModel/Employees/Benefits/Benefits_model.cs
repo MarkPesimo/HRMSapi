@@ -75,22 +75,11 @@ namespace HRModel.ViewModel.Employees.Benefits
             public int Id { get; set; }
             public int EmpId { get; set; }
             public string EmployeeName { get; set; }
-
-            public int ClientId { get; set; }
             public string ClientName { get; set; }
-
-            public int BenefitTypeId { get; set; }
             public string BenefitType { get; set; }
-
-            public int BenefitClassId { get; set; }
             public string BenefitClass { get; set; }
-
-            public int BenefitCatId { get; set; }
             public string BenefitCategory { get; set; }
-
-            public int AdjustmentId { get; set; }
-            public string AdjustmentDescription { get; set; }            
-
+            public string AdjustmentDescription { get; set; }
             public decimal Amount { get; set; }
             public DateTime EffectiveDate { get; set; }
             public DateTime StartDate { get; set; }

@@ -1757,6 +1757,18 @@ warning 6002: The table/view 'APWDB.dbo.Employee_Benefits_Adjustment_File_Link' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Employee_Benefits_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="Employee_Benefits" Type="Self.Employee_Benefits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee_Benefits">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_REC_CLIENT">
           <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -3195,6 +3207,24 @@ warning 6002: The table/view 'APWDB.dbo.Employee_Benefits_Adjustment_File_Link' 
           <Parameter Name="USERID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_H_MANAGE_EMPLOYEE_BENEFITS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="EMP_ID" Type="int" Mode="In" />
+          <Parameter Name="BENEFIT_TYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="BENEFIT_CLASS_ID" Type="int" Mode="In" />
+          <Parameter Name="BENEFIT_CAT_ID" Type="int" Mode="In" />
+          <Parameter Name="AMOUNT" Type="decimal" Mode="In" />
+          <Parameter Name="EFFECTIVE_DATE" Type="date" Mode="In" />
+          <Parameter Name="START_DATE" Type="date" Mode="In" />
+          <Parameter Name="ADJ_ID" Type="int" Mode="In" />
+          <Parameter Name="IS_TAXABLE" Type="bit" Mode="In" />
+          <Parameter Name="IS_BILLABLE" Type="bit" Mode="In" />
+          <Parameter Name="STATUS" Type="bit" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_H_MANAGE_EMPLOYEE_FLOATING_STATUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="ID" Type="int" Mode="In" />
@@ -3686,6 +3716,10 @@ warning 6002: The table/view 'APWDB.dbo.Employee_Benefits_Adjustment_File_Link' 
           </AssociationSet>
           <AssociationSet Name="FK_Employee_Benefits_Employee_Benefits_Type" Association="Self.FK_Employee_Benefits_Employee_Benefits_Type">
             <End Role="Employee_Benefits_Type" EntitySet="Employee_Benefits_Type" />
+            <End Role="Employee_Benefits" EntitySet="Employee_Benefits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Benefits_REC_CLIENT" Association="Self.FK_Employee_Benefits_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
             <End Role="Employee_Benefits" EntitySet="Employee_Benefits" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_REC_CLIENT" Association="Self.FK_Employee_REC_CLIENT">
@@ -5322,17 +5356,8 @@ warning 6002: The table/view 'APWDB.dbo.Employee_Benefits_Adjustment_File_Link' 
             <Parameter Name="USER_ID" Mode="In" Type="Int32" />
             <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Employee_Benefits" EntityType="apwdbModel.Employee_Benefits" />
           <EntitySet Name="Employee_Benefits_Type" EntityType="apwdbModel.Employee_Benefits_Type" />
           <EntitySet Name="Employee_Benefits_Adjustment_File_Link" EntityType="apwdbModel.Employee_Benefits_Adjustment_File_Link" />
-          <AssociationSet Name="FK_Employee_Benefits_Employee" Association="apwdbModel.FK_Employee_Benefits_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="Employee_Benefits" EntitySet="Employee_Benefits" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Benefits_Employee_Benefits_Type" Association="apwdbModel.FK_Employee_Benefits_Employee_Benefits_Type">
-            <End Role="Employee_Benefits_Type" EntitySet="Employee_Benefits_Type" />
-            <End Role="Employee_Benefits" EntitySet="Employee_Benefits" />
-          </AssociationSet>
           <FunctionImport Name="USP_H_GET_EMPLOYEE_BENEFITS_MONITORING" ReturnType="Collection(apwdbModel.USP_H_GET_EMPLOYEE_BENEFITS_MONITORING_Result)">
             <Parameter Name="KEYWORD" Mode="In" Type="String" />
             <Parameter Name="BY_CLIENT" Mode="In" Type="Boolean" />
@@ -5343,6 +5368,37 @@ warning 6002: The table/view 'APWDB.dbo.Employee_Benefits_Adjustment_File_Link' 
             <Parameter Name="PageNumber" Mode="In" Type="Int32" />
             <Parameter Name="PageSize" Mode="In" Type="Int32" />
             <Parameter Name="COMPANY_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Employee_Benefits" EntityType="apwdbModel.Employee_Benefits" />
+          <AssociationSet Name="FK_Employee_Benefits_Employee" Association="apwdbModel.FK_Employee_Benefits_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Employee_Benefits" EntitySet="Employee_Benefits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Benefits_Employee_Benefits_Type" Association="apwdbModel.FK_Employee_Benefits_Employee_Benefits_Type">
+            <End Role="Employee_Benefits_Type" EntitySet="Employee_Benefits_Type" />
+            <End Role="Employee_Benefits" EntitySet="Employee_Benefits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Benefits_REC_CLIENT" Association="apwdbModel.FK_Employee_Benefits_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee_Benefits" EntitySet="Employee_Benefits" />
+          </AssociationSet>
+          <FunctionImport Name="USP_H_MANAGE_EMPLOYEE_BENEFITS">
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="EMP_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BENEFIT_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BENEFIT_CLASS_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BENEFIT_CAT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="AMOUNT" Mode="In" Type="Decimal" />
+            <Parameter Name="EFFECTIVE_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="START_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="ADJ_ID" Mode="In" Type="Int32" />
+            <Parameter Name="IS_TAXABLE" Mode="In" Type="Boolean" />
+            <Parameter Name="IS_BILLABLE" Mode="In" Type="Boolean" />
+            <Parameter Name="STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Employee">
@@ -6006,6 +6062,7 @@ warning 6002: The table/view 'APWDB.dbo.Employee_Benefits_Adjustment_File_Link' 
           <NavigationProperty Name="REC_JOB_ORDER" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_Client" FromRole="REC_CLIENT" ToRole="REC_JOB_ORDER" />
           <NavigationProperty Name="REC_CLIENT_SETUP" Relationship="apwdbModel.C_FK_REC_CLIENT_SETUP_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_SETUP" />
           <NavigationProperty Name="REC_CLIENT_SETUP_EXT" Relationship="apwdbModel.C_FK_REC_CLIENT_SETUP_EXT_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_SETUP_EXT" />
+          <NavigationProperty Name="Employee_Benefits" Relationship="apwdbModel.FK_Employee_Benefits_REC_CLIENT" FromRole="REC_CLIENT" ToRole="Employee_Benefits" />
         </EntityType>
         <Association Name="FK_Employee_REC_CLIENT">
           <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
@@ -8530,31 +8587,6 @@ warning 6002: The table/view 'APWDB.dbo.Employee_Benefits_Adjustment_File_Link' 
           <Property Type="Boolean" Name="WorkingHoliday" Nullable="true" />
           <Property Type="DateTime" Name="DateCreated" Nullable="true" Precision="23" />
         </ComplexType>
-        <EntityType Name="Employee_Benefits">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="emp_id" Type="Int32" Nullable="false" />
-          <Property Name="benefit_type_id" Type="Int32" Nullable="false" />
-          <Property Name="benefit_class_id" Type="Int32" Nullable="false" />
-          <Property Name="benefit_cat_id" Type="Int32" Nullable="false" />
-          <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="effective_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="benefits_start_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="adj_id" Type="Int32" />
-          <Property Name="is_taxable" Type="Boolean" />
-          <Property Name="is_billable" Type="Boolean" />
-          <Property Name="benefit_status" Type="Boolean" />
-          <Property Name="remarks" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="user_created" Type="Int32" />
-          <Property Name="date_created" Type="DateTime" Precision="0" />
-          <Property Name="user_modified" Type="Int32" />
-          <Property Name="date_modified" Type="DateTime" Precision="0" />
-          <Property Name="client_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_Employee_Benefits_Employee" FromRole="Employee_Benefits" ToRole="Employee" />
-          <NavigationProperty Name="Employee_Benefits_Type" Relationship="apwdbModel.FK_Employee_Benefits_Employee_Benefits_Type" FromRole="Employee_Benefits" ToRole="Employee_Benefits_Type" />
-        </EntityType>
         <EntityType Name="Employee_Benefits_Type">
           <Key>
             <PropertyRef Name="id" />
@@ -8582,6 +8614,50 @@ warning 6002: The table/view 'APWDB.dbo.Employee_Benefits_Adjustment_File_Link' 
           <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="user_created" Type="Int32" Nullable="false" />
         </EntityType>
+        <ComplexType Name="USP_H_GET_EMPLOYEE_BENEFITS_MONITORING_Result">
+          <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ClientName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="BenefitType" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="BenefitClass" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="BenefitCategory" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Adjustment" Nullable="true" MaxLength="150" />
+          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="String" Name="Taxable" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Billable" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="EffectiveDate" Nullable="true" />
+          <Property Type="DateTime" Name="StartDate" Nullable="true" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="Cnt" Nullable="true" />
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="Int32" Name="emp_id" Nullable="true" />
+          <Property Type="String" Name="Emp_No" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="Employee_Benefits">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="emp_id" Type="Int32" Nullable="false" />
+          <Property Name="benefit_type_id" Type="Int32" Nullable="false" />
+          <Property Name="benefit_class_id" Type="Int32" Nullable="false" />
+          <Property Name="benefit_cat_id" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="effective_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="benefits_start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="adj_id" Type="Int32" />
+          <Property Name="is_taxable" Type="Boolean" />
+          <Property Name="is_billable" Type="Boolean" />
+          <Property Name="benefit_status" Type="Boolean" />
+          <Property Name="remarks" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="user_created" Type="Int32" />
+          <Property Name="date_created" Type="DateTime" Precision="0" />
+          <Property Name="user_modified" Type="Int32" />
+          <Property Name="date_modified" Type="DateTime" Precision="0" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_Employee_Benefits_Employee" FromRole="Employee_Benefits" ToRole="Employee" />
+          <NavigationProperty Name="Employee_Benefits_Type" Relationship="apwdbModel.FK_Employee_Benefits_Employee_Benefits_Type" FromRole="Employee_Benefits" ToRole="Employee_Benefits_Type" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.FK_Employee_Benefits_REC_CLIENT" FromRole="Employee_Benefits" ToRole="REC_CLIENT" />
+        </EntityType>
         <Association Name="FK_Employee_Benefits_Employee">
           <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="1" />
           <End Type="apwdbModel.Employee_Benefits" Role="Employee_Benefits" Multiplicity="*" />
@@ -8606,24 +8682,18 @@ warning 6002: The table/view 'APWDB.dbo.Employee_Benefits_Adjustment_File_Link' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="USP_H_GET_EMPLOYEE_BENEFITS_MONITORING_Result">
-          <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="250" />
-          <Property Type="String" Name="ClientName" Nullable="true" MaxLength="250" />
-          <Property Type="String" Name="BenefitType" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="BenefitClass" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="BenefitCategory" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="Adjustment" Nullable="true" MaxLength="150" />
-          <Property Type="Decimal" Name="Amount" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="String" Name="Taxable" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Billable" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="EffectiveDate" Nullable="true" />
-          <Property Type="DateTime" Name="StartDate" Nullable="true" />
-          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="250" />
-          <Property Type="Int32" Name="Cnt" Nullable="true" />
-          <Property Type="Int32" Name="id" Nullable="true" />
-          <Property Type="Int32" Name="emp_id" Nullable="true" />
-          <Property Type="String" Name="Emp_No" Nullable="true" MaxLength="50" />
-        </ComplexType>
+        <Association Name="FK_Employee_Benefits_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Benefits" Role="Employee_Benefits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee_Benefits">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10296,30 +10366,6 @@ warning 6002: The table/view 'APWDB.dbo.Employee_Benefits_Adjustment_File_Link' 
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_T_MANAGE_LOCAL_HOLIDAY" FunctionName="apwdbModel.Store.USP_T_MANAGE_LOCAL_HOLIDAY" />
           <FunctionImportMapping FunctionImportName="USP_T_MANAGE_LOCAL_HOLIDAY_DET" FunctionName="apwdbModel.Store.USP_T_MANAGE_LOCAL_HOLIDAY_DET" />
-          <EntitySetMapping Name="Employee_Benefits">
-            <EntityTypeMapping TypeName="apwdbModel.Employee_Benefits">
-              <MappingFragment StoreEntitySet="Employee_Benefits">
-                <ScalarProperty Name="client_id" ColumnName="client_id" />
-                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
-                <ScalarProperty Name="user_modified" ColumnName="user_modified" />
-                <ScalarProperty Name="date_created" ColumnName="date_created" />
-                <ScalarProperty Name="user_created" ColumnName="user_created" />
-                <ScalarProperty Name="remarks" ColumnName="remarks" />
-                <ScalarProperty Name="benefit_status" ColumnName="benefit_status" />
-                <ScalarProperty Name="is_billable" ColumnName="is_billable" />
-                <ScalarProperty Name="is_taxable" ColumnName="is_taxable" />
-                <ScalarProperty Name="adj_id" ColumnName="adj_id" />
-                <ScalarProperty Name="benefits_start_date" ColumnName="benefits_start_date" />
-                <ScalarProperty Name="effective_date" ColumnName="effective_date" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="benefit_cat_id" ColumnName="benefit_cat_id" />
-                <ScalarProperty Name="benefit_class_id" ColumnName="benefit_class_id" />
-                <ScalarProperty Name="benefit_type_id" ColumnName="benefit_type_id" />
-                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Employee_Benefits_Type">
             <EntityTypeMapping TypeName="apwdbModel.Employee_Benefits_Type">
               <MappingFragment StoreEntitySet="Employee_Benefits_Type">
@@ -10366,6 +10412,31 @@ warning 6002: The table/view 'APWDB.dbo.Employee_Benefits_Adjustment_File_Link' 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Employee_Benefits">
+            <EntityTypeMapping TypeName="apwdbModel.Employee_Benefits">
+              <MappingFragment StoreEntitySet="Employee_Benefits">
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="date_modified" ColumnName="date_modified" />
+                <ScalarProperty Name="user_modified" ColumnName="user_modified" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_created" ColumnName="user_created" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="benefit_status" ColumnName="benefit_status" />
+                <ScalarProperty Name="is_billable" ColumnName="is_billable" />
+                <ScalarProperty Name="is_taxable" ColumnName="is_taxable" />
+                <ScalarProperty Name="adj_id" ColumnName="adj_id" />
+                <ScalarProperty Name="benefits_start_date" ColumnName="benefits_start_date" />
+                <ScalarProperty Name="effective_date" ColumnName="effective_date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="benefit_cat_id" ColumnName="benefit_cat_id" />
+                <ScalarProperty Name="benefit_class_id" ColumnName="benefit_class_id" />
+                <ScalarProperty Name="benefit_type_id" ColumnName="benefit_type_id" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_BENEFITS" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_BENEFITS" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

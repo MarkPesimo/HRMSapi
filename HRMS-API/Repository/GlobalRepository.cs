@@ -328,5 +328,27 @@ namespace HRMS_API.Repository
 
             return query.ToList();
         }
+
+        public string GetBenefitsClass(int _id)
+        {
+            string _benefitsclass = "";
+
+            if (_id == 0) { _benefitsclass = "Cash"; }
+            else if (_id == 1) { _benefitsclass = "Non-Cash"; }
+            else { _benefitsclass = "NA"; }
+
+            return _benefitsclass;
+        }
+
+        public string GetBenefitsCategory(int _id)
+        {
+            string _benefitscategory = "";
+
+            if (_id == 0) { _benefitscategory = "Cash"; }
+            else if (_id == 1) { _benefitscategory = "Non-Cash"; }
+            else { _benefitscategory = "NA"; }
+
+            return _benefitscategory;
+        }
     }
 }

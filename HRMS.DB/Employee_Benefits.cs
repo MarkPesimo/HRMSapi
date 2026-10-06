@@ -35,5 +35,6 @@ namespace HRMS.DB
     
         public virtual Employee Employee { get; set; }
         public virtual Employee_Benefits_Type Employee_Benefits_Type { get; set; }
+        public virtual REC_CLIENT REC_CLIENT { get; set; }
     }
 }

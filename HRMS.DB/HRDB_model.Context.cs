@@ -89,9 +89,9 @@ namespace HRMS.DB
         public virtual DbSet<REC_CLIENT_SETUP_CUTOFF> REC_CLIENT_SETUP_CUTOFF { get; set; }
         public virtual DbSet<REC_CLIENT_SETUP_EXT> REC_CLIENT_SETUP_EXT { get; set; }
         public virtual DbSet<TAMS_LOCAL_HOLIDAY_DET> TAMS_LOCAL_HOLIDAY_DET { get; set; }
-        public virtual DbSet<Employee_Benefits> Employee_Benefits { get; set; }
         public virtual DbSet<Employee_Benefits_Type> Employee_Benefits_Type { get; set; }
         public virtual DbSet<Employee_Benefits_Adjustment_File_Link> Employee_Benefits_Adjustment_File_Link { get; set; }
+        public virtual DbSet<Employee_Benefits> Employee_Benefits { get; set; }
     
         public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
         {
@@ -3000,6 +3000,71 @@ namespace HRMS.DB
                 new ObjectParameter("COMPANY_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_EMPLOYEE_BENEFITS_MONITORING_Result>("USP_H_GET_EMPLOYEE_BENEFITS_MONITORING", kEYWORDParameter, bY_CLIENTParameter, cLIENT_IDParameter, bY_DATEParameter, dATE_FROMParameter, dATE_TOParameter, pageNumberParameter, pageSizeParameter, cOMPANY_IDParameter);
+        }
+    
+        public virtual int USP_H_MANAGE_EMPLOYEE_BENEFITS(Nullable<int> mODE, Nullable<int> iD, Nullable<int> eMP_ID, Nullable<int> bENEFIT_TYPE_ID, Nullable<int> bENEFIT_CLASS_ID, Nullable<int> bENEFIT_CAT_ID, Nullable<decimal> aMOUNT, Nullable<System.DateTime> eFFECTIVE_DATE, Nullable<System.DateTime> sTART_DATE, Nullable<int> aDJ_ID, Nullable<bool> iS_TAXABLE, Nullable<bool> iS_BILLABLE, Nullable<bool> sTATUS, string rEMARKS, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var eMP_IDParameter = eMP_ID.HasValue ?
+                new ObjectParameter("EMP_ID", eMP_ID) :
+                new ObjectParameter("EMP_ID", typeof(int));
+    
+            var bENEFIT_TYPE_IDParameter = bENEFIT_TYPE_ID.HasValue ?
+                new ObjectParameter("BENEFIT_TYPE_ID", bENEFIT_TYPE_ID) :
+                new ObjectParameter("BENEFIT_TYPE_ID", typeof(int));
+    
+            var bENEFIT_CLASS_IDParameter = bENEFIT_CLASS_ID.HasValue ?
+                new ObjectParameter("BENEFIT_CLASS_ID", bENEFIT_CLASS_ID) :
+                new ObjectParameter("BENEFIT_CLASS_ID", typeof(int));
+    
+            var bENEFIT_CAT_IDParameter = bENEFIT_CAT_ID.HasValue ?
+                new ObjectParameter("BENEFIT_CAT_ID", bENEFIT_CAT_ID) :
+                new ObjectParameter("BENEFIT_CAT_ID", typeof(int));
+    
+            var aMOUNTParameter = aMOUNT.HasValue ?
+                new ObjectParameter("AMOUNT", aMOUNT) :
+                new ObjectParameter("AMOUNT", typeof(decimal));
+    
+            var eFFECTIVE_DATEParameter = eFFECTIVE_DATE.HasValue ?
+                new ObjectParameter("EFFECTIVE_DATE", eFFECTIVE_DATE) :
+                new ObjectParameter("EFFECTIVE_DATE", typeof(System.DateTime));
+    
+            var sTART_DATEParameter = sTART_DATE.HasValue ?
+                new ObjectParameter("START_DATE", sTART_DATE) :
+                new ObjectParameter("START_DATE", typeof(System.DateTime));
+    
+            var aDJ_IDParameter = aDJ_ID.HasValue ?
+                new ObjectParameter("ADJ_ID", aDJ_ID) :
+                new ObjectParameter("ADJ_ID", typeof(int));
+    
+            var iS_TAXABLEParameter = iS_TAXABLE.HasValue ?
+                new ObjectParameter("IS_TAXABLE", iS_TAXABLE) :
+                new ObjectParameter("IS_TAXABLE", typeof(bool));
+    
+            var iS_BILLABLEParameter = iS_BILLABLE.HasValue ?
+                new ObjectParameter("IS_BILLABLE", iS_BILLABLE) :
+                new ObjectParameter("IS_BILLABLE", typeof(bool));
+    
+            var sTATUSParameter = sTATUS.HasValue ?
+                new ObjectParameter("STATUS", sTATUS) :
+                new ObjectParameter("STATUS", typeof(bool));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_EMPLOYEE_BENEFITS", mODEParameter, iDParameter, eMP_IDParameter, bENEFIT_TYPE_IDParameter, bENEFIT_CLASS_IDParameter, bENEFIT_CAT_IDParameter, aMOUNTParameter, eFFECTIVE_DATEParameter, sTART_DATEParameter, aDJ_IDParameter, iS_TAXABLEParameter, iS_BILLABLEParameter, sTATUSParameter, rEMARKSParameter, uSERIDParameter, rET_ID);
         }
     }
 }

@@ -34,6 +34,7 @@ namespace HRMS.DB
             this.REC_JOB_ORDER = new HashSet<REC_JOB_ORDER>();
             this.REC_CLIENT_SETUP = new HashSet<REC_CLIENT_SETUP>();
             this.REC_CLIENT_SETUP_EXT = new HashSet<REC_CLIENT_SETUP_EXT>();
+            this.Employee_Benefits = new HashSet<Employee_Benefits>();
         }
     
         public int id { get; set; }
@@ -106,5 +107,7 @@ namespace HRMS.DB
         public virtual ICollection<REC_CLIENT_SETUP> REC_CLIENT_SETUP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_CLIENT_SETUP_EXT> REC_CLIENT_SETUP_EXT { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_Benefits> Employee_Benefits { get; set; }
     }
 }

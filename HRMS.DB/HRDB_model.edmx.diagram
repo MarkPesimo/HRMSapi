@@ -185,12 +185,13 @@
         <EntityTypeShape EntityType="apwdbModel.TAMS_LOCAL_HOLIDAY_DET" Width="1.5" PointX="16" PointY="7.125" />
         <AssociationConnector Association="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_Employee" />
         <AssociationConnector Association="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" />
-        <EntityTypeShape EntityType="apwdbModel.Employee_Benefits" Width="1.5" PointX="20.375" PointY="13.25" />
         <EntityTypeShape EntityType="apwdbModel.Employee_Benefits_Type" Width="1.5" PointX="18.125" PointY="14.375" />
         <EntityTypeShape EntityType="apwdbModel.Employee_Benefits_Adjustment_File_Link" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="apwdbModel.Employee_Benefits" Width="1.5" PointX="20.375" PointY="12.875" />
         <AssociationConnector Association="apwdbModel.FK_Employee_Benefits_Employee" />
         <AssociationConnector Association="apwdbModel.FK_Employee_Benefits_Employee_Benefits_Type" />
-      </Diagram>
+        <AssociationConnector Association="apwdbModel.FK_Employee_Benefits_REC_CLIENT" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
