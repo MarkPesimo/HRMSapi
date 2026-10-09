@@ -37,7 +37,6 @@ namespace HRMS_API.Repository
             return (from d in _conn.Employees where d.Emp_ID == _empid select d.Lastname + ", " + d.Firstname).ToString();
         }
 
-
         public List<EmployeeMonitoringViewModel> GetEmployeeMonitoring(string Keyword, bool ByClient, int ClientID, int PageNo, int PageSize, int CompanyID)
         {
             if (Keyword == "NULL") { Keyword = ""; } 
@@ -49,7 +48,9 @@ namespace HRMS_API.Repository
                       EmployeeID = x.EmpID.ToString(),
                       EmployeeName = x.LastName + ", " + x.FirstName + " " + x.MiddleName,
                       EmployerName = x.EmployerName,
+                      ClientGUID = x.ClientGUID,
                       Client = x.ClientName,
+                      ClientId = x.ClientId ?? 1,
                       Branch = x.Branch,
                       Department = x.Department,
                       Position = x.Position,
@@ -58,7 +59,9 @@ namespace HRMS_API.Repository
                       PayType = x.Paytype,
                       DateHired = DateTime.Parse(x.Datehired.Value.ToShortDateString()),
                       UserEncoded = x.UserEncoded,
-                      DateEncoded = DateTime.Parse(x.DateEncoded.Value.ToShortDateString()) 
+                      DateEncoded = DateTime.Parse(x.DateEncoded.Value.ToShortDateString()) ,
+                      EmpStatus = x.EmpStatus ?? false,
+                      CandId = x.CandidateId ?? 1
 
                   }).ToList();
         }
@@ -89,6 +92,46 @@ namespace HRMS_API.Repository
             bool? _status = (from d in _conn.Employees where d.Emp_ID == _empid select d.IsIncludePayroll).SingleOrDefault();
             if (bool.Parse(_status.ToString())) { return "Active"; }
             else { return "Inactive"; }
+        }
+
+        public List<AreaLibraryModel> GetCities()
+        {
+            List<AreaLibraryModel> _list = new List<AreaLibraryModel>();
+
+            _list = (from a in _conn.AreaLibraries
+                     where a.ProvinceID != 0
+                     select a).AsEnumerable()
+                    .Select(x => new AreaLibraryModel()
+                    {
+                        AreaID = x.AreaID,
+                        AreaDescription = x.AreaDescription,
+                        ProvinceID = x.ProvinceID,
+                        UserID = x.UserID,
+                        user_id = x.user_id,
+                        date_created = x.date_created,
+                        status = x.status,
+                        region_id = x.region_id
+                    }).OrderBy(x => x.AreaDescription).ToList();
+
+            return _list;
+        }
+
+        public List<AreaLibraryModel> GetProvinces()
+        {
+            return (from a in _conn.AreaLibraries
+                    where a.ProvinceID == 0
+                    select a).AsEnumerable()
+                   .Select(x => new AreaLibraryModel()
+                   {
+                       AreaID = x.AreaID,
+                       AreaDescription = x.AreaDescription,
+                       ProvinceID = x.ProvinceID,
+                       UserID = x.UserID,
+                       user_id = x.user_id,
+                       date_created = x.date_created,
+                       status = x.status,
+                       region_id = x.region_id
+                   }).OrderBy(x => x.AreaDescription).ToList();
         }
 
         public PersonalInfo GetPersonalInfo(int _empid)

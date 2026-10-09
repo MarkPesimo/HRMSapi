@@ -10,13 +10,29 @@ namespace HRMS_API.Repository
 {
     public class ClientBranchRepository
     {
-        private static apwdbEntities _conn { get; set; }
+        private apwdbEntities _conn { get; set; }
         private GlobalRepository _globalrepository { get; set; }
 
         public ClientBranchRepository()
         {
             if (_conn == null) { _conn = new apwdbEntities(); }
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
+        }
+
+        public List<SysRegion_vw_model> GetRegionDropdown()
+        {
+            return (from x in _conn.SYS_REGION
+                    select x
+            ).AsEnumerable()
+            .Select(d => new SysRegion_vw_model()
+            {
+                Id = int.Parse(d.id.ToString()),
+                RegionCode = d.region_code,
+                RegionName = d.region_name,
+                Status = d.status == true ? "Active" : "Inactive",
+                CreatedBy = d.SYS_USER.username,
+                DateCreated = d.date_created.ToShortDateString()
+            }).ToList();
         }
 
         public List<ClientBranch_vw_model> GetList(int _clientid)

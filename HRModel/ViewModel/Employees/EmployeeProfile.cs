@@ -30,6 +30,18 @@ namespace HRModel.ViewModel.Employees
         public int UserId { get; set; }
     }
 
+    public class AreaLibraryModel
+    {
+        public int AreaID { get; set; }
+        public string AreaDescription { get; set; }
+        public int? ProvinceID { get; set; }
+        public int? UserID { get; set; }
+        public int? user_id { get; set; }
+        public DateTime? date_created { get; set; }
+        public bool? status { get; set; }
+        public int? region_id { get; set; }
+    }
+
     public class SpouseInfo
     {
         public int EmpId { get; set; }
@@ -98,6 +110,7 @@ namespace HRModel.ViewModel.Employees
     //==============================EMPLOYEE EDUCATION=========================================
     public class EducationalBackgroundViewModel
     {
+        public int SchoolId { get; set; }
         public int Id { get; set; }
         public int EmpId { get; set; }
         public string Level { get; set; }
@@ -128,6 +141,50 @@ namespace HRModel.ViewModel.Employees
         public int UserId { get; set; }
         public int Mode { get; set; }
 
+    }
+
+    public class SchoolViewModel
+    {
+        public int SchoolID { get; set; }
+        public string SchoolName { get; set; }
+        public string SchoolType { get; set; }
+        public bool Status { get; set; }
+        public string Location { get; set; }
+        public int? RegionId { get; set; }
+        public int? SchoolTierId { get; set; }
+        public int? UserCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public int? UserUpdated { get; set; }
+        public DateTime? DateUpdated { get; set; }
+        public int? CountryId { get; set; }
+        public int Mode { get; set; }
+        public int UserId { get; set; }
+    }
+
+    public class DegreeViewModel
+    {
+        public int DegreeID { get; set; }
+        public string DegreeName { get; set; }
+        public bool Status { get; set; }
+        public int? UserCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public int? UserUpdated { get; set; }
+        public DateTime? DateUpdated { get; set; }
+        public int? CountryId { get; set; }
+        public int Mode { get; set; }
+        public int UserId { get; set; }
+    }
+
+    public class SchoolLevelViewModel
+    {
+        public int LevelID { get; set; }
+        public string SchoolLevelDescn { get; set; }
+        public bool? Status { get; set; }
+        public int? UserCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public int? UserUpdated { get; set; }
+        public DateTime? DateUpdated { get; set; }
+        public int? CountryId { get; set; }
     }
     //==============================EMPLOYEE EDUCATION=========================================
 
@@ -288,6 +345,7 @@ namespace HRModel.ViewModel.Employees
     //==============================EMPLOYEE PROFILE=========================================
     public class EmployeeProfile
     {
+        public int CandId { get; set; }
         public string GUid { get; set; }
         public string EmployeeStatus { get; set; }
         public PersonalInfo Personal { get; set; }

@@ -36,5 +36,6 @@ namespace HRMS.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_CANDIDATE_EDUCATION> REC_CANDIDATE_EDUCATION { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
+        public virtual SYS_REGION SYS_REGION { get; set; }
     }
 }

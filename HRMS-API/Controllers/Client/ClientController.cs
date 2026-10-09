@@ -10,6 +10,7 @@ using static HRModel.ViewModel.Client.Client_model;
 using static HRModel.ViewModel.Client.ClientHistory_model;
 using static HRModel.ViewModel.Client.ClientSetting_model;
 using static HRModel.ViewModel.Client.ClientSetting_model.AccountMapping;
+using static HRModel.ViewModel.Client.ClientSetting_model.PayrollSetup;
 
 namespace HRMS_API.Controllers.Client
 {
@@ -44,6 +45,7 @@ namespace HRMS_API.Controllers.Client
             if (_shiftrepository == null) { _shiftrepository = new ClientShiftRepository(); }
             if (_historyrepository == null) { _historyrepository = new ClientHistoryRepository(); }
             if (_setuprepository == null) { _setuprepository = new ClientSetupRepository(); }
+            if (_branchrepository == null) { _branchrepository = new ClientBranchRepository(); }
         }
 
         //=========================================SHIFT==========================================
@@ -311,6 +313,23 @@ namespace HRMS_API.Controllers.Client
         //=========================================CONTACT==========================================
 
         //=========================================BANK==========================================
+        [Route("api/Client/GetDropdownBanks")]
+        [HttpGet]
+        public HttpResponseMessage GetDropdownBanks()
+        {
+            try
+            {
+                List<SysBank_vw_model> _model = _bankrepository.GetList();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
         [Route("api/Client/Banks/{GUID}")]
         [HttpGet]
         public HttpResponseMessage Banks(string GUID)
@@ -365,9 +384,26 @@ namespace HRMS_API.Controllers.Client
         //=========================================BANK==========================================
 
         //=========================================BRANCH==========================================
-        [Route("api/Client/Branches/{GUID}")]
+        [Route("api/Client/GetRegionDropdown")]
         [HttpGet]
-        public HttpResponseMessage Branches(string GUID)
+        public HttpResponseMessage GetRegionDropdown()
+        {
+            try
+            {
+                List<SysRegion_vw_model> _model = _branchrepository.GetRegionDropdown();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Client/GetBranches/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetBranches(string GUID)
         {
             try
             {
@@ -474,6 +510,23 @@ namespace HRMS_API.Controllers.Client
         //=========================================PROFILE==========================================
 
         //=========================================DOCUMENT==========================================
+        [Route("api/Client/GetDocumentDropdown")]
+        [HttpGet]
+        public HttpResponseMessage GetDocumentDropdown()
+        {
+            try
+            {
+                List<Document_vw_model> _model = _documentrepository.GetDocumentDropdown();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
         [Route("api/Client/Documents/{GUID}")]
         [HttpGet]
         public HttpResponseMessage Documents(string GUID)
@@ -528,6 +581,23 @@ namespace HRMS_API.Controllers.Client
         //=========================================DOCUMENT==========================================
 
         //=========================================DEPARTMENT==========================================
+        [Route("api/Client/GetDepartmentDropdown")]
+        [HttpGet]
+        public HttpResponseMessage GetDepartmentDropdown()
+        {
+            try
+            {
+                List<Department_vw_model> _model = _departmentrepository.GetDepartmentList();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
         [Route("api/Client/Departments/{GUID}")]
         [HttpGet]
         public HttpResponseMessage Departments(string GUID)
@@ -546,9 +616,9 @@ namespace HRMS_API.Controllers.Client
             }
         }
 
-        [Route("api/Client/Departments/{Id}")]
+        [Route("api/Client/Department/{Id}")]
         [HttpGet]
-        public HttpResponseMessage Departments(int Id)
+        public HttpResponseMessage Department(int Id)
         {
             try
             {
@@ -674,6 +744,23 @@ namespace HRMS_API.Controllers.Client
         //=========================================TRANSACTION HISTORY==========================================
 
         //=========================================CLIENT PAYROLL SETUP==========================================
+        [Route("api/Client/GetOvertimeBasisList")]
+        [HttpGet]
+        public HttpResponseMessage GetOvertimeBasisList()
+        {
+            try
+            {
+                List<OvertimeBasis_vw_model> _model = _setuprepository.GetOvertimeBasisList();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
         [Route("api/Client/GetPayrollSetup/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetPayrollSetup(string GUID)
@@ -786,6 +873,30 @@ namespace HRMS_API.Controllers.Client
         //=========================================CLIENT SETUP==========================================
 
         //=========================================CLIENT OVERTIME RATE SETUP==========================================
+        [Route("api/Client/GetSysEntries")]
+        [HttpGet]
+        public HttpResponseMessage GetSysEntries()
+        {
+            try
+            {
+                List<SysEntry> _model = _setuprepository.GetSysEntries();
+
+                if (_model != null && _model.Count > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
         [Route("api/Client/GetOvertimeRate/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetOvertimeRate(string GUID)
@@ -842,7 +953,7 @@ namespace HRMS_API.Controllers.Client
         }
 
         [Route("api/Client/GetAccount/{Id}")]
-        [HttpPost]
+        [HttpGet]
         public HttpResponseMessage GetAccount(int Id)
         {
             try
@@ -927,5 +1038,55 @@ namespace HRMS_API.Controllers.Client
             }
         }
         //=========================================CLIENT ACCOUNT SETUP==========================================
+
+        //==================================CLIENT PORTAL RULE SETUP===========================================
+        [Route("api/Client/GetPortalRule/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetPortalRule(string GUID)
+        {
+            try
+            {
+                int _clientid = _profilerepository.GetClientId(GUID);
+                ClientPortalRule_model _model = _setuprepository.GetPortalRule(_clientid);
+
+                if (_model != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Client/ManagePortalFilingRule")]
+        [HttpPost]
+        public HttpResponseMessage ManagePortalFilingRule([FromBody] ClientPortalRule_model model)
+        {
+            try
+            {
+                int result = _setuprepository.ManagePortalFilingRule(model);
+                if (result > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, model.Id);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record.");
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+        //==================================CLIENT PORTAL RULE SETUP===========================================
     }
 }

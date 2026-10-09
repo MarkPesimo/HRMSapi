@@ -10,7 +10,7 @@ namespace HRMS_API.Repository
 {
     public class ClientDepartmentRepository
     {
-        private static apwdbEntities _conn { get; set; }
+        private apwdbEntities _conn { get; set; }
         private GlobalRepository _globalrepository { get; set; }
 
         public ClientDepartmentRepository()
@@ -33,6 +33,23 @@ namespace HRMS_API.Repository
                 Status = d.status == true ?  "Active" : "Inactive",
                 CreatedBy = d.SYS_USER.username,
                 DateCreated = d.date_created.ToShortDateString()
+            }).ToList();
+        }
+
+        public List<Department_vw_model> GetDepartmentList()
+        {
+            return (from x in _conn.Departments
+                    orderby x.Dept_Name ascending
+                    select x
+            ).AsEnumerable()
+            .Select(d => new Department_vw_model()
+            {
+                Id = Convert.ToInt32(d.Dept_ID),
+                DepartmentName = d.Dept_Name,
+                UserId = d.UserID,
+                CreatedBy = d.SYS_USER != null ? d.SYS_USER.username : "",
+                DateCreated = d.date_created.ToShortDateString(),
+                Status = d.Status == true ? "Active" : "Inactive"
             }).ToList();
         }
 

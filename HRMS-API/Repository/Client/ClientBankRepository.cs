@@ -10,13 +10,30 @@ namespace HRMS_API.Repository
 {
     public class ClientBankRepository
     {
-        private static apwdbEntities _conn { get; set; }
+        private apwdbEntities _conn { get; set; }
         private GlobalRepository _globalrepository { get; set; }
 
         public ClientBankRepository()
         {
             if (_conn == null) { _conn = new apwdbEntities(); }
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
+        }
+
+        public List<SysBank_vw_model> GetList()
+        {
+            return (from x in _conn.SYS_BANK
+                    select x
+            ).AsEnumerable()
+            .Select(d => new SysBank_vw_model()
+            {
+                Id = int.Parse(d.id.ToString()),
+                BankCode = d.Bank_code,
+                BankName = d.Bank_Name,
+                AcctCode = d.acct_code,
+                Status = d.status == true ? "Active" : "Inactive",
+                CreatedBy = d.SYS_USER.username,
+                DateCreated = d.date_created.ToShortDateString()
+            }).ToList();
         }
 
         public List<ClientBank_vw_model> GetList(int _clientid)

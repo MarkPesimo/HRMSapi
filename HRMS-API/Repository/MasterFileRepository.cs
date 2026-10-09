@@ -20,8 +20,7 @@ namespace HRMS_API.Repository
 
         public MasterFileRepository()
         {
-           // if (_conn == null) { _conn = new apwdbEntities(); }
-            //_conn = new apwdbEntities();
+            //if (_conn == null) { _conn = new apwdbEntities(); } 
         }
 
         public class Department_repository
