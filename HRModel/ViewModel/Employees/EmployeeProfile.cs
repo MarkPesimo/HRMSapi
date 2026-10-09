@@ -285,9 +285,11 @@ namespace HRModel.ViewModel.Employees
     }
     //==============================EMPLOYEE DOCUMENT=========================================
 
+    //==============================EMPLOYEE PROFILE=========================================
     public class EmployeeProfile
     {
         public string GUid { get; set; }
+        public string EmployeeStatus { get; set; }
         public PersonalInfo Personal { get; set; }
         public SpouseInfo Spouse { get; set; }
         public EmergencyContactInfo EmergencyContact { get; set; }
@@ -299,7 +301,137 @@ namespace HRModel.ViewModel.Employees
         public List<PreviousEmploymentViewModel> ExternalEmployments { get; set; }
         //public List<>
     }
+    //==============================EMPLOYEE PROFILE=========================================
 
+
+    //==============================EMPLOYEE PAYROLL=========================================
+
+    //------------------------------SALARY REMARKS----------------------------------------
+    public class EmployeeSalary
+    {
+        public int EmpId { get; set; }
+        public decimal? BasicRate { get; set; }
+        public decimal? Allowance { get; set; }
+        public decimal? Cola { get; set; }
+        public decimal? RiceAllowance { get; set; }
+        public decimal? Deminimis { get; set; }
+
+        public int? BankId { get; set; }
+        public string BankName { get; set; }
+        public string AccountNo { get; set; }
+        public string CardNo { get; set; }
+        public DateTime? CardValidity { get; set; }
+
+        public bool IsManualPagibig { get; set; }
+        public decimal PagIbigContribution { get; set; }
+
+        public bool  IsManualSSS { get; set; }
+        public decimal SSSContribution { get; set; }
+
+        public bool IsManualPhilhealth { get; set; }
+        public decimal PhilhealthContribution { get; set; }
+
+        public bool IsManaulTax { get; set; }   
+        public decimal ManualTaxDeduction { get; set; }
+
+        public bool? IncludeInPayroll { get; set; }
+        public bool MinimumWageEarner { get; set; }
+
+        public bool IsConfidential { get; set; }
+
+        public bool IsWithVat { get; set; }
+        public decimal? VatPercentage { get; set; }
+
+        public int ContractTypeId { get; set; }
+        public string ContractType { get; set; }
+
+        public int SourceTypeId { get; set; }
+        public string SourceType { get; set; }
+
+        public string PayrollType { get; set; }
+        public string Remarks { get; set; }
+
+        public int RestDayId { get; set; }
+        public string RestDayDesription { get; set; }
+
+        public int CreatedByUserId { get; set; }
+
+        public string CreatedByUser { get; set; }
+        public DateTime DateCreated { get; set; }
+
+        public int ModifiedByUserId { get; set; }
+        public string ModifiedByUser { get; set; }
+        public DateTime DateModified { get; set; }
+
+        public int Mode { get; set; }
+    }
+
+    public class EmployeeSalaryRemark
+    {
+        public int Id { get; set; }
+        public int EmpId { get; set; }
+        public int RemarksTypeId { get; set; }
+        public string RemarksType { get; set; }
+        public string Remarks { get; set; }
+
+        public int UserId { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime DateCreated { get; set; }
+        
+        public int Mode { get; set; }
+    }
+    //------------------------------SALARY REMARKS----------------------------------------
+
+    //------------------------------PAYROLL ADJUSTMENT----------------------------------------
+    public class EmployeeAdjustment
+    {
+        public int Id { get; set; }
+        public int? EmpId { get; set; }
+        public int? AdjustmentId { get; set; }
+        public string AdjustmentDescription { get; set; }
+        public DateTime? TranDate { get; set; }
+        public decimal? Amount { get; set; }
+
+        public bool? IsTaxable { get; set; }
+        public bool? Billable { get; set; }
+        public string Remarks { get; set; }
+        public string Status { get; set; }
+
+        public int? UserId { get; set; }
+        public string CreatedBy { get; set; }
+        
+
+        public int Mode { get; set; }
+
+    }
+    //------------------------------PAYROLL ADJUSTMENT----------------------------------------
+
+    //------------------------------PAYROLL DEDUCTIONS----------------------------------------
+    public class EmployeeDeduction
+    {
+        public int Id { get; set; }
+        public int? EmpId { get; set; }
+        public int? DeductionId { get; set; }
+        public string DeductionDescription { get; set; }
+        public DateTime? TranDate { get; set; }
+        public decimal DayAbsent { get; set; }
+
+        public decimal? Amount { get; set; }
+
+        
+        public string Remarks { get; set; }
+        public string Status { get; set; }
+
+        public int? UserId { get; set; }
+        public string CreatedBy { get; set; }
+        public decimal  Balance { get; set; }
+
+        public int Mode { get; set; }
+
+    }
+    //------------------------------PAYROLL DEDUCTIONS----------------------------------------
+
+    //==============================EMPLOYEE PAYROLL=========================================
 
 
 

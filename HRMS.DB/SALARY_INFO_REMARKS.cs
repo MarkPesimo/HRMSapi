@@ -12,16 +12,17 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class TAMS_LOCAL_HOLIDAY_DET
+    public partial class SALARY_INFO_REMARKS
     {
         public int id { get; set; }
-        public int holiday_id { get; set; }
-        public int emp_id { get; set; }
-        public int user_id { get; set; }
-        public System.DateTime date_created { get; set; }
+        public int Emp_ID { get; set; }
+        public string Remarks { get; set; }
+        public int RemarksType_ID { get; set; }
+        public int UserID { get; set; }
+        public System.DateTime Date_modified { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
-        public virtual TAMS_LOCAL_HOLIDAY TAMS_LOCAL_HOLIDAY { get; set; }
+        public virtual SALARY_REMARKS_TYPE SALARY_REMARKS_TYPE { get; set; }
     }
 }

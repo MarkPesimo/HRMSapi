@@ -19,7 +19,7 @@ namespace HRMS_API.Controllers.MasterFile
     {
         private GlobalRepository _globalrepository { get; set; }
         private DocumentType_repository _masterrepository { get; set; }
-
+        
         public DocumentTypeController()
         {
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }

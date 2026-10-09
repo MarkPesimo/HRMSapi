@@ -27,6 +27,10 @@ namespace HRMS.DB
             this.REC_NEW_HIRED_EMPLOYEE = new HashSet<REC_NEW_HIRED_EMPLOYEE>();
             this.HELPDESK_CONCERN = new HashSet<HELPDESK_CONCERN>();
             this.TAMS_LOCAL_HOLIDAY_DET = new HashSet<TAMS_LOCAL_HOLIDAY_DET>();
+            this.SALARY_INFO_REMARKS = new HashSet<SALARY_INFO_REMARKS>();
+            this.AdjustmentFiles = new HashSet<AdjustmentFile>();
+            this.OtherDeductions = new HashSet<OtherDeduction>();
+            this.PortalUsers = new HashSet<PortalUser>();
         }
     
         public int Emp_ID { get; set; }
@@ -153,5 +157,14 @@ namespace HRMS.DB
         public virtual Salarytype Salarytype { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TAMS_LOCAL_HOLIDAY_DET> TAMS_LOCAL_HOLIDAY_DET { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SALARY_INFO_REMARKS> SALARY_INFO_REMARKS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AdjustmentFile> AdjustmentFiles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OtherDeduction> OtherDeductions { get; set; }
+        public virtual RestDay_SetUp RestDay_SetUp { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PortalUser> PortalUsers { get; set; }
     }
 }

@@ -12,16 +12,23 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class TAMS_LOCAL_HOLIDAY_DET
+    public partial class TAMS_LOCAL_HOLIDAY
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TAMS_LOCAL_HOLIDAY()
+        {
+            this.TAMS_LOCAL_HOLIDAY_DET = new HashSet<TAMS_LOCAL_HOLIDAY_DET>();
+        }
+    
         public int id { get; set; }
-        public int holiday_id { get; set; }
-        public int emp_id { get; set; }
+        public System.DateTime holiday_date { get; set; }
+        public string holiday_description { get; set; }
+        public string holiday_type { get; set; }
         public int user_id { get; set; }
         public System.DateTime date_created { get; set; }
     
-        public virtual Employee Employee { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
-        public virtual TAMS_LOCAL_HOLIDAY TAMS_LOCAL_HOLIDAY { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TAMS_LOCAL_HOLIDAY_DET> TAMS_LOCAL_HOLIDAY_DET { get; set; }
     }
 }

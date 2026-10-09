@@ -194,13 +194,45 @@ namespace HRMS_API.Repository
             try
             {
                 _conn.USP_E_MANAGE_ACCOUNT(
-                   _model.Username,
-                   _model.Password,
-                   _model.HashPassword,
-         
-          _model.EmpId,
-                   _model.EmailAddress,
-                   _model.UserId);
+                    _model.Username,
+                    _model.Password,
+                    _model.HashPassword,         
+                    _model.EmpId,
+                    _model.EmailAddress,
+                    _model.UserId);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }           
+        }
+
+        public PortalUser_model GetPortalUser(int _empid)
+        {
+            return (from x in _conn.PortalUsers where x.EmpID == _empid
+                    select x
+             ).AsEnumerable()
+             .Select(d => new PortalUser_model()
+             {
+                 EmpId = d.EmpID,
+                 Username = d.UserName,
+                 EmailAddress = d.EmailAddress,
+                 DateRegistered= d.DateReg.ToString()
+             }).SingleOrDefault();
+        }
+
+        public bool ResetPortalPassword(PortalUser_model _model)
+        {
+            try
+            {
+                PortalUser _user = (from d in _conn.PortalUsers where d.EmpID == _model.EmpId select d).SingleOrDefault();
+                if (_user != null)
+                {
+                    _user.Password = "5f4dcc3b5aa765d61d8327deb882cf99";            //password
+                    _conn.SaveChanges();
+                }                
 
                 return true;
             }
@@ -208,11 +240,29 @@ namespace HRMS_API.Repository
             {
                 return false;
             }
-           
+        }
+
+        public bool UpdateEmailAddress(PortalUser_model _model)
+        {
+            try
+            {
+                PortalUser _user = (from d in _conn.PortalUsers where d.EmpID == _model.EmpId select d).SingleOrDefault();
+                if (_user != null)
+                {
+                    _user.EmailAddress = _model.EmailAddress;            
+                    _conn.SaveChanges();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
         //===========================PORTAL ACCOUNT=============================================
-        
 
 
+      
     }
 }

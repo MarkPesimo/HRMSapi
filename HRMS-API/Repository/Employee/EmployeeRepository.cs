@@ -64,12 +64,12 @@ namespace HRMS_API.Repository
         }
 
         //=============================PROFILE / PERSONAL============================================
-        public EmployeeProfile GetEmployeeProfile(int _empid)
+        public EmployeeProfile GetEmployeeProfile(string _guid, int _empid)
         {
-            //get empid
-            //int _empid = _globalrepository.GetEmployeeKey(GuId).EmpId;
             EmployeeProfile _profile = new EmployeeProfile
             {
+                GUid = _guid,
+                EmployeeStatus              = GetEmployeeStatus(_empid),
                 Personal                    = GetPersonalInfo(_empid),
                 Spouse                      = GetSpouseInfo(_empid),
                 EmergencyContact            = GetEmergencyContact(_empid),
@@ -82,6 +82,13 @@ namespace HRMS_API.Repository
             };
 
             return _profile;
+        }
+
+        public string GetEmployeeStatus(int _empid)
+        {
+            bool? _status = (from d in _conn.Employees where d.Emp_ID == _empid select d.IsIncludePayroll).SingleOrDefault();
+            if (bool.Parse(_status.ToString())) { return "Active"; }
+            else { return "Inactive"; }
         }
 
         public PersonalInfo GetPersonalInfo(int _empid)

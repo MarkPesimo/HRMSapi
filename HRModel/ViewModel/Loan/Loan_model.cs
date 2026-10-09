@@ -41,18 +41,33 @@ namespace HRModel.ViewModel.Loan
         public class EmployeeLoanModel
         {
             public int Id { get; set; }
+            public string LoanGUID { get; set; }
             public int EmpId { get; set; }
             public int LoanTypeId { get; set; }
+            public string LoanType { get; set; }
             public DateTime LoanDate { get; set; }
-            public DateTime LoanStartDate { get; set; }
+            public DateTime? LoanStartDate { get; set; }
             public decimal LoanAmount { get; set; }
             public decimal Balance { get; set; }
             public decimal DeductionAmount { get; set; }
             public string Remarks { get; set; }
             public bool LoanStatus { get; set; }
+            public string LoanStatusDescription { get; set; }
             public bool ForDeduction { get; set; }
+
             public int UserId { get; set; }
+            public string CreatedBy { get; set; }
+            public DateTime DateCreated { get; set; }
             public int Mode { get; set; }
+        }
+
+        public class LoanLog
+        {
+            public int Id { get; set; }
+            public int? LoanId { get; set; }
+            public int? PayrollId { get; set; }
+            public DateTime? TranDate { get; set; }
+            public decimal? Amount { get; set; }
         }
     }
 }

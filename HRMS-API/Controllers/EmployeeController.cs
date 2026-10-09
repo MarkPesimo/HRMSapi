@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using static HRModel.ViewModel.Loan.Loan_model;
 
 namespace HRMS_API.Controllers
 {
@@ -24,6 +25,9 @@ namespace HRMS_API.Controllers
         private EmployeeSkillRepository _skillrepository { get; set; }
         private EmployeeEmploymentRepository _externalrepository { get; set; }
         private CompanyRepository _companyrepository { get; set; }
+        private EmployeePayrollRepository _payrollrepository { get; set; }
+
+        private LoanRepository _loanrepository { get; set; }
 
         public EmployeeController()
         {
@@ -34,7 +38,241 @@ namespace HRMS_API.Controllers
             if (_employeedocumentrepository == null) { _employeedocumentrepository = new EmployeeDocumentRepository(); }
             if (_skillrepository == null) { _skillrepository = new EmployeeSkillRepository(); }
             if (_externalrepository == null) { _externalrepository = new EmployeeEmploymentRepository(); }
+
+            if (_payrollrepository == null) { _payrollrepository = new EmployeePayrollRepository(); }
+            if (_loanrepository == null) { _loanrepository = new LoanRepository(); }
         }
+
+        //=================================PAYROLL==========================================
+
+        //---------------------------------SALARY REMARKS---------------------------------
+        [Route("api/Employee/GetSalaryRemarks/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetSalaryRemarks(string GUID)
+        {
+            try
+            {
+                int _empid = _globalrepository.GetEmployeeKey(GUID).EmpId;
+                List<EmployeeSalaryRemark> _model = _payrollrepository.GetSalaryRemarks(_empid);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/ManageSalaryRemarks")]
+        [HttpPost]
+        public HttpResponseMessage ManageSalaryRemarks([FromBody] EmployeeSalaryRemark model)
+        {
+            try
+            {
+                int result = _payrollrepository.ManageSalaryRemarks(model);
+                if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Ok."); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+        //---------------------------------SALARY REMARKS---------------------------------
+
+        //---------------------------------EMPLOYEE LOAN---------------------------------
+        [Route("api/Employee/GetEmployeeLoans/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetEmployeeLoans(string GUID)
+        {
+            try
+            {
+                int _empid = _globalrepository.GetEmployeeKey(GUID).EmpId;
+                List<EmployeeLoanModel> _model = _loanrepository.GetEmployeeLoans(_empid);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/GetLoan/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetLoan(string GUID)
+        {
+            try
+            {
+                EmployeeLoanModel _model = _loanrepository.GetEmployeeLoan(GUID);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/GetLoanLogs/{LoanId}")]
+        [HttpGet]
+        public HttpResponseMessage GetLoanLogs(int LoanId)
+        {
+            try
+            {
+                List<LoanLog> _model = _loanrepository.GetLoanLogs(LoanId);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+        //---------------------------------EMPLOYEE LOAN---------------------------------
+
+        //---------------------------------EMPLOYEE ADJUSTMENT---------------------------------
+        [Route("api/Employee/GetEmployeeAdjustments/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetEmployeeAdjustments(string GUID)
+        {
+            try
+            {
+                int _empid = _globalrepository.GetEmployeeKey(GUID).EmpId;
+                List<EmployeeAdjustment> _model = _payrollrepository.GetEmployeeAdjustments(_empid);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/GetEmployeeAdjustment/{Id}")]
+        [HttpGet]
+        public HttpResponseMessage GetEmployeeAdjustment(int Id)
+        {
+            try
+            {
+                EmployeeAdjustment _model = _payrollrepository.GetEmployeeAdjustment(Id);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/ManageEmployeeAdjustment")]
+        [HttpPost]
+        public HttpResponseMessage ManageEmployeeAdjustment([FromBody] EmployeeAdjustment model)
+        {
+            try
+            {
+                int result = _payrollrepository.ManageEmployeeAdjustment(model);
+                if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Ok."); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+        //---------------------------------EMPLOYEE ADJUSTMENT---------------------------------
+
+        //---------------------------------EMPLOYEE DEDUCTION---------------------------------
+        [Route("api/Employee/GetEmployeeDeductions/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetEmployeeDeductions(string GUID)
+        {
+            try
+            {
+                int _empid = _globalrepository.GetEmployeeKey(GUID).EmpId;
+                List<EmployeeDeduction> _model = _payrollrepository.GetEmployeeDeductions(_empid);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/GetEmployeeDeduction/{Id}")]
+        [HttpGet]
+        public HttpResponseMessage GetEmployeeDeduction(int Id)
+        {
+            try
+            {
+                EmployeeDeduction _model = _payrollrepository.GetEmployeeDeduction(Id);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/ManageEmployeeDeduction")]
+        [HttpPost]
+        public HttpResponseMessage ManageEmployeeDeduction([FromBody] EmployeeDeduction model)
+        {
+            try
+            {
+                int result = _payrollrepository.ManageEmployeeDeduction(model);
+                if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Ok."); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+        //---------------------------------EMPLOYEE DEDUCTION---------------------------------
+
+
+        //---------------------------------EMPLOYEE SALARY---------------------------------
+        [Route("api/Employee/GetEmployeeSalary/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetEmployeeSalary(string GUID)
+        {
+            try
+            {
+                int _empid = _globalrepository.GetEmployeeKey(GUID).EmpId;
+                EmployeeSalary _model = _payrollrepository.GetEmployeeSalary(_empid);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/ManageEmployeeSalary")]
+        [HttpPost]
+        public HttpResponseMessage ManageEmployeeSalary([FromBody] EmployeeSalary model)
+        {
+            try
+            {
+                bool result = _payrollrepository.ManageEmployeeSalary(model);
+                return Request.CreateResponse(HttpStatusCode.OK, result);                 
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+        //---------------------------------EMPLOYEE SALARY---------------------------------
+
+        //=================================PAYROLL==========================================
 
         //=================================PROFILE==========================================
         [Route("api/Employee/GetMonitoring/{Keyword}/{ByClient}/{ClientID}/{PageNo}/{PageSize}/{CompanyGUID}")]
@@ -61,7 +299,7 @@ namespace HRMS_API.Controllers
             try
             {
                 int _empid = _globalrepository.GetEmployeeKey(GUID).EmpId;
-                EmployeeProfile _model = Employeerepository.GetEmployeeProfile(_empid);
+                EmployeeProfile _model = Employeerepository.GetEmployeeProfile(GUID, _empid);
                 if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model);}
                 else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
             }
@@ -70,7 +308,9 @@ namespace HRMS_API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
             }
         }
+        //=================================PROFILE==========================================
 
+        //=================================PERSONAL==========================================
         [Route("api/Employee/GetPersonalInfo/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetPersonalInfo(string GUID)
@@ -104,7 +344,7 @@ namespace HRMS_API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
             }
         }
-        //=================================PROFILE==========================================
+        //=================================PERSONAL==========================================
 
         //=================================SPOUSE==========================================
         [Route("api/Employee/GetSpouse/{GUID}")]

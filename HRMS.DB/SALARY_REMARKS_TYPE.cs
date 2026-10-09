@@ -12,24 +12,18 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Deduction
+    public partial class SALARY_REMARKS_TYPE
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Deduction()
+        public SALARY_REMARKS_TYPE()
         {
-            this.OtherDeductions = new HashSet<OtherDeduction>();
+            this.SALARY_INFO_REMARKS = new HashSet<SALARY_INFO_REMARKS>();
         }
     
-        public int Ded_id { get; set; }
-        public string Ded_Desc { get; set; }
-        public int UserID { get; set; }
-        public int client_id { get; set; }
-        public bool status { get; set; }
-        public System.DateTime date_Created { get; set; }
+        public int id { get; set; }
+        public string Remarks_Type { get; set; }
     
-        public virtual REC_CLIENT REC_CLIENT { get; set; }
-        public virtual SYS_USER SYS_USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OtherDeduction> OtherDeductions { get; set; }
+        public virtual ICollection<SALARY_INFO_REMARKS> SALARY_INFO_REMARKS { get; set; }
     }
 }

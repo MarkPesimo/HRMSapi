@@ -88,6 +88,71 @@ namespace HRMS_API.Repository
             }
         }
 
+        //==========================================EMPLOYEE LOAN=======================================
+        public List<EmployeeLoanModel> GetEmployeeLoans(int _empid)
+        {
+            return (from d in _conn.EmployeeLoanMasters
+                    where d.EmpID == _empid                   
+                    select d).AsEnumerable()
+               .Select(x => new EmployeeLoanModel()
+               {
+                   Id = int.Parse(x.LoanID.ToString()),
+                   LoanGUID = x.guid,
+                   LoanType = x.LoanType.LoanType_Desc,
+                   LoanTypeId = x.LoanTypeID,
+                   LoanDate = x.DateLoan,
+                   LoanStartDate = x.loan_start,
+                   LoanAmount = x.LoanAmount,
+                   Balance = x.Balance,
+                   DeductionAmount = x.DeductAmnt,
+                   Remarks = x.remarks,                   
+                   
+                   LoanStatus = x.LoanStat,
+                   CreatedBy = x.SYS_USER.username,
+                   DateCreated = x.date_added,
+               }).ToList();
+        }
+
+        public EmployeeLoanModel GetEmployeeLoan(string _guid)
+        {
+            return (from d in _conn.EmployeeLoanMasters
+                    where d.guid == _guid
+                    select d).AsEnumerable()
+               .Select(x => new EmployeeLoanModel()
+               {
+                   Id = int.Parse(x.LoanID.ToString()),
+                   LoanGUID = x.guid,
+                   LoanType = x.LoanType.LoanType_Desc,
+                   LoanTypeId = x.LoanTypeID,
+                   LoanDate = x.DateLoan,
+                   LoanStartDate = x.loan_start,
+                   LoanAmount = x.LoanAmount,
+                   Balance = x.Balance,
+                   DeductionAmount = x.DeductAmnt,
+                   Remarks = x.remarks,
+
+                   LoanStatus = x.LoanStat,
+                   CreatedBy = x.SYS_USER.username,
+                   DateCreated = x.date_added,
+               }).SingleOrDefault();
+        }
+
+        public List<LoanLog> GetLoanLogs(int _loanid)
+        {
+            return (from d in _conn.LoanTransactions
+                    where d.LoanID == _loanid
+                    select d).AsEnumerable()
+              .Select(x => new LoanLog()
+              {
+                  Id = int.Parse(x.ID.ToString()),
+                  LoanId = x.LoanID,
+                  PayrollId = x.PayrollID,
+                  TranDate = x.TransDate,
+                  Amount = x.Amount
+              }).ToList();
+        }
+        //==========================================EMPLOYEE LOAN=======================================
+
         public List<LoanTypeModel> GetLoanTypes()
         {
             return _conn.LoanTypes

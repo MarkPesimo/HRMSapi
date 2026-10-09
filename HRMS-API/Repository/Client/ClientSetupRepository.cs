@@ -208,6 +208,7 @@ namespace HRMS_API.Repository.Client
                 REC_CLIENT_SETUP_EXT _ext = (from d in _conn.REC_CLIENT_SETUP_EXT where d.client_id == _clientid select d).SingleOrDefault();
                 if (_ext != null)
                 {
+                    _obj.ExtId = _ext.id;
                     _obj.AllowProcessingFee = _ext.proc_processing_fee;
                     _obj.AllowBillingRate = _ext.Proc_billing_rate;
                     _obj.AllowBillingCard = _ext.proc_billing_card;
@@ -238,7 +239,7 @@ namespace HRMS_API.Repository.Client
             System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RET_ID", typeof(int));
 
             _conn.USP_I_MASTER_CLIENT_SETUP_EXT(
-                _model.Id,
+                _model.ExtId,
                 _model.ClientId,
                 _model.AllowProcessingFee,
                 _model.AllowBillingRate,
@@ -439,7 +440,7 @@ namespace HRMS_API.Repository.Client
                 _return_value
             );
 
-            return Convert.ToInt32(_return_value);
+            return Convert.ToInt32(_return_value.Value);
         }
 
         public AccountDetail_model GetAccountDetail(int _id)
@@ -489,7 +490,7 @@ namespace HRMS_API.Repository.Client
                 _return_value
             );
 
-            return Convert.ToInt32(_return_value);
+            return Convert.ToInt32(_return_value.Value);
         }
 
         public string GetAccountDetailDescription(string _entrytype, int _id)

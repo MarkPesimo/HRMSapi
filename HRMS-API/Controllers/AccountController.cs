@@ -61,8 +61,6 @@ namespace HRMS_API.Controllers
             }
         }
 
-
-
         [Route("api/Account/GetByUserName/{Username}/{AppModuleId}")]
         [HttpGet]
         public HttpResponseMessage Get(string Username, int AppModuleId)
@@ -119,6 +117,69 @@ namespace HRMS_API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
             }
         }
+
+        [Route("api/Account/GetPortalAccount/{EmpId}")]
+        [HttpGet]
+        public HttpResponseMessage GetPortalAccount(int EmpId)
+        {
+            try
+            {
+                PortalUser_model _model = accountrepository.GetPortalUser(EmpId);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Account/Resetpassword")]
+        [HttpPost]
+        public HttpResponseMessage Resetpassword([FromBody] PortalUser_model _model)
+        {
+            try
+            {
+                bool _result = accountrepository.ResetPortalPassword(_model);
+                return Request.CreateResponse(HttpStatusCode.OK, _result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Account/UpdateEmailAddress")]
+        [HttpPost]
+        public HttpResponseMessage UpdateEmailAddress([FromBody] PortalUser_model _model)
+        {
+            try
+            {
+                bool _result = accountrepository.UpdateEmailAddress(_model);
+                return Request.CreateResponse(HttpStatusCode.OK, _result);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        //[Route("api/Account/GetPortalAccount/{EmpId}")]
+        //[HttpGet]
+        //public HttpResponseMessage GetPortalAccount(int EmpId)
+        //{
+        //    try
+        //    {
+        //        PortalUser_model _model = accountrepository.GetPortalUser(EmpId);
+        //        if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+        //        else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+        //    }
+        //}
+
         //===========================PORTAL ACCOUNT=============================================
     }
 }

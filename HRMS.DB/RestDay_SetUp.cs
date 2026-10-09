@@ -12,28 +12,22 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Adjustment
+    public partial class RestDay_SetUp
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Adjustment()
+        public RestDay_SetUp()
         {
-            this.AdjustmentFiles = new HashSet<AdjustmentFile>();
+            this.Employees = new HashSet<Employee>();
         }
     
-        public int Adjustment_ID { get; set; }
-        public string Adjustment_Desc { get; set; }
-        public int UserID { get; set; }
-        public Nullable<System.DateTime> LastEditDate { get; set; }
-        public System.DateTime CreationDate { get; set; }
-        public int client_id { get; set; }
+        public int Id { get; set; }
+        public string Restday { get; set; }
+        public string Description { get; set; }
         public bool status { get; set; }
-        public bool billable { get; set; }
-        public int adjustment_classification_id { get; set; }
+        public int user_id { get; set; }
+        public System.DateTime date_created { get; set; }
     
-        public virtual REC_CLIENT REC_CLIENT { get; set; }
-        public virtual SYS_USER SYS_USER { get; set; }
-        public virtual ADJUSTMENT_CLASSIFICATION ADJUSTMENT_CLASSIFICATION { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AdjustmentFile> AdjustmentFiles { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }
