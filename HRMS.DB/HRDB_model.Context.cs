@@ -100,35 +100,12 @@ namespace HRMS.DB
         public virtual DbSet<OtherDeduction> OtherDeductions { get; set; }
         public virtual DbSet<RestDay_SetUp> RestDay_SetUp { get; set; }
         public virtual DbSet<PortalUser> PortalUsers { get; set; }
-    
-        public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
-        {
-            var kEYWORDParameter = kEYWORD != null ?
-                new ObjectParameter("KEYWORD", kEYWORD) :
-                new ObjectParameter("KEYWORD", typeof(string));
-    
-            var bY_CLIENTParameter = bY_CLIENT.HasValue ?
-                new ObjectParameter("BY_CLIENT", bY_CLIENT) :
-                new ObjectParameter("BY_CLIENT", typeof(bool));
-    
-            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
-                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
-                new ObjectParameter("CLIENT_ID", typeof(int));
-    
-            var pageNumberParameter = pageNumber.HasValue ?
-                new ObjectParameter("PageNumber", pageNumber) :
-                new ObjectParameter("PageNumber", typeof(int));
-    
-            var pageSizeParameter = pageSize.HasValue ?
-                new ObjectParameter("PageSize", pageSize) :
-                new ObjectParameter("PageSize", typeof(int));
-    
-            var cOMPANY_IDParameter = cOMPANY_ID.HasValue ?
-                new ObjectParameter("COMPANY_ID", cOMPANY_ID) :
-                new ObjectParameter("COMPANY_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_EMPLOYEE_MONITORING_Result1>("USP_H_GET_EMPLOYEE_MONITORING", kEYWORDParameter, bY_CLIENTParameter, cLIENT_IDParameter, pageNumberParameter, pageSizeParameter, cOMPANY_IDParameter);
-        }
+        public virtual DbSet<Employee_Benefits> Employee_Benefits { get; set; }
+        public virtual DbSet<Employee_Benefits_Type> Employee_Benefits_Type { get; set; }
+        public virtual DbSet<OvertimeBasi> OvertimeBasis { get; set; }
+        public virtual DbSet<REC_CLIENT_PORTAL_RULE> REC_CLIENT_PORTAL_RULE { get; set; }
+        public virtual DbSet<SYS_ENTRY> SYS_ENTRY { get; set; }
+        public virtual DbSet<SYS_REGION> SYS_REGION { get; set; }
     
         public virtual ObjectResult<USP_H_GET_LEAVE_BALANCE_MONITORING_Result> USP_H_GET_LEAVE_BALANCE_MONITORING(Nullable<int> yEAR_ENTITLED, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<bool> bY_LEAVE_TYPE, Nullable<int> lEAVE_TYPE_ID, string kEYWORD, Nullable<int> cOMPANY_ID, Nullable<int> eMP_ID)
         {
@@ -3912,6 +3889,250 @@ namespace HRMS.DB
                 new ObjectParameter("USER_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_S_MANAGE_PORTAL_USER", eMP_IDParameter, uSERNAMEParameter, eMAIL_ADDRESSParameter, mODEParameter, uSER_IDParameter);
+        }
+    
+        public virtual ObjectResult<USP_H_GET_EMPLOYEE_BENEFITS_MONITORING_Result> USP_H_GET_EMPLOYEE_BENEFITS_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<bool> bY_DATE, Nullable<System.DateTime> dATE_FROM, Nullable<System.DateTime> dATE_TO, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
+        {
+            var kEYWORDParameter = kEYWORD != null ?
+                new ObjectParameter("KEYWORD", kEYWORD) :
+                new ObjectParameter("KEYWORD", typeof(string));
+    
+            var bY_CLIENTParameter = bY_CLIENT.HasValue ?
+                new ObjectParameter("BY_CLIENT", bY_CLIENT) :
+                new ObjectParameter("BY_CLIENT", typeof(bool));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var bY_DATEParameter = bY_DATE.HasValue ?
+                new ObjectParameter("BY_DATE", bY_DATE) :
+                new ObjectParameter("BY_DATE", typeof(bool));
+    
+            var dATE_FROMParameter = dATE_FROM.HasValue ?
+                new ObjectParameter("DATE_FROM", dATE_FROM) :
+                new ObjectParameter("DATE_FROM", typeof(System.DateTime));
+    
+            var dATE_TOParameter = dATE_TO.HasValue ?
+                new ObjectParameter("DATE_TO", dATE_TO) :
+                new ObjectParameter("DATE_TO", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            var cOMPANY_IDParameter = cOMPANY_ID.HasValue ?
+                new ObjectParameter("COMPANY_ID", cOMPANY_ID) :
+                new ObjectParameter("COMPANY_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_EMPLOYEE_BENEFITS_MONITORING_Result>("USP_H_GET_EMPLOYEE_BENEFITS_MONITORING", kEYWORDParameter, bY_CLIENTParameter, cLIENT_IDParameter, bY_DATEParameter, dATE_FROMParameter, dATE_TOParameter, pageNumberParameter, pageSizeParameter, cOMPANY_IDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> USP_C_MANAGE_PORTAL_FILING_RULE(Nullable<int> mode, Nullable<int> id, Nullable<int> client_id, Nullable<bool> follow_atd_correction_filing_rule, Nullable<int> no_of_allowed_days_for_filing_atd_correction, Nullable<bool> follow_overtime_filing_rule, Nullable<int> no_of_allowed_days_for_overtime, Nullable<bool> follow_vacation_leave_filing_rule, Nullable<int> no_of_allowed_days_for_filing_vacation_leave, Nullable<bool> follow_sick_leave_filing_rule, Nullable<int> no_of_allowed_days_for_filing_sick_leave, string when_can_a_birthday_leave_be_filed, Nullable<int> allowed_minimum_minute_of_overtime, Nullable<int> allowed_succeeding_minute_of_overtime, Nullable<bool> follow_dtr_validation_rule, Nullable<bool> use_employee_digital_signature, Nullable<bool> use_coordinator_digital_signature, Nullable<bool> use_approver_digital_signature, Nullable<bool> enable_attendance_email_notification, Nullable<bool> enable_attendance_shift_reminder, Nullable<bool> automatic_no_break_ot, Nullable<bool> implement_proximity_attendance, Nullable<bool> implement_dtr_posting_checking, Nullable<bool> allowed_blank_attendance_coordinates, Nullable<bool> is_client_approved_dtr, Nullable<bool> is_location_required)
+        {
+            var modeParameter = mode.HasValue ?
+                new ObjectParameter("mode", mode) :
+                new ObjectParameter("mode", typeof(int));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var client_idParameter = client_id.HasValue ?
+                new ObjectParameter("client_id", client_id) :
+                new ObjectParameter("client_id", typeof(int));
+    
+            var follow_atd_correction_filing_ruleParameter = follow_atd_correction_filing_rule.HasValue ?
+                new ObjectParameter("follow_atd_correction_filing_rule", follow_atd_correction_filing_rule) :
+                new ObjectParameter("follow_atd_correction_filing_rule", typeof(bool));
+    
+            var no_of_allowed_days_for_filing_atd_correctionParameter = no_of_allowed_days_for_filing_atd_correction.HasValue ?
+                new ObjectParameter("no_of_allowed_days_for_filing_atd_correction", no_of_allowed_days_for_filing_atd_correction) :
+                new ObjectParameter("no_of_allowed_days_for_filing_atd_correction", typeof(int));
+    
+            var follow_overtime_filing_ruleParameter = follow_overtime_filing_rule.HasValue ?
+                new ObjectParameter("follow_overtime_filing_rule", follow_overtime_filing_rule) :
+                new ObjectParameter("follow_overtime_filing_rule", typeof(bool));
+    
+            var no_of_allowed_days_for_overtimeParameter = no_of_allowed_days_for_overtime.HasValue ?
+                new ObjectParameter("no_of_allowed_days_for_overtime", no_of_allowed_days_for_overtime) :
+                new ObjectParameter("no_of_allowed_days_for_overtime", typeof(int));
+    
+            var follow_vacation_leave_filing_ruleParameter = follow_vacation_leave_filing_rule.HasValue ?
+                new ObjectParameter("follow_vacation_leave_filing_rule", follow_vacation_leave_filing_rule) :
+                new ObjectParameter("follow_vacation_leave_filing_rule", typeof(bool));
+    
+            var no_of_allowed_days_for_filing_vacation_leaveParameter = no_of_allowed_days_for_filing_vacation_leave.HasValue ?
+                new ObjectParameter("no_of_allowed_days_for_filing_vacation_leave", no_of_allowed_days_for_filing_vacation_leave) :
+                new ObjectParameter("no_of_allowed_days_for_filing_vacation_leave", typeof(int));
+    
+            var follow_sick_leave_filing_ruleParameter = follow_sick_leave_filing_rule.HasValue ?
+                new ObjectParameter("follow_sick_leave_filing_rule", follow_sick_leave_filing_rule) :
+                new ObjectParameter("follow_sick_leave_filing_rule", typeof(bool));
+    
+            var no_of_allowed_days_for_filing_sick_leaveParameter = no_of_allowed_days_for_filing_sick_leave.HasValue ?
+                new ObjectParameter("no_of_allowed_days_for_filing_sick_leave", no_of_allowed_days_for_filing_sick_leave) :
+                new ObjectParameter("no_of_allowed_days_for_filing_sick_leave", typeof(int));
+    
+            var when_can_a_birthday_leave_be_filedParameter = when_can_a_birthday_leave_be_filed != null ?
+                new ObjectParameter("when_can_a_birthday_leave_be_filed", when_can_a_birthday_leave_be_filed) :
+                new ObjectParameter("when_can_a_birthday_leave_be_filed", typeof(string));
+    
+            var allowed_minimum_minute_of_overtimeParameter = allowed_minimum_minute_of_overtime.HasValue ?
+                new ObjectParameter("allowed_minimum_minute_of_overtime", allowed_minimum_minute_of_overtime) :
+                new ObjectParameter("allowed_minimum_minute_of_overtime", typeof(int));
+    
+            var allowed_succeeding_minute_of_overtimeParameter = allowed_succeeding_minute_of_overtime.HasValue ?
+                new ObjectParameter("allowed_succeeding_minute_of_overtime", allowed_succeeding_minute_of_overtime) :
+                new ObjectParameter("allowed_succeeding_minute_of_overtime", typeof(int));
+    
+            var follow_dtr_validation_ruleParameter = follow_dtr_validation_rule.HasValue ?
+                new ObjectParameter("follow_dtr_validation_rule", follow_dtr_validation_rule) :
+                new ObjectParameter("follow_dtr_validation_rule", typeof(bool));
+    
+            var use_employee_digital_signatureParameter = use_employee_digital_signature.HasValue ?
+                new ObjectParameter("use_employee_digital_signature", use_employee_digital_signature) :
+                new ObjectParameter("use_employee_digital_signature", typeof(bool));
+    
+            var use_coordinator_digital_signatureParameter = use_coordinator_digital_signature.HasValue ?
+                new ObjectParameter("use_coordinator_digital_signature", use_coordinator_digital_signature) :
+                new ObjectParameter("use_coordinator_digital_signature", typeof(bool));
+    
+            var use_approver_digital_signatureParameter = use_approver_digital_signature.HasValue ?
+                new ObjectParameter("use_approver_digital_signature", use_approver_digital_signature) :
+                new ObjectParameter("use_approver_digital_signature", typeof(bool));
+    
+            var enable_attendance_email_notificationParameter = enable_attendance_email_notification.HasValue ?
+                new ObjectParameter("enable_attendance_email_notification", enable_attendance_email_notification) :
+                new ObjectParameter("enable_attendance_email_notification", typeof(bool));
+    
+            var enable_attendance_shift_reminderParameter = enable_attendance_shift_reminder.HasValue ?
+                new ObjectParameter("enable_attendance_shift_reminder", enable_attendance_shift_reminder) :
+                new ObjectParameter("enable_attendance_shift_reminder", typeof(bool));
+    
+            var automatic_no_break_otParameter = automatic_no_break_ot.HasValue ?
+                new ObjectParameter("automatic_no_break_ot", automatic_no_break_ot) :
+                new ObjectParameter("automatic_no_break_ot", typeof(bool));
+    
+            var implement_proximity_attendanceParameter = implement_proximity_attendance.HasValue ?
+                new ObjectParameter("implement_proximity_attendance", implement_proximity_attendance) :
+                new ObjectParameter("implement_proximity_attendance", typeof(bool));
+    
+            var implement_dtr_posting_checkingParameter = implement_dtr_posting_checking.HasValue ?
+                new ObjectParameter("implement_dtr_posting_checking", implement_dtr_posting_checking) :
+                new ObjectParameter("implement_dtr_posting_checking", typeof(bool));
+    
+            var allowed_blank_attendance_coordinatesParameter = allowed_blank_attendance_coordinates.HasValue ?
+                new ObjectParameter("allowed_blank_attendance_coordinates", allowed_blank_attendance_coordinates) :
+                new ObjectParameter("allowed_blank_attendance_coordinates", typeof(bool));
+    
+            var is_client_approved_dtrParameter = is_client_approved_dtr.HasValue ?
+                new ObjectParameter("is_client_approved_dtr", is_client_approved_dtr) :
+                new ObjectParameter("is_client_approved_dtr", typeof(bool));
+    
+            var is_location_requiredParameter = is_location_required.HasValue ?
+                new ObjectParameter("is_location_required", is_location_required) :
+                new ObjectParameter("is_location_required", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("USP_C_MANAGE_PORTAL_FILING_RULE", modeParameter, idParameter, client_idParameter, follow_atd_correction_filing_ruleParameter, no_of_allowed_days_for_filing_atd_correctionParameter, follow_overtime_filing_ruleParameter, no_of_allowed_days_for_overtimeParameter, follow_vacation_leave_filing_ruleParameter, no_of_allowed_days_for_filing_vacation_leaveParameter, follow_sick_leave_filing_ruleParameter, no_of_allowed_days_for_filing_sick_leaveParameter, when_can_a_birthday_leave_be_filedParameter, allowed_minimum_minute_of_overtimeParameter, allowed_succeeding_minute_of_overtimeParameter, follow_dtr_validation_ruleParameter, use_employee_digital_signatureParameter, use_coordinator_digital_signatureParameter, use_approver_digital_signatureParameter, enable_attendance_email_notificationParameter, enable_attendance_shift_reminderParameter, automatic_no_break_otParameter, implement_proximity_attendanceParameter, implement_dtr_posting_checkingParameter, allowed_blank_attendance_coordinatesParameter, is_client_approved_dtrParameter, is_location_requiredParameter);
+        }
+    
+        public virtual int USP_H_MANAGE_EMPLOYEE_BENEFITS(Nullable<int> mODE, Nullable<int> iD, Nullable<int> eMP_ID, Nullable<int> bENEFIT_TYPE_ID, Nullable<int> bENEFIT_CLASS_ID, Nullable<int> bENEFIT_CAT_ID, Nullable<decimal> aMOUNT, Nullable<System.DateTime> eFFECTIVE_DATE, Nullable<System.DateTime> sTART_DATE, Nullable<int> aDJ_ID, Nullable<bool> iS_TAXABLE, Nullable<bool> iS_BILLABLE, Nullable<bool> sTATUS, string rEMARKS, Nullable<int> uSERID, ObjectParameter rET_ID)
+        {
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var eMP_IDParameter = eMP_ID.HasValue ?
+                new ObjectParameter("EMP_ID", eMP_ID) :
+                new ObjectParameter("EMP_ID", typeof(int));
+    
+            var bENEFIT_TYPE_IDParameter = bENEFIT_TYPE_ID.HasValue ?
+                new ObjectParameter("BENEFIT_TYPE_ID", bENEFIT_TYPE_ID) :
+                new ObjectParameter("BENEFIT_TYPE_ID", typeof(int));
+    
+            var bENEFIT_CLASS_IDParameter = bENEFIT_CLASS_ID.HasValue ?
+                new ObjectParameter("BENEFIT_CLASS_ID", bENEFIT_CLASS_ID) :
+                new ObjectParameter("BENEFIT_CLASS_ID", typeof(int));
+    
+            var bENEFIT_CAT_IDParameter = bENEFIT_CAT_ID.HasValue ?
+                new ObjectParameter("BENEFIT_CAT_ID", bENEFIT_CAT_ID) :
+                new ObjectParameter("BENEFIT_CAT_ID", typeof(int));
+    
+            var aMOUNTParameter = aMOUNT.HasValue ?
+                new ObjectParameter("AMOUNT", aMOUNT) :
+                new ObjectParameter("AMOUNT", typeof(decimal));
+    
+            var eFFECTIVE_DATEParameter = eFFECTIVE_DATE.HasValue ?
+                new ObjectParameter("EFFECTIVE_DATE", eFFECTIVE_DATE) :
+                new ObjectParameter("EFFECTIVE_DATE", typeof(System.DateTime));
+    
+            var sTART_DATEParameter = sTART_DATE.HasValue ?
+                new ObjectParameter("START_DATE", sTART_DATE) :
+                new ObjectParameter("START_DATE", typeof(System.DateTime));
+    
+            var aDJ_IDParameter = aDJ_ID.HasValue ?
+                new ObjectParameter("ADJ_ID", aDJ_ID) :
+                new ObjectParameter("ADJ_ID", typeof(int));
+    
+            var iS_TAXABLEParameter = iS_TAXABLE.HasValue ?
+                new ObjectParameter("IS_TAXABLE", iS_TAXABLE) :
+                new ObjectParameter("IS_TAXABLE", typeof(bool));
+    
+            var iS_BILLABLEParameter = iS_BILLABLE.HasValue ?
+                new ObjectParameter("IS_BILLABLE", iS_BILLABLE) :
+                new ObjectParameter("IS_BILLABLE", typeof(bool));
+    
+            var sTATUSParameter = sTATUS.HasValue ?
+                new ObjectParameter("STATUS", sTATUS) :
+                new ObjectParameter("STATUS", typeof(bool));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_EMPLOYEE_BENEFITS", mODEParameter, iDParameter, eMP_IDParameter, bENEFIT_TYPE_IDParameter, bENEFIT_CLASS_IDParameter, bENEFIT_CAT_IDParameter, aMOUNTParameter, eFFECTIVE_DATEParameter, sTART_DATEParameter, aDJ_IDParameter, iS_TAXABLEParameter, iS_BILLABLEParameter, sTATUSParameter, rEMARKSParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual ObjectResult<USP_H_GET_EMPLOYEE_MONITORING_Result1> USP_H_GET_EMPLOYEE_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
+        {
+            var kEYWORDParameter = kEYWORD != null ?
+                new ObjectParameter("KEYWORD", kEYWORD) :
+                new ObjectParameter("KEYWORD", typeof(string));
+    
+            var bY_CLIENTParameter = bY_CLIENT.HasValue ?
+                new ObjectParameter("BY_CLIENT", bY_CLIENT) :
+                new ObjectParameter("BY_CLIENT", typeof(bool));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            var cOMPANY_IDParameter = cOMPANY_ID.HasValue ?
+                new ObjectParameter("COMPANY_ID", cOMPANY_ID) :
+                new ObjectParameter("COMPANY_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_EMPLOYEE_MONITORING_Result1>("USP_H_GET_EMPLOYEE_MONITORING", kEYWORDParameter, bY_CLIENTParameter, cLIENT_IDParameter, pageNumberParameter, pageSizeParameter, cOMPANY_IDParameter);
         }
     }
 }

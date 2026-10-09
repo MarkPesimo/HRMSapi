@@ -107,6 +107,12 @@
     <Compile Include="EmployeeType.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Employee_Benefits.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee_Benefits_Type.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Employee_Floating_Status.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -161,6 +167,9 @@
     <Compile Include="OtherDeduction.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="OvertimeBasi.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="PortalUser.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -211,6 +220,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_CLIENT_OT_RATE.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_CLIENT_PORTAL_RULE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_CLIENT_SETUP.cs">
@@ -285,11 +297,17 @@
     <Compile Include="sys_company.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="SYS_ENTRY.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="SYS_Module.cs">
       <DependentUpon>Access_model.tt</DependentUpon>
     </Compile>
     <Compile Include="sys_module_type.cs">
       <DependentUpon>Access_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SYS_REGION.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="SYS_USER.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
@@ -346,6 +364,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_GET_COMMENT_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_EMPLOYEE_BENEFITS_MONITORING_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_GET_EMPLOYEE_FILED_LEAVE_Result.cs">

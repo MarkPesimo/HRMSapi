@@ -31,6 +31,7 @@ namespace HRMS.DB
             this.AdjustmentFiles = new HashSet<AdjustmentFile>();
             this.OtherDeductions = new HashSet<OtherDeduction>();
             this.PortalUsers = new HashSet<PortalUser>();
+            this.Employee_Benefits = new HashSet<Employee_Benefits>();
         }
     
         public int Emp_ID { get; set; }
@@ -166,5 +167,7 @@ namespace HRMS.DB
         public virtual RestDay_SetUp RestDay_SetUp { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PortalUser> PortalUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_Benefits> Employee_Benefits { get; set; }
     }
 }

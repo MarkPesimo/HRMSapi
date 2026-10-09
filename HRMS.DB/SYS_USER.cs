@@ -68,6 +68,7 @@ namespace HRMS.DB
             this.SALARY_INFO_REMARKS = new HashSet<SALARY_INFO_REMARKS>();
             this.AdjustmentFiles = new HashSet<AdjustmentFile>();
             this.OtherDeductions = new HashSet<OtherDeduction>();
+            this.SYS_REGION = new HashSet<SYS_REGION>();
         }
     
         public int id { get; set; }
@@ -183,5 +184,7 @@ namespace HRMS.DB
         public virtual ICollection<AdjustmentFile> AdjustmentFiles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OtherDeduction> OtherDeductions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SYS_REGION> SYS_REGION { get; set; }
     }
 }
