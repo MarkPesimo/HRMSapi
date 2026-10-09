@@ -10,9 +10,11 @@ namespace HRModel.ViewModel.Employees
     public class EmployeeMonitoringViewModel
     {
         public int RowNo { get; set; }
-
+        public string ClientGUID{ get; set; }
+        public int ClientId { get; set; }
         public string GUID { get; set; }
-       
+        public int CandId { get; set; }
+
         [Display(Name = "Employee ID")]
         public string EmployeeID { get; set; }
 
@@ -29,6 +31,7 @@ namespace HRModel.ViewModel.Employees
         public string EmployeeType { get; set; }
         public string SourceType { get; set; }
         public string PayType { get; set; }
+        public bool EmpStatus { get; set; }
 
         [Display(Name = "Date Hired")]
         [DataType(DataType.Date)]

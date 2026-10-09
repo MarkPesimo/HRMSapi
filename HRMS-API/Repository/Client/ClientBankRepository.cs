@@ -10,7 +10,7 @@ namespace HRMS_API.Repository
 {
     public class ClientBankRepository
     {
-        private static apwdbEntities _conn { get; set; }
+        private apwdbEntities _conn { get; set; }
         private GlobalRepository _globalrepository { get; set; }
 
         public ClientBankRepository()

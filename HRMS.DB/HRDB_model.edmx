@@ -282,6 +282,7 @@
           <Property Name="is_convertable" Type="bit" Nullable="false" />
           <Property Name="auto_reset_per_year" Type="bit" Nullable="false" />
           <Property Name="when_credit_is_earned" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DayBalanceToBeIncremented" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeLoanMaster">
           <Key>
@@ -420,6 +421,17 @@
           <Property Name="LoanType_Desc" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OvertimeBasis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OvertimeBasis_Desc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Min_Time" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Succeeding_Time" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="UserID" Type="int" />
         </EntityType>
         <EntityType Name="P_Leave">
           <Key>
@@ -805,6 +817,37 @@
           <Property Name="spc_hol_ot_rate_daily" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="leg_hol_ot_rate_daily" Type="decimal" Precision="18" Scale="4" Nullable="false" />
         </EntityType>
+        <EntityType Name="REC_CLIENT_PORTAL_RULE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="client_Id" Type="int" Nullable="false" />
+          <Property Name="follow_atd_correction_filing_rule" Type="bit" Nullable="false" />
+          <Property Name="no_of_allowed_days_for_filing_atd_correction" Type="int" Nullable="false" />
+          <Property Name="follow_overtime_filing_rule" Type="bit" Nullable="false" />
+          <Property Name="no_of_allowed_days_for_overtime" Type="int" Nullable="false" />
+          <Property Name="follow_vacation_leave_filing_rule" Type="bit" Nullable="false" />
+          <Property Name="no_of_allowed_days_for_filing_vacation_leave" Type="int" Nullable="false" />
+          <Property Name="follow_sick_leave_filing_rule" Type="bit" Nullable="false" />
+          <Property Name="no_of_allowed_days_for_filing_sick_leave" Type="int" Nullable="false" />
+          <Property Name="when_can_a_birthday_leave_be_filed" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="allowed_minimum_minute_of_overtime" Type="int" Nullable="false" />
+          <Property Name="allowed_succeeding_minute_of_overtime" Type="int" Nullable="false" />
+          <Property Name="follow_dtr_validation_rule" Type="bit" Nullable="false" />
+          <Property Name="use_employee_digital_signature" Type="bit" Nullable="false" />
+          <Property Name="use_coordinator_digital_signature" Type="bit" Nullable="false" />
+          <Property Name="use_approver_digital_signature" Type="bit" Nullable="false" />
+          <Property Name="enable_attendance_email_notification" Type="bit" Nullable="false" />
+          <Property Name="enable_attendance_shift_reminder" Type="bit" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="automatic_no_break_ot" Type="bit" Nullable="false" />
+          <Property Name="implement_proximity_attendance" Type="bit" Nullable="false" />
+          <Property Name="implement_dtr_posting_checking" Type="bit" Nullable="false" />
+          <Property Name="allowed_blank_attendance_coordinates" Type="bit" Nullable="false" />
+          <Property Name="is_client_approve_the_dtr" Type="bit" Nullable="false" />
+          <Property Name="is_location_required" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="REC_CLIENT_SETUP">
           <Key>
             <PropertyRef Name="id" />
@@ -1161,6 +1204,28 @@
           <Property Name="country_id" Type="int" Nullable="false" />
           <Property Name="guid" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
+        <EntityType Name="SYS_ENTRY">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entry_description" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="entry_type" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_REGION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="region_code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="region_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+          <Property Name="country_id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SYS_USER">
           <Key>
             <PropertyRef Name="id" />
@@ -1197,6 +1262,16 @@
           <Property Name="group_id" Type="int" Nullable="false" />
           <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="user_type" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TAMS_LOCAL_HOLIDAY_DET">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="holiday_id" Type="int" Nullable="false" />
+          <Property Name="emp_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name=" FK_Adjustment_REC_CLIENT">
@@ -1700,6 +1775,18 @@
             </Principal>
             <Dependent Role="Adjustment">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaLibrary_SYS_REGION">
+          <End Role="SYS_REGION" Type="Self.SYS_REGION" Multiplicity="1" />
+          <End Role="AreaLibrary" Type="Self.AreaLibrary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_REGION">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AreaLibrary">
+              <PropertyRef Name="region_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2291,6 +2378,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_REC_CLIENT_SETUP_OvertimeBasis">
+          <End Role="OvertimeBasis" Type="Self.OvertimeBasis" Multiplicity="1" />
+          <End Role="REC_CLIENT_SETUP" Type="Self.REC_CLIENT_SETUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OvertimeBasis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SETUP">
+              <PropertyRef Name="overtime_setup_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_REC_CLIENT_SHIFT_REC_CLIENT">
           <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
           <End Role="REC_CLIENT_SHIFT" Type="Self.REC_CLIENT_SHIFT" Multiplicity="*" />
@@ -2483,6 +2582,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_School_SYS_REGION">
+          <End Role="SYS_REGION" Type="Self.SYS_REGION" Multiplicity="1" />
+          <End Role="School" Type="Self.School" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_REGION">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="School">
+              <PropertyRef Name="region_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_School_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="School" Type="Self.School" Multiplicity="*" />
@@ -2543,6 +2654,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SYS_REGION_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="SYS_REGION" Type="Self.SYS_REGION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_REGION">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SYS_USER_GROUP_DET_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="SYS_USER_GROUP_DET" Type="Self.SYS_USER_GROUP_DET" Multiplicity="*" />
@@ -2587,6 +2710,30 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="SYS_USER_GROUP">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAMS_LOCAL_HOLIDAY_DET_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="TAMS_LOCAL_HOLIDAY_DET" Type="Self.TAMS_LOCAL_HOLIDAY_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="TAMS_LOCAL_HOLIDAY_DET">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="TAMS_LOCAL_HOLIDAY_DET" Type="Self.TAMS_LOCAL_HOLIDAY_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TAMS_LOCAL_HOLIDAY_DET">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -2977,6 +3124,9 @@
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_C_GET_HOLIDAYS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_C_MANAGE_COOR_NEW_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="USER_ID" Type="int" Mode="In" />
@@ -2984,6 +3134,34 @@
           <Parameter Name="ATTACHMENT" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_C_MANAGE_PORTAL_FILING_RULE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mode" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="client_id" Type="int" Mode="In" />
+          <Parameter Name="follow_atd_correction_filing_rule" Type="bit" Mode="In" />
+          <Parameter Name="no_of_allowed_days_for_filing_atd_correction" Type="int" Mode="In" />
+          <Parameter Name="follow_overtime_filing_rule" Type="bit" Mode="In" />
+          <Parameter Name="no_of_allowed_days_for_overtime" Type="int" Mode="In" />
+          <Parameter Name="follow_vacation_leave_filing_rule" Type="bit" Mode="In" />
+          <Parameter Name="no_of_allowed_days_for_filing_vacation_leave" Type="int" Mode="In" />
+          <Parameter Name="follow_sick_leave_filing_rule" Type="bit" Mode="In" />
+          <Parameter Name="no_of_allowed_days_for_filing_sick_leave" Type="int" Mode="In" />
+          <Parameter Name="when_can_a_birthday_leave_be_filed" Type="nvarchar" Mode="In" />
+          <Parameter Name="allowed_minimum_minute_of_overtime" Type="int" Mode="In" />
+          <Parameter Name="allowed_succeeding_minute_of_overtime" Type="int" Mode="In" />
+          <Parameter Name="follow_dtr_validation_rule" Type="bit" Mode="In" />
+          <Parameter Name="use_employee_digital_signature" Type="bit" Mode="In" />
+          <Parameter Name="use_coordinator_digital_signature" Type="bit" Mode="In" />
+          <Parameter Name="use_approver_digital_signature" Type="bit" Mode="In" />
+          <Parameter Name="enable_attendance_email_notification" Type="bit" Mode="In" />
+          <Parameter Name="enable_attendance_shift_reminder" Type="bit" Mode="In" />
+          <Parameter Name="automatic_no_break_ot" Type="bit" Mode="In" />
+          <Parameter Name="implement_proximity_attendance" Type="bit" Mode="In" />
+          <Parameter Name="implement_dtr_posting_checking" Type="bit" Mode="In" />
+          <Parameter Name="allowed_blank_attendance_coordinates" Type="bit" Mode="In" />
+          <Parameter Name="is_client_approved_dtr" Type="bit" Mode="In" />
+          <Parameter Name="is_location_required" Type="bit" Mode="In" />
         </Function>
         <Function Name="USP_E_MANAGE_ACCOUNT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="USERNAME" Type="nvarchar" Mode="In" />
@@ -3544,6 +3722,23 @@
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="PASSWORD" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="USP_T_MANAGE_LOCAL_HOLIDAY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="HOLIDAY_DATE" Type="date" Mode="In" />
+          <Parameter Name="HOLIDAY_DESCRIPTION" Type="nvarchar" Mode="In" />
+          <Parameter Name="HOLIDAY_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_T_MANAGE_LOCAL_HOLIDAY_DET" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="HOLIDAY_ID" Type="int" Mode="In" />
+          <Parameter Name="EMP_ID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
         <EntityContainer Name="apwdbModelStoreContainer">
           <EntitySet Name="Adjustment" EntityType="Self.Adjustment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ADJUSTMENT_CLASSIFICATION" EntityType="Self.ADJUSTMENT_CLASSIFICATION" Schema="dbo" store:Type="Tables" />
@@ -3569,6 +3764,7 @@
           <EntitySet Name="INDUSTRY" EntityType="Self.INDUSTRY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoanType" EntityType="Self.LoanType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OvertimeBasis" EntityType="Self.OvertimeBasis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="P_Leave" EntityType="Self.P_Leave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE" EntityType="Self.REC_CANDIDATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE_DOCUMENT" EntityType="Self.REC_CANDIDATE_DOCUMENT" Schema="dbo" store:Type="Tables" />
@@ -3585,6 +3781,7 @@
           <EntitySet Name="REC_CLIENT_DEPARTMENT" EntityType="Self.REC_CLIENT_DEPARTMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_DOCUMENTS" EntityType="Self.REC_CLIENT_DOCUMENTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_OT_RATE" EntityType="Self.REC_CLIENT_OT_RATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REC_CLIENT_PORTAL_RULE" EntityType="Self.REC_CLIENT_PORTAL_RULE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_SETUP" EntityType="Self.REC_CLIENT_SETUP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_SETUP_CUTOFF" EntityType="Self.REC_CLIENT_SETUP_CUTOFF" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CLIENT_SETUP_EXT" EntityType="Self.REC_CLIENT_SETUP_EXT" Schema="dbo" store:Type="Tables" />
@@ -3606,9 +3803,12 @@
           <EntitySet Name="Shift" EntityType="Self.Shift" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_BANK" EntityType="Self.SYS_BANK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sys_company" EntityType="Self.sys_company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_ENTRY" EntityType="Self.SYS_ENTRY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_REGION" EntityType="Self.SYS_REGION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER" EntityType="Self.SYS_USER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP" EntityType="Self.SYS_USER_GROUP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_USER_GROUP_DET" EntityType="Self.SYS_USER_GROUP_DET" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAMS_LOCAL_HOLIDAY_DET" EntityType="Self.TAMS_LOCAL_HOLIDAY_DET" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name=" FK_Adjustment_REC_CLIENT" Association="Self. FK_Adjustment_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
             <End Role="Adjustment" EntitySet="Adjustment" />
@@ -3776,6 +3976,10 @@
           <AssociationSet Name="FK_Adjustment_SYS_USER" Association="Self.FK_Adjustment_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Adjustment" EntitySet="Adjustment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaLibrary_SYS_REGION" Association="Self.FK_AreaLibrary_SYS_REGION">
+            <End Role="SYS_REGION" EntitySet="SYS_REGION" />
+            <End Role="AreaLibrary" EntitySet="AreaLibrary" />
           </AssociationSet>
           <AssociationSet Name="FK_AreaLibrary_SYS_USER" Association="Self.FK_AreaLibrary_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -3973,6 +4177,10 @@
             <End Role="EMPLOYER" EntitySet="EMPLOYER" />
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
           </AssociationSet>
+          <AssociationSet Name="FK_REC_CLIENT_SETUP_OvertimeBasis" Association="Self.FK_REC_CLIENT_SETUP_OvertimeBasis">
+            <End Role="OvertimeBasis" EntitySet="OvertimeBasis" />
+            <End Role="REC_CLIENT_SETUP" EntitySet="REC_CLIENT_SETUP" />
+          </AssociationSet>
           <AssociationSet Name="FK_REC_CLIENT_SHIFT_REC_CLIENT" Association="Self.FK_REC_CLIENT_SHIFT_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
             <End Role="REC_CLIENT_SHIFT" EntitySet="REC_CLIENT_SHIFT" />
@@ -4037,6 +4245,10 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Salarytype" EntitySet="Salarytype" />
           </AssociationSet>
+          <AssociationSet Name="FK_School_SYS_REGION" Association="Self.FK_School_SYS_REGION">
+            <End Role="SYS_REGION" EntitySet="SYS_REGION" />
+            <End Role="School" EntitySet="School" />
+          </AssociationSet>
           <AssociationSet Name="FK_School_SYS_USER" Association="Self.FK_School_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="School" EntitySet="School" />
@@ -4057,6 +4269,10 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="sys_company" EntitySet="sys_company" />
           </AssociationSet>
+          <AssociationSet Name="FK_SYS_REGION_SYS_USER" Association="Self.FK_SYS_REGION_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_REGION" EntitySet="SYS_REGION" />
+          </AssociationSet>
           <AssociationSet Name="FK_SYS_USER_GROUP_DET_SYS_USER" Association="Self.FK_SYS_USER_GROUP_DET_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="SYS_USER_GROUP_DET" EntitySet="SYS_USER_GROUP_DET" />
@@ -4072,6 +4288,14 @@
           <AssociationSet Name="FK_SYS_USER_GROUP_SYS_USER" Association="Self.FK_SYS_USER_GROUP_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAMS_LOCAL_HOLIDAY_DET_Employee" Association="Self.FK_TAMS_LOCAL_HOLIDAY_DET_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="TAMS_LOCAL_HOLIDAY_DET" EntitySet="TAMS_LOCAL_HOLIDAY_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" Association="Self.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="TAMS_LOCAL_HOLIDAY_DET" EntitySet="TAMS_LOCAL_HOLIDAY_DET" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -4100,14 +4324,6 @@
             <End Role="SYS_USER_GROUP" EntitySet="SYS_USER_GROUP" />
             <End Role="SYS_USER_GROUP_DET" EntitySet="SYS_USER_GROUP_DET" />
           </AssociationSet>
-          <FunctionImport Name="USP_H_GET_EMPLOYEE_MONITORING" ReturnType="Collection(apwdbModel.USP_H_GET_EMPLOYEE_MONITORING_Result1)">
-            <Parameter Name="KEYWORD" Mode="In" Type="String" />
-            <Parameter Name="BY_CLIENT" Mode="In" Type="Boolean" />
-            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
-            <Parameter Name="PageNumber" Mode="In" Type="Int32" />
-            <Parameter Name="PageSize" Mode="In" Type="Int32" />
-            <Parameter Name="COMPANY_ID" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="REC_CANDIDATE" EntityType="apwdbModel.REC_CANDIDATE" />
           <EntitySet Name="REC_CANDIDATE_EMPLOYEE_LINK" EntityType="apwdbModel.REC_CANDIDATE_EMPLOYEE_LINK" />
           <AssociationSet Name="FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1" Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYEE_LINK_Employee1">
@@ -5572,6 +5788,91 @@
             <Parameter Name="ROLE_ID" Mode="In" Type="Int32" />
             <Parameter Name="job_description" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="SYS_REGION" EntityType="apwdbModel.SYS_REGION" />
+          <AssociationSet Name="FK_AreaLibrary_SYS_REGION" Association="apwdbModel.FK_AreaLibrary_SYS_REGION">
+            <End Role="SYS_REGION" EntitySet="SYS_REGION" />
+            <End Role="AreaLibrary" EntitySet="AreaLibraries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_School_SYS_REGION" Association="apwdbModel.FK_School_SYS_REGION">
+            <End Role="SYS_REGION" EntitySet="SYS_REGION" />
+            <End Role="School" EntitySet="Schools" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SYS_REGION_SYS_USER" Association="apwdbModel.FK_SYS_REGION_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="SYS_REGION" EntitySet="SYS_REGION" />
+          </AssociationSet>
+          <EntitySet Name="OvertimeBasis" EntityType="apwdbModel.OvertimeBasi" />
+          <AssociationSet Name="FK_REC_CLIENT_SETUP_OvertimeBasis" Association="apwdbModel.FK_REC_CLIENT_SETUP_OvertimeBasis">
+            <End Role="OvertimeBasi" EntitySet="OvertimeBasis" />
+            <End Role="REC_CLIENT_SETUP" EntitySet="REC_CLIENT_SETUP" />
+          </AssociationSet>
+          <FunctionImport Name="USP_C_GET_HOLIDAYS" ReturnType="Collection(apwdbModel.USP_C_GET_HOLIDAYS_Result)">
+          <Parameter Name="Year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="TAMS_LOCAL_HOLIDAY_DET" EntityType="apwdbModel.TAMS_LOCAL_HOLIDAY_DET" />
+          <AssociationSet Name="FK_TAMS_LOCAL_HOLIDAY_DET_Employee" Association="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="TAMS_LOCAL_HOLIDAY_DET" EntitySet="TAMS_LOCAL_HOLIDAY_DET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" Association="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="TAMS_LOCAL_HOLIDAY_DET" EntitySet="TAMS_LOCAL_HOLIDAY_DET" />
+          </AssociationSet>
+          <FunctionImport Name="USP_T_MANAGE_LOCAL_HOLIDAY">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="HOLIDAY_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="HOLIDAY_DESCRIPTION" Mode="In" Type="String" />
+            <Parameter Name="HOLIDAY_TYPE" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_T_MANAGE_LOCAL_HOLIDAY_DET">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="HOLIDAY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="EMP_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="SYS_ENTRY" EntityType="apwdbModel.SYS_ENTRY" />
+          <EntitySet Name="REC_CLIENT_PORTAL_RULE" EntityType="apwdbModel.REC_CLIENT_PORTAL_RULE" />
+          <FunctionImport Name="USP_C_MANAGE_PORTAL_FILING_RULE" ReturnType="Collection(Int32)">
+            <Parameter Name="mode" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="client_id" Mode="In" Type="Int32" />
+            <Parameter Name="follow_atd_correction_filing_rule" Mode="In" Type="Boolean" />
+            <Parameter Name="no_of_allowed_days_for_filing_atd_correction" Mode="In" Type="Int32" />
+            <Parameter Name="follow_overtime_filing_rule" Mode="In" Type="Boolean" />
+            <Parameter Name="no_of_allowed_days_for_overtime" Mode="In" Type="Int32" />
+            <Parameter Name="follow_vacation_leave_filing_rule" Mode="In" Type="Boolean" />
+            <Parameter Name="no_of_allowed_days_for_filing_vacation_leave" Mode="In" Type="Int32" />
+            <Parameter Name="follow_sick_leave_filing_rule" Mode="In" Type="Boolean" />
+            <Parameter Name="no_of_allowed_days_for_filing_sick_leave" Mode="In" Type="Int32" />
+            <Parameter Name="when_can_a_birthday_leave_be_filed" Mode="In" Type="String" />
+            <Parameter Name="allowed_minimum_minute_of_overtime" Mode="In" Type="Int32" />
+            <Parameter Name="allowed_succeeding_minute_of_overtime" Mode="In" Type="Int32" />
+            <Parameter Name="follow_dtr_validation_rule" Mode="In" Type="Boolean" />
+            <Parameter Name="use_employee_digital_signature" Mode="In" Type="Boolean" />
+            <Parameter Name="use_coordinator_digital_signature" Mode="In" Type="Boolean" />
+            <Parameter Name="use_approver_digital_signature" Mode="In" Type="Boolean" />
+            <Parameter Name="enable_attendance_email_notification" Mode="In" Type="Boolean" />
+            <Parameter Name="enable_attendance_shift_reminder" Mode="In" Type="Boolean" />
+            <Parameter Name="automatic_no_break_ot" Mode="In" Type="Boolean" />
+            <Parameter Name="implement_proximity_attendance" Mode="In" Type="Boolean" />
+            <Parameter Name="implement_dtr_posting_checking" Mode="In" Type="Boolean" />
+            <Parameter Name="allowed_blank_attendance_coordinates" Mode="In" Type="Boolean" />
+            <Parameter Name="is_client_approved_dtr" Mode="In" Type="Boolean" />
+            <Parameter Name="is_location_required" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_GET_EMPLOYEE_MONITORING" ReturnType="Collection(apwdbModel.USP_H_GET_EMPLOYEE_MONITORING_Result)">
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
+            <Parameter Name="BY_CLIENT" Mode="In" Type="Boolean" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="PageNumber" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="COMPANY_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -5689,6 +5990,7 @@
           <NavigationProperty Name="AreaLibrary" Relationship="apwdbModel.C_FK_Employee_AreaLibrary" FromRole="Employee" ToRole="AreaLibrary" />
           <NavigationProperty Name="AreaLibrary1" Relationship="apwdbModel.C_FK_Employee_AreaLibrary1" FromRole="Employee" ToRole="AreaLibrary" />
           <NavigationProperty Name="Salarytype" Relationship="apwdbModel.C_FK_Employee_Salarytype" FromRole="Employee" ToRole="Salarytype" />
+          <NavigationProperty Name="TAMS_LOCAL_HOLIDAY_DET" Relationship="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_Employee" FromRole="Employee" ToRole="TAMS_LOCAL_HOLIDAY_DET" />
         </EntityType>
         <EntityType Name="REC_USER_LOG">
           <Key>
@@ -5758,6 +6060,8 @@
           <NavigationProperty Name="REC_CANDIDATE_SKILL" Relationship="apwdbModel.FK_REC_CANDIDATE_SKILL_SYS_USER" FromRole="SYS_USER" ToRole="REC_CANDIDATE_SKILL" />
           <NavigationProperty Name="REC_JOB_ORDER" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_SYS_USER" FromRole="SYS_USER" ToRole="REC_JOB_ORDER" />
           <NavigationProperty Name="REC_JOB_ORDER1" Relationship="apwdbModel.C_FK_REC_JOB_ORDER_SYS_USER1" FromRole="SYS_USER" ToRole="REC_JOB_ORDER" />
+          <NavigationProperty Name="SYS_REGION" Relationship="apwdbModel.FK_SYS_REGION_SYS_USER" FromRole="SYS_USER" ToRole="SYS_REGION" />
+          <NavigationProperty Name="TAMS_LOCAL_HOLIDAY_DET" Relationship="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" FromRole="SYS_USER" ToRole="TAMS_LOCAL_HOLIDAY_DET" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP">
           <Key>
@@ -5835,51 +6139,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="USP_H_GET_EMPLOYEE_MONITORING_Result">
-          <Property Type="Int32" Name="EmpID" Nullable="true" />
-          <Property Type="String" Name="EmpNo" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="LastName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="ClientName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="Branch" Nullable="true" MaxLength="150" />
-          <Property Type="Boolean" Name="EmpStatus" Nullable="true" />
-          <Property Type="Boolean" Name="IsIncludePayroll" Nullable="true" />
-          <Property Type="Int32" Name="RankID" Nullable="true" />
-          <Property Type="String" Name="Position" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="ContractType" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="Department" Nullable="true" MaxLength="150" />
-          <Property Type="DateTime" Name="Datehired" Nullable="true" />
-          <Property Type="String" Name="Paytype" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SourceType" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="Cnt" Nullable="true" />
-          <Property Type="String" Name="EmployerName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="UserEncoded" Nullable="true" MaxLength="150" />
-          <Property Type="DateTime" Name="DateEncoded" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="USP_H_GET_EMPLOYEE_MONITORING_Result1">
-          <Property Type="Int32" Name="EmpID" Nullable="true" />
-          <Property Type="String" Name="EmpNo" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="LastName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="ClientName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="Branch" Nullable="true" MaxLength="150" />
-          <Property Type="Boolean" Name="EmpStatus" Nullable="true" />
-          <Property Type="Boolean" Name="IsIncludePayroll" Nullable="true" />
-          <Property Type="Int32" Name="RankID" Nullable="true" />
-          <Property Type="String" Name="Position" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="ContractType" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="Department" Nullable="true" MaxLength="150" />
-          <Property Type="DateTime" Name="Datehired" Nullable="true" />
-          <Property Type="String" Name="Paytype" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SourceType" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="Cnt" Nullable="true" />
-          <Property Type="String" Name="EmployerName" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="UserEncoded" Nullable="true" MaxLength="150" />
-          <Property Type="DateTime" Name="DateEncoded" Nullable="true" />
-          <Property Type="String" Name="GU_ID" Nullable="true" MaxLength="150" />
-        </ComplexType>
         <EntityType Name="REC_CANDIDATE">
           <Key>
             <PropertyRef Name="id" />
@@ -6056,6 +6315,7 @@
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_EmployeeLeaveMonitoring_SYS_USER" FromRole="EmployeeLeaveMonitoring" ToRole="SYS_USER" />
           <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.FK_EmployeeLeaveMonitoring_REC_CLIENT" FromRole="EmployeeLeaveMonitoring" ToRole="REC_CLIENT" />
           <NavigationProperty Name="LeaveType" Relationship="apwdbModel.C_FK_EmployeeLeaveMonitoring_LeaveType" FromRole="EmployeeLeaveMonitoring" ToRole="LeaveType" />
+          <Property Name="DayBalanceToBeIncremented" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="P_Leave">
           <Key>
@@ -7426,6 +7686,7 @@
           <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_AreaLibrary" FromRole="AreaLibrary" ToRole="Employee" />
           <NavigationProperty Name="Employees1" Relationship="apwdbModel.C_FK_Employee_AreaLibrary1" FromRole="AreaLibrary" ToRole="Employee" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_AreaLibrary_SYS_USER" FromRole="AreaLibrary" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_REGION" Relationship="apwdbModel.FK_AreaLibrary_SYS_REGION" FromRole="AreaLibrary" ToRole="SYS_REGION" />
         </EntityType>
         <Association Name="C_FK_Employee_AreaLibrary">
           <End Type="apwdbModel.AreaLibrary" Role="AreaLibrary" Multiplicity="1" />
@@ -7558,6 +7819,7 @@
           <Property Name="country_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="REC_CANDIDATE_EDUCATION" Relationship="apwdbModel.FK_REC_CANDIDATE_EDUCATION_School" FromRole="School" ToRole="REC_CANDIDATE_EDUCATION" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_School_SYS_USER" FromRole="School" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_REGION" Relationship="apwdbModel.FK_School_SYS_REGION" FromRole="School" ToRole="SYS_REGION" />
         </EntityType>
         <Association Name="FK_REC_CANDIDATE_EDUCATION_School">
           <End Type="apwdbModel.School" Role="School" Multiplicity="1" />
@@ -8645,6 +8907,7 @@
           <Property Name="include_adjustment" Type="Boolean" Nullable="false" />
           <Property Name="adjustment_basis" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_REC_CLIENT_SETUP_REC_CLIENT" FromRole="REC_CLIENT_SETUP" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="OvertimeBasi" Relationship="apwdbModel.FK_REC_CLIENT_SETUP_OvertimeBasis" FromRole="REC_CLIENT_SETUP" ToRole="OvertimeBasi" />
         </EntityType>
         <EntityType Name="REC_CLIENT_SETUP_CUTOFF">
           <Key>
@@ -8806,6 +9069,194 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SYS_REGION">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="region_code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="region_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="country_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AreaLibraries" Relationship="apwdbModel.FK_AreaLibrary_SYS_REGION" FromRole="SYS_REGION" ToRole="AreaLibrary" />
+          <NavigationProperty Name="Schools" Relationship="apwdbModel.FK_School_SYS_REGION" FromRole="SYS_REGION" ToRole="School" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_SYS_REGION_SYS_USER" FromRole="SYS_REGION" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_AreaLibrary_SYS_REGION">
+          <End Type="apwdbModel.SYS_REGION" Role="SYS_REGION" Multiplicity="1" />
+          <End Type="apwdbModel.AreaLibrary" Role="AreaLibrary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_REGION">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AreaLibrary">
+              <PropertyRef Name="region_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_School_SYS_REGION">
+          <End Type="apwdbModel.SYS_REGION" Role="SYS_REGION" Multiplicity="1" />
+          <End Type="apwdbModel.School" Role="School" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_REGION">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="School">
+              <PropertyRef Name="region_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SYS_REGION_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.SYS_REGION" Role="SYS_REGION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SYS_REGION">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OvertimeBasi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OvertimeBasis_Desc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Min_Time" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Succeeding_Time" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="REC_CLIENT_SETUP" Relationship="apwdbModel.FK_REC_CLIENT_SETUP_OvertimeBasis" FromRole="OvertimeBasi" ToRole="REC_CLIENT_SETUP" />
+        </EntityType>
+        <Association Name="FK_REC_CLIENT_SETUP_OvertimeBasis">
+          <End Type="apwdbModel.OvertimeBasi" Role="OvertimeBasi" Multiplicity="1" />
+          <End Type="apwdbModel.REC_CLIENT_SETUP" Role="REC_CLIENT_SETUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OvertimeBasi">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="REC_CLIENT_SETUP">
+              <PropertyRef Name="overtime_setup_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_C_GET_HOLIDAYS_Result">
+          <Property Type="Int32" Name="HolidayId" Nullable="true" />
+          <Property Type="String" Name="HolidayDescription" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="HolidayDate" Nullable="true" />
+          <Property Type="Int32" Name="UserId" Nullable="true" />
+          <Property Type="Int32" Name="HolidayType" Nullable="true" />
+          <Property Type="String" Name="HolidayTypeDesc" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="WorkingHoliday" Nullable="true" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="true" Precision="23" />
+        </ComplexType>
+        <EntityType Name="TAMS_LOCAL_HOLIDAY_DET">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="holiday_id" Type="Int32" Nullable="false" />
+          <Property Name="emp_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_Employee" FromRole="TAMS_LOCAL_HOLIDAY_DET" ToRole="Employee" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" FromRole="TAMS_LOCAL_HOLIDAY_DET" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_TAMS_LOCAL_HOLIDAY_DET_Employee">
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="apwdbModel.TAMS_LOCAL_HOLIDAY_DET" Role="TAMS_LOCAL_HOLIDAY_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="TAMS_LOCAL_HOLIDAY_DET">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.TAMS_LOCAL_HOLIDAY_DET" Role="TAMS_LOCAL_HOLIDAY_DET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TAMS_LOCAL_HOLIDAY_DET">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SYS_ENTRY">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="entry_description" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="entry_type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="REC_CLIENT_PORTAL_RULE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="client_Id" Type="Int32" Nullable="false" />
+          <Property Name="follow_atd_correction_filing_rule" Type="Boolean" Nullable="false" />
+          <Property Name="no_of_allowed_days_for_filing_atd_correction" Type="Int32" Nullable="false" />
+          <Property Name="follow_overtime_filing_rule" Type="Boolean" Nullable="false" />
+          <Property Name="no_of_allowed_days_for_overtime" Type="Int32" Nullable="false" />
+          <Property Name="follow_vacation_leave_filing_rule" Type="Boolean" Nullable="false" />
+          <Property Name="no_of_allowed_days_for_filing_vacation_leave" Type="Int32" Nullable="false" />
+          <Property Name="follow_sick_leave_filing_rule" Type="Boolean" Nullable="false" />
+          <Property Name="no_of_allowed_days_for_filing_sick_leave" Type="Int32" Nullable="false" />
+          <Property Name="when_can_a_birthday_leave_be_filed" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="allowed_minimum_minute_of_overtime" Type="Int32" Nullable="false" />
+          <Property Name="allowed_succeeding_minute_of_overtime" Type="Int32" Nullable="false" />
+          <Property Name="follow_dtr_validation_rule" Type="Boolean" Nullable="false" />
+          <Property Name="use_employee_digital_signature" Type="Boolean" Nullable="false" />
+          <Property Name="use_coordinator_digital_signature" Type="Boolean" Nullable="false" />
+          <Property Name="use_approver_digital_signature" Type="Boolean" Nullable="false" />
+          <Property Name="enable_attendance_email_notification" Type="Boolean" Nullable="false" />
+          <Property Name="enable_attendance_shift_reminder" Type="Boolean" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="automatic_no_break_ot" Type="Boolean" Nullable="false" />
+          <Property Name="implement_proximity_attendance" Type="Boolean" Nullable="false" />
+          <Property Name="implement_dtr_posting_checking" Type="Boolean" Nullable="false" />
+          <Property Name="allowed_blank_attendance_coordinates" Type="Boolean" Nullable="false" />
+          <Property Name="is_client_approve_the_dtr" Type="Boolean" Nullable="false" />
+          <Property Name="is_location_required" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="USP_H_GET_EMPLOYEE_MONITORING_Result">
+          <Property Type="Int32" Name="EmpID" Nullable="true" />
+          <Property Type="String" Name="EmpNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ClientName" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="ClientId" Nullable="true" />
+          <Property Type="String" Name="Branch" Nullable="true" MaxLength="150" />
+          <Property Type="Boolean" Name="EmpStatus" Nullable="true" />
+          <Property Type="Boolean" Name="IsIncludePayroll" Nullable="true" />
+          <Property Type="Int32" Name="RankID" Nullable="true" />
+          <Property Type="String" Name="Position" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ContractType" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Department" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="Datehired" Nullable="true" />
+          <Property Type="String" Name="Paytype" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SourceType" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Cnt" Nullable="true" />
+          <Property Type="String" Name="EmployerName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="UserEncoded" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="DateEncoded" Nullable="true" />
+          <Property Type="String" Name="GU_ID" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ClientGUID" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="CandidateId" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8958,33 +9409,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="USP_H_GET_EMPLOYEE_MONITORING" FunctionName="apwdbModel.Store.USP_H_GET_EMPLOYEE_MONITORING">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_EMPLOYEE_MONITORING_Result1">
-                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
-                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-                <ScalarProperty Name="Branch" ColumnName="Branch" />
-                <ScalarProperty Name="EmpStatus" ColumnName="EmpStatus" />
-                <ScalarProperty Name="IsIncludePayroll" ColumnName="IsIncludePayroll" />
-                <ScalarProperty Name="RankID" ColumnName="RankID" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
-                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
-                <ScalarProperty Name="Datehired" ColumnName="Datehired" />
-                <ScalarProperty Name="Paytype" ColumnName="Paytype" />
-                <ScalarProperty Name="SourceType" ColumnName="SourceType" />
-                <ScalarProperty Name="Cnt" ColumnName="Cnt" />
-                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
-                <ScalarProperty Name="UserEncoded" ColumnName="UserEncoded" />
-                <ScalarProperty Name="DateEncoded" ColumnName="DateEncoded" />
-                <ScalarProperty Name="GU_ID" ColumnName="GU_ID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="REC_CANDIDATE">
             <EntityTypeMapping TypeName="apwdbModel.REC_CANDIDATE">
               <MappingFragment StoreEntitySet="REC_CANDIDATE">
@@ -9082,6 +9506,7 @@
           <EntitySetMapping Name="EmployeeLeaveMonitorings">
             <EntityTypeMapping TypeName="apwdbModel.EmployeeLeaveMonitoring">
               <MappingFragment StoreEntitySet="EmployeeLeaveMonitoring">
+                <ScalarProperty Name="DayBalanceToBeIncremented" ColumnName="DayBalanceToBeIncremented" />
                 <ScalarProperty Name="when_credit_is_earned" ColumnName="when_credit_is_earned" />
                 <ScalarProperty Name="auto_reset_per_year" ColumnName="auto_reset_per_year" />
                 <ScalarProperty Name="is_convertable" ColumnName="is_convertable" />
@@ -10521,6 +10946,132 @@
           <FunctionImportMapping FunctionImportName="SP_I_MANAGE_DOCUMENT" FunctionName="apwdbModel.Store.SP_I_MANAGE_DOCUMENT" />
           <FunctionImportMapping FunctionImportName="USP_SYS_UPDATE_USER_PASSWORD" FunctionName="apwdbModel.Store.USP_SYS_UPDATE_USER_PASSWORD" />
           <FunctionImportMapping FunctionImportName="SP_I_MANAGE_EMPLOYMENT_HISTORY" FunctionName="apwdbModel.Store.SP_I_MANAGE_EMPLOYMENT_HISTORY" />
+          <EntitySetMapping Name="SYS_REGION">
+            <EntityTypeMapping TypeName="apwdbModel.SYS_REGION">
+              <MappingFragment StoreEntitySet="SYS_REGION">
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="region_name" ColumnName="region_name" />
+                <ScalarProperty Name="region_code" ColumnName="region_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OvertimeBasis">
+            <EntityTypeMapping TypeName="apwdbModel.OvertimeBasi">
+              <MappingFragment StoreEntitySet="OvertimeBasis">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Succeeding_Time" ColumnName="Succeeding_Time" />
+                <ScalarProperty Name="Min_Time" ColumnName="Min_Time" />
+                <ScalarProperty Name="OvertimeBasis_Desc" ColumnName="OvertimeBasis_Desc" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_C_GET_HOLIDAYS" FunctionName="apwdbModel.Store.USP_C_GET_HOLIDAYS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_C_GET_HOLIDAYS_Result">
+                <ScalarProperty Name="HolidayId" ColumnName="HolidayId" />
+                <ScalarProperty Name="HolidayDescription" ColumnName="HolidayDescription" />
+                <ScalarProperty Name="HolidayDate" ColumnName="HolidayDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="HolidayType" ColumnName="HolidayType" />
+                <ScalarProperty Name="HolidayTypeDesc" ColumnName="HolidayTypeDesc" />
+                <ScalarProperty Name="WorkingHoliday" ColumnName="WorkingHoliday" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="TAMS_LOCAL_HOLIDAY_DET">
+            <EntityTypeMapping TypeName="apwdbModel.TAMS_LOCAL_HOLIDAY_DET">
+              <MappingFragment StoreEntitySet="TAMS_LOCAL_HOLIDAY_DET">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="holiday_id" ColumnName="holiday_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_T_MANAGE_LOCAL_HOLIDAY" FunctionName="apwdbModel.Store.USP_T_MANAGE_LOCAL_HOLIDAY" />
+          <FunctionImportMapping FunctionImportName="USP_T_MANAGE_LOCAL_HOLIDAY_DET" FunctionName="apwdbModel.Store.USP_T_MANAGE_LOCAL_HOLIDAY_DET" />
+          <EntitySetMapping Name="SYS_ENTRY">
+            <EntityTypeMapping TypeName="apwdbModel.SYS_ENTRY">
+              <MappingFragment StoreEntitySet="SYS_ENTRY">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="entry_type" ColumnName="entry_type" />
+                <ScalarProperty Name="entry_description" ColumnName="entry_description" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REC_CLIENT_PORTAL_RULE">
+            <EntityTypeMapping TypeName="apwdbModel.REC_CLIENT_PORTAL_RULE">
+              <MappingFragment StoreEntitySet="REC_CLIENT_PORTAL_RULE">
+                <ScalarProperty Name="is_location_required" ColumnName="is_location_required" />
+                <ScalarProperty Name="is_client_approve_the_dtr" ColumnName="is_client_approve_the_dtr" />
+                <ScalarProperty Name="allowed_blank_attendance_coordinates" ColumnName="allowed_blank_attendance_coordinates" />
+                <ScalarProperty Name="implement_dtr_posting_checking" ColumnName="implement_dtr_posting_checking" />
+                <ScalarProperty Name="implement_proximity_attendance" ColumnName="implement_proximity_attendance" />
+                <ScalarProperty Name="automatic_no_break_ot" ColumnName="automatic_no_break_ot" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="enable_attendance_shift_reminder" ColumnName="enable_attendance_shift_reminder" />
+                <ScalarProperty Name="enable_attendance_email_notification" ColumnName="enable_attendance_email_notification" />
+                <ScalarProperty Name="use_approver_digital_signature" ColumnName="use_approver_digital_signature" />
+                <ScalarProperty Name="use_coordinator_digital_signature" ColumnName="use_coordinator_digital_signature" />
+                <ScalarProperty Name="use_employee_digital_signature" ColumnName="use_employee_digital_signature" />
+                <ScalarProperty Name="follow_dtr_validation_rule" ColumnName="follow_dtr_validation_rule" />
+                <ScalarProperty Name="allowed_succeeding_minute_of_overtime" ColumnName="allowed_succeeding_minute_of_overtime" />
+                <ScalarProperty Name="allowed_minimum_minute_of_overtime" ColumnName="allowed_minimum_minute_of_overtime" />
+                <ScalarProperty Name="when_can_a_birthday_leave_be_filed" ColumnName="when_can_a_birthday_leave_be_filed" />
+                <ScalarProperty Name="no_of_allowed_days_for_filing_sick_leave" ColumnName="no_of_allowed_days_for_filing_sick_leave" />
+                <ScalarProperty Name="follow_sick_leave_filing_rule" ColumnName="follow_sick_leave_filing_rule" />
+                <ScalarProperty Name="no_of_allowed_days_for_filing_vacation_leave" ColumnName="no_of_allowed_days_for_filing_vacation_leave" />
+                <ScalarProperty Name="follow_vacation_leave_filing_rule" ColumnName="follow_vacation_leave_filing_rule" />
+                <ScalarProperty Name="no_of_allowed_days_for_overtime" ColumnName="no_of_allowed_days_for_overtime" />
+                <ScalarProperty Name="follow_overtime_filing_rule" ColumnName="follow_overtime_filing_rule" />
+                <ScalarProperty Name="no_of_allowed_days_for_filing_atd_correction" ColumnName="no_of_allowed_days_for_filing_atd_correction" />
+                <ScalarProperty Name="follow_atd_correction_filing_rule" ColumnName="follow_atd_correction_filing_rule" />
+                <ScalarProperty Name="client_Id" ColumnName="client_Id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_C_MANAGE_PORTAL_FILING_RULE" FunctionName="apwdbModel.Store.USP_C_MANAGE_PORTAL_FILING_RULE" />
+          <FunctionImportMapping FunctionImportName="USP_H_GET_EMPLOYEE_MONITORING" FunctionName="apwdbModel.Store.USP_H_GET_EMPLOYEE_MONITORING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_EMPLOYEE_MONITORING_Result">
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="EmpStatus" ColumnName="EmpStatus" />
+                <ScalarProperty Name="IsIncludePayroll" ColumnName="IsIncludePayroll" />
+                <ScalarProperty Name="RankID" ColumnName="RankID" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Datehired" ColumnName="Datehired" />
+                <ScalarProperty Name="Paytype" ColumnName="Paytype" />
+                <ScalarProperty Name="SourceType" ColumnName="SourceType" />
+                <ScalarProperty Name="Cnt" ColumnName="Cnt" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="UserEncoded" ColumnName="UserEncoded" />
+                <ScalarProperty Name="DateEncoded" ColumnName="DateEncoded" />
+                <ScalarProperty Name="GU_ID" ColumnName="GU_ID" />
+                <ScalarProperty Name="ClientGUID" ColumnName="ClientGUID" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

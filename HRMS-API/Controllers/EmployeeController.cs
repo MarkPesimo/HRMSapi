@@ -88,6 +88,54 @@ namespace HRMS_API.Controllers
             }
         }
 
+        [Route("api/Employee/GetCities")]
+        [HttpGet]
+        public HttpResponseMessage GetCities()
+        {
+            try
+            {
+                List<AreaLibraryModel> _list = Employeerepository.GetCities();
+
+                if (_list != null && _list.Count > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _list);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Employee/GetProvinces")]
+        [HttpGet]
+        public HttpResponseMessage GetProvinces()
+        {
+            try
+            {
+                List<AreaLibraryModel> _list = Employeerepository.GetProvinces();
+
+                if (_list != null && _list.Count > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _list);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
         [Route("api/Employee/ManagePersonal")]
         [HttpPost]
         public HttpResponseMessage ManagePersonal([FromBody] PersonalInfo model)
@@ -247,6 +295,69 @@ namespace HRMS_API.Controllers
             catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/GetSchools")]
+        [HttpGet]
+        public HttpResponseMessage GetSchools()
+        {
+            try
+            {
+                List<SchoolViewModel> _model = _employeeeducationrepository.GetSchools();
+                if (_model != null && _model.Any())
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                string message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
+            }
+        }
+
+        [Route("api/Employee/GetAllDegrees")]
+        [HttpGet]
+        public HttpResponseMessage GetAllDegrees()
+        {
+            try
+            {
+                List<DegreeViewModel> _model = _employeeeducationrepository.GetAllDegrees();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
+            }
+        }
+
+        [Route("api/Employee/GetSchoolLevels")]
+        [HttpGet]
+        public HttpResponseMessage GetSchoolLevels()
+        {
+            try
+            {
+                List<SchoolLevelViewModel> _model = _employeeeducationrepository.GetSchoolLevels();
+                if (_model != null && _model.Any())
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                string message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
             }
         }
 

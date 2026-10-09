@@ -873,6 +873,30 @@ namespace HRMS_API.Controllers.Client
         //=========================================CLIENT SETUP==========================================
 
         //=========================================CLIENT OVERTIME RATE SETUP==========================================
+        [Route("api/Client/GetSysEntries")]
+        [HttpGet]
+        public HttpResponseMessage GetSysEntries()
+        {
+            try
+            {
+                List<SysEntry> _model = _setuprepository.GetSysEntries();
+
+                if (_model != null && _model.Count > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
         [Route("api/Client/GetOvertimeRate/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetOvertimeRate(string GUID)
@@ -929,7 +953,7 @@ namespace HRMS_API.Controllers.Client
         }
 
         [Route("api/Client/GetAccount/{Id}")]
-        [HttpPost]
+        [HttpGet]
         public HttpResponseMessage GetAccount(int Id)
         {
             try
@@ -1014,5 +1038,55 @@ namespace HRMS_API.Controllers.Client
             }
         }
         //=========================================CLIENT ACCOUNT SETUP==========================================
+
+        //==================================CLIENT PORTAL RULE SETUP===========================================
+        [Route("api/Client/GetPortalRule/{GUID}")]
+        [HttpGet]
+        public HttpResponseMessage GetPortalRule(string GUID)
+        {
+            try
+            {
+                int _clientid = _profilerepository.GetClientId(GUID);
+                ClientPortalRule_model _model = _setuprepository.GetPortalRule(_clientid);
+
+                if (_model != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Client/ManagePortalFilingRule")]
+        [HttpPost]
+        public HttpResponseMessage ManagePortalFilingRule([FromBody] ClientPortalRule_model model)
+        {
+            try
+            {
+                int result = _setuprepository.ManagePortalFilingRule(model);
+                if (result > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, model.Id);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record.");
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+        //==================================CLIENT PORTAL RULE SETUP===========================================
     }
 }

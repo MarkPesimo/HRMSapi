@@ -163,6 +163,14 @@ namespace HRModel.ViewModel.Client
 
         public class AccountMapping
         {
+            public class SysEntry
+            {
+                public int Id { get; set; }
+                public string EntryDescription { get; set; }
+                public string EntryType { get; set; }
+                public int? UserId { get; set; }
+                public DateTime? DateCreated { get; set; }
+            }
             public class Account_model
             {
                 public int Id { get; set; }
@@ -195,6 +203,37 @@ namespace HRModel.ViewModel.Client
                 public string CreatedBy { get; set; }
                 public DateTime DateCreated { get; set; }
             }
+        }
+
+        public class ClientPortalRule_model
+        {
+            public int Mode { get; set; }
+            public int Id { get; set; }
+            public int ClientId { get; set; }
+            public bool FollowAtdCorrectionFilingRule { get; set; }
+            public int NoOfAllowedDaysForFilingAtdCorrection { get; set; }
+            public bool FollowOvertimeFilingRule { get; set; }
+            public int NoOfAllowedDaysForOvertime { get; set; }
+            public bool FollowVacationLeaveFilingRule { get; set; }
+            public int NoOfAllowedDaysForFilingVacationLeave { get; set; }
+            public bool FollowSickLeaveFilingRule { get; set; }
+            public int NoOfAllowedDaysForFilingSickLeave { get; set; }
+            public string WhenCanABirthdayLeaveBeFiled { get; set; }
+            public int AllowedMinimumMinuteOfOvertime { get; set; }
+            public int AllowedSucceedingMinuteOfOvertime { get; set; }
+            public bool FollowDtrValidationRule { get; set; }
+            public bool UseEmployeeDigitalSignature { get; set; }
+            public bool UseCoordinatorDigitalSignature { get; set; }
+            public bool UseApproverDigitalSignature { get; set; }
+            public bool EnableAttendanceEmailNotification { get; set; }
+            public bool EnableAttendanceShiftReminder { get; set; }
+            public DateTime DateCreated { get; set; }
+            public bool AutomaticNoBreakOt { get; set; }
+            public bool ImplementProximityAttendance { get; set; }
+            public bool ImplementDtrPostingChecking { get; set; }
+            public bool AllowedBlankAttendanceCoordinates { get; set; }
+            public bool IsClientApproveTheDtr { get; set; }
+            public bool IsLocationRequired { get; set; }
         }
     }
 }

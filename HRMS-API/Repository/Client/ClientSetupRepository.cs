@@ -11,7 +11,7 @@ namespace HRMS_API.Repository.Client
 {
     public class ClientSetupRepository
     {
-        public static apwdbEntities _conn { get; set; }
+        public apwdbEntities _conn { get; set; }
         public UserRepository _userrepository { get; set; }
 
 
@@ -327,6 +327,7 @@ namespace HRMS_API.Repository.Client
         //==================================PAYROLL SERVICE SETUP===========================================
 
         //==================================OVERTIME RATE SETUP===========================================
+
         public OvertimeRate GetOvertimeRate(int _clientid)
         {
             return (from d in _conn.REC_CLIENT_OT_RATE
@@ -389,6 +390,21 @@ namespace HRMS_API.Repository.Client
 
 
         //==================================ACCOUNT MAPPING SETUP===========================================
+        public List<SysEntry> GetSysEntries()
+        {
+            return (from d in _conn.SYS_ENTRY
+                    orderby d.entry_description
+                    select d).AsEnumerable()
+                             .Select(x => new SysEntry()
+                             {
+                                 Id = x.id,
+                                 EntryDescription = x.entry_description,
+                                 EntryType = x.entry_type,
+                                 UserId = x.user_id,
+                                 DateCreated = x.date_created
+                             }).ToList();
+        }
+
         public List<Account_model> GetAccounts(int _clientid)
         {
             return (from d in _conn.REC_CLIENT_ACCOUNT_MAPPING
@@ -506,7 +522,7 @@ namespace HRMS_API.Repository.Client
                 _return_value
             );
 
-            return Convert.ToInt32(_return_value);
+            return Convert.ToInt32(_return_value.Value);
         }
 
         public string GetAccountDetailDescription(string _entrytype, int _id)
@@ -527,5 +543,82 @@ namespace HRMS_API.Repository.Client
         }
         //==================================ACCOUNT MAPPING SETUP===========================================
 
+        //==================================CLIENT PORTAL RULE SETUP===========================================
+
+        public ClientPortalRule_model GetPortalRule(int _clientid)
+        {
+            return (from d in _conn.REC_CLIENT_PORTAL_RULE
+                    where d.client_Id == _clientid
+                    select d).AsEnumerable()
+                   .Select(x => new ClientPortalRule_model()
+                   {
+                       Id = x.id,
+                       ClientId = x.client_Id,
+                       FollowAtdCorrectionFilingRule = x.follow_atd_correction_filing_rule,
+                       NoOfAllowedDaysForFilingAtdCorrection = x.no_of_allowed_days_for_filing_atd_correction,
+                       FollowOvertimeFilingRule = x.follow_overtime_filing_rule,
+                       NoOfAllowedDaysForOvertime = x.no_of_allowed_days_for_overtime,
+                       FollowVacationLeaveFilingRule = x.follow_vacation_leave_filing_rule,
+                       NoOfAllowedDaysForFilingVacationLeave = x.no_of_allowed_days_for_filing_vacation_leave,
+                       FollowSickLeaveFilingRule = x.follow_sick_leave_filing_rule,
+                       NoOfAllowedDaysForFilingSickLeave = x.no_of_allowed_days_for_filing_sick_leave,
+                       WhenCanABirthdayLeaveBeFiled = x.when_can_a_birthday_leave_be_filed,
+                       AllowedMinimumMinuteOfOvertime = x.allowed_minimum_minute_of_overtime,
+                       AllowedSucceedingMinuteOfOvertime = x.allowed_succeeding_minute_of_overtime,
+                       FollowDtrValidationRule = x.follow_dtr_validation_rule,
+                       UseEmployeeDigitalSignature = x.use_employee_digital_signature,
+                       UseCoordinatorDigitalSignature = x.use_coordinator_digital_signature,
+                       UseApproverDigitalSignature = x.use_approver_digital_signature,
+                       EnableAttendanceEmailNotification = x.enable_attendance_email_notification,
+                       EnableAttendanceShiftReminder = x.enable_attendance_shift_reminder,
+                       DateCreated = x.date_created,
+                       AutomaticNoBreakOt = x.automatic_no_break_ot,
+                       ImplementProximityAttendance = x.implement_proximity_attendance,
+                       ImplementDtrPostingChecking = x.implement_dtr_posting_checking,
+                       AllowedBlankAttendanceCoordinates = x.allowed_blank_attendance_coordinates,
+                       IsClientApproveTheDtr = x.is_client_approve_the_dtr,
+                       IsLocationRequired = x.is_location_required
+                   }).FirstOrDefault();
+        }
+
+        public int ManagePortalFilingRule(ClientPortalRule_model _model)
+        {
+            var result = _conn.USP_C_MANAGE_PORTAL_FILING_RULE(
+                _model.Mode,
+                _model.Id,
+                _model.ClientId,
+                _model.FollowAtdCorrectionFilingRule,
+                _model.NoOfAllowedDaysForFilingAtdCorrection,
+
+                _model.FollowOvertimeFilingRule,
+                _model.NoOfAllowedDaysForOvertime,
+                _model.FollowVacationLeaveFilingRule,
+                _model.NoOfAllowedDaysForFilingVacationLeave,
+                _model.FollowSickLeaveFilingRule,
+
+                _model.NoOfAllowedDaysForFilingSickLeave,
+                _model.WhenCanABirthdayLeaveBeFiled,
+                _model.AllowedMinimumMinuteOfOvertime,
+                _model.AllowedSucceedingMinuteOfOvertime,
+                _model.FollowDtrValidationRule,
+
+                _model.UseEmployeeDigitalSignature,
+                _model.UseCoordinatorDigitalSignature,
+                _model.UseApproverDigitalSignature,
+                _model.EnableAttendanceEmailNotification,
+                _model.EnableAttendanceShiftReminder,
+                
+                _model.AutomaticNoBreakOt,
+                _model.ImplementProximityAttendance,
+                _model.ImplementDtrPostingChecking,
+                _model.AllowedBlankAttendanceCoordinates,
+                _model.IsClientApproveTheDtr,
+                _model.IsLocationRequired
+
+            ).FirstOrDefault();
+
+            return result ?? 0;
+        }
+        //==================================CLIENT PORTAL RULE SETUP===========================================
     }
 }

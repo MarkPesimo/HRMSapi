@@ -10,7 +10,7 @@ namespace HRMS_API.Repository.Client
 {
     public class ClientHistoryRepository
     {
-        public static apwdbEntities _conn { get; set; }
+        public apwdbEntities _conn { get; set; }
 
         public ClientHistoryRepository()
         {
