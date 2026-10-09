@@ -104,6 +104,15 @@
     <Compile Include="EmployeeType.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Employee_Benefits.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee_Benefits_Adjustment_File_Link.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee_Benefits_Type.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Employee_Floating_Status.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -331,6 +340,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_GET_COMMENT_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_EMPLOYEE_BENEFITS_MONITORING_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_GET_EMPLOYEE_FILED_LEAVE_Result.cs">

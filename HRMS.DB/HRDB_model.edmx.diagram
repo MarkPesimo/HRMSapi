@@ -182,24 +182,16 @@
         <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_SETUP_REC_CLIENT" />
         <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_SETUP_EXT" Width="2.875" PointX="10" PointY="0.75" IsExpanded="false" />
         <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_SETUP_EXT_REC_CLIENT" />
-        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_OT_RATE" Width="1.5" PointX="10" PointY="38.5" />
-        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_OT_RATE_REC_CLIENT" />
-        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_ACCOUNT_MAP_FIELD" Width="1.5" PointX="12.25" PointY="46.125" />
-        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_ACCOUNT_MAPPING" Width="1.5" PointX="10" PointY="45.25" />
-        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAPPING_REC_CLIENT" />
-        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAP_FIELD_REC_CLIENT_ACCOUNT_MAPPING" />
-        <EntityTypeShape EntityType="apwdbModel.SYS_REGION" Width="1.5" PointX="5.5" PointY="31.375" />
-        <AssociationConnector Association="apwdbModel.FK_AreaLibrary_SYS_REGION" />
-        <AssociationConnector Association="apwdbModel.FK_School_SYS_REGION" />
-        <AssociationConnector Association="apwdbModel.FK_SYS_REGION_SYS_USER" />
-        <EntityTypeShape EntityType="apwdbModel.OvertimeBasi" Width="1.5" PointX="0.75" PointY="1" />
-        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_SETUP_OvertimeBasis" />
         <EntityTypeShape EntityType="apwdbModel.TAMS_LOCAL_HOLIDAY_DET" Width="1.5" PointX="16" PointY="7.125" />
         <AssociationConnector Association="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_Employee" />
         <AssociationConnector Association="apwdbModel.FK_TAMS_LOCAL_HOLIDAY_DET_SYS_USER" />
-        <EntityTypeShape EntityType="apwdbModel.SYS_ENTRY" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_PORTAL_RULE" Width="1.5" PointX="0.75" PointY="14.75" />
-      </Diagram>
+        <EntityTypeShape EntityType="apwdbModel.Employee_Benefits_Type" Width="1.5" PointX="18.125" PointY="14.375" />
+        <EntityTypeShape EntityType="apwdbModel.Employee_Benefits_Adjustment_File_Link" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="apwdbModel.Employee_Benefits" Width="1.5" PointX="20.375" PointY="12.875" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Benefits_Employee" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Benefits_Employee_Benefits_Type" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Benefits_REC_CLIENT" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

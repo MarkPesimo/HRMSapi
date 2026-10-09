@@ -48,6 +48,7 @@
     <Compile Include="ViewModel\Client\Client_model.cs" />
     <Compile Include="ViewModel\Contract\EmployeeTransaction\EmployeeTransaction.cs" />
     <Compile Include="ViewModel\Contract\EmployeeTransaction\ReactivationModel.cs" />
+    <Compile Include="ViewModel\Employees\Benefits\Benefits_model.cs" />
     <Compile Include="ViewModel\Employees\Document\RequiredDocument_model.cs" />
     <Compile Include="ViewModel\Employees\Education\EmployeeEducationModel.cs" />
     <Compile Include="ViewModel\Employees\EmployeeMonitoringViewModel.cs" />

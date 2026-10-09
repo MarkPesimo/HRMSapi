@@ -85,6 +85,22 @@ namespace HRMS_API.Repository
 
             return Convert.ToInt32(_return_value.Value);
         }
-         
+
+        public ClientAdjustment_vw_model GetAdjustment(int _adjustmentid)
+        {
+            return (from x in _conn.Adjustments
+                    where x.Adjustment_ID == _adjustmentid
+                    select x
+            ).AsEnumerable()
+            .Select(d => new ClientAdjustment_vw_model()
+            {
+                Id = int.Parse(d.Adjustment_ID.ToString()),
+                Description = d.Adjustment_Desc,
+                Classification = d.ADJUSTMENT_CLASSIFICATION.classification,
+                Status = d.status == true ? "Active" : "Inactive",
+                CreatedBy = d.SYS_USER.username,
+                DateCreated = d.CreationDate.ToShortDateString()
+            }).FirstOrDefault();
+        }
     }
 }
