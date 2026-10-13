@@ -67,7 +67,7 @@ namespace HRMS_API.Repository
         }
 
         //=============================PROFILE / PERSONAL============================================
-        public EmployeeProfile GetEmployeeProfile(int _empid)
+        public EmployeeProfile GetEmployeeProfile(int _empid, int _candid)
         {
             //get empid
             //int _empid = _globalrepository.GetEmployeeKey(GuId).EmpId;
@@ -81,7 +81,7 @@ namespace HRMS_API.Repository
                 EducationalBackgroundList   = _educationrepository.GetEducations(_empid),
                 DocumentList                = _documentrepository.GetDocuments(_empid),
                 SkillList                   = _skillrepository.GetSkills(_empid),
-                ExternalEmployments         = _employmentrepository.GetExternalEmployments(_empid)
+                ExternalEmployments         = _employmentrepository.GetExternalEmployments(_candid)
             };
 
             return _profile;

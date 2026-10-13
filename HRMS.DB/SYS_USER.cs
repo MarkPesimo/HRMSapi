@@ -64,6 +64,9 @@ namespace HRMS.DB
             this.REC_JOB_ORDER = new HashSet<REC_JOB_ORDER>();
             this.REC_JOB_ORDER1 = new HashSet<REC_JOB_ORDER>();
             this.TAMS_LOCAL_HOLIDAY_DET = new HashSet<TAMS_LOCAL_HOLIDAY_DET>();
+            this.SYS_REGION = new HashSet<SYS_REGION>();
+            this.REC_FUNCTION_MASTER_FILE = new HashSet<REC_FUNCTION_MASTER_FILE>();
+            this.REC_FUNCTION_ROLE = new HashSet<REC_FUNCTION_ROLE>();
         }
     
         public int id { get; set; }
@@ -171,5 +174,11 @@ namespace HRMS.DB
         public virtual ICollection<REC_JOB_ORDER> REC_JOB_ORDER1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TAMS_LOCAL_HOLIDAY_DET> TAMS_LOCAL_HOLIDAY_DET { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SYS_REGION> SYS_REGION { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_FUNCTION_MASTER_FILE> REC_FUNCTION_MASTER_FILE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_FUNCTION_ROLE> REC_FUNCTION_ROLE { get; set; }
     }
 }

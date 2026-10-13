@@ -55,8 +55,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HRModel\bin\Debug\HRModel.dll</HintPath>
     </Reference>
-    <Reference Include="HRMS.DB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="HRMS.DB">
       <HintPath>..\HRMS.DB\bin\Debug\HRMS.DB.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />

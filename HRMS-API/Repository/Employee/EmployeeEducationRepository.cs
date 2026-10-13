@@ -54,6 +54,7 @@ namespace HRMS_API.Repository.Employee
                     select d).AsEnumerable()
                   .Select(x => new EducationalBackgroundViewModel()
                   {
+                      SchoolId = x.School_Id,
                       Level = x.SchoolLevel.SchoolLevelDescn,
                       SchoolName = x.School.SchoolName,
                       Degree = x.Degree.DegreeName,

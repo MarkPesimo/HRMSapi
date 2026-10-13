@@ -156,5 +156,6 @@ namespace HRMS.DB
         public virtual ICollection<TAMS_LOCAL_HOLIDAY_DET> TAMS_LOCAL_HOLIDAY_DET { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee_Benefits> Employee_Benefits { get; set; }
+        public virtual REC_FUNCTION_MASTER_FILE REC_FUNCTION_MASTER_FILE { get; set; }
     }
 }

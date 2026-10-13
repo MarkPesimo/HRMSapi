@@ -48,5 +48,7 @@ namespace HRMS.DB
     
         public virtual INDUSTRY INDUSTRY { get; set; }
         public virtual REC_CANDIDATE REC_CANDIDATE { get; set; }
+        public virtual REC_FUNCTION_MASTER_FILE REC_FUNCTION_MASTER_FILE { get; set; }
+        public virtual REC_FUNCTION_ROLE REC_FUNCTION_ROLE { get; set; }
     }
 }

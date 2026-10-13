@@ -61,7 +61,8 @@ namespace HRMS_API.Controllers
             try
             {
                 int _empid = _globalrepository.GetEmployeeKey(GUID).EmpId;
-                EmployeeProfile _model = Employeerepository.GetEmployeeProfile(_empid);
+                int _candid = _globalrepository.GetEmployeeKey(GUID).CandidateId;
+                EmployeeProfile _model = Employeerepository.GetEmployeeProfile(_empid, _candid);
                 if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model);}
                 else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
             }
@@ -432,6 +433,55 @@ namespace HRMS_API.Controllers
             }
         }
 
+        [Route("api/Employee/GetDropdownFunctions")]
+        [HttpGet]
+        public HttpResponseMessage GetDropdownFunctions()
+        {
+            try
+            {
+                List<FunctionDropdownModel> _model = _externalrepository.GetDropdownFunctions();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+
+        [Route("api/Employee/GetDropdownRolesByFunction/{functionId}")]
+        [HttpGet]
+        public HttpResponseMessage GetDropdownRolesByFunction(int functionId)
+        {
+            try
+            {
+                List<RoleDropdownModel> _model = _externalrepository.GetDropdownRolesByFunction(functionId);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/GetDropdownIndustries")]
+        [HttpGet]
+        public HttpResponseMessage GetDropdownIndustries()
+        {
+            try
+            {
+                List<IndustryDropdownModel> _model = _externalrepository.GetDropdownIndustries();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/ManageExternalEmployment")]
         [HttpPost]
         public HttpResponseMessage ManageExternalEmployment([FromBody] PreviousEmploymentModel model)
@@ -449,6 +499,23 @@ namespace HRMS_API.Controllers
         //=================================EXTERNAL EMPLOYMENT==========================================
 
         //=================================SKILLS==========================================
+        [Route("api/Employee/GetDropdownSkills")]
+        [HttpGet]
+        public HttpResponseMessage GetDropdownSkills()
+        {
+            try
+            {
+                List<SkillViewDropdownModel> _model = _skillrepository.GetDropdownSkills();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+
         [Route("api/Employee/GetSkill/{Id}")]
         [HttpGet]
         public HttpResponseMessage GetSkill(int Id)
@@ -501,6 +568,22 @@ namespace HRMS_API.Controllers
         //=================================SKILLS==========================================
 
         //=================================DOCUMENT==========================================
+        [Route("api/Employee/GetDropdownDocuments")]
+        [HttpGet]
+        public HttpResponseMessage GetDropdownDocuments()
+        {
+            try
+            {
+                List<DocumentDropdownModel> _model = _employeedocumentrepository.GetDropdownDocuments();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/GetDocument/{Id}")]
         [HttpGet]
         public HttpResponseMessage GetDocument(int Id)

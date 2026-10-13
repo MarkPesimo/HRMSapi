@@ -191,6 +191,30 @@
         <AssociationConnector Association="apwdbModel.FK_Employee_Benefits_Employee" />
         <AssociationConnector Association="apwdbModel.FK_Employee_Benefits_Employee_Benefits_Type" />
         <AssociationConnector Association="apwdbModel.FK_Employee_Benefits_REC_CLIENT" />
+        <EntityTypeShape EntityType="apwdbModel.OvertimeBasi" Width="1.5" PointX="8.5" PointY="31.125" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_ACCOUNT_MAP_FIELD" Width="1.5" PointX="12.625" PointY="39" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_ACCOUNT_MAPPING" Width="1.5" PointX="10.375" PointY="38.125" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_OT_RATE" Width="1.5" PointX="10.375" PointY="42.75" />
+        <EntityTypeShape EntityType="apwdbModel.REC_CLIENT_PORTAL_RULE" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="apwdbModel.SYS_ENTRY" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="apwdbModel.SYS_REGION" Width="1.5" PointX="5.875" PointY="31.375" />
+        <AssociationConnector Association="apwdbModel.FK_AreaLibrary_SYS_REGION" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_SETUP_OvertimeBasis" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAPPING_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_OT_RATE_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAP_FIELD_REC_CLIENT_ACCOUNT_MAPPING" />
+        <AssociationConnector Association="apwdbModel.FK_School_SYS_REGION" />
+        <AssociationConnector Association="apwdbModel.FK_SYS_REGION_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.REC_FUNCTION_MASTER_FILE" Width="1.5" PointX="5.5" PointY="36.125" />
+        <EntityTypeShape EntityType="apwdbModel.REC_FUNCTION_ROLE" Width="1.5" PointX="7.75" PointY="24.75" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_REC_FUNCTION_MASTER_FILE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYMENT_REC_FUNCTION_MASTER_FILE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYMENT_REC_FUNCTION_ROLE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_FUNCTION_MASTER_FILE_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_REC_FUNCTION_ROLE_REC_FUNCTION_MASTER_FILE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_JOB_ORDER_REC_FUNCTION_MASTER_FILE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_Skill_REC_FUNCTION_MASTER_FILE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_FUNCTION_ROLE_SYS_USER" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

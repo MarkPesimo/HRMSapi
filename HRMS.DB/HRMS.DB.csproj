@@ -234,6 +234,12 @@
     <Compile Include="REC_FILE_CONFIGURATION.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="REC_FUNCTION_MASTER_FILE.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_FUNCTION_ROLE.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="REC_JOB_ORDER.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
