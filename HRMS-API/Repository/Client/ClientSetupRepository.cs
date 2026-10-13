@@ -472,7 +472,7 @@ namespace HRMS_API.Repository.Client
                 _return_value
             );
 
-            return Convert.ToInt32(_return_value);
+            return Convert.ToInt32(_return_value.Value);
         }
 
         public AccountDetail_model GetAccountDetail(int _id)

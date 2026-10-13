@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using static HRModel.ViewModel.Global.MasterFile;
+using static HRModel.ViewModel.Global.MasterFile.BankTypeModel;
 using static HRModel.ViewModel.Global.MasterFile.DepartmentModel;
 using static HRModel.ViewModel.Global.MasterFile.DocumentTypeModel;
 using static HRModel.ViewModel.Global.MasterFile.EmployeeRankModel;
@@ -335,6 +336,7 @@ namespace HRMS_API.Repository
             public DocumentType_repository()
             {
                 if (_conn == null) { _conn = new apwdbEntities(); }
+                //_conn = new apwdbEntities();
             }
 
             public List<DocumentType_list_model> Get()
@@ -498,6 +500,31 @@ namespace HRMS_API.Repository
                 }
             }
         }
-        
+
+        public class Bank_repository
+        {
+            public apwdbEntities _conn { get; set; }
+
+            public Bank_repository()
+            {
+                if (_conn == null) { _conn = new apwdbEntities(); }
+            }
+
+            public BankType_list_model Get(int _id)
+            {
+                return (from x in _conn.SYS_BANK
+                        select x
+                ).AsEnumerable()
+                .Select(d => new BankType_list_model()
+                {
+                    Id = int.Parse(d.id.ToString()),
+                    BankCode = d.Bank_code,
+                    BankDescription = d.Bank_Name,
+                    Status = d.status == true ? "Active" : "Inactive",
+                    CreatedBy = d.SYS_USER.username,
+                    DateCreated = d.date_created.ToShortDateString()
+                }).SingleOrDefault();
+            }
+        }
     }
 }

@@ -71,5 +71,155 @@ namespace HRMS.DB
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MODULE_ACCESS", mODULENAMEParameter, mODULETYPEParameter, uSERIDParameter, mODULE_APPParameter, aCCESS, aCTIVE);
         }
+    
+        public virtual ObjectResult<USP_S_GET_AVAILABLE_MODULES_Result> USP_S_GET_AVAILABLE_MODULES(Nullable<int> uSER_ID, Nullable<int> mODULE_TYPE_ID, Nullable<int> aPPLICATION_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var mODULE_TYPE_IDParameter = mODULE_TYPE_ID.HasValue ?
+                new ObjectParameter("MODULE_TYPE_ID", mODULE_TYPE_ID) :
+                new ObjectParameter("MODULE_TYPE_ID", typeof(int));
+    
+            var aPPLICATION_IDParameter = aPPLICATION_ID.HasValue ?
+                new ObjectParameter("APPLICATION_ID", aPPLICATION_ID) :
+                new ObjectParameter("APPLICATION_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_S_GET_AVAILABLE_MODULES_Result>("USP_S_GET_AVAILABLE_MODULES", uSER_IDParameter, mODULE_TYPE_IDParameter, aPPLICATION_IDParameter);
+        }
+    
+        public virtual int SP_COPY_ACCESS(Nullable<int> fR0M_ID, Nullable<int> tO_ID)
+        {
+            var fR0M_IDParameter = fR0M_ID.HasValue ?
+                new ObjectParameter("FR0M_ID", fR0M_ID) :
+                new ObjectParameter("FR0M_ID", typeof(int));
+    
+            var tO_IDParameter = tO_ID.HasValue ?
+                new ObjectParameter("TO_ID", tO_ID) :
+                new ObjectParameter("TO_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_COPY_ACCESS", fR0M_IDParameter, tO_IDParameter);
+        }
+    
+        public virtual int USP_G_MANAGE_ACCESS_RIGHTS(Nullable<int> mODULE_ID, Nullable<int> uSERID, Nullable<bool> aCCESS_ADD, Nullable<bool> aCCESS_EDIT, Nullable<bool> aCCESS_DELETE, Nullable<bool> aCCESS_PRINT, Nullable<bool> aCCESS_POST, Nullable<bool> aCCESS_CANCEL, Nullable<bool> aCCESS, Nullable<bool> aCCESS_SYSTEM, Nullable<bool> aCCESS_UNPOST, Nullable<int> uSER_ID, Nullable<int> iD, Nullable<int> mODE, ObjectParameter rET_ID)
+        {
+            var mODULE_IDParameter = mODULE_ID.HasValue ?
+                new ObjectParameter("MODULE_ID", mODULE_ID) :
+                new ObjectParameter("MODULE_ID", typeof(int));
+    
+            var uSERIDParameter = uSERID.HasValue ?
+                new ObjectParameter("USERID", uSERID) :
+                new ObjectParameter("USERID", typeof(int));
+    
+            var aCCESS_ADDParameter = aCCESS_ADD.HasValue ?
+                new ObjectParameter("ACCESS_ADD", aCCESS_ADD) :
+                new ObjectParameter("ACCESS_ADD", typeof(bool));
+    
+            var aCCESS_EDITParameter = aCCESS_EDIT.HasValue ?
+                new ObjectParameter("ACCESS_EDIT", aCCESS_EDIT) :
+                new ObjectParameter("ACCESS_EDIT", typeof(bool));
+    
+            var aCCESS_DELETEParameter = aCCESS_DELETE.HasValue ?
+                new ObjectParameter("ACCESS_DELETE", aCCESS_DELETE) :
+                new ObjectParameter("ACCESS_DELETE", typeof(bool));
+    
+            var aCCESS_PRINTParameter = aCCESS_PRINT.HasValue ?
+                new ObjectParameter("ACCESS_PRINT", aCCESS_PRINT) :
+                new ObjectParameter("ACCESS_PRINT", typeof(bool));
+    
+            var aCCESS_POSTParameter = aCCESS_POST.HasValue ?
+                new ObjectParameter("ACCESS_POST", aCCESS_POST) :
+                new ObjectParameter("ACCESS_POST", typeof(bool));
+    
+            var aCCESS_CANCELParameter = aCCESS_CANCEL.HasValue ?
+                new ObjectParameter("ACCESS_CANCEL", aCCESS_CANCEL) :
+                new ObjectParameter("ACCESS_CANCEL", typeof(bool));
+    
+            var aCCESSParameter = aCCESS.HasValue ?
+                new ObjectParameter("ACCESS", aCCESS) :
+                new ObjectParameter("ACCESS", typeof(bool));
+    
+            var aCCESS_SYSTEMParameter = aCCESS_SYSTEM.HasValue ?
+                new ObjectParameter("ACCESS_SYSTEM", aCCESS_SYSTEM) :
+                new ObjectParameter("ACCESS_SYSTEM", typeof(bool));
+    
+            var aCCESS_UNPOSTParameter = aCCESS_UNPOST.HasValue ?
+                new ObjectParameter("ACCESS_UNPOST", aCCESS_UNPOST) :
+                new ObjectParameter("ACCESS_UNPOST", typeof(bool));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_G_MANAGE_ACCESS_RIGHTS", mODULE_IDParameter, uSERIDParameter, aCCESS_ADDParameter, aCCESS_EDITParameter, aCCESS_DELETEParameter, aCCESS_PRINTParameter, aCCESS_POSTParameter, aCCESS_CANCELParameter, aCCESSParameter, aCCESS_SYSTEMParameter, aCCESS_UNPOSTParameter, uSER_IDParameter, iDParameter, mODEParameter, rET_ID);
+        }
+    
+        public virtual ObjectResult<USP_S_GET_ASSIGNED_MODULES_Result2> USP_S_GET_ASSIGNED_MODULES(Nullable<int> uSER_ID, Nullable<int> mODULE_TYPE_ID, Nullable<int> aPPLICATION_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var mODULE_TYPE_IDParameter = mODULE_TYPE_ID.HasValue ?
+                new ObjectParameter("MODULE_TYPE_ID", mODULE_TYPE_ID) :
+                new ObjectParameter("MODULE_TYPE_ID", typeof(int));
+    
+            var aPPLICATION_IDParameter = aPPLICATION_ID.HasValue ?
+                new ObjectParameter("APPLICATION_ID", aPPLICATION_ID) :
+                new ObjectParameter("APPLICATION_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_S_GET_ASSIGNED_MODULES_Result2>("USP_S_GET_ASSIGNED_MODULES", uSER_IDParameter, mODULE_TYPE_IDParameter, aPPLICATION_IDParameter);
+        }
+    
+        public virtual ObjectResult<USP_G_GET_CLIENT_MODULES_Result> USP_G_GET_CLIENT_MODULES(Nullable<int> cLIENT_ID, string vIEW_TYPE)
+        {
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var vIEW_TYPEParameter = vIEW_TYPE != null ?
+                new ObjectParameter("VIEW_TYPE", vIEW_TYPE) :
+                new ObjectParameter("VIEW_TYPE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_G_GET_CLIENT_MODULES_Result>("USP_G_GET_CLIENT_MODULES", cLIENT_IDParameter, vIEW_TYPEParameter);
+        }
+    
+        public virtual int USP_G_MAANGE_PORTAL_ACCESS(Nullable<int> iD, Nullable<int> cLIENT_ID, string mODULE_NAME, Nullable<int> mODULE_ID, Nullable<int> mODE, Nullable<int> uSER_ID, ObjectParameter rET_ID)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var mODULE_NAMEParameter = mODULE_NAME != null ?
+                new ObjectParameter("MODULE_NAME", mODULE_NAME) :
+                new ObjectParameter("MODULE_NAME", typeof(string));
+    
+            var mODULE_IDParameter = mODULE_ID.HasValue ?
+                new ObjectParameter("MODULE_ID", mODULE_ID) :
+                new ObjectParameter("MODULE_ID", typeof(int));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_G_MAANGE_PORTAL_ACCESS", iDParameter, cLIENT_IDParameter, mODULE_NAMEParameter, mODULE_IDParameter, mODEParameter, uSER_IDParameter, rET_ID);
+        }
     }
 }

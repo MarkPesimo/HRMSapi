@@ -69,10 +69,10 @@ namespace HRMS_API.Repository
         //=============================PROFILE / PERSONAL============================================
         public EmployeeProfile GetEmployeeProfile(int _empid, int _candid)
         {
-            //get empid
-            //int _empid = _globalrepository.GetEmployeeKey(GuId).EmpId;
             EmployeeProfile _profile = new EmployeeProfile
             {
+                GUid = _guid,
+                EmployeeStatus              = GetEmployeeStatus(_empid),
                 Personal                    = GetPersonalInfo(_empid),
                 Spouse                      = GetSpouseInfo(_empid),
                 EmergencyContact            = GetEmergencyContact(_empid),
@@ -85,6 +85,13 @@ namespace HRMS_API.Repository
             };
 
             return _profile;
+        }
+
+        public string GetEmployeeStatus(int _empid)
+        {
+            bool? _status = (from d in _conn.Employees where d.Emp_ID == _empid select d.IsIncludePayroll).SingleOrDefault();
+            if (bool.Parse(_status.ToString())) { return "Active"; }
+            else { return "Inactive"; }
         }
 
         public List<AreaLibraryModel> GetCities()
@@ -138,6 +145,7 @@ namespace HRMS_API.Repository
                     select d).AsEnumerable()
                   .Select(x => new PersonalInfo()
                     {
+                        EmpId           = x.Emp_ID,
                         EmployeeNo      = x.Emp_No,
                         LastName        = x.Lastname,
                         FirstName       = x.Firstname,
@@ -153,7 +161,7 @@ namespace HRMS_API.Repository
                         City            = x.AreaLibrary.AreaDescription,
                         ProvincialAdd   = x.Prov_Address,
                         Province        = x.AreaLibrary1.AreaDescription,
-                        Hobbies          = "",
+                        Hobbies          =x.Hobbies,
                         CityId          = x.CityID,
                         ProvinceId      = x.ProvinceID
                     }).SingleOrDefault();
@@ -306,7 +314,7 @@ namespace HRMS_API.Repository
 
         public int ManageGovernmentInfo(GovernmentNos _model)
         {
-            System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RET_ID", typeof(int));
+            System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RETURN_ID", typeof(int));
 
             _conn.USP_H_MANAGE_EMPLOYEE_GOVERNMENT(
                 _model.EmpId,

@@ -7,6 +7,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using static HRModel.ViewModel.Global.AccessModel;
+using static HRModel.ViewModel.Global.MasterFile;
+using static HRModel.ViewModel.Global.PortalAccount_model;
 
 namespace HRMS_API.Controllers
 {
@@ -68,5 +70,123 @@ namespace HRMS_API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
             }
         }
+
+
+        [Route("api/Access/GetModuleTypes")]
+        [HttpGet]
+        public HttpResponseMessage GetModuleTypes()
+        {
+            try
+            {
+                List<ModuleType_model> _obj = _accessrepository.GetModuleTypes();
+                return Request.CreateResponse(HttpStatusCode.OK, _obj);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+
+        [Route("api/Access/GetAvailableModules/{UserId}/{ModuleTypeId}/{ApplicationId}")]
+        [HttpGet]
+        public HttpResponseMessage GetAvailableModules(int UserId, int ModuleTypeId, int ApplicationId)
+        {
+            try
+            {
+                List<AvailableModule_model> _obj = _accessrepository.GetAvailableModules(UserId, ModuleTypeId, ApplicationId);
+                return Request.CreateResponse(HttpStatusCode.OK, _obj);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Access/GetAccessableModules/{UserId}/{ModuleTypeId}/{ApplicationId}")]
+        [HttpGet]
+        public HttpResponseMessage GetAccessableModules(int UserId, int ModuleTypeId, int ApplicationId)
+        {
+            try
+            {
+                List<AccessableModule_model> _obj = _accessrepository.GetAccessableModules(UserId, ModuleTypeId, ApplicationId);
+                return Request.CreateResponse(HttpStatusCode.OK, _obj);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Access/CopyAccess/{FromUserId}/{ToUserId}")]
+        [HttpPost]
+        public HttpResponseMessage CopyAccess(int FromUserId, int ToUserId)
+        {
+            try
+            {
+                bool result = _accessrepository.CopyAccess(FromUserId, ToUserId);
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Access/ManageAccess")]
+        [HttpPost]
+        public HttpResponseMessage ManageSalaryRemarks([FromBody] AccessableModule_model model)
+        {
+            try
+            {
+                int result = _accessrepository.ManageAccessRights(model);
+                if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Ok."); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        //===============================================CLIENT PORTAL ACCESS================================================
+
+        [Route("api/Access/GetClientPortalAccess/{ClientId}/{ViewType}")]
+        [HttpGet]
+        public HttpResponseMessage GetClientPortalAccess(int ClientId, string ViewType)
+        {
+            try
+            {
+                List<ClientPortalAccess_model> _obj = _accessrepository.GetClientPortalAccess(ClientId, ViewType);
+                return Request.CreateResponse(HttpStatusCode.OK, _obj);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Access/ManageClientPortalAccess")]
+        [HttpPost]
+        public HttpResponseMessage ManageClientPortalAccess([FromBody] ClientPortalAccess_model _model)
+        {
+            try
+            {
+                int _result = _accessrepository.ManageClientPortalAccess(_model);
+                if (_result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Ok."); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record."); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+        //===============================================CLIENT PORTAL ACCESS================================================
     }
 }

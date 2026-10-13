@@ -35,6 +35,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_COPY_ACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FR0M_ID" Type="int" Mode="In" />
+          <Parameter Name="TO_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_FUNCTION_ACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MODULENAME" Type="nvarchar" Mode="In" />
           <Parameter Name="FUNCTION" Type="nvarchar" Mode="In" />
@@ -49,6 +53,46 @@
           <Parameter Name="MODULE_APP" Type="int" Mode="In" />
           <Parameter Name="ACCESS" Type="int" Mode="InOut" />
           <Parameter Name="ACTIVE" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_G_GET_CLIENT_MODULES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="VIEW_TYPE" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="USP_G_MAANGE_PORTAL_ACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="MODULE_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODULE_ID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_G_MANAGE_ACCESS_RIGHTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODULE_ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="ACCESS_ADD" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_EDIT" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_DELETE" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_PRINT" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_POST" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_CANCEL" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_SYSTEM" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_UNPOST" Type="bit" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_S_GET_ASSIGNED_MODULES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="MODULE_TYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="APPLICATION_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_S_GET_AVAILABLE_MODULES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="MODULE_TYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="APPLICATION_ID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="accessModelStoreContainer">
           <EntitySet Name="SYS_Module" EntityType="Self.SYS_Module" Schema="dbo" store:Type="Tables" />
@@ -116,7 +160,108 @@
             <Parameter Name="ACCESS" Mode="InOut" Type="Int32" />
             <Parameter Name="ACTIVE" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="USP_S_GET_AVAILABLE_MODULES" ReturnType="Collection(accessModel.USP_S_GET_AVAILABLE_MODULES_Result)">
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="APPLICATION_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_COPY_ACCESS">
+            <Parameter Name="FR0M_ID" Mode="In" Type="Int32" />
+            <Parameter Name="TO_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_G_MANAGE_ACCESS_RIGHTS">
+            <Parameter Name="MODULE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="ACCESS_ADD" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_EDIT" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_DELETE" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_PRINT" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_POST" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_CANCEL" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_SYSTEM" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_UNPOST" Mode="In" Type="Boolean" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_S_GET_ASSIGNED_MODULES" ReturnType="Collection(accessModel.USP_S_GET_ASSIGNED_MODULES_Result2)">
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="APPLICATION_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_G_GET_CLIENT_MODULES" ReturnType="Collection(accessModel.USP_G_GET_CLIENT_MODULES_Result)">
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="VIEW_TYPE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_G_MAANGE_PORTAL_ACCESS">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_NAME" Mode="In" Type="String" />
+            <Parameter Name="MODULE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="USP_S_GET_ASSIGNED_MODULES_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="module_name" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="access_add" Nullable="true" />
+          <Property Type="Boolean" Name="access_edit" Nullable="true" />
+          <Property Type="Boolean" Name="access_delete" Nullable="true" />
+          <Property Type="Boolean" Name="access_print" Nullable="true" />
+          <Property Type="Boolean" Name="access_post" Nullable="true" />
+          <Property Type="Boolean" Name="access_unpost" Nullable="true" />
+          <Property Type="Boolean" Name="access_cancel" Nullable="true" />
+          <Property Type="Boolean" Name="access_inactive" Nullable="true" />
+          <Property Type="Boolean" Name="access_deactivate" Nullable="true" />
+          <Property Type="String" Name="provided_by" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="date_provided" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="USP_S_GET_AVAILABLE_MODULES_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="module_name" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="USP_S_GET_ASSIGNED_MODULES_Result1">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="module_name" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="access_add" Nullable="true" />
+          <Property Type="Boolean" Name="access_edit" Nullable="true" />
+          <Property Type="Boolean" Name="access_delete" Nullable="true" />
+          <Property Type="Boolean" Name="access_print" Nullable="true" />
+          <Property Type="Boolean" Name="access_post" Nullable="true" />
+          <Property Type="Boolean" Name="access_unpost" Nullable="true" />
+          <Property Type="Boolean" Name="access_cancel" Nullable="true" />
+          <Property Type="Boolean" Name="access_activate" Nullable="true" />
+          <Property Type="Boolean" Name="access_deactivate" Nullable="true" />
+          <Property Type="String" Name="provided_by" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="date_provided" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="USP_S_GET_ASSIGNED_MODULES_Result2">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="Int32" Name="module_id" Nullable="true" />
+          <Property Type="String" Name="module_name" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="access_add" Nullable="true" />
+          <Property Type="Boolean" Name="access_edit" Nullable="true" />
+          <Property Type="Boolean" Name="access_delete" Nullable="true" />
+          <Property Type="Boolean" Name="access_print" Nullable="true" />
+          <Property Type="Boolean" Name="access_post" Nullable="true" />
+          <Property Type="Boolean" Name="access_unpost" Nullable="true" />
+          <Property Type="Boolean" Name="access_cancel" Nullable="true" />
+          <Property Type="Boolean" Name="access_activate" Nullable="true" />
+          <Property Type="Boolean" Name="access_deactivate" Nullable="true" />
+          <Property Type="String" Name="provided_by" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="date_provided" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="USP_G_GET_CLIENT_MODULES_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="Int32" Name="module_id" Nullable="true" />
+          <Property Type="String" Name="module_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="provided_by" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_provided" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -145,6 +290,48 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_FUNCTION_ACCESS" FunctionName="accessModel.Store.SP_FUNCTION_ACCESS" />
           <FunctionImportMapping FunctionImportName="SP_MODULE_ACCESS" FunctionName="accessModel.Store.SP_MODULE_ACCESS" />
+          <FunctionImportMapping FunctionImportName="USP_S_GET_AVAILABLE_MODULES" FunctionName="accessModel.Store.USP_S_GET_AVAILABLE_MODULES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="accessModel.USP_S_GET_AVAILABLE_MODULES_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="module_name" ColumnName="module_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_COPY_ACCESS" FunctionName="accessModel.Store.SP_COPY_ACCESS" />
+          <FunctionImportMapping FunctionImportName="USP_G_MANAGE_ACCESS_RIGHTS" FunctionName="accessModel.Store.USP_G_MANAGE_ACCESS_RIGHTS" />
+          <FunctionImportMapping FunctionImportName="USP_S_GET_ASSIGNED_MODULES" FunctionName="accessModel.Store.USP_S_GET_ASSIGNED_MODULES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="accessModel.USP_S_GET_ASSIGNED_MODULES_Result2">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="module_name" ColumnName="module_name" />
+                <ScalarProperty Name="access_add" ColumnName="access_add" />
+                <ScalarProperty Name="access_edit" ColumnName="access_edit" />
+                <ScalarProperty Name="access_delete" ColumnName="access_delete" />
+                <ScalarProperty Name="access_print" ColumnName="access_print" />
+                <ScalarProperty Name="access_post" ColumnName="access_post" />
+                <ScalarProperty Name="access_unpost" ColumnName="access_unpost" />
+                <ScalarProperty Name="access_cancel" ColumnName="access_cancel" />
+                <ScalarProperty Name="access_activate" ColumnName="access_activate" />
+                <ScalarProperty Name="access_deactivate" ColumnName="access_deactivate" />
+                <ScalarProperty Name="provided_by" ColumnName="provided_by" />
+                <ScalarProperty Name="date_provided" ColumnName="date_provided" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_G_GET_CLIENT_MODULES" FunctionName="accessModel.Store.USP_G_GET_CLIENT_MODULES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="accessModel.USP_G_GET_CLIENT_MODULES_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="module_name" ColumnName="module_name" />
+                <ScalarProperty Name="provided_by" ColumnName="provided_by" />
+                <ScalarProperty Name="date_provided" ColumnName="date_provided" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_G_MAANGE_PORTAL_ACCESS" FunctionName="accessModel.Store.USP_G_MAANGE_PORTAL_ACCESS" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

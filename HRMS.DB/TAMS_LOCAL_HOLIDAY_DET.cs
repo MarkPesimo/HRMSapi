@@ -22,5 +22,6 @@ namespace HRMS.DB
     
         public virtual Employee Employee { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
+        public virtual TAMS_LOCAL_HOLIDAY TAMS_LOCAL_HOLIDAY { get; set; }
     }
 }

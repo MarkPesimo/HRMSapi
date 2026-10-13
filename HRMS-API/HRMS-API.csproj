@@ -191,6 +191,7 @@
     <Compile Include="Controllers\ReactivationController.cs" />
     <Compile Include="Controllers\RequiredDocumentController.cs" />
     <Compile Include="Controllers\SeparationController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,6 +218,7 @@
     <Compile Include="Repository\Employee\EmployeeEducationRepository.cs" />
     <Compile Include="Repository\Employee\EmployeeEmploymentRepository.cs" />
     <Compile Include="Repository\Employee\EmployeeGovernmentRepository.cs" />
+    <Compile Include="Repository\Employee\EmployeePayrollRepository.cs" />
     <Compile Include="Repository\Employee\EmployeeRepository.cs" />
     <Compile Include="Repository\Employee\EmployeeSkillRepository.cs" />
     <Compile Include="Repository\FloatingRepository.cs" />

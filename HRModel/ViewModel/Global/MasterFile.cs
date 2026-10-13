@@ -141,6 +141,20 @@ namespace HRModel.ViewModel.Global
             }
         }
 
+        public class BankTypeModel
+        {
+            public class BankType_list_model
+            {
+                public int Id { get; set; }
+                public string BankCode { get; set; }
+                public string BankDescription { get; set; }
+                public string Status { get; set; }
+
+                public string CreatedBy { get; set; }
+                public string DateCreated { get; set; }
+            }
+        }
+
         public class DocumentTypeModel
         {
             public class DocumentType_list_model
@@ -211,6 +225,12 @@ namespace HRModel.ViewModel.Global
 
             public string EmployeeName { get; set; }
             public string EmpNo { get; set; }
+        }
+
+        public class ModuleType_model
+        {
+            public int Id { get; set; }
+            public string ModuleType { get; set; }
         }
 
     }
