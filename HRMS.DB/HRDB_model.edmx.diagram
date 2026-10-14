@@ -226,6 +226,16 @@
         <AssociationConnector Association="apwdbModel.FK_REC_CLIENT_SETUP_OvertimeBasis" />
         <AssociationConnector Association="apwdbModel.FK_School_SYS_REGION" />
         <AssociationConnector Association="apwdbModel.FK_SYS_REGION_SYS_USER" />
+        <EntityTypeShape EntityType="apwdbModel.REC_FUNCTION_MASTER_FILE" Width="1.5" PointX="7.5" PointY="26.625" />
+        <EntityTypeShape EntityType="apwdbModel.REC_FUNCTION_ROLE" Width="1.5" PointX="18.75" PointY="24.25" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_REC_FUNCTION_MASTER_FILE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYMENT_REC_FUNCTION_MASTER_FILE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_CANDIDATE_EMPLOYMENT_REC_FUNCTION_ROLE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_FUNCTION_MASTER_FILE_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_REC_FUNCTION_ROLE_REC_FUNCTION_MASTER_FILE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_JOB_ORDER_REC_FUNCTION_MASTER_FILE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_Skill_REC_FUNCTION_MASTER_FILE" />
+        <AssociationConnector Association="apwdbModel.FK_REC_FUNCTION_ROLE_SYS_USER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

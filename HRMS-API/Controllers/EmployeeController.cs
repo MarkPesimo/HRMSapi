@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using static HRModel.ViewModel.Employees.EmployeeAdjustment;
 using static HRModel.ViewModel.Loan.Loan_model;
 
 namespace HRMS_API.Controllers
@@ -133,6 +134,22 @@ namespace HRMS_API.Controllers
         //---------------------------------EMPLOYEE LOAN---------------------------------
 
         //---------------------------------EMPLOYEE ADJUSTMENT---------------------------------
+        [Route("api/Employee/AdjustmentDropdown/{_clientid}")]
+        [HttpGet]
+        public HttpResponseMessage AdjustmentDropdown(int _clientid)
+        {
+            try
+            {
+                List<EmployeeAdjustment> _model = _payrollrepository.AdjustmentDropdown(_clientid);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/GetEmployeeAdjustments/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetEmployeeAdjustments(string GUID)
@@ -185,6 +202,22 @@ namespace HRMS_API.Controllers
         //---------------------------------EMPLOYEE ADJUSTMENT---------------------------------
 
         //---------------------------------EMPLOYEE DEDUCTION---------------------------------
+        [Route("api/Employee/DeductionDropdown/{_clientid}")]
+        [HttpGet]
+        public HttpResponseMessage DeductionDropdown(int _clientid)
+        {
+            try
+            {
+                List<EmployeeDeduction> _model = _payrollrepository.DeductionDropdown(_clientid);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/GetEmployeeDeductions/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetEmployeeDeductions(string GUID)
@@ -246,6 +279,54 @@ namespace HRMS_API.Controllers
             {
                 int _empid = _globalrepository.GetEmployeeKey(GUID).EmpId;
                 EmployeeSalary _model = _payrollrepository.GetEmployeeSalary(_empid);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/ContractTypeDropdown")]
+        [HttpGet]
+        public HttpResponseMessage ContractTypeDropdown()
+        {
+            try
+            {
+                List<ContractTypeDropdown> _model = _payrollrepository.ContractTypeDropdown();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/SourceTypeDropdown")]
+        [HttpGet]
+        public HttpResponseMessage SourceTypeDropdown()
+        {
+            try
+            {
+                List<SourceTypeDropdown> _model = _payrollrepository.SourceTypeDropdown();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/RestDaySetupDropdown")]
+        [HttpGet]
+        public HttpResponseMessage RestDaySetupDropdown()
+        {
+            try
+            {
+                List<RestDaySetupDropdown> _model = _payrollrepository.RestDaySetupDropdown();
                 if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
                 else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
             }

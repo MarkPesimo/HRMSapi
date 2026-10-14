@@ -415,6 +415,8 @@ namespace HRModel.ViewModel.Employees
         public List<EmployeeDocumentViewModel> DocumentList { get; set; }
         public List<SkillViewModel> SkillList { get; set; }
         public List<PreviousEmploymentViewModel> ExternalEmployments { get; set; }
+        public EmployeeSalary EmployeeSalary { get; set; }
+        public EmployeeAdjustment Adjustment { get; set; }
         //public List<>
     }
     //==============================EMPLOYEE PROFILE=========================================
@@ -519,6 +521,26 @@ namespace HRModel.ViewModel.Employees
 
         public int Mode { get; set; }
 
+        public List<EmployeeAdjustment> AdjustmentDropdown { get; set; }
+
+        public class ContractTypeDropdown
+        {
+            public int Id { get; set; }
+            public string ContractType { get; set; }
+        }
+
+        public class SourceTypeDropdown
+        {
+            public int Id { get; set; }
+            public string SourceType { get; set; }
+        }
+
+        public class RestDaySetupDropdown
+        {
+            public int Id { get; set; }
+            public string RestDay { get; set; }
+            public string Description{ get; set; }
+        }
     }
     //------------------------------PAYROLL ADJUSTMENT----------------------------------------
 
@@ -543,7 +565,7 @@ namespace HRModel.ViewModel.Employees
         public decimal  Balance { get; set; }
 
         public int Mode { get; set; }
-
+        public List<EmployeeDeduction> DeductionDropdown { get; set; }
     }
     //------------------------------PAYROLL DEDUCTIONS----------------------------------------
 

@@ -106,6 +106,8 @@ namespace HRMS.DB
         public virtual DbSet<REC_CLIENT_PORTAL_RULE> REC_CLIENT_PORTAL_RULE { get; set; }
         public virtual DbSet<SYS_ENTRY> SYS_ENTRY { get; set; }
         public virtual DbSet<SYS_REGION> SYS_REGION { get; set; }
+        public virtual DbSet<REC_FUNCTION_MASTER_FILE> REC_FUNCTION_MASTER_FILE { get; set; }
+        public virtual DbSet<REC_FUNCTION_ROLE> REC_FUNCTION_ROLE { get; set; }
     
         public virtual ObjectResult<USP_H_GET_LEAVE_BALANCE_MONITORING_Result> USP_H_GET_LEAVE_BALANCE_MONITORING(Nullable<int> yEAR_ENTITLED, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<bool> bY_LEAVE_TYPE, Nullable<int> lEAVE_TYPE_ID, string kEYWORD, Nullable<int> cOMPANY_ID, Nullable<int> eMP_ID)
         {

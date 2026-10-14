@@ -71,7 +71,7 @@ namespace HRMS_API.Repository
         {
             EmployeeProfile _profile = new EmployeeProfile
             {
-                GUid = _guid,
+                //GUid = _guid,
                 EmployeeStatus              = GetEmployeeStatus(_empid),
                 Personal                    = GetPersonalInfo(_empid),
                 Spouse                      = GetSpouseInfo(_empid),
