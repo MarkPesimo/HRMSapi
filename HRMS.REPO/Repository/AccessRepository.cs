@@ -23,7 +23,6 @@ namespace HRMS.REPO.Repository
             if (_userrepository == null) { _userrepository = new UserRepository(); }
         }
 
-
         public List<AppMenu> GetAppMenus(int _userid, int _appid)
         {
             string _usertype = _userrepository.GetUser(_userid).UserType;
@@ -52,7 +51,7 @@ namespace HRMS.REPO.Repository
                 return (from d in _accessconn.app_main_menu
                         join ac in _accessconn.app_menu_access on d.id equals ac.menu_id
                         where ac.user_type == _usertype
-                            && d.app_id == _appid
+                        && d.app_id == _appid
                         orderby d.sort_no
                         select d).AsEnumerable()
                                  .Select(x => new AppMenu()
@@ -78,7 +77,7 @@ namespace HRMS.REPO.Repository
                     orderby d.sort_no
                     select d).AsEnumerable()
                                  .Select(x => new SubMenu()
-                                 { 
+                                 {
                                      SortNo = x.sort_no,
                                      ControllerName = x.controller_name,
                                      Actionname = x.sub_action_name,

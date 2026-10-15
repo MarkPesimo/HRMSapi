@@ -8,7 +8,6 @@ using System.Web;
 using HRMS.DB;
 using System.Globalization;
 using HRMS.REPO.Repository.Employee;
-using HRMS.REPO.Repository;
 
 namespace HRMS.REPO.Repository
 {
@@ -68,11 +67,11 @@ namespace HRMS.REPO.Repository
         }
 
         //=============================PROFILE / PERSONAL============================================
-        public EmployeeProfile GetEmployeeProfile(string _guid, int _empid)
+        public EmployeeProfile GetEmployeeProfile(int _empid, int _candid)
         {
             EmployeeProfile _profile = new EmployeeProfile
             {
-                GUid = _guid,
+                //GUid = _guid,
                 EmployeeStatus              = GetEmployeeStatus(_empid),
                 Personal                    = GetPersonalInfo(_empid),
                 Spouse                      = GetSpouseInfo(_empid),
@@ -82,7 +81,7 @@ namespace HRMS.REPO.Repository
                 EducationalBackgroundList   = _educationrepository.GetEducations(_empid),
                 DocumentList                = _documentrepository.GetDocuments(_empid),
                 SkillList                   = _skillrepository.GetSkills(_empid),
-                ExternalEmployments         = _employmentrepository.GetExternalEmployments(_empid)
+                ExternalEmployments         = _employmentrepository.GetExternalEmployments(_candid)
             };
 
             return _profile;

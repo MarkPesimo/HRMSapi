@@ -8,6 +8,28 @@ namespace HRModel.ViewModel.Global
 {
     public class AccessModel
     {
+        public class AppMenu
+        {
+            public string MenuType { get; set; }
+            public int SortNo { get; set; }
+            public string ControllerName { get; set; }
+            public string Actionname { get; set; }
+            public string MenuName { get; set; }
+            public string ClassName { get; set; }
+            public string ImageClassName { get; set; }
+            public List<SubMenu> SubMenus { get; set; }
+        }
+
+        public class SubMenu
+        {
+            public int SortNo { get; set; }
+            public string ControllerName { get; set; }
+            public string Actionname { get; set; }
+            public string MenuName { get; set; }
+            public string ClassName { get; set; }
+            public string ImageClassName { get; set; }
+        }
+
         public static class Feature
         {
             public const string Add = "ADD";

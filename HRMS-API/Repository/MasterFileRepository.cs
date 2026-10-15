@@ -512,18 +512,19 @@ namespace HRMS_API.Repository
 
             public BankType_list_model Get(int _id)
             {
-                return (from x in _conn.SYS_BANK
-                        select x
-                ).AsEnumerable()
-                .Select(d => new BankType_list_model()
-                {
-                    Id = int.Parse(d.id.ToString()),
-                    BankCode = d.Bank_code,
-                    BankDescription = d.Bank_Name,
-                    Status = d.status == true ? "Active" : "Inactive",
-                    CreatedBy = d.SYS_USER.username,
-                    DateCreated = d.date_created.ToShortDateString()
-                }).SingleOrDefault();
+                return _conn.SYS_BANK
+                    .Where(x => x.id == _id) 
+                    .AsEnumerable()
+                    .Select(d => new BankType_list_model()
+                    {
+                        Id = int.Parse(d.id.ToString()),
+                        BankCode = d.Bank_code,
+                        BankDescription = d.Bank_Name,
+                        Status = d.status == true ? "Active" : "Inactive",
+                        CreatedBy = d.SYS_USER?.username,
+                        DateCreated = d.date_created.ToShortDateString()
+                    })
+                    .FirstOrDefault(); 
             }
         }
     }

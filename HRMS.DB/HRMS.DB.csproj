@@ -74,6 +74,15 @@
     <Compile Include="ADJUSTMENT_CLASSIFICATION.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="app_main_menu.cs">
+      <DependentUpon>Access_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="app_menu_access.cs">
+      <DependentUpon>Access_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="app_sub_menu.cs">
+      <DependentUpon>Access_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="AreaLibrary.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -114,6 +123,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Employee_Floating_Status.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee_Personnel_Movement.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Employee_Replacement_HD.cs">
@@ -168,6 +180,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="OvertimeBasi.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Personnel_Movement_Category.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="PortalUser.cs">
@@ -241,6 +256,12 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_FILE_CONFIGURATION.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_FUNCTION_MASTER_FILE.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REC_FUNCTION_ROLE.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="REC_JOB_ORDER.cs">
@@ -400,6 +421,9 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_GET_LOAN_MONITORING_Result.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USP_H_GET_PERSONNEL_MOVEMENT_MONITORING_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT_Result.cs">

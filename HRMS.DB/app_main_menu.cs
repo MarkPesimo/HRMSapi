@@ -17,8 +17,8 @@ namespace HRMS.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public app_main_menu()
         {
-            this.app_sub_menu = new HashSet<app_sub_menu>();
             this.app_menu_access = new HashSet<app_menu_access>();
+            this.app_sub_menu = new HashSet<app_sub_menu>();
         }
     
         public int id { get; set; }
@@ -33,8 +33,8 @@ namespace HRMS.DB
         public string img_class_name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<app_sub_menu> app_sub_menu { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<app_menu_access> app_menu_access { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<app_sub_menu> app_sub_menu { get; set; }
     }
 }

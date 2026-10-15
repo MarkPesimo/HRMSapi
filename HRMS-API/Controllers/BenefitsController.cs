@@ -1,5 +1,5 @@
 ﻿using HRMS_API.Helper;
-using HRMS_API.Repository;
+using HRMS.REPO.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using static HRModel.ViewModel.Employees.Benefits.Benefits_model;
+using HRMS_API.Repository;
 
 namespace HRMS_API.Controllers
 {
@@ -111,6 +112,41 @@ namespace HRMS_API.Controllers
             catch (Exception ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/Benefits/GetBenefitsList/{EmpId}")]
+        [HttpGet]
+        public HttpResponseMessage GetBenefitsList(int EmpId)
+        {
+            try
+            {
+                List<BenefitsRecord_model> _obj = _benefitsrepository.GetBenefitsList(EmpId);
+
+                return _obj != null
+                    ? Request.CreateResponse(HttpStatusCode.OK, _obj)
+                    : Request.CreateErrorResponse(HttpStatusCode.NotFound, "No records found.");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/Benefits/ManageBenefitsRecord")]
+        [HttpPost]
+        public HttpResponseMessage ManageBenefitsRecord([FromBody] BenefitsRecord_model model)
+        {
+            try
+            {
+                int result = _benefitsrepository.ManageBenefitsRecord(model);
+                if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Ok."); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
             }
         }
     }

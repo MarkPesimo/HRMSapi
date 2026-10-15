@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using HRMS.REPO.Repository;
 using static HRModel.ViewModel.Client.Client_model;
 
 namespace HRMS.REPO.Repository

@@ -4,8 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-//using static HRMS_API.Repository.MasterFileRepository;
-using HRMS.REPO.Repository;
+using static HRModel.ViewModel.Employees.EmployeeAdjustment;
 using static HRMS.REPO.Repository.MasterFileRepository;
 
 namespace HRMS.REPO.Repository.Employee
@@ -27,6 +26,17 @@ namespace HRMS.REPO.Repository.Employee
 
 
         //==============================SALARY REMARKS================================
+        public List<SalaryRemarksTypeDropdown> SalaryRemarksDropdown()
+        {
+            return (from d in _conn.SALARY_REMARKS_TYPE
+                    select d).AsEnumerable()
+                  .Select(x => new SalaryRemarksTypeDropdown()
+                  {
+                      Id = x.id,
+                      RemarksType = x.Remarks_Type
+                  }).ToList();
+        }
+
         public List<EmployeeSalaryRemark> GetSalaryRemarks(int _empid)
         {
 
@@ -66,6 +76,19 @@ namespace HRMS.REPO.Repository.Employee
         //==============================SALARY REMARKS================================
 
         //==============================PAYROLL ADJUSTMENT================================
+        public List<EmployeeAdjustment> AdjustmentDropdown(int _clientid)
+        {
+            return (from d in _conn.Adjustments
+                    where d.client_id == _clientid
+                    select d).AsEnumerable()
+                  .Select(x => new EmployeeAdjustment()
+                  {
+                      AdjustmentId = x.Adjustment_ID,
+                      AdjustmentDescription = x.Adjustment_Desc,
+                      Billable = x.billable
+                  }).ToList();
+        }
+
         public List<EmployeeAdjustment> GetEmployeeAdjustments(int _empid)
         {
             return (from d in _conn.AdjustmentFiles
@@ -133,7 +156,19 @@ namespace HRMS.REPO.Repository.Employee
         }
         //==============================PAYROLL ADJUSTMENT================================
 
-        //==============================PAYROLL ADJUSTMENT================================
+        //==============================PAYROLL Deductions================================
+        public List<EmployeeDeduction> DeductionDropdown(int _clientid)
+        {
+            return (from d in _conn.Deductions
+                    where d.client_id == _clientid
+                    select d).AsEnumerable()
+                  .Select(x => new EmployeeDeduction()
+                  {
+                      DeductionId = x.Ded_id,
+                      DeductionDescription = x.Ded_Desc
+                  }).ToList();
+        }
+
         public List<EmployeeDeduction> GetEmployeeDeductions(int _empid)
         {
             return (from d in _conn.OtherDeductions
@@ -195,9 +230,46 @@ namespace HRMS.REPO.Repository.Employee
 
             return Convert.ToInt32(_return_value.Value);
         }
-        //==============================PAYROLL ADJUSTMENT================================
+        //==============================PAYROLL Deductions================================
 
         //==============================PAYROLL SALARY INFO================================
+        public List<ContractTypeDropdown> ContractTypeDropdown()
+        {
+            return (from d in _conn.REC_CONTRACT_TYPE
+                    where d.status == true
+                    select d).AsEnumerable()
+                  .Select(x => new ContractTypeDropdown()
+                  {
+                     Id = x.id,
+                     ContractType = x.contract_type
+                  }).ToList();
+        }
+
+        public List<SourceTypeDropdown> SourceTypeDropdown()
+        {
+            return (from d in _conn.REC_SOURCE_TYPE
+                    where d.status == true
+                    select d).AsEnumerable()
+                  .Select(x => new SourceTypeDropdown()
+                  {
+                      Id = x.id,
+                     SourceType = x.source_type
+                  }).ToList();
+        }
+
+        public List<RestDaySetupDropdown> RestDaySetupDropdown()
+        {
+            return (from d in _conn.RestDay_SetUp
+                    where d.status == true
+                    select d).AsEnumerable()
+                  .Select(x => new RestDaySetupDropdown()
+                  {
+                      Id = x.Id,
+                      RestDay = x.Restday,
+                      Description = x.Description
+                  }).ToList();
+        }
+
         public EmployeeSalary GetEmployeeSalary(int _empid)
         {
             return (from d in _conn.Employees
@@ -214,7 +286,7 @@ namespace HRMS.REPO.Repository.Employee
 
 
                      BankId = x.bank_id,
-                     BankName = _bankrepository.Get(int.Parse(x.bank_id.ToString())).BankDescription,
+                    BankName = _bankrepository.Get(int.Parse(x.bank_id.ToString())).BankDescription,
                      AccountNo = x.Account_no,
                      CardNo = x.card_number,
                      CardValidity = x.card_no_validity,
@@ -251,7 +323,8 @@ namespace HRMS.REPO.Repository.Employee
                      RestDayDesription = x.RestDay_SetUp.Description,
 
                      CreatedByUser = x.SYS_USER.username,
-                     DateCreated = x.date_encoded
+                     DateCreated = x.date_encoded,
+                     Remarks = x.remarks
                  }).SingleOrDefault();
         }
 

@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{478F89B6-CE0B-430C-AB7E-5E290BE68856}</ProjectGuid>
+    <ProjectGuid>{906D9596-4EF2-48A3-9F8A-393A75529FD3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HRMS.REPO</RootNamespace>
@@ -13,9 +13,9 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -88,6 +88,7 @@
     <Compile Include="Repository\LeaveRepository.cs" />
     <Compile Include="Repository\LoanRepository.cs" />
     <Compile Include="Repository\MasterFileRepository.cs" />
+    <Compile Include="Repository\MovementRepository.cs" />
     <Compile Include="Repository\NotesRepository.cs" />
     <Compile Include="Repository\ReactivationRepository.cs" />
     <Compile Include="Repository\ReplacementRepository.cs" />

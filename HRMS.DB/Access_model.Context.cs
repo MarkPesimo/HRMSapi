@@ -29,6 +29,9 @@ namespace HRMS.DB
     
         public virtual DbSet<SYS_Module> SYS_Module { get; set; }
         public virtual DbSet<sys_module_type> sys_module_type { get; set; }
+        public virtual DbSet<app_main_menu> app_main_menu { get; set; }
+        public virtual DbSet<app_menu_access> app_menu_access { get; set; }
+        public virtual DbSet<app_sub_menu> app_sub_menu { get; set; }
     
         public virtual int SP_FUNCTION_ACCESS(string mODULENAME, string fUNCTION, string aPP_MODULE, Nullable<int> uSERID, ObjectParameter aCCESS)
         {

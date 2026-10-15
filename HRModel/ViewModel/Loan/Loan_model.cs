@@ -59,6 +59,8 @@ namespace HRModel.ViewModel.Loan
             public string CreatedBy { get; set; }
             public DateTime DateCreated { get; set; }
             public int Mode { get; set; }
+
+            public List<EmployeeLoanModel> EmployeeLoansDropown { get; set; }
         }
 
         public class LoanLog

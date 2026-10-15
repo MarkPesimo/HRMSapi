@@ -1,7 +1,6 @@
 ﻿using HRModel.ViewModel.Global;
 using HRMS.DB;
 using System;
-using HRMS.REPO.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;

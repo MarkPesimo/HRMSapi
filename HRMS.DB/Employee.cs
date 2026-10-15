@@ -32,6 +32,7 @@ namespace HRMS.DB
             this.OtherDeductions = new HashSet<OtherDeduction>();
             this.PortalUsers = new HashSet<PortalUser>();
             this.Employee_Benefits = new HashSet<Employee_Benefits>();
+            this.Employee_Personnel_Movement = new HashSet<Employee_Personnel_Movement>();
         }
     
         public int Emp_ID { get; set; }
@@ -169,5 +170,8 @@ namespace HRMS.DB
         public virtual ICollection<PortalUser> PortalUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee_Benefits> Employee_Benefits { get; set; }
+        public virtual REC_FUNCTION_MASTER_FILE REC_FUNCTION_MASTER_FILE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_Personnel_Movement> Employee_Personnel_Movement { get; set; }
     }
 }

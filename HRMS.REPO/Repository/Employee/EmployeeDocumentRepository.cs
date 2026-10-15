@@ -36,25 +36,39 @@ namespace HRMS.REPO.Repository.Employee
                     }).SingleOrDefault();
         }
 
+        public List<DocumentDropdownModel> GetDropdownDocuments()
+        {
+            return (from d in _conn.Documents
+                    where d.status == true
+                    select new DocumentDropdownModel
+                    {
+                        Id = d.DocId,           
+                        Description = d.Description,
+                        DocumentClass = d.Document_class,
+                        Status = d.status,
+                        UserId = d.user_id,
+                        DateCreated = d.date_created
+                    }).OrderBy(x => x.Description).ToList();
+        }
+
         public List<EmployeeDocumentViewModel> GetDocuments(int _empid)
         {
-            List<EmployeeDocumentViewModel> _obj = new List<EmployeeDocumentViewModel>();
-
-            _obj = (from cd in _conn.REC_CANDIDATE_DOCUMENT
+            return (from cd in _conn.REC_CANDIDATE_DOCUMENT
                     join d in _conn.Documents on cd.doc_id equals d.DocId
                     join l in _conn.REC_CANDIDATE_EMPLOYEE_LINK on cd.candidate_id equals l.candidate_id
                     where l.emp_id == _empid
                     select cd).AsEnumerable()
                   .Select(x => new EmployeeDocumentViewModel()
                   {
+                      Id = x.id,
+                      CandidateId = x.candidate_id, 
+                      DocId = x.doc_id,
                       DocumentName = x.Document.Description,
-                      DocumentType = "",
+                      DocumentType = string.IsNullOrWhiteSpace(x.Document.Document_class) ? "General" : x.Document.Document_class,
                       ReferenceNo = x.DocNo,
-                      DateIssued = x.date_issued.HasValue ? x.date_issued.Value.ToShortDateString() : "",
+                      DateIssued = x.date_issued.HasValue ? x.date_issued.Value.ToString("yyyy-MM-dd") : "",
                       FileLocation = x.file_location
                   }).ToList();
-
-            return _obj;
         }
 
         public int Manage(EmployeeDocumentModel _model)

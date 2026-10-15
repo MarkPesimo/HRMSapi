@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using static HRModel.ViewModel.Employees.Benefits.Benefits_model;
 
-namespace HRMS.REPO.Repository
+namespace HRMS_API.Repository
 {
     public class BenefitsRepository
     {
@@ -30,8 +30,8 @@ namespace HRMS.REPO.Repository
                     select d).AsEnumerable()
                .Select(x => new BenefitsType_model()
                {
-                   Id           = int.Parse(x.id.ToString()),
-                   BenefitType  = x.benefits_type
+                   Id = int.Parse(x.id.ToString()),
+                   BenefitType = x.benefits_type
                }).ToList();
         }
 
@@ -86,20 +86,20 @@ namespace HRMS.REPO.Repository
                     select d).AsEnumerable()
                   .Select(x => new BenefitsMonitoring_model()
                   {
-                      Id                    = int.Parse(x.id.ToString()),
-                      EmpId                 = int.Parse(x.emp_id.ToString()),
-                      EmployeeName          = x.EmployeeName,
-                      ClientName            = x.ClientName,
-                      BenefitType           = x.BenefitType,
-                      BenefitClass          = x.BenefitClass,
-                      BenefitCategory       = x.BenefitCategory,
+                      Id = int.Parse(x.id.ToString()),
+                      EmpId = int.Parse(x.emp_id.ToString()),
+                      EmployeeName = x.EmployeeName,
+                      ClientName = x.ClientName,
+                      BenefitType = x.BenefitType,
+                      BenefitClass = x.BenefitClass,
+                      BenefitCategory = x.BenefitCategory,
                       AdjustmentDescription = x.Adjustment,
-                      Amount                = decimal.Parse(x.Amount.ToString()),
-                      Taxable               = x.Taxable,
-                      Billable              = x.Billable,
-                      EffectiveDate         = DateTime.Parse(x.EffectiveDate.Value.ToShortDateString()),
-                      StartDate             = DateTime.Parse(x.StartDate.Value.ToShortDateString()),
-                      Remarks               = x.Remarks
+                      Amount = decimal.Parse(x.Amount.ToString()),
+                      Taxable = x.Taxable,
+                      Billable = x.Billable,
+                      EffectiveDate = DateTime.Parse(x.EffectiveDate.Value.ToShortDateString()),
+                      StartDate = DateTime.Parse(x.StartDate.Value.ToShortDateString()),
+                      Remarks = x.Remarks
 
                   }).ToList();
         }
@@ -115,33 +115,75 @@ namespace HRMS.REPO.Repository
                     select d).AsEnumerable()
                   .Select(x => new BenefitsRecord_model()
                   {
-                      Id                    = x.id,
-                      EmpId                 = x.emp_id,
-                      EmployeeName          = x.Employee.Lastname + ", " + x.Employee.Firstname + " " + x.Employee.Middlename,
-                      BenefitTypeId         = x.benefit_type_id,
-                      BenefitType           = x.Employee_Benefits_Type.benefits_type,
-                      BenefitClassId        = x.benefit_class_id,
-                      BenefitClass          = _globalrepository.GetBenefitsClass(x.benefit_class_id),
-                      BenefitCatId          = x.benefit_cat_id,
-                      BenefitCategory       = _globalrepository.GetBenefitsCategory(x.benefit_cat_id),
-                      AdjustmentId          = int.Parse(x.adj_id.ToString()),
+                      Id = x.id,
+                      EmpId = x.emp_id,
+                      EmployeeName = x.Employee.Lastname + ", " + x.Employee.Firstname + " " + x.Employee.Middlename,
+                      BenefitTypeId = x.benefit_type_id,
+                      BenefitType = x.Employee_Benefits_Type.benefits_type,
+                      BenefitClassId = x.benefit_class_id,
+                      BenefitClass = _globalrepository.GetBenefitsClass(x.benefit_class_id),
+                      BenefitCatId = x.benefit_cat_id,
+                      BenefitCategory = _globalrepository.GetBenefitsCategory(x.benefit_cat_id),
+                      AdjustmentId = int.Parse(x.adj_id.ToString()),
                       AdjustmentDescription = _clientadjustmentrepository.GetAdjustment(int.Parse(x.adj_id.ToString())).Description,
-                      ClientId              = x.client_id,
-                      ClientName            = x.REC_CLIENT.client_name,
-                      Amount                = decimal.Parse(x.amount.ToString()),
-                      EffectiveDate         = x.effective_date,
-                      StartDate             = x.benefits_start_date,
-                      IsTaxable             = bool.Parse(x.is_taxable.ToString()),
-                      IsBillable            = bool.Parse(x.is_billable.ToString()),
-                      Remarks               = x.remarks,
-                      Status                = bool.Parse(x.benefit_status.ToString()),
-                      UserCreatedId         = int.Parse(x.user_created.ToString()),
-                      CreatedBy             = _userrepository.GetUser(int.Parse(x.user_created.ToString())).UserName,
-                      DateCreated           = x.date_created.HasValue ? x.date_created.Value.ToString() : "",
-                      UserModifiedId        = x.user_modified.HasValue ? int.Parse(x.user_modified.ToString()) : 0,
-                      ModifiedBy            = x.user_modified.HasValue ? _userrepository.GetUser(int.Parse(x.user_modified.ToString())).UserName : "",
-                      DateModified          = x.date_modified.HasValue ? x.date_modified.Value.ToString() : ""
+                      ClientId = x.client_id,
+                      ClientName = x.REC_CLIENT.client_name,
+                      Amount = decimal.Parse(x.amount.ToString()),
+                      EffectiveDate = x.effective_date,
+                      StartDate = x.benefits_start_date,
+                      IsTaxable = bool.Parse(x.is_taxable.ToString()),
+                      IsBillable = bool.Parse(x.is_billable.ToString()),
+                      Remarks = x.remarks,
+                      Status = bool.Parse(x.benefit_status.ToString()),
+                      UserCreatedId = int.Parse(x.user_created.ToString()),
+                      CreatedBy = _userrepository.GetUser(int.Parse(x.user_created.ToString())).UserName,
+                      DateCreated = x.date_created.HasValue ? x.date_created.Value.ToString() : "",
+                      UserModifiedId = x.user_modified.HasValue ? int.Parse(x.user_modified.ToString()) : 0,
+                      ModifiedBy = x.user_modified.HasValue ? _userrepository.GetUser(int.Parse(x.user_modified.ToString())).UserName : "",
+                      DateModified = x.date_modified.HasValue ? x.date_modified.Value.ToString() : ""
                   }).SingleOrDefault();
+
+            return _obj;
+        }
+
+        public List<BenefitsRecord_model> GetBenefitsList(int _empid)
+        {
+            List<BenefitsRecord_model> _obj = new List<BenefitsRecord_model>();
+
+            _obj = (from d in _conn.Employee_Benefits
+                    join t in _conn.Employee_Benefits_Type on d.benefit_type_id equals t.id
+                    join c in _conn.REC_CLIENT on d.client_id equals c.id
+                    where d.emp_id == _empid
+                    select d).AsEnumerable()
+                  .Select(x => new BenefitsRecord_model()
+                  {
+                      Id = x.id,
+                      EmpId = x.emp_id,
+                      EmployeeName = x.Employee.Lastname + ", " + x.Employee.Firstname + " " + x.Employee.Middlename,
+                      BenefitTypeId = x.benefit_type_id,
+                      BenefitType = x.Employee_Benefits_Type.benefits_type,
+                      BenefitClassId = x.benefit_class_id,
+                      BenefitClass = _globalrepository.GetBenefitsClass(x.benefit_class_id),
+                      BenefitCatId = x.benefit_cat_id,
+                      BenefitCategory = _globalrepository.GetBenefitsCategory(x.benefit_cat_id),
+                      AdjustmentId = int.Parse(x.adj_id.ToString()),
+                      AdjustmentDescription = _clientadjustmentrepository.GetAdjustment(int.Parse(x.adj_id.ToString())).Description,
+                      ClientId = x.client_id,
+                      ClientName = x.REC_CLIENT.client_name,
+                      Amount = decimal.Parse(x.amount.ToString()),
+                      EffectiveDate = x.effective_date,
+                      StartDate = x.benefits_start_date,
+                      IsTaxable = bool.Parse(x.is_taxable.ToString()),
+                      IsBillable = bool.Parse(x.is_billable.ToString()),
+                      Remarks = x.remarks,
+                      Status = bool.Parse(x.benefit_status.ToString()),
+                      UserCreatedId = int.Parse(x.user_created.ToString()),
+                      CreatedBy = _userrepository.GetUser(int.Parse(x.user_created.ToString())).UserName,
+                      DateCreated = x.date_created.HasValue ? x.date_created.Value.ToString() : "",
+                      UserModifiedId = x.user_modified.HasValue ? int.Parse(x.user_modified.ToString()) : 0,
+                      ModifiedBy = x.user_modified.HasValue ? _userrepository.GetUser(int.Parse(x.user_modified.ToString())).UserName : "",
+                      DateModified = x.date_modified.HasValue ? x.date_modified.Value.ToString() : ""
+                  }).ToList();
 
             return _obj;
         }

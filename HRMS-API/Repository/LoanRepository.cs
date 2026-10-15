@@ -89,6 +89,17 @@ namespace HRMS_API.Repository
         }
 
         //==========================================EMPLOYEE LOAN=======================================
+        public List<EmployeeLoanModel> LoanTypeDropdown()
+        {
+            return (from d in _conn.LoanTypes
+                    select d).AsEnumerable()
+                  .Select(x => new EmployeeLoanModel()
+                  {
+                      LoanTypeId = x.LoanType_ID,
+                      LoanType = x.LoanType_Desc 
+          }).ToList();
+        }
+
         public List<EmployeeLoanModel> GetEmployeeLoans(int _empid)
         {
             return (from d in _conn.EmployeeLoanMasters

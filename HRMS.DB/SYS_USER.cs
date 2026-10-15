@@ -69,6 +69,8 @@ namespace HRMS.DB
             this.AdjustmentFiles = new HashSet<AdjustmentFile>();
             this.OtherDeductions = new HashSet<OtherDeduction>();
             this.SYS_REGION = new HashSet<SYS_REGION>();
+            this.REC_FUNCTION_MASTER_FILE = new HashSet<REC_FUNCTION_MASTER_FILE>();
+            this.REC_FUNCTION_ROLE = new HashSet<REC_FUNCTION_ROLE>();
         }
     
         public int id { get; set; }
@@ -186,5 +188,9 @@ namespace HRMS.DB
         public virtual ICollection<OtherDeduction> OtherDeductions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SYS_REGION> SYS_REGION { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_FUNCTION_MASTER_FILE> REC_FUNCTION_MASTER_FILE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REC_FUNCTION_ROLE> REC_FUNCTION_ROLE { get; set; }
     }
 }

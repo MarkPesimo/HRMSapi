@@ -1,15 +1,16 @@
 ﻿using HRModel.ViewModel.Employees;
 using HRModel.ViewModel.Global;
 using HRMS_API.Helper;
-using HRMS_API.Repository;
-using HRMS_API.Repository.Client;
-using HRMS_API.Repository.Employee;
+using HRMS.REPO.Repository;
+using HRMS.REPO.Repository.Client;
+using HRMS.REPO.Repository.Employee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using static HRModel.ViewModel.Employees.EmployeeAdjustment;
 using static HRModel.ViewModel.Loan.Loan_model;
 
 namespace HRMS_API.Controllers
@@ -46,6 +47,22 @@ namespace HRMS_API.Controllers
         //=================================PAYROLL==========================================
 
         //---------------------------------SALARY REMARKS---------------------------------
+        [Route("api/Employee/SalaryRemarksDropdown")]
+        [HttpGet]
+        public HttpResponseMessage SalaryRemarksDropdown()
+        {
+            try
+            {
+                List<SalaryRemarksTypeDropdown> _model = _payrollrepository.SalaryRemarksDropdown();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/GetSalaryRemarks/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetSalaryRemarks(string GUID)
@@ -82,6 +99,22 @@ namespace HRMS_API.Controllers
         //---------------------------------SALARY REMARKS---------------------------------
 
         //---------------------------------EMPLOYEE LOAN---------------------------------
+        [Route("api/Employee/LoanTypeDropdown")]
+        [HttpGet]
+        public HttpResponseMessage LoanTypeDropdown()
+        {
+            try
+            {
+                List<EmployeeLoanModel> _model = _loanrepository.LoanTypeDropdown();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/GetEmployeeLoans/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetEmployeeLoans(string GUID)
@@ -133,6 +166,22 @@ namespace HRMS_API.Controllers
         //---------------------------------EMPLOYEE LOAN---------------------------------
 
         //---------------------------------EMPLOYEE ADJUSTMENT---------------------------------
+        [Route("api/Employee/AdjustmentDropdown/{_clientid}")]
+        [HttpGet]
+        public HttpResponseMessage AdjustmentDropdown(int _clientid)
+        {
+            try
+            {
+                List<EmployeeAdjustment> _model = _payrollrepository.AdjustmentDropdown(_clientid);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/GetEmployeeAdjustments/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetEmployeeAdjustments(string GUID)
@@ -185,6 +234,22 @@ namespace HRMS_API.Controllers
         //---------------------------------EMPLOYEE ADJUSTMENT---------------------------------
 
         //---------------------------------EMPLOYEE DEDUCTION---------------------------------
+        [Route("api/Employee/DeductionDropdown/{_clientid}")]
+        [HttpGet]
+        public HttpResponseMessage DeductionDropdown(int _clientid)
+        {
+            try
+            {
+                List<EmployeeDeduction> _model = _payrollrepository.DeductionDropdown(_clientid);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/GetEmployeeDeductions/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetEmployeeDeductions(string GUID)
@@ -255,6 +320,54 @@ namespace HRMS_API.Controllers
             }
         }
 
+        [Route("api/Employee/ContractTypeDropdown")]
+        [HttpGet]
+        public HttpResponseMessage ContractTypeDropdown()
+        {
+            try
+            {
+                List<ContractTypeDropdown> _model = _payrollrepository.ContractTypeDropdown();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/SourceTypeDropdown")]
+        [HttpGet]
+        public HttpResponseMessage SourceTypeDropdown()
+        {
+            try
+            {
+                List<SourceTypeDropdown> _model = _payrollrepository.SourceTypeDropdown();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/RestDaySetupDropdown")]
+        [HttpGet]
+        public HttpResponseMessage RestDaySetupDropdown()
+        {
+            try
+            {
+                List<RestDaySetupDropdown> _model = _payrollrepository.RestDaySetupDropdown();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/ManageEmployeeSalary")]
         [HttpPost]
         public HttpResponseMessage ManageEmployeeSalary([FromBody] EmployeeSalary model)
@@ -299,7 +412,8 @@ namespace HRMS_API.Controllers
             try
             {
                 int _empid = _globalrepository.GetEmployeeKey(GUID).EmpId;
-                EmployeeProfile _model = Employeerepository.GetEmployeeProfile(GUID, _empid);
+                int _candid = _globalrepository.GetEmployeeKey(GUID).CandidateId;
+                EmployeeProfile _model = Employeerepository.GetEmployeeProfile(_empid, _candid);
                 if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model);}
                 else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
             }
@@ -672,6 +786,55 @@ namespace HRMS_API.Controllers
             }
         }
 
+        [Route("api/Employee/GetDropdownFunctions")]
+        [HttpGet]
+        public HttpResponseMessage GetDropdownFunctions()
+        {
+            try
+            {
+                List<FunctionDropdownModel> _model = _externalrepository.GetDropdownFunctions();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+
+        [Route("api/Employee/GetDropdownRolesByFunction/{functionId}")]
+        [HttpGet]
+        public HttpResponseMessage GetDropdownRolesByFunction(int functionId)
+        {
+            try
+            {
+                List<RoleDropdownModel> _model = _externalrepository.GetDropdownRolesByFunction(functionId);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Employee/GetDropdownIndustries")]
+        [HttpGet]
+        public HttpResponseMessage GetDropdownIndustries()
+        {
+            try
+            {
+                List<IndustryDropdownModel> _model = _externalrepository.GetDropdownIndustries();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/ManageExternalEmployment")]
         [HttpPost]
         public HttpResponseMessage ManageExternalEmployment([FromBody] PreviousEmploymentModel model)
@@ -689,6 +852,23 @@ namespace HRMS_API.Controllers
         //=================================EXTERNAL EMPLOYMENT==========================================
 
         //=================================SKILLS==========================================
+        [Route("api/Employee/GetDropdownSkills")]
+        [HttpGet]
+        public HttpResponseMessage GetDropdownSkills()
+        {
+            try
+            {
+                List<SkillViewDropdownModel> _model = _skillrepository.GetDropdownSkills();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+
         [Route("api/Employee/GetSkill/{Id}")]
         [HttpGet]
         public HttpResponseMessage GetSkill(int Id)
@@ -741,6 +921,22 @@ namespace HRMS_API.Controllers
         //=================================SKILLS==========================================
 
         //=================================DOCUMENT==========================================
+        [Route("api/Employee/GetDropdownDocuments")]
+        [HttpGet]
+        public HttpResponseMessage GetDropdownDocuments()
+        {
+            try
+            {
+                List<DocumentDropdownModel> _model = _employeedocumentrepository.GetDropdownDocuments();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/GetDocument/{Id}")]
         [HttpGet]
         public HttpResponseMessage GetDocument(int Id)
@@ -795,5 +991,7 @@ namespace HRMS_API.Controllers
             }
         }
         //=================================DOCUMENT==========================================
+
+        
     }
 }

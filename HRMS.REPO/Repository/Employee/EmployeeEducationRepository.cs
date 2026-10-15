@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using HRMS.REPO.Repository;
 
 namespace HRMS.REPO.Repository.Employee
 {
@@ -55,7 +54,7 @@ namespace HRMS.REPO.Repository.Employee
                     select d).AsEnumerable()
                   .Select(x => new EducationalBackgroundViewModel()
                   {
-                      SchoolId = int.Parse( x.School_Id.ToString()),
+                      SchoolId = x.School_Id,
                       Level = x.SchoolLevel.SchoolLevelDescn,
                       SchoolName = x.School.SchoolName,
                       Degree = x.Degree.DegreeName,
@@ -114,6 +113,9 @@ namespace HRMS.REPO.Repository.Employee
         public bool ManageEducation(EducationalBackgroundModel _model)
         {
             System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RETURN_ID", typeof(int));
+
+      
+           
             try
             {
                 _conn.SP_I_MANAGE_EDUCATION(

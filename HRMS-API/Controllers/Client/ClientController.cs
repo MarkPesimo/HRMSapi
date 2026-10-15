@@ -1,5 +1,5 @@
-﻿using HRMS_API.Repository;
-using HRMS_API.Repository.Client;
+﻿using HRMS.REPO.Repository;
+using HRMS.REPO.Repository.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;

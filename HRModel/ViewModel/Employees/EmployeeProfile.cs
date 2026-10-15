@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static HRModel.ViewModel.Employees.EmployeeAdjustment;
 
 namespace HRModel.ViewModel.Employees
 {
@@ -141,6 +142,9 @@ namespace HRModel.ViewModel.Employees
         public int UserId { get; set; }
         public int Mode { get; set; }
 
+        public List<SchoolViewModel> SchoolList { get; set; }
+        public List<DegreeViewModel> DegreeList { get; set; }
+        public List<SchoolLevelViewModel> SchoolLevelList { get; set; }
     }
 
     public class SchoolViewModel
@@ -193,6 +197,8 @@ namespace HRModel.ViewModel.Employees
     {
         public int Id { get; set; }
         public int EmpId { get; set; }
+        public int SkillId { get; set; }
+        public string SkillType { get; set; }
         public string SkillName { get; set; }
         public string Proficiency { get; set; }
         public int YearsOfExperience { get; set; }
@@ -210,12 +216,26 @@ namespace HRModel.ViewModel.Employees
         public int Mode { get; set; }
         public string CreatedBy { get; set; }
         public DateTime DateCreated { get; set; }
-                                   
+
         //public string SkillLevel { get; set; }
-                                           //public int YearsOfExperience { get; set; }
-                                           //public string Remarks { get; set; }
+        //public int YearsOfExperience { get; set; }
+        //public string Remarks { get; set; }
 
         //public int SkillLevelId { get; set; }
+
+        public List<SkillViewDropdownModel> SkillsDropdown { get; set; }
+    }
+
+    public class SkillViewDropdownModel
+    {
+        public int SkillId { get; set; }
+        public int FunctionId { get; set; }
+        public string SkillType { get; set; }
+        public string SkillDescription { get; set; }
+        public string SkillDetails { get; set; }
+        public bool Status { get; set; }
+        public int UserId { get; set; }
+        public DateTime DateCreated { get; set; }
     }
     //==============================EMPLOYEE SKILL=========================================
 
@@ -307,6 +327,31 @@ namespace HRModel.ViewModel.Employees
         public string JobDescription { get; set; }
         public int UserId { get; set; }
         public int Mode { get; set; }
+
+        public List<FunctionDropdownModel> FunctionsDropdown { get; set; }
+        public List<RoleDropdownModel> RolesDropdown { get; set; }
+        public List<IndustryDropdownModel> IndustryDropdown { get; set; }
+    }
+
+    public class FunctionDropdownModel
+    {
+        public int Id { get; set; }
+        public string FunctionName { get; set; }
+    }
+
+    public class RoleDropdownModel
+    {
+        public int Id { get; set; }
+        public int FunctionId { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class IndustryDropdownModel
+    {
+        public int Id { get; set; }
+        public string IndustryName { get; set; }
+        public string PSICCode{ get; set; }
+        public int CountryId { get; set; }
     }
     //==============================EXTERNAL EMPLOYMENT=========================================
 
@@ -316,12 +361,14 @@ namespace HRModel.ViewModel.Employees
     {
         public int Id { get; set; }
         public int EmpId { get; set; }
+        public int CandidateId { get; set; }
         public string DocumentName { get; set; }
         public string DocumentType { get; set; }
         public string ReferenceNo { get; set; }
         public string DateIssued { get; set; }
         public string FileLocation { get; set; }
         public int DocId { get; set; }
+
     }
 
     public class EmployeeDocumentModel
@@ -338,6 +385,18 @@ namespace HRModel.ViewModel.Employees
         public int UserId { get; set; }
         public int Mode { get; set; }
         public string CreatedBy { get; set; }
+        public DateTime DateCreated { get; set; }
+
+        public List<DocumentDropdownModel> DocumentDropdownModel { get; set; }
+    }
+
+    public class DocumentDropdownModel
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public string DocumentClass { get; set; }
+        public bool Status { get; set; }
+        public int UserId { get; set; }
         public DateTime DateCreated { get; set; }
     }
     //==============================EMPLOYEE DOCUMENT=========================================
@@ -357,6 +416,8 @@ namespace HRModel.ViewModel.Employees
         public List<EmployeeDocumentViewModel> DocumentList { get; set; }
         public List<SkillViewModel> SkillList { get; set; }
         public List<PreviousEmploymentViewModel> ExternalEmployments { get; set; }
+        public EmployeeSalary EmployeeSalary { get; set; }
+        public EmployeeAdjustment Adjustment { get; set; }
         //public List<>
     }
     //==============================EMPLOYEE PROFILE=========================================
@@ -437,6 +498,8 @@ namespace HRModel.ViewModel.Employees
         public DateTime DateCreated { get; set; }
         
         public int Mode { get; set; }
+
+        public List<SalaryRemarksTypeDropdown> SalaryRemarksDropdown { get; set; }
     }
     //------------------------------SALARY REMARKS----------------------------------------
 
@@ -461,6 +524,32 @@ namespace HRModel.ViewModel.Employees
 
         public int Mode { get; set; }
 
+        public List<EmployeeAdjustment> AdjustmentDropdown { get; set; }
+
+        public class ContractTypeDropdown
+        {
+            public int Id { get; set; }
+            public string ContractType { get; set; }
+        }
+
+        public class SourceTypeDropdown
+        {
+            public int Id { get; set; }
+            public string SourceType { get; set; }
+        }
+
+        public class RestDaySetupDropdown
+        {
+            public int Id { get; set; }
+            public string RestDay { get; set; }
+            public string Description{ get; set; }
+        }
+
+        public class SalaryRemarksTypeDropdown
+        {
+            public int Id { get; set; }
+            public string RemarksType { get; set; }
+        }
     }
     //------------------------------PAYROLL ADJUSTMENT----------------------------------------
 
@@ -485,7 +574,7 @@ namespace HRModel.ViewModel.Employees
         public decimal  Balance { get; set; }
 
         public int Mode { get; set; }
-
+        public List<EmployeeDeduction> DeductionDropdown { get; set; }
     }
     //------------------------------PAYROLL DEDUCTIONS----------------------------------------
 
