@@ -1,5 +1,5 @@
 ﻿using HRMS_API.Helper;
-using HRMS_API.Repository;
+using HRMS.REPO.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using static HRModel.ViewModel.Global.MasterFile.EmployeeTypeModel;
 using static HRModel.ViewModel.Global.MasterFile.ShiftModel;
-using static HRMS_API.Repository.MasterFileRepository;
+using static HRMS.REPO.Repository.MasterFileRepository;
 
 namespace HRMS_API.Controllers.MasterFile
 {

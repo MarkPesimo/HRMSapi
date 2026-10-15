@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using static HRModel.ViewModel.Global.MasterFile;
+using static HRModel.ViewModel.Global.MasterFile.BankTypeModel;
 using static HRModel.ViewModel.Global.MasterFile.DepartmentModel;
 using static HRModel.ViewModel.Global.MasterFile.DocumentTypeModel;
 using static HRModel.ViewModel.Global.MasterFile.EmployeeRankModel;
@@ -15,15 +16,17 @@ namespace HRMS_API.Repository
 {
     public class MasterFileRepository
     {
-        public static apwdbEntities _conn { get; set; } 
+        //public static apwdbEntities _conn { get; set; } 
 
         public MasterFileRepository()
         {
-            if (_conn == null) { _conn = new apwdbEntities(); } 
+            //if (_conn == null) { _conn = new apwdbEntities(); } 
         }
 
         public class Department_repository
         {
+            public apwdbEntities _conn { get; set; }
+
             public Department_repository()
             {
                 if (_conn == null) { _conn = new apwdbEntities(); }
@@ -79,6 +82,8 @@ namespace HRMS_API.Repository
 
         public class EmployeeType_repository
         {
+            public apwdbEntities _conn { get; set; }
+
             public EmployeeType_repository()
             {
                 if (_conn == null) { _conn = new apwdbEntities(); }
@@ -134,6 +139,8 @@ namespace HRMS_API.Repository
 
         public class EmployeeRank_repository
         {
+            public apwdbEntities _conn { get; set; }
+
             public EmployeeRank_repository()
             {
                 if (_conn == null) { _conn = new apwdbEntities(); }
@@ -189,6 +196,8 @@ namespace HRMS_API.Repository
 
         public class SalaryType_repository
         {
+            public apwdbEntities _conn { get; set; }
+
             public SalaryType_repository()
             {
                 if (_conn == null) { _conn = new apwdbEntities(); }
@@ -244,6 +253,8 @@ namespace HRMS_API.Repository
 
         public class Shift_repository
         {
+            public apwdbEntities _conn { get; set; }
+
             public Shift_repository()
             {
                 if (_conn == null) { _conn = new apwdbEntities(); }
@@ -320,9 +331,12 @@ namespace HRMS_API.Repository
 
         public class DocumentType_repository
         {
+            public apwdbEntities _conn { get; set; }
+
             public DocumentType_repository()
             {
                 if (_conn == null) { _conn = new apwdbEntities(); }
+                //_conn = new apwdbEntities();
             }
 
             public List<DocumentType_list_model> Get()
@@ -381,6 +395,8 @@ namespace HRMS_API.Repository
 
         public class Holiday_repository
         {
+            public apwdbEntities _conn { get; set; }
+
             public Holiday_repository()
             {
                 if (_conn == null) { _conn = new apwdbEntities(); }
@@ -484,6 +500,32 @@ namespace HRMS_API.Repository
                 }
             }
         }
-        
+
+        public class Bank_repository
+        {
+            public apwdbEntities _conn { get; set; }
+
+            public Bank_repository()
+            {
+                if (_conn == null) { _conn = new apwdbEntities(); }
+            }
+
+            public BankType_list_model Get(int _id)
+            {
+                return _conn.SYS_BANK
+                    .Where(x => x.id == _id) 
+                    .AsEnumerable()
+                    .Select(d => new BankType_list_model()
+                    {
+                        Id = int.Parse(d.id.ToString()),
+                        BankCode = d.Bank_code,
+                        BankDescription = d.Bank_Name,
+                        Status = d.status == true ? "Active" : "Inactive",
+                        CreatedBy = d.SYS_USER?.username,
+                        DateCreated = d.date_created.ToShortDateString()
+                    })
+                    .FirstOrDefault(); 
+            }
+        }
     }
 }

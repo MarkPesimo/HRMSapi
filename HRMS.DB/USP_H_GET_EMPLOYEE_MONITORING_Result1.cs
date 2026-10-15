@@ -19,6 +19,7 @@ namespace HRMS.DB
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string ClientName { get; set; }
+        public Nullable<int> ClientId { get; set; }
         public string Branch { get; set; }
         public Nullable<bool> EmpStatus { get; set; }
         public Nullable<bool> IsIncludePayroll { get; set; }
@@ -34,5 +35,7 @@ namespace HRMS.DB
         public string UserEncoded { get; set; }
         public Nullable<System.DateTime> DateEncoded { get; set; }
         public string GU_ID { get; set; }
+        public string ClientGUID { get; set; }
+        public Nullable<int> CandidateId { get; set; }
     }
 }

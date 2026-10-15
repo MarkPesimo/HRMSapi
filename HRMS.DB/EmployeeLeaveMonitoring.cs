@@ -33,6 +33,7 @@ namespace HRMS.DB
         public bool is_convertable { get; set; }
         public bool auto_reset_per_year { get; set; }
         public string when_credit_is_earned { get; set; }
+        public int DayBalanceToBeIncremented { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }

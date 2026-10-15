@@ -54,12 +54,60 @@ namespace HRMS_API.Repository.Employee
                     select d).AsEnumerable()
                   .Select(x => new EducationalBackgroundViewModel()
                   {
+                      SchoolId = x.School_Id,
                       Level = x.SchoolLevel.SchoolLevelDescn,
                       SchoolName = x.School.SchoolName,
                       Degree = x.Degree.DegreeName,
                       Period = x.School_From.Value.Year + "-" + x.School_To.Value.Year,
                       Graduate = x.Graduated.Value == true ? "Graduate" : "Under Graduate"
                   }).ToList();
+        }
+
+        public List<SchoolViewModel> GetSchools()
+        {
+            return (from s in _conn.Schools
+                    select new SchoolViewModel
+                    {
+                        SchoolID = s.SchoolID,
+                        SchoolName = s.SchoolName,
+                        SchoolType = s.School_type,
+                        Status = s.status,
+                        Location = s.location,
+                        RegionId = s.region_id,
+                        SchoolTierId = s.school_tier_id,
+                        CountryId = s.country_id
+                    }).OrderBy(x => x.SchoolName).ToList();
+        }
+
+        public List<DegreeViewModel> GetAllDegrees()
+        {
+            return (from d in _conn.Degrees
+                    select new DegreeViewModel
+                    {
+                        DegreeID = d.DegreeID,
+                        DegreeName = d.DegreeName,
+                        Status = d.status,
+                        UserCreated = d.UserCreated,
+                        DateCreated = d.DateCreated,
+                        UserUpdated = d.UserUpdated,
+                        DateUpdated = d.DateUpdated,
+                        CountryId = d.country_id
+                    }).OrderBy(x => x.DegreeName).ToList();
+        }
+
+        public List<SchoolLevelViewModel> GetSchoolLevels()
+        {
+            return (from sl in _conn.SchoolLevels
+                    select new SchoolLevelViewModel
+                    {
+                        LevelID = sl.LevelID,
+                        SchoolLevelDescn = sl.SchoolLevelDescn,
+                        Status = sl.status,
+                        UserCreated = sl.UserCreated,
+                        DateCreated = sl.DateCreated,
+                        UserUpdated = sl.UserUpdated,
+                        DateUpdated = sl.DateUpdated
+                    }).OrderBy(x => x.LevelID).ToList();
         }
 
         public bool ManageEducation(EducationalBackgroundModel _model)

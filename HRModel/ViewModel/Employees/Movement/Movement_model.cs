@@ -72,7 +72,7 @@ namespace HRModel.ViewModel.Employees.Movement
         }
 
         public class MovementMonitoring_model
-        { 
+        {
             public int Id { get; set; }
             public int EmpId { get; set; }
             public string EmployeeName { get; set; }
@@ -82,7 +82,7 @@ namespace HRModel.ViewModel.Employees.Movement
             public string Position { get; set; }
             public string PayType { get; set; }
             public DateTime EffectiveDate { get; set; }
-            public DateTime SalaryChangeDate { get; set; } 
+            public DateTime SalaryChangeDate { get; set; }
         }
     }
 }

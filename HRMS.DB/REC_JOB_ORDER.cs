@@ -51,5 +51,6 @@ namespace HRMS.DB
         public virtual REC_CONTRACT_TYPE REC_CONTRACT_TYPE { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
         public virtual SYS_USER SYS_USER1 { get; set; }
+        public virtual REC_FUNCTION_MASTER_FILE REC_FUNCTION_MASTER_FILE { get; set; }
     }
 }

@@ -5,6 +5,44 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="accessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="app_main_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="app_id" Type="int" Nullable="false" />
+          <Property Name="sort_no" Type="int" Nullable="false" />
+          <Property Name="menu_type" Type="nvarchar" MaxLength="150" />
+          <Property Name="controller_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="action_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="menu_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="menu_link" Type="nvarchar" MaxLength="500" />
+          <Property Name="class_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="img_class_name" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="app_menu_access">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="app_id" Type="int" Nullable="false" />
+          <Property Name="user_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="menu_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="app_sub_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="main_id" Type="int" Nullable="false" />
+          <Property Name="sort_no" Type="int" Nullable="false" />
+          <Property Name="controller_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="sub_action_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="sub_menu_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="sub_menu_link" Type="nvarchar" MaxLength="500" />
+          <Property Name="class_name" Type="nvarchar" MaxLength="500" />
+          <Property Name="image_class_name" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="SYS_Module">
           <Key>
             <PropertyRef Name="MODULEID" />
@@ -35,6 +73,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_app_menu_access_app_main_menu">
+          <End Role="app_main_menu" Type="Self.app_main_menu" Multiplicity="1" />
+          <End Role="app_menu_access" Type="Self.app_menu_access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="app_main_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="app_menu_access">
+              <PropertyRef Name="menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_app_sub_menu_app_main_menu">
+          <End Role="app_main_menu" Type="Self.app_main_menu" Multiplicity="1" />
+          <End Role="app_sub_menu" Type="Self.app_sub_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="app_main_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="app_sub_menu">
+              <PropertyRef Name="main_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_COPY_ACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FR0M_ID" Type="int" Mode="In" />
+          <Parameter Name="TO_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_FUNCTION_ACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MODULENAME" Type="nvarchar" Mode="In" />
           <Parameter Name="FUNCTION" Type="nvarchar" Mode="In" />
@@ -50,12 +116,63 @@
           <Parameter Name="ACCESS" Type="int" Mode="InOut" />
           <Parameter Name="ACTIVE" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_G_GET_CLIENT_MODULES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="VIEW_TYPE" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="USP_G_MAANGE_PORTAL_ACCESS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="MODULE_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="MODULE_ID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_G_MANAGE_ACCESS_RIGHTS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MODULE_ID" Type="int" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="ACCESS_ADD" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_EDIT" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_DELETE" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_PRINT" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_POST" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_CANCEL" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_SYSTEM" Type="bit" Mode="In" />
+          <Parameter Name="ACCESS_UNPOST" Type="bit" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_S_GET_ASSIGNED_MODULES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="MODULE_TYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="APPLICATION_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_S_GET_AVAILABLE_MODULES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="MODULE_TYPE_ID" Type="int" Mode="In" />
+          <Parameter Name="APPLICATION_ID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="accessModelStoreContainer">
+          <EntitySet Name="app_main_menu" EntityType="Self.app_main_menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="app_menu_access" EntityType="Self.app_menu_access" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="app_sub_menu" EntityType="Self.app_sub_menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYS_Module" EntityType="Self.SYS_Module" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sys_module_type" EntityType="Self.sys_module_type" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name=" FK_SYS_Module_sys_module_type" Association="Self. FK_SYS_Module_sys_module_type">
             <End Role="sys_module_type" EntitySet="sys_module_type" />
             <End Role="SYS_Module" EntitySet="SYS_Module" />
+          </AssociationSet>
+          <AssociationSet Name="FK_app_menu_access_app_main_menu" Association="Self.FK_app_menu_access_app_main_menu">
+            <End Role="app_main_menu" EntitySet="app_main_menu" />
+            <End Role="app_menu_access" EntitySet="app_menu_access" />
+          </AssociationSet>
+          <AssociationSet Name="FK_app_sub_menu_app_main_menu" Association="Self.FK_app_sub_menu_app_main_menu">
+            <End Role="app_main_menu" EntitySet="app_main_menu" />
+            <End Role="app_sub_menu" EntitySet="app_sub_menu" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -116,7 +233,185 @@
             <Parameter Name="ACCESS" Mode="InOut" Type="Int32" />
             <Parameter Name="ACTIVE" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="USP_S_GET_AVAILABLE_MODULES" ReturnType="Collection(accessModel.USP_S_GET_AVAILABLE_MODULES_Result)">
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="APPLICATION_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_COPY_ACCESS">
+            <Parameter Name="FR0M_ID" Mode="In" Type="Int32" />
+            <Parameter Name="TO_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_G_MANAGE_ACCESS_RIGHTS">
+            <Parameter Name="MODULE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="ACCESS_ADD" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_EDIT" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_DELETE" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_PRINT" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_POST" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_CANCEL" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_SYSTEM" Mode="In" Type="Boolean" />
+            <Parameter Name="ACCESS_UNPOST" Mode="In" Type="Boolean" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_S_GET_ASSIGNED_MODULES" ReturnType="Collection(accessModel.USP_S_GET_ASSIGNED_MODULES_Result2)">
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="APPLICATION_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_G_GET_CLIENT_MODULES" ReturnType="Collection(accessModel.USP_G_GET_CLIENT_MODULES_Result)">
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="VIEW_TYPE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_G_MAANGE_PORTAL_ACCESS">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODULE_NAME" Mode="In" Type="String" />
+            <Parameter Name="MODULE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="app_main_menu" EntityType="accessModel.app_main_menu" />
+          <EntitySet Name="app_menu_access" EntityType="accessModel.app_menu_access" />
+          <EntitySet Name="app_sub_menu" EntityType="accessModel.app_sub_menu" />
+          <AssociationSet Name="FK_app_menu_access_app_main_menu" Association="accessModel.FK_app_menu_access_app_main_menu">
+            <End Role="app_main_menu" EntitySet="app_main_menu" />
+            <End Role="app_menu_access" EntitySet="app_menu_access" />
+          </AssociationSet>
+          <AssociationSet Name="FK_app_sub_menu_app_main_menu" Association="accessModel.FK_app_sub_menu_app_main_menu">
+            <End Role="app_main_menu" EntitySet="app_main_menu" />
+            <End Role="app_sub_menu" EntitySet="app_sub_menu" />
+          </AssociationSet>
         </EntityContainer>
+        <ComplexType Name="USP_S_GET_ASSIGNED_MODULES_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="module_name" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="access_add" Nullable="true" />
+          <Property Type="Boolean" Name="access_edit" Nullable="true" />
+          <Property Type="Boolean" Name="access_delete" Nullable="true" />
+          <Property Type="Boolean" Name="access_print" Nullable="true" />
+          <Property Type="Boolean" Name="access_post" Nullable="true" />
+          <Property Type="Boolean" Name="access_unpost" Nullable="true" />
+          <Property Type="Boolean" Name="access_cancel" Nullable="true" />
+          <Property Type="Boolean" Name="access_inactive" Nullable="true" />
+          <Property Type="Boolean" Name="access_deactivate" Nullable="true" />
+          <Property Type="String" Name="provided_by" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="date_provided" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="USP_S_GET_AVAILABLE_MODULES_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="module_name" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="USP_S_GET_ASSIGNED_MODULES_Result1">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="module_name" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="access_add" Nullable="true" />
+          <Property Type="Boolean" Name="access_edit" Nullable="true" />
+          <Property Type="Boolean" Name="access_delete" Nullable="true" />
+          <Property Type="Boolean" Name="access_print" Nullable="true" />
+          <Property Type="Boolean" Name="access_post" Nullable="true" />
+          <Property Type="Boolean" Name="access_unpost" Nullable="true" />
+          <Property Type="Boolean" Name="access_cancel" Nullable="true" />
+          <Property Type="Boolean" Name="access_activate" Nullable="true" />
+          <Property Type="Boolean" Name="access_deactivate" Nullable="true" />
+          <Property Type="String" Name="provided_by" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="date_provided" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="USP_S_GET_ASSIGNED_MODULES_Result2">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="Int32" Name="module_id" Nullable="true" />
+          <Property Type="String" Name="module_name" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="access_add" Nullable="true" />
+          <Property Type="Boolean" Name="access_edit" Nullable="true" />
+          <Property Type="Boolean" Name="access_delete" Nullable="true" />
+          <Property Type="Boolean" Name="access_print" Nullable="true" />
+          <Property Type="Boolean" Name="access_post" Nullable="true" />
+          <Property Type="Boolean" Name="access_unpost" Nullable="true" />
+          <Property Type="Boolean" Name="access_cancel" Nullable="true" />
+          <Property Type="Boolean" Name="access_activate" Nullable="true" />
+          <Property Type="Boolean" Name="access_deactivate" Nullable="true" />
+          <Property Type="String" Name="provided_by" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="date_provided" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="USP_G_GET_CLIENT_MODULES_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="Int32" Name="module_id" Nullable="true" />
+          <Property Type="String" Name="module_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="provided_by" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_provided" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="app_main_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="app_id" Type="Int32" Nullable="false" />
+          <Property Name="sort_no" Type="Int32" Nullable="false" />
+          <Property Name="menu_type" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="controller_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="action_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="menu_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="menu_link" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="class_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="img_class_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="app_menu_access" Relationship="accessModel.FK_app_menu_access_app_main_menu" FromRole="app_main_menu" ToRole="app_menu_access" />
+          <NavigationProperty Name="app_sub_menu" Relationship="accessModel.FK_app_sub_menu_app_main_menu" FromRole="app_main_menu" ToRole="app_sub_menu" />
+        </EntityType>
+        <EntityType Name="app_menu_access">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="app_id" Type="Int32" Nullable="false" />
+          <Property Name="user_type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="menu_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="app_main_menu" Relationship="accessModel.FK_app_menu_access_app_main_menu" FromRole="app_menu_access" ToRole="app_main_menu" />
+        </EntityType>
+        <EntityType Name="app_sub_menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="main_id" Type="Int32" Nullable="false" />
+          <Property Name="sort_no" Type="Int32" Nullable="false" />
+          <Property Name="controller_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="sub_action_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="sub_menu_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="sub_menu_link" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="class_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="image_class_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="app_main_menu" Relationship="accessModel.FK_app_sub_menu_app_main_menu" FromRole="app_sub_menu" ToRole="app_main_menu" />
+        </EntityType>
+        <Association Name="FK_app_menu_access_app_main_menu">
+          <End Type="accessModel.app_main_menu" Role="app_main_menu" Multiplicity="1" />
+          <End Type="accessModel.app_menu_access" Role="app_menu_access" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="app_main_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="app_menu_access">
+              <PropertyRef Name="menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_app_sub_menu_app_main_menu">
+          <End Type="accessModel.app_main_menu" Role="app_main_menu" Multiplicity="1" />
+          <End Type="accessModel.app_sub_menu" Role="app_sub_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="app_main_menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="app_sub_menu">
+              <PropertyRef Name="main_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -145,6 +440,89 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_FUNCTION_ACCESS" FunctionName="accessModel.Store.SP_FUNCTION_ACCESS" />
           <FunctionImportMapping FunctionImportName="SP_MODULE_ACCESS" FunctionName="accessModel.Store.SP_MODULE_ACCESS" />
+          <FunctionImportMapping FunctionImportName="USP_S_GET_AVAILABLE_MODULES" FunctionName="accessModel.Store.USP_S_GET_AVAILABLE_MODULES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="accessModel.USP_S_GET_AVAILABLE_MODULES_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="module_name" ColumnName="module_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_COPY_ACCESS" FunctionName="accessModel.Store.SP_COPY_ACCESS" />
+          <FunctionImportMapping FunctionImportName="USP_G_MANAGE_ACCESS_RIGHTS" FunctionName="accessModel.Store.USP_G_MANAGE_ACCESS_RIGHTS" />
+          <FunctionImportMapping FunctionImportName="USP_S_GET_ASSIGNED_MODULES" FunctionName="accessModel.Store.USP_S_GET_ASSIGNED_MODULES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="accessModel.USP_S_GET_ASSIGNED_MODULES_Result2">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="module_name" ColumnName="module_name" />
+                <ScalarProperty Name="access_add" ColumnName="access_add" />
+                <ScalarProperty Name="access_edit" ColumnName="access_edit" />
+                <ScalarProperty Name="access_delete" ColumnName="access_delete" />
+                <ScalarProperty Name="access_print" ColumnName="access_print" />
+                <ScalarProperty Name="access_post" ColumnName="access_post" />
+                <ScalarProperty Name="access_unpost" ColumnName="access_unpost" />
+                <ScalarProperty Name="access_cancel" ColumnName="access_cancel" />
+                <ScalarProperty Name="access_activate" ColumnName="access_activate" />
+                <ScalarProperty Name="access_deactivate" ColumnName="access_deactivate" />
+                <ScalarProperty Name="provided_by" ColumnName="provided_by" />
+                <ScalarProperty Name="date_provided" ColumnName="date_provided" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_G_GET_CLIENT_MODULES" FunctionName="accessModel.Store.USP_G_GET_CLIENT_MODULES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="accessModel.USP_G_GET_CLIENT_MODULES_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="module_id" ColumnName="module_id" />
+                <ScalarProperty Name="module_name" ColumnName="module_name" />
+                <ScalarProperty Name="provided_by" ColumnName="provided_by" />
+                <ScalarProperty Name="date_provided" ColumnName="date_provided" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_G_MAANGE_PORTAL_ACCESS" FunctionName="accessModel.Store.USP_G_MAANGE_PORTAL_ACCESS" />
+          <EntitySetMapping Name="app_main_menu">
+            <EntityTypeMapping TypeName="accessModel.app_main_menu">
+              <MappingFragment StoreEntitySet="app_main_menu">
+                <ScalarProperty Name="img_class_name" ColumnName="img_class_name" />
+                <ScalarProperty Name="class_name" ColumnName="class_name" />
+                <ScalarProperty Name="menu_link" ColumnName="menu_link" />
+                <ScalarProperty Name="menu_name" ColumnName="menu_name" />
+                <ScalarProperty Name="action_name" ColumnName="action_name" />
+                <ScalarProperty Name="controller_name" ColumnName="controller_name" />
+                <ScalarProperty Name="menu_type" ColumnName="menu_type" />
+                <ScalarProperty Name="sort_no" ColumnName="sort_no" />
+                <ScalarProperty Name="app_id" ColumnName="app_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="app_menu_access">
+            <EntityTypeMapping TypeName="accessModel.app_menu_access">
+              <MappingFragment StoreEntitySet="app_menu_access">
+                <ScalarProperty Name="menu_id" ColumnName="menu_id" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="app_id" ColumnName="app_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="app_sub_menu">
+            <EntityTypeMapping TypeName="accessModel.app_sub_menu">
+              <MappingFragment StoreEntitySet="app_sub_menu">
+                <ScalarProperty Name="image_class_name" ColumnName="image_class_name" />
+                <ScalarProperty Name="class_name" ColumnName="class_name" />
+                <ScalarProperty Name="sub_menu_link" ColumnName="sub_menu_link" />
+                <ScalarProperty Name="sub_menu_name" ColumnName="sub_menu_name" />
+                <ScalarProperty Name="sub_action_name" ColumnName="sub_action_name" />
+                <ScalarProperty Name="controller_name" ColumnName="controller_name" />
+                <ScalarProperty Name="sort_no" ColumnName="sort_no" />
+                <ScalarProperty Name="main_id" ColumnName="main_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

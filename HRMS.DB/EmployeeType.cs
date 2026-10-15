@@ -19,6 +19,8 @@ namespace HRMS.DB
         {
             this.Employees = new HashSet<Employee>();
             this.REC_NEW_HIRED_EMPLOYEE = new HashSet<REC_NEW_HIRED_EMPLOYEE>();
+            this.Employee_Personnel_Movement = new HashSet<Employee_Personnel_Movement>();
+            this.Employee_Personnel_Movement1 = new HashSet<Employee_Personnel_Movement>();
         }
     
         public int EmpType_ID { get; set; }
@@ -32,5 +34,9 @@ namespace HRMS.DB
         public virtual SYS_USER SYS_USER { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_NEW_HIRED_EMPLOYEE> REC_NEW_HIRED_EMPLOYEE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_Personnel_Movement> Employee_Personnel_Movement { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_Personnel_Movement> Employee_Personnel_Movement1 { get; set; }
     }
 }

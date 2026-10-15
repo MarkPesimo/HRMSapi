@@ -1,5 +1,5 @@
 ﻿using HRMS_API.Helper;
-using HRMS_API.Repository;
+using HRMS.REPO.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Web.Http;
 using static HRModel.ViewModel.Global.MasterFile.DocumentTypeModel;
 using static HRModel.ViewModel.Global.MasterFile.EmployeeTypeModel;
 using static HRModel.ViewModel.Global.MasterFile.ShiftModel;
-using static HRMS_API.Repository.MasterFileRepository;
+using static HRMS.REPO.Repository.MasterFileRepository;
 
 namespace HRMS_API.Controllers.MasterFile
 {
@@ -19,7 +19,7 @@ namespace HRMS_API.Controllers.MasterFile
     {
         private GlobalRepository _globalrepository { get; set; }
         private DocumentType_repository _masterrepository { get; set; }
-
+        
         public DocumentTypeController()
         {
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }

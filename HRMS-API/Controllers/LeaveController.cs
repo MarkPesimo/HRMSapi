@@ -1,6 +1,6 @@
 ﻿using HRModel.ViewModel.Leave;
 using HRMS_API.Helper;
-using HRMS_API.Repository;
+using HRMS.REPO.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

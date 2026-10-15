@@ -8,6 +8,28 @@ namespace HRModel.ViewModel.Global
 {
     public class AccessModel
     {
+        public class AppMenu
+        {
+            public string MenuType { get; set; }
+            public int SortNo { get; set; }
+            public string ControllerName { get; set; }
+            public string Actionname { get; set; }
+            public string MenuName { get; set; }
+            public string ClassName { get; set; }
+            public string ImageClassName { get; set; }
+            public List<SubMenu> SubMenus { get; set; }
+        }
+
+        public class SubMenu
+        {
+            public int SortNo { get; set; }
+            public string ControllerName { get; set; }
+            public string Actionname { get; set; }
+            public string MenuName { get; set; }
+            public string ClassName { get; set; }
+            public string ImageClassName { get; set; }
+        }
+
         public static class Feature
         {
             public const string Add = "ADD";
@@ -48,6 +70,33 @@ namespace HRModel.ViewModel.Global
             public string UserType { get; set; }
             public int AppId { get; set; }
             public string AppName { get; set; }
+        }
+
+        public class AvailableModule_model
+        {
+            public int Id { get; set; }
+            public string ModuleName { get; set; }
+        }
+
+        public class AccessableModule_model
+        {
+            public int Id { get; set; }
+            public int ModuleId { get; set; }
+            public string ModuleName { get; set; }
+            public bool AddAccess { get; set; }
+            public bool EditAccess { get; set; }
+            public bool DeleteAccess { get; set; }
+            public bool PrintAccess { get; set; }
+            public bool PostAccess { get; set; }
+            public bool UnpostAccess { get; set; }
+            public bool CancelAccess { get; set; }
+            public bool ActivateAccess { get; set; }
+            public bool DeactivateAccess { get; set; }
+            public string ProvidedBy { get; set; }
+            public DateTime DateProvided { get; set; }
+
+            public int UserId { get; set; }
+            public int Mode { get; set; }
         }
     }
 }

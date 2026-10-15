@@ -14,6 +14,12 @@ namespace HRMS.DB
     
     public partial class Adjustment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Adjustment()
+        {
+            this.AdjustmentFiles = new HashSet<AdjustmentFile>();
+        }
+    
         public int Adjustment_ID { get; set; }
         public string Adjustment_Desc { get; set; }
         public int UserID { get; set; }
@@ -27,5 +33,7 @@ namespace HRMS.DB
         public virtual REC_CLIENT REC_CLIENT { get; set; }
         public virtual SYS_USER SYS_USER { get; set; }
         public virtual ADJUSTMENT_CLASSIFICATION ADJUSTMENT_CLASSIFICATION { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AdjustmentFile> AdjustmentFiles { get; set; }
     }
 }

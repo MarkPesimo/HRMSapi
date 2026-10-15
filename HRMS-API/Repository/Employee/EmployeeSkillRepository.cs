@@ -19,6 +19,37 @@ namespace HRMS_API.Repository.Employee
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
         }
 
+        public List<SkillViewDropdownModel> GetDropdownSkills()
+        {
+            return (from s in _conn.REC_Skill
+                    select new SkillViewDropdownModel
+                    {
+                        SkillId = s.id,
+                        FunctionId = s.function_id,
+                        SkillType = s.skill_type,
+                        SkillDescription = s.Skill_description,
+                        SkillDetails = s.Skill_details,
+                        Status = s.status,
+                        UserId = s.user_id,
+                        DateCreated = s.date_created
+                    }).OrderBy(x => x.SkillDescription).ToList();
+        }
+
+        public List<SkillViewDropdownModel> GetSkills()
+        {
+            return (from s in _conn.REC_Skill
+                    select new SkillViewDropdownModel
+                    {
+                        SkillId = s.id,
+                        FunctionId = s.function_id,
+                        SkillType = s.skill_type,
+                        SkillDescription = s.Skill_description,
+                        SkillDetails = s.Skill_details,
+                        Status = s.status,
+                        UserId = s.user_id,
+                        DateCreated = s.date_created
+                    }).OrderBy(x => x.SkillDescription).ToList();
+        }
 
         public SkillModel GetSkill(int _id)
         {
@@ -45,11 +76,13 @@ namespace HRMS_API.Repository.Employee
                     join l in _conn.REC_CANDIDATE_EMPLOYEE_LINK on d.candidate_id equals l.candidate_id
                     where l.emp_id == _empid
                     select d).AsEnumerable()
-                  .Select(x => new SkillViewModel()
-                  {
-                      SkillName = x.REC_Skill.Skill_description,
-                      Remarks = x.REC_Skill.Skill_details
-                  }).ToList();
+                      .Select(x => new SkillViewModel()
+                      {
+                          Id = x.id,    
+                          SkillName = x.REC_Skill.Skill_description,
+                          SkillType = x.REC_Skill.skill_type,
+                          Remarks = x.REC_Skill.Skill_details
+                      }).ToList();
         }
 
         public int Manage(SkillModel _model)

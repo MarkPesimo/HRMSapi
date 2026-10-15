@@ -27,7 +27,12 @@ namespace HRMS.DB
             this.REC_NEW_HIRED_EMPLOYEE = new HashSet<REC_NEW_HIRED_EMPLOYEE>();
             this.HELPDESK_CONCERN = new HashSet<HELPDESK_CONCERN>();
             this.TAMS_LOCAL_HOLIDAY_DET = new HashSet<TAMS_LOCAL_HOLIDAY_DET>();
+            this.SALARY_INFO_REMARKS = new HashSet<SALARY_INFO_REMARKS>();
+            this.AdjustmentFiles = new HashSet<AdjustmentFile>();
+            this.OtherDeductions = new HashSet<OtherDeduction>();
+            this.PortalUsers = new HashSet<PortalUser>();
             this.Employee_Benefits = new HashSet<Employee_Benefits>();
+            this.Employee_Personnel_Movement = new HashSet<Employee_Personnel_Movement>();
         }
     
         public int Emp_ID { get; set; }
@@ -155,6 +160,18 @@ namespace HRMS.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TAMS_LOCAL_HOLIDAY_DET> TAMS_LOCAL_HOLIDAY_DET { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SALARY_INFO_REMARKS> SALARY_INFO_REMARKS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AdjustmentFile> AdjustmentFiles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OtherDeduction> OtherDeductions { get; set; }
+        public virtual RestDay_SetUp RestDay_SetUp { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PortalUser> PortalUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee_Benefits> Employee_Benefits { get; set; }
+        public virtual REC_FUNCTION_MASTER_FILE REC_FUNCTION_MASTER_FILE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_Personnel_Movement> Employee_Personnel_Movement { get; set; }
     }
 }

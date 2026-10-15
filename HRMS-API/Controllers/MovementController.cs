@@ -1,5 +1,5 @@
 ﻿using HRMS_API.Helper;
-using HRMS_API.Repository;
+using HRMS.REPO.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using static HRModel.ViewModel.Employees.Movement.Movement_model;
+using HRMS_API.Repository;
 
 namespace HRMS_API.Controllers
 {
@@ -15,7 +16,7 @@ namespace HRMS_API.Controllers
 
     public class MovementController : ApiController
     {
-        private MovementRepository _movementrepository { get; set; } 
+        private MovementRepository _movementrepository { get; set; }
 
         public MovementController()
         {
@@ -24,7 +25,7 @@ namespace HRMS_API.Controllers
 
         [Route("api/Movement/MovementCategory")]
         [HttpGet]
-        public HttpResponseMessage MovementCategory() 
+        public HttpResponseMessage MovementCategory()
         {
             try
             {
@@ -44,7 +45,7 @@ namespace HRMS_API.Controllers
         [HttpGet]
         public HttpResponseMessage GetMovementMonitoring(string Keyword, bool ByClient, int ClientID, bool ByCategory, int CategoryId, bool ByDate, DateTime DateFrom, DateTime DateTo, int PageNo, int PageSize, int CompanyID)
         {
-            try 
+            try
             {
                 List<MovementMonitoring_model> _model = _movementrepository.GetMovementMonitoring(Keyword, ByClient, ClientID, ByCategory, CategoryId, ByDate, DateFrom, DateTo, PageNo, PageSize, CompanyID);
                 if (_model != null)

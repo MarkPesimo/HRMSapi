@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static HRModel.ViewModel.Employees.EmployeeAdjustment;
 
 namespace HRModel.ViewModel.Employees
 {
@@ -28,6 +29,18 @@ namespace HRModel.ViewModel.Employees
         public string Hobbies { get; set; }
         public int Mode { get; set; }
         public int UserId { get; set; }
+    }
+
+    public class AreaLibraryModel
+    {
+        public int AreaID { get; set; }
+        public string AreaDescription { get; set; }
+        public int? ProvinceID { get; set; }
+        public int? UserID { get; set; }
+        public int? user_id { get; set; }
+        public DateTime? date_created { get; set; }
+        public bool? status { get; set; }
+        public int? region_id { get; set; }
     }
 
     public class SpouseInfo
@@ -98,6 +111,7 @@ namespace HRModel.ViewModel.Employees
     //==============================EMPLOYEE EDUCATION=========================================
     public class EducationalBackgroundViewModel
     {
+        public int SchoolId { get; set; }
         public int Id { get; set; }
         public int EmpId { get; set; }
         public string Level { get; set; }
@@ -128,6 +142,53 @@ namespace HRModel.ViewModel.Employees
         public int UserId { get; set; }
         public int Mode { get; set; }
 
+        public List<SchoolViewModel> SchoolList { get; set; }
+        public List<DegreeViewModel> DegreeList { get; set; }
+        public List<SchoolLevelViewModel> SchoolLevelList { get; set; }
+    }
+
+    public class SchoolViewModel
+    {
+        public int SchoolID { get; set; }
+        public string SchoolName { get; set; }
+        public string SchoolType { get; set; }
+        public bool Status { get; set; }
+        public string Location { get; set; }
+        public int? RegionId { get; set; }
+        public int? SchoolTierId { get; set; }
+        public int? UserCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public int? UserUpdated { get; set; }
+        public DateTime? DateUpdated { get; set; }
+        public int? CountryId { get; set; }
+        public int Mode { get; set; }
+        public int UserId { get; set; }
+    }
+
+    public class DegreeViewModel
+    {
+        public int DegreeID { get; set; }
+        public string DegreeName { get; set; }
+        public bool Status { get; set; }
+        public int? UserCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public int? UserUpdated { get; set; }
+        public DateTime? DateUpdated { get; set; }
+        public int? CountryId { get; set; }
+        public int Mode { get; set; }
+        public int UserId { get; set; }
+    }
+
+    public class SchoolLevelViewModel
+    {
+        public int LevelID { get; set; }
+        public string SchoolLevelDescn { get; set; }
+        public bool? Status { get; set; }
+        public int? UserCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public int? UserUpdated { get; set; }
+        public DateTime? DateUpdated { get; set; }
+        public int? CountryId { get; set; }
     }
     //==============================EMPLOYEE EDUCATION=========================================
 
@@ -136,6 +197,8 @@ namespace HRModel.ViewModel.Employees
     {
         public int Id { get; set; }
         public int EmpId { get; set; }
+        public int SkillId { get; set; }
+        public string SkillType { get; set; }
         public string SkillName { get; set; }
         public string Proficiency { get; set; }
         public int YearsOfExperience { get; set; }
@@ -153,12 +216,26 @@ namespace HRModel.ViewModel.Employees
         public int Mode { get; set; }
         public string CreatedBy { get; set; }
         public DateTime DateCreated { get; set; }
-                                   
+
         //public string SkillLevel { get; set; }
-                                           //public int YearsOfExperience { get; set; }
-                                           //public string Remarks { get; set; }
+        //public int YearsOfExperience { get; set; }
+        //public string Remarks { get; set; }
 
         //public int SkillLevelId { get; set; }
+
+        public List<SkillViewDropdownModel> SkillsDropdown { get; set; }
+    }
+
+    public class SkillViewDropdownModel
+    {
+        public int SkillId { get; set; }
+        public int FunctionId { get; set; }
+        public string SkillType { get; set; }
+        public string SkillDescription { get; set; }
+        public string SkillDetails { get; set; }
+        public bool Status { get; set; }
+        public int UserId { get; set; }
+        public DateTime DateCreated { get; set; }
     }
     //==============================EMPLOYEE SKILL=========================================
 
@@ -250,6 +327,31 @@ namespace HRModel.ViewModel.Employees
         public string JobDescription { get; set; }
         public int UserId { get; set; }
         public int Mode { get; set; }
+
+        public List<FunctionDropdownModel> FunctionsDropdown { get; set; }
+        public List<RoleDropdownModel> RolesDropdown { get; set; }
+        public List<IndustryDropdownModel> IndustryDropdown { get; set; }
+    }
+
+    public class FunctionDropdownModel
+    {
+        public int Id { get; set; }
+        public string FunctionName { get; set; }
+    }
+
+    public class RoleDropdownModel
+    {
+        public int Id { get; set; }
+        public int FunctionId { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class IndustryDropdownModel
+    {
+        public int Id { get; set; }
+        public string IndustryName { get; set; }
+        public string PSICCode{ get; set; }
+        public int CountryId { get; set; }
     }
     //==============================EXTERNAL EMPLOYMENT=========================================
 
@@ -259,12 +361,14 @@ namespace HRModel.ViewModel.Employees
     {
         public int Id { get; set; }
         public int EmpId { get; set; }
+        public int CandidateId { get; set; }
         public string DocumentName { get; set; }
         public string DocumentType { get; set; }
         public string ReferenceNo { get; set; }
         public string DateIssued { get; set; }
         public string FileLocation { get; set; }
         public int DocId { get; set; }
+
     }
 
     public class EmployeeDocumentModel
@@ -282,12 +386,27 @@ namespace HRModel.ViewModel.Employees
         public int Mode { get; set; }
         public string CreatedBy { get; set; }
         public DateTime DateCreated { get; set; }
+
+        public List<DocumentDropdownModel> DocumentDropdownModel { get; set; }
+    }
+
+    public class DocumentDropdownModel
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public string DocumentClass { get; set; }
+        public bool Status { get; set; }
+        public int UserId { get; set; }
+        public DateTime DateCreated { get; set; }
     }
     //==============================EMPLOYEE DOCUMENT=========================================
 
+    //==============================EMPLOYEE PROFILE=========================================
     public class EmployeeProfile
     {
+        public int CandId { get; set; }
         public string GUid { get; set; }
+        public string EmployeeStatus { get; set; }
         public PersonalInfo Personal { get; set; }
         public SpouseInfo Spouse { get; set; }
         public EmergencyContactInfo EmergencyContact { get; set; }
@@ -297,9 +416,169 @@ namespace HRModel.ViewModel.Employees
         public List<EmployeeDocumentViewModel> DocumentList { get; set; }
         public List<SkillViewModel> SkillList { get; set; }
         public List<PreviousEmploymentViewModel> ExternalEmployments { get; set; }
+        public EmployeeSalary EmployeeSalary { get; set; }
+        public EmployeeAdjustment Adjustment { get; set; }
         //public List<>
     }
+    //==============================EMPLOYEE PROFILE=========================================
 
+
+    //==============================EMPLOYEE PAYROLL=========================================
+
+    //------------------------------SALARY REMARKS----------------------------------------
+    public class EmployeeSalary
+    {
+        public int EmpId { get; set; }
+        public decimal? BasicRate { get; set; }
+        public decimal? Allowance { get; set; }
+        public decimal? Cola { get; set; }
+        public decimal? RiceAllowance { get; set; }
+        public decimal? Deminimis { get; set; }
+
+        public int? BankId { get; set; }
+        public string BankName { get; set; }
+        public string AccountNo { get; set; }
+        public string CardNo { get; set; }
+        public DateTime? CardValidity { get; set; }
+
+        public bool IsManualPagibig { get; set; }
+        public decimal PagIbigContribution { get; set; }
+
+        public bool  IsManualSSS { get; set; }
+        public decimal SSSContribution { get; set; }
+
+        public bool IsManualPhilhealth { get; set; }
+        public decimal PhilhealthContribution { get; set; }
+
+        public bool IsManaulTax { get; set; }   
+        public decimal ManualTaxDeduction { get; set; }
+
+        public bool? IncludeInPayroll { get; set; }
+        public bool MinimumWageEarner { get; set; }
+
+        public bool IsConfidential { get; set; }
+
+        public bool IsWithVat { get; set; }
+        public decimal? VatPercentage { get; set; }
+
+        public int ContractTypeId { get; set; }
+        public string ContractType { get; set; }
+
+        public int SourceTypeId { get; set; }
+        public string SourceType { get; set; }
+
+        public string PayrollType { get; set; }
+        public string Remarks { get; set; }
+
+        public int RestDayId { get; set; }
+        public string RestDayDesription { get; set; }
+
+        public int CreatedByUserId { get; set; }
+
+        public string CreatedByUser { get; set; }
+        public DateTime DateCreated { get; set; }
+
+        public int ModifiedByUserId { get; set; }
+        public string ModifiedByUser { get; set; }
+        public DateTime DateModified { get; set; }
+
+        public int Mode { get; set; }
+    }
+
+    public class EmployeeSalaryRemark
+    {
+        public int Id { get; set; }
+        public int EmpId { get; set; }
+        public int RemarksTypeId { get; set; }
+        public string RemarksType { get; set; }
+        public string Remarks { get; set; }
+
+        public int UserId { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime DateCreated { get; set; }
+        
+        public int Mode { get; set; }
+
+        public List<SalaryRemarksTypeDropdown> SalaryRemarksDropdown { get; set; }
+    }
+    //------------------------------SALARY REMARKS----------------------------------------
+
+    //------------------------------PAYROLL ADJUSTMENT----------------------------------------
+    public class EmployeeAdjustment
+    {
+        public int Id { get; set; }
+        public int? EmpId { get; set; }
+        public int? AdjustmentId { get; set; }
+        public string AdjustmentDescription { get; set; }
+        public DateTime? TranDate { get; set; }
+        public decimal? Amount { get; set; }
+
+        public bool? IsTaxable { get; set; }
+        public bool? Billable { get; set; }
+        public string Remarks { get; set; }
+        public string Status { get; set; }
+
+        public int? UserId { get; set; }
+        public string CreatedBy { get; set; }
+        
+
+        public int Mode { get; set; }
+
+        public List<EmployeeAdjustment> AdjustmentDropdown { get; set; }
+
+        public class ContractTypeDropdown
+        {
+            public int Id { get; set; }
+            public string ContractType { get; set; }
+        }
+
+        public class SourceTypeDropdown
+        {
+            public int Id { get; set; }
+            public string SourceType { get; set; }
+        }
+
+        public class RestDaySetupDropdown
+        {
+            public int Id { get; set; }
+            public string RestDay { get; set; }
+            public string Description{ get; set; }
+        }
+
+        public class SalaryRemarksTypeDropdown
+        {
+            public int Id { get; set; }
+            public string RemarksType { get; set; }
+        }
+    }
+    //------------------------------PAYROLL ADJUSTMENT----------------------------------------
+
+    //------------------------------PAYROLL DEDUCTIONS----------------------------------------
+    public class EmployeeDeduction
+    {
+        public int Id { get; set; }
+        public int? EmpId { get; set; }
+        public int? DeductionId { get; set; }
+        public string DeductionDescription { get; set; }
+        public DateTime? TranDate { get; set; }
+        public decimal DayAbsent { get; set; }
+
+        public decimal? Amount { get; set; }
+
+        
+        public string Remarks { get; set; }
+        public string Status { get; set; }
+
+        public int? UserId { get; set; }
+        public string CreatedBy { get; set; }
+        public decimal  Balance { get; set; }
+
+        public int Mode { get; set; }
+        public List<EmployeeDeduction> DeductionDropdown { get; set; }
+    }
+    //------------------------------PAYROLL DEDUCTIONS----------------------------------------
+
+    //==============================EMPLOYEE PAYROLL=========================================
 
 
 

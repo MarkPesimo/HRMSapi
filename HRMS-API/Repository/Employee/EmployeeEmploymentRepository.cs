@@ -59,13 +59,55 @@ namespace HRMS_API.Repository.Employee
                     select d).AsEnumerable()
                   .Select(x => new PreviousEmploymentViewModel()
                   {
+                      Id = x.Employ_ID,
                       CompanyName = x.Company_name,
+                      CompanyAddress = x.Company_Address,
+                      Function = x.REC_FUNCTION_MASTER_FILE.function_name,
                       Position = x.Company_position,
                       EmploymentPeriod = x.Company_from.HasValue ? x.Company_from.Value.ToString("MMMM yyyy", CultureInfo.InvariantCulture) + "-" + x.Company_to.Value.ToString("MMMM yyyy", CultureInfo.InvariantCulture) : "",
                       Branch = "",
                       Department = "",
                       EmploymentType = ""
                   }).ToList();
+        }
+        
+        public List<FunctionDropdownModel> GetDropdownFunctions()
+        {
+            return (from f in _conn.REC_FUNCTION_MASTER_FILE
+                    where f.status == true
+                    orderby f.function_name ascending
+                    select new FunctionDropdownModel
+                    {
+                        Id = f.id,
+                        FunctionName = f.function_name
+                    }).ToList();
+        }
+        
+        public List<RoleDropdownModel> GetDropdownRolesByFunction(int functionId)
+        {
+            return (from r in _conn.REC_FUNCTION_ROLE
+                    where r.status == true && r.function_id == functionId
+                    orderby r.description ascending
+                    select new RoleDropdownModel
+                    {
+                        Id = r.id,
+                        FunctionId = r.function_id,
+                        Description = r.description
+                    }).ToList();
+        }
+
+        public List<IndustryDropdownModel> GetDropdownIndustries()
+        {
+            return (from f in _conn.INDUSTRies
+                    where f.status == true
+                    orderby f.industry_name ascending
+                    select new IndustryDropdownModel
+                    {
+                        Id = f.id,
+                        IndustryName = f.industry_name,
+                        PSICCode = f.psic_code,
+                        CountryId = f.country_id
+                    }).ToList();
         }
 
         public bool ManageExternal(PreviousEmploymentModel _model)
