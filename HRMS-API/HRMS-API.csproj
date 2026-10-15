@@ -184,6 +184,7 @@
     <Compile Include="Controllers\MasterFile\DocumentTypeController.cs" />
     <Compile Include="Controllers\MasterFile\ShiftController.cs" />
     <Compile Include="Controllers\MasterFile\EmployeeTypeController.cs" />
+    <Compile Include="Controllers\MovementController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
     <Compile Include="Controllers\ReactivationController.cs" />
     <Compile Include="Controllers\RequiredDocumentController.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="Repository\LeaveRepository.cs" />
     <Compile Include="Repository\LoanRepository.cs" />
     <Compile Include="Repository\MasterFileRepository.cs" />
+    <Compile Include="Repository\MovementRepository.cs" />
     <Compile Include="Repository\NotesRepository.cs" />
     <Compile Include="Repository\ReactivationRepository.cs" />
     <Compile Include="Repository\ReplacementRepository.cs" />

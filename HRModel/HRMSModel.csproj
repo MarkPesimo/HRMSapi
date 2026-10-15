@@ -53,6 +53,7 @@
     <Compile Include="ViewModel\Employees\Education\EmployeeEducationModel.cs" />
     <Compile Include="ViewModel\Employees\EmployeeMonitoringViewModel.cs" />
     <Compile Include="ViewModel\Employees\EmployeeProfile.cs" />
+    <Compile Include="ViewModel\Employees\Movement\Movement_model.cs" />
     <Compile Include="ViewModel\Floating\Floating_model.cs" />
     <Compile Include="ViewModel\Floating\Replacement_model.cs" />
     <Compile Include="ViewModel\Floating\EmployeeTransaction_model.cs" />
