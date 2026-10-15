@@ -26,6 +26,17 @@ namespace HRMS_API.Repository.Employee
 
 
         //==============================SALARY REMARKS================================
+        public List<SalaryRemarksTypeDropdown> SalaryRemarksDropdown()
+        {
+            return (from d in _conn.SALARY_REMARKS_TYPE
+                    select d).AsEnumerable()
+                  .Select(x => new SalaryRemarksTypeDropdown()
+                  {
+                      Id = x.id,
+                      RemarksType = x.Remarks_Type
+                  }).ToList();
+        }
+
         public List<EmployeeSalaryRemark> GetSalaryRemarks(int _empid)
         {
 

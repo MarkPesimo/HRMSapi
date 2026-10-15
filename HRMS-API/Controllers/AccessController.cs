@@ -1,5 +1,5 @@
 ﻿using HRMS_API.Helper;
-using HRMS_API.Repository;
+using HRMS.REPO.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +21,22 @@ namespace HRMS_API.Controllers
         public AccessController()
         {
             if (_accessrepository == null) { _accessrepository = new AccessRepository(); }
+        }
+
+        [Route("api/Access/GetAppMenu/{UserId}/{AppId}")]
+        [HttpGet]
+        public HttpResponseMessage GetAppMenu(int UserId, int AppId)
+        {
+            try
+            {
+                List<AppMenu> _obj = _accessrepository.GetAppMenus(UserId, AppId);
+                return Request.CreateResponse(HttpStatusCode.OK, _obj);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
         }
 
         [Route("api/Access/ModuleAccess/{ModuleName}/{ModuleTypeId}/{UserId}/{AppId}")]

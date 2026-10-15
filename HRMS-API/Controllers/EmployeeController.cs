@@ -1,9 +1,9 @@
 ﻿using HRModel.ViewModel.Employees;
 using HRModel.ViewModel.Global;
 using HRMS_API.Helper;
-using HRMS_API.Repository;
-using HRMS_API.Repository.Client;
-using HRMS_API.Repository.Employee;
+using HRMS.REPO.Repository;
+using HRMS.REPO.Repository.Client;
+using HRMS.REPO.Repository.Employee;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +47,22 @@ namespace HRMS_API.Controllers
         //=================================PAYROLL==========================================
 
         //---------------------------------SALARY REMARKS---------------------------------
+        [Route("api/Employee/SalaryRemarksDropdown")]
+        [HttpGet]
+        public HttpResponseMessage SalaryRemarksDropdown()
+        {
+            try
+            {
+                List<SalaryRemarksTypeDropdown> _model = _payrollrepository.SalaryRemarksDropdown();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/GetSalaryRemarks/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetSalaryRemarks(string GUID)
@@ -83,6 +99,22 @@ namespace HRMS_API.Controllers
         //---------------------------------SALARY REMARKS---------------------------------
 
         //---------------------------------EMPLOYEE LOAN---------------------------------
+        [Route("api/Employee/LoanTypeDropdown")]
+        [HttpGet]
+        public HttpResponseMessage LoanTypeDropdown()
+        {
+            try
+            {
+                List<EmployeeLoanModel> _model = _loanrepository.LoanTypeDropdown();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
         [Route("api/Employee/GetEmployeeLoans/{GUID}")]
         [HttpGet]
         public HttpResponseMessage GetEmployeeLoans(string GUID)
@@ -959,5 +991,7 @@ namespace HRMS_API.Controllers
             }
         }
         //=================================DOCUMENT==========================================
+
+        
     }
 }

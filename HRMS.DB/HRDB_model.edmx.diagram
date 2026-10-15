@@ -236,7 +236,21 @@
         <AssociationConnector Association="apwdbModel.FK_REC_JOB_ORDER_REC_FUNCTION_MASTER_FILE" />
         <AssociationConnector Association="apwdbModel.FK_REC_Skill_REC_FUNCTION_MASTER_FILE" />
         <AssociationConnector Association="apwdbModel.FK_REC_FUNCTION_ROLE_SYS_USER" />
-      </Diagram>
+        <EntityTypeShape EntityType="apwdbModel.Employee_Personnel_Movement" Width="1.5" PointX="22.25" PointY="8.5" />
+        <EntityTypeShape EntityType="apwdbModel.Personnel_Movement_Category" Width="1.5" PointX="20" PointY="6" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_Branch" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_Branch1" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_Department" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_Department1" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_Employee" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_EmployeeRank" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_EmployeeRank1" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_EmployeeType" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_EmployeeType1" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_Personnel_Movement_Category" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_REC_CLIENT" />
+        <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_REC_CLIENT1" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -37,6 +37,8 @@ namespace HRMS.DB
             this.REC_CLIENT_OT_RATE = new HashSet<REC_CLIENT_OT_RATE>();
             this.REC_CLIENT_ACCOUNT_MAPPING = new HashSet<REC_CLIENT_ACCOUNT_MAPPING>();
             this.Employee_Benefits = new HashSet<Employee_Benefits>();
+            this.Employee_Personnel_Movement = new HashSet<Employee_Personnel_Movement>();
+            this.Employee_Personnel_Movement1 = new HashSet<Employee_Personnel_Movement>();
         }
     
         public int id { get; set; }
@@ -115,5 +117,9 @@ namespace HRMS.DB
         public virtual ICollection<REC_CLIENT_ACCOUNT_MAPPING> REC_CLIENT_ACCOUNT_MAPPING { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee_Benefits> Employee_Benefits { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_Personnel_Movement> Employee_Personnel_Movement { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee_Personnel_Movement> Employee_Personnel_Movement1 { get; set; }
     }
 }

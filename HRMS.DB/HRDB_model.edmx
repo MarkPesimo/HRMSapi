@@ -268,6 +268,41 @@
           <Property Name="date_unfloat" Type="date" />
           <Property Name="client_id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Employee_Personnel_Movement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpID" Type="int" Nullable="false" />
+          <Property Name="PM_CategoryID" Type="int" Nullable="false" />
+          <Property Name="ClientID_From" Type="int" Nullable="false" />
+          <Property Name="ClientID_To" Type="int" Nullable="false" />
+          <Property Name="BranchID_From" Type="int" Nullable="false" />
+          <Property Name="BranchID_To" Type="int" Nullable="false" />
+          <Property Name="DepartmentID_From" Type="int" Nullable="false" />
+          <Property Name="DepartmentID_To" Type="int" Nullable="false" />
+          <Property Name="EmpTypeID_From" Type="int" Nullable="false" />
+          <Property Name="EmpTypeID_To" Type="int" Nullable="false" />
+          <Property Name="Position_From" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Position_To" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="EmpRankID_From" Type="int" Nullable="false" />
+          <Property Name="EmpRankID_To" Type="int" Nullable="false" />
+          <Property Name="PayType_From" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PayType_To" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MonthlySalary_From" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MonthlySalary_To" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Allowance_From" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Allowance_To" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="EffectiveDate_From" Type="datetime" Nullable="false" />
+          <Property Name="EffectiveDate_To" Type="datetime" Nullable="false" />
+          <Property Name="Salary_Change_Date" Type="datetime" Nullable="false" />
+          <Property Name="User_Created" Type="int" Nullable="false" />
+          <Property Name="Date_Created" Type="datetime" Nullable="false" />
+          <Property Name="User_Modified" Type="int" />
+          <Property Name="Date_Modified" Type="datetime" />
+          <Property Name="process_status" Type="bit" Nullable="false" />
+          <Property Name="process_date" Type="datetime" />
+        </EntityType>
         <EntityType Name="Employee_Replacement_HD">
           <Key>
             <PropertyRef Name="id" />
@@ -556,6 +591,15 @@
           <Property Name="date_approved_by_payroll" Type="datetime" />
           <Property Name="reject_by_payroll" Type="bit" />
           <Property Name="date_rejected_by_payroll" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Personnel_Movement_Category">
+          <Key>
+            <PropertyRef Name="PM_CategoryID" />
+          </Key>
+          <Property Name="PM_CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category_Description" Type="nvarchar" MaxLength="150" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="PortalUser">
           <Key>
@@ -2099,6 +2143,150 @@
             </Principal>
             <Dependent Role="Employee_Benefits">
               <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_Branch">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="1" />
+          <End Role="Employee_Personnel_Movement" Type="Self.Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Branch_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="BranchID_From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_Branch1">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="1" />
+          <End Role="Employee_Personnel_Movement" Type="Self.Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Branch_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="BranchID_To" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Employee_Personnel_Movement" Type="Self.Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dept_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="DepartmentID_From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_Department1">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Employee_Personnel_Movement" Type="Self.Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dept_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="DepartmentID_To" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Employee_Personnel_Movement" Type="Self.Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_EmployeeRank">
+          <End Role="EmployeeRank" Type="Self.EmployeeRank" Multiplicity="1" />
+          <End Role="Employee_Personnel_Movement" Type="Self.Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeRank">
+              <PropertyRef Name="EmpRank_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="EmpRankID_From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_EmployeeRank1">
+          <End Role="EmployeeRank" Type="Self.EmployeeRank" Multiplicity="1" />
+          <End Role="Employee_Personnel_Movement" Type="Self.Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeRank">
+              <PropertyRef Name="EmpRank_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="EmpRankID_To" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_EmployeeType">
+          <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="1" />
+          <End Role="Employee_Personnel_Movement" Type="Self.Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmpType_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="EmpTypeID_From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_EmployeeType1">
+          <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="1" />
+          <End Role="Employee_Personnel_Movement" Type="Self.Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmpType_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="EmpTypeID_To" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_Personnel_Movement_Category">
+          <End Role="Personnel_Movement_Category" Type="Self.Personnel_Movement_Category" Multiplicity="1" />
+          <End Role="Employee_Personnel_Movement" Type="Self.Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personnel_Movement_Category">
+              <PropertyRef Name="PM_CategoryID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="PM_CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_REC_CLIENT">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="Employee_Personnel_Movement" Type="Self.Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="ClientID_From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_REC_CLIENT1">
+          <End Role="REC_CLIENT" Type="Self.REC_CLIENT" Multiplicity="1" />
+          <End Role="Employee_Personnel_Movement" Type="Self.Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="ClientID_To" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3818,6 +4006,19 @@
           <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
           <Parameter Name="COMPANY_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="USP_H_GET_PERSONNEL_MOVEMENT_MONITORING" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KEYWORD" Type="nvarchar" Mode="In" />
+          <Parameter Name="BY_CLIENT" Type="bit" Mode="In" />
+          <Parameter Name="CLIENT_ID" Type="int" Mode="In" />
+          <Parameter Name="BY_CATEGORY" Type="bit" Mode="In" />
+          <Parameter Name="CATEGORY_ID" Type="int" Mode="In" />
+          <Parameter Name="BY_DATE" Type="bit" Mode="In" />
+          <Parameter Name="DATE_FROM" Type="date" Mode="In" />
+          <Parameter Name="DATE_TO" Type="date" Mode="In" />
+          <Parameter Name="PageNumber" Type="int" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="COMPANY_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_H_GET_SUBMITTED_REQUIRED_DOCUMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
         </Function>
@@ -3996,6 +4197,35 @@
           <Parameter Name="MODE" Type="int" Mode="In" />
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+          <Parameter Name="EMP_ID" Type="int" Mode="In" />
+          <Parameter Name="CATEGORY_ID" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID_FROM" Type="int" Mode="In" />
+          <Parameter Name="CLIENT_ID_TO" Type="int" Mode="In" />
+          <Parameter Name="BRANCH_ID_FROM" Type="int" Mode="In" />
+          <Parameter Name="BRANCH_ID_TO" Type="int" Mode="In" />
+          <Parameter Name="DEPARTMENT_ID_FROM" Type="int" Mode="In" />
+          <Parameter Name="DEPARTMENT_ID_TO" Type="int" Mode="In" />
+          <Parameter Name="EMPTYPE_ID_FROM" Type="int" Mode="In" />
+          <Parameter Name="EMPTYPE_ID_TO" Type="int" Mode="In" />
+          <Parameter Name="EMPRANK_ID_FROM" Type="int" Mode="In" />
+          <Parameter Name="EMPRANK_ID_TO" Type="int" Mode="In" />
+          <Parameter Name="POSITION_FROM" Type="nvarchar" Mode="In" />
+          <Parameter Name="POSITION_TO" Type="nvarchar" Mode="In" />
+          <Parameter Name="PAYTYPE_FROM" Type="nvarchar" Mode="In" />
+          <Parameter Name="PAYTYPE_TO" Type="nvarchar" Mode="In" />
+          <Parameter Name="MONTHLYSALARY_FROM" Type="decimal" Mode="In" />
+          <Parameter Name="MONTHLYSALARY_TO" Type="decimal" Mode="In" />
+          <Parameter Name="ALLOWANCE_FROM" Type="decimal" Mode="In" />
+          <Parameter Name="ALLOWANCE_TO" Type="decimal" Mode="In" />
+          <Parameter Name="EFFECTIVE_DATE_FROM" Type="date" Mode="In" />
+          <Parameter Name="EFFECTIVE_DATE_TO" Type="date" Mode="In" />
+          <Parameter Name="SALARY_CHANGE_DATE" Type="date" Mode="In" />
+          <Parameter Name="USERID" Type="int" Mode="In" />
+          <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
         <Function Name="USP_H_MANAGE_EMPLOYEE_REPLACEMENT_HD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MODE" Type="int" Mode="In" />
@@ -4329,6 +4559,7 @@
           <EntitySet Name="Employee_Benefits" EntityType="Self.Employee_Benefits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Benefits_Type" EntityType="Self.Employee_Benefits_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Floating_Status" EntityType="Self.Employee_Floating_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee_Personnel_Movement" EntityType="Self.Employee_Personnel_Movement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Replacement_HD" EntityType="Self.Employee_Replacement_HD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Separation" EntityType="Self.Employee_Separation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeLeaveMonitoring" EntityType="Self.EmployeeLeaveMonitoring" Schema="dbo" store:Type="Tables" />
@@ -4347,6 +4578,7 @@
           <EntitySet Name="OtherDeduction" EntityType="Self.OtherDeduction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OvertimeBasis" EntityType="Self.OvertimeBasis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="P_Leave" EntityType="Self.P_Leave" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personnel_Movement_Category" EntityType="Self.Personnel_Movement_Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PortalUser" EntityType="Self.PortalUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE" EntityType="Self.REC_CANDIDATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REC_CANDIDATE_DOCUMENT" EntityType="Self.REC_CANDIDATE_DOCUMENT" Schema="dbo" store:Type="Tables" />
@@ -4620,6 +4852,54 @@
           <AssociationSet Name="FK_Employee_Benefits_REC_CLIENT" Association="Self.FK_Employee_Benefits_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
             <End Role="Employee_Benefits" EntitySet="Employee_Benefits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_Branch" Association="Self.FK_Employee_Personnel_Movement_Branch">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_Branch1" Association="Self.FK_Employee_Personnel_Movement_Branch1">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_Department" Association="Self.FK_Employee_Personnel_Movement_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_Department1" Association="Self.FK_Employee_Personnel_Movement_Department1">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_Employee" Association="Self.FK_Employee_Personnel_Movement_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_EmployeeRank" Association="Self.FK_Employee_Personnel_Movement_EmployeeRank">
+            <End Role="EmployeeRank" EntitySet="EmployeeRank" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_EmployeeRank1" Association="Self.FK_Employee_Personnel_Movement_EmployeeRank1">
+            <End Role="EmployeeRank" EntitySet="EmployeeRank" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_EmployeeType" Association="Self.FK_Employee_Personnel_Movement_EmployeeType">
+            <End Role="EmployeeType" EntitySet="EmployeeType" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_EmployeeType1" Association="Self.FK_Employee_Personnel_Movement_EmployeeType1">
+            <End Role="EmployeeType" EntitySet="EmployeeType" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_Personnel_Movement_Category" Association="Self.FK_Employee_Personnel_Movement_Personnel_Movement_Category">
+            <End Role="Personnel_Movement_Category" EntitySet="Personnel_Movement_Category" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_REC_CLIENT" Association="Self.FK_Employee_Personnel_Movement_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_REC_CLIENT1" Association="Self.FK_Employee_Personnel_Movement_REC_CLIENT1">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_REC_CLIENT" Association="Self.FK_Employee_REC_CLIENT">
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
@@ -6803,7 +7083,99 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="REC_FUNCTION_ROLE" EntitySet="REC_FUNCTION_ROLE" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="Employee_Personnel_Movement" EntityType="apwdbModel.Employee_Personnel_Movement" />
+          <EntitySet Name="Personnel_Movement_Category" EntityType="apwdbModel.Personnel_Movement_Category" />
+          <AssociationSet Name="FK_Employee_Personnel_Movement_Branch" Association="apwdbModel.FK_Employee_Personnel_Movement_Branch">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_Branch1" Association="apwdbModel.FK_Employee_Personnel_Movement_Branch1">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_Department" Association="apwdbModel.FK_Employee_Personnel_Movement_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_Department1" Association="apwdbModel.FK_Employee_Personnel_Movement_Department1">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_Employee" Association="apwdbModel.FK_Employee_Personnel_Movement_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_EmployeeRank" Association="apwdbModel.FK_Employee_Personnel_Movement_EmployeeRank">
+            <End Role="EmployeeRank" EntitySet="EmployeeRanks" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_EmployeeRank1" Association="apwdbModel.FK_Employee_Personnel_Movement_EmployeeRank1">
+            <End Role="EmployeeRank" EntitySet="EmployeeRanks" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_EmployeeType" Association="apwdbModel.FK_Employee_Personnel_Movement_EmployeeType">
+            <End Role="EmployeeType" EntitySet="EmployeeTypes" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_EmployeeType1" Association="apwdbModel.FK_Employee_Personnel_Movement_EmployeeType1">
+            <End Role="EmployeeType" EntitySet="EmployeeTypes" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_Personnel_Movement_Category" Association="apwdbModel.FK_Employee_Personnel_Movement_Personnel_Movement_Category">
+            <End Role="Personnel_Movement_Category" EntitySet="Personnel_Movement_Category" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_REC_CLIENT" Association="apwdbModel.FK_Employee_Personnel_Movement_REC_CLIENT">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Personnel_Movement_REC_CLIENT1" Association="apwdbModel.FK_Employee_Personnel_Movement_REC_CLIENT1">
+            <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
+            <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
+          </AssociationSet>
+          <FunctionImport Name="USP_H_GET_PERSONNEL_MOVEMENT_MONITORING" ReturnType="Collection(apwdbModel.USP_H_GET_PERSONNEL_MOVEMENT_MONITORING_Result)">
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
+            <Parameter Name="BY_CLIENT" Mode="In" Type="Boolean" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_CATEGORY" Mode="In" Type="Boolean" />
+            <Parameter Name="CATEGORY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_DATE" Mode="In" Type="Boolean" />
+            <Parameter Name="DATE_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="DATE_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="PageNumber" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="COMPANY_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+            <Parameter Name="EMP_ID" Mode="In" Type="Int32" />
+            <Parameter Name="CATEGORY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID_FROM" Mode="In" Type="Int32" />
+            <Parameter Name="CLIENT_ID_TO" Mode="In" Type="Int32" />
+            <Parameter Name="BRANCH_ID_FROM" Mode="In" Type="Int32" />
+            <Parameter Name="BRANCH_ID_TO" Mode="In" Type="Int32" />
+            <Parameter Name="DEPARTMENT_ID_FROM" Mode="In" Type="Int32" />
+            <Parameter Name="DEPARTMENT_ID_TO" Mode="In" Type="Int32" />
+            <Parameter Name="EMPTYPE_ID_FROM" Mode="In" Type="Int32" />
+            <Parameter Name="EMPTYPE_ID_TO" Mode="In" Type="Int32" />
+            <Parameter Name="EMPRANK_ID_FROM" Mode="In" Type="Int32" />
+            <Parameter Name="EMPRANK_ID_TO" Mode="In" Type="Int32" />
+            <Parameter Name="POSITION_FROM" Mode="In" Type="String" />
+            <Parameter Name="POSITION_TO" Mode="In" Type="String" />
+            <Parameter Name="PAYTYPE_FROM" Mode="In" Type="String" />
+            <Parameter Name="PAYTYPE_TO" Mode="In" Type="String" />
+            <Parameter Name="MONTHLYSALARY_FROM" Mode="In" Type="Decimal" />
+            <Parameter Name="MONTHLYSALARY_TO" Mode="In" Type="Decimal" />
+            <Parameter Name="ALLOWANCE_FROM" Mode="In" Type="Decimal" />
+            <Parameter Name="ALLOWANCE_TO" Mode="In" Type="Decimal" />
+            <Parameter Name="EFFECTIVE_DATE_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="EFFECTIVE_DATE_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="SALARY_CHANGE_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="USERID" Mode="In" Type="Int32" />
+            <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          </EntityContainer>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Emp_ID" />
@@ -6928,6 +7300,7 @@
           <NavigationProperty Name="PortalUsers" Relationship="apwdbModel.FK_PortalUser_Employee" FromRole="Employee" ToRole="PortalUser" />
           <NavigationProperty Name="Employee_Benefits" Relationship="apwdbModel.FK_Employee_Benefits_Employee" FromRole="Employee" ToRole="Employee_Benefits" />
           <NavigationProperty Name="REC_FUNCTION_MASTER_FILE" Relationship="apwdbModel.FK_Employee_REC_FUNCTION_MASTER_FILE" FromRole="Employee" ToRole="REC_FUNCTION_MASTER_FILE" />
+          <NavigationProperty Name="Employee_Personnel_Movement" Relationship="apwdbModel.FK_Employee_Personnel_Movement_Employee" FromRole="Employee" ToRole="Employee_Personnel_Movement" />
         </EntityType>
         <EntityType Name="REC_USER_LOG">
           <Key>
@@ -7459,6 +7832,8 @@
           <NavigationProperty Name="REC_CLIENT_OT_RATE" Relationship="apwdbModel.C_FK_REC_CLIENT_OT_RATE_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_OT_RATE" />
           <NavigationProperty Name="REC_CLIENT_ACCOUNT_MAPPING" Relationship="apwdbModel.C_FK_REC_CLIENT_ACCOUNT_MAPPING_REC_CLIENT" FromRole="REC_CLIENT" ToRole="REC_CLIENT_ACCOUNT_MAPPING" />
           <NavigationProperty Name="Employee_Benefits" Relationship="apwdbModel.FK_Employee_Benefits_REC_CLIENT" FromRole="REC_CLIENT" ToRole="Employee_Benefits" />
+          <NavigationProperty Name="Employee_Personnel_Movement" Relationship="apwdbModel.FK_Employee_Personnel_Movement_REC_CLIENT" FromRole="REC_CLIENT" ToRole="Employee_Personnel_Movement" />
+          <NavigationProperty Name="Employee_Personnel_Movement1" Relationship="apwdbModel.FK_Employee_Personnel_Movement_REC_CLIENT1" FromRole="REC_CLIENT" ToRole="Employee_Personnel_Movement" />
         </EntityType>
         <Association Name="FK_Employee_REC_CLIENT">
           <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
@@ -7770,6 +8145,8 @@
           <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_Department" FromRole="Department" ToRole="Employee" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_Department_SYS_USER" FromRole="Department" ToRole="SYS_USER" />
           <NavigationProperty Name="REC_CLIENT_DEPARTMENT" Relationship="apwdbModel.C_FK_REC_CLIENT_DEPARTMENT_Department" FromRole="Department" ToRole="REC_CLIENT_DEPARTMENT" />
+          <NavigationProperty Name="Employee_Personnel_Movement" Relationship="apwdbModel.FK_Employee_Personnel_Movement_Department" FromRole="Department" ToRole="Employee_Personnel_Movement" />
+          <NavigationProperty Name="Employee_Personnel_Movement1" Relationship="apwdbModel.FK_Employee_Personnel_Movement_Department1" FromRole="Department" ToRole="Employee_Personnel_Movement" />
         </EntityType>
         <Association Name="C_FK_Employee_Department">
           <End Type="apwdbModel.Department" Role="Department" Multiplicity="1" />
@@ -7813,6 +8190,8 @@
           <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.C_FK_Branch_REC_CLIENT" FromRole="Branch" ToRole="REC_CLIENT" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.C_FK_Branch_SYS_USER" FromRole="Branch" ToRole="SYS_USER" />
           <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_Branch" FromRole="Branch" ToRole="Employee" />
+          <NavigationProperty Name="Employee_Personnel_Movement" Relationship="apwdbModel.FK_Employee_Personnel_Movement_Branch" FromRole="Branch" ToRole="Employee_Personnel_Movement" />
+          <NavigationProperty Name="Employee_Personnel_Movement1" Relationship="apwdbModel.FK_Employee_Personnel_Movement_Branch1" FromRole="Branch" ToRole="Employee_Personnel_Movement" />
         </EntityType>
         <Association Name="C_FK_Branch_REC_CLIENT">
           <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
@@ -7907,6 +8286,8 @@
           <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_EmployeeType" FromRole="EmployeeType" ToRole="Employee" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_EmployeeType_SYS_USER" FromRole="EmployeeType" ToRole="SYS_USER" />
           <NavigationProperty Name="REC_NEW_HIRED_EMPLOYEE" Relationship="apwdbModel.FK_REC_NEW_HIRED_EMPLOYEE_EmployeeType" FromRole="EmployeeType" ToRole="REC_NEW_HIRED_EMPLOYEE" />
+          <NavigationProperty Name="Employee_Personnel_Movement" Relationship="apwdbModel.FK_Employee_Personnel_Movement_EmployeeType" FromRole="EmployeeType" ToRole="Employee_Personnel_Movement" />
+          <NavigationProperty Name="Employee_Personnel_Movement1" Relationship="apwdbModel.FK_Employee_Personnel_Movement_EmployeeType1" FromRole="EmployeeType" ToRole="Employee_Personnel_Movement" />
         </EntityType>
         <Association Name="C_FK_Employee_EmployeeType">
           <End Type="apwdbModel.EmployeeType" Role="EmployeeType" Multiplicity="1" />
@@ -7943,6 +8324,8 @@
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Employees" Relationship="apwdbModel.C_FK_Employee_EmployeeRank" FromRole="EmployeeRank" ToRole="Employee" />
           <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_EmployeeRank_SYS_USER" FromRole="EmployeeRank" ToRole="SYS_USER" />
+          <NavigationProperty Name="Employee_Personnel_Movement" Relationship="apwdbModel.FK_Employee_Personnel_Movement_EmployeeRank" FromRole="EmployeeRank" ToRole="Employee_Personnel_Movement" />
+          <NavigationProperty Name="Employee_Personnel_Movement1" Relationship="apwdbModel.FK_Employee_Personnel_Movement_EmployeeRank1" FromRole="EmployeeRank" ToRole="Employee_Personnel_Movement" />
         </EntityType>
         <Association Name="C_FK_Employee_EmployeeRank">
           <End Type="apwdbModel.EmployeeRank" Role="EmployeeRank" Multiplicity="1" />
@@ -10791,7 +11174,227 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="Employee_Personnel_Movement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpID" Type="Int32" Nullable="false" />
+          <Property Name="PM_CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="ClientID_From" Type="Int32" Nullable="false" />
+          <Property Name="ClientID_To" Type="Int32" Nullable="false" />
+          <Property Name="BranchID_From" Type="Int32" Nullable="false" />
+          <Property Name="BranchID_To" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentID_From" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentID_To" Type="Int32" Nullable="false" />
+          <Property Name="EmpTypeID_From" Type="Int32" Nullable="false" />
+          <Property Name="EmpTypeID_To" Type="Int32" Nullable="false" />
+          <Property Name="Position_From" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Position_To" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EmpRankID_From" Type="Int32" Nullable="false" />
+          <Property Name="EmpRankID_To" Type="Int32" Nullable="false" />
+          <Property Name="PayType_From" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PayType_To" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MonthlySalary_From" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="MonthlySalary_To" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Allowance_From" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Allowance_To" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="EffectiveDate_From" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EffectiveDate_To" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Salary_Change_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="User_Created" Type="Int32" Nullable="false" />
+          <Property Name="Date_Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="User_Modified" Type="Int32" />
+          <Property Name="Date_Modified" Type="DateTime" Precision="3" />
+          <Property Name="process_status" Type="Boolean" Nullable="false" />
+          <Property Name="process_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Branch" Relationship="apwdbModel.FK_Employee_Personnel_Movement_Branch" FromRole="Employee_Personnel_Movement" ToRole="Branch" />
+          <NavigationProperty Name="Branch1" Relationship="apwdbModel.FK_Employee_Personnel_Movement_Branch1" FromRole="Employee_Personnel_Movement" ToRole="Branch" />
+          <NavigationProperty Name="Department" Relationship="apwdbModel.FK_Employee_Personnel_Movement_Department" FromRole="Employee_Personnel_Movement" ToRole="Department" />
+          <NavigationProperty Name="Department1" Relationship="apwdbModel.FK_Employee_Personnel_Movement_Department1" FromRole="Employee_Personnel_Movement" ToRole="Department" />
+          <NavigationProperty Name="Employee" Relationship="apwdbModel.FK_Employee_Personnel_Movement_Employee" FromRole="Employee_Personnel_Movement" ToRole="Employee" />
+          <NavigationProperty Name="EmployeeRank" Relationship="apwdbModel.FK_Employee_Personnel_Movement_EmployeeRank" FromRole="Employee_Personnel_Movement" ToRole="EmployeeRank" />
+          <NavigationProperty Name="EmployeeRank1" Relationship="apwdbModel.FK_Employee_Personnel_Movement_EmployeeRank1" FromRole="Employee_Personnel_Movement" ToRole="EmployeeRank" />
+          <NavigationProperty Name="EmployeeType" Relationship="apwdbModel.FK_Employee_Personnel_Movement_EmployeeType" FromRole="Employee_Personnel_Movement" ToRole="EmployeeType" />
+          <NavigationProperty Name="EmployeeType1" Relationship="apwdbModel.FK_Employee_Personnel_Movement_EmployeeType1" FromRole="Employee_Personnel_Movement" ToRole="EmployeeType" />
+          <NavigationProperty Name="Personnel_Movement_Category" Relationship="apwdbModel.FK_Employee_Personnel_Movement_Personnel_Movement_Category" FromRole="Employee_Personnel_Movement" ToRole="Personnel_Movement_Category" />
+          <NavigationProperty Name="REC_CLIENT" Relationship="apwdbModel.FK_Employee_Personnel_Movement_REC_CLIENT" FromRole="Employee_Personnel_Movement" ToRole="REC_CLIENT" />
+          <NavigationProperty Name="REC_CLIENT1" Relationship="apwdbModel.FK_Employee_Personnel_Movement_REC_CLIENT1" FromRole="Employee_Personnel_Movement" ToRole="REC_CLIENT" />
+        </EntityType>
+        <EntityType Name="Personnel_Movement_Category">
+          <Key>
+            <PropertyRef Name="PM_CategoryID" />
+          </Key>
+          <Property Name="PM_CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category_Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Employee_Personnel_Movement" Relationship="apwdbModel.FK_Employee_Personnel_Movement_Personnel_Movement_Category" FromRole="Personnel_Movement_Category" ToRole="Employee_Personnel_Movement" />
+        </EntityType>
+        <Association Name="FK_Employee_Personnel_Movement_Branch">
+          <End Type="apwdbModel.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Personnel_Movement" Role="Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Branch_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="BranchID_From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_Branch1">
+          <End Type="apwdbModel.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Personnel_Movement" Role="Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Branch_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="BranchID_To" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_Department">
+          <End Type="apwdbModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Personnel_Movement" Role="Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dept_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="DepartmentID_From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_Department1">
+          <End Type="apwdbModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Personnel_Movement" Role="Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dept_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="DepartmentID_To" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_Employee">
+          <End Type="apwdbModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Personnel_Movement" Role="Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="EmpID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_EmployeeRank">
+          <End Type="apwdbModel.EmployeeRank" Role="EmployeeRank" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Personnel_Movement" Role="Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeRank">
+              <PropertyRef Name="EmpRank_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="EmpRankID_From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_EmployeeRank1">
+          <End Type="apwdbModel.EmployeeRank" Role="EmployeeRank" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Personnel_Movement" Role="Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeRank">
+              <PropertyRef Name="EmpRank_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="EmpRankID_To" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_EmployeeType">
+          <End Type="apwdbModel.EmployeeType" Role="EmployeeType" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Personnel_Movement" Role="Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmpType_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="EmpTypeID_From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_EmployeeType1">
+          <End Type="apwdbModel.EmployeeType" Role="EmployeeType" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Personnel_Movement" Role="Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmpType_ID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="EmpTypeID_To" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_Personnel_Movement_Category">
+          <End Type="apwdbModel.Personnel_Movement_Category" Role="Personnel_Movement_Category" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Personnel_Movement" Role="Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personnel_Movement_Category">
+              <PropertyRef Name="PM_CategoryID" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="PM_CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_REC_CLIENT">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Personnel_Movement" Role="Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="ClientID_From" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Personnel_Movement_REC_CLIENT1">
+          <End Type="apwdbModel.REC_CLIENT" Role="REC_CLIENT" Multiplicity="1" />
+          <End Type="apwdbModel.Employee_Personnel_Movement" Role="Employee_Personnel_Movement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REC_CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee_Personnel_Movement">
+              <PropertyRef Name="ClientID_To" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_H_GET_PERSONNEL_MOVEMENT_MONITORING_Result">
+          <Property Type="String" Name="Category" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ClientName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Department" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Branch" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Position" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="EmpRank" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="EmpType" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Paytype" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Cnt" Nullable="true" />
+          <Property Type="String" Name="UserEncoded" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="DateEncoded" Nullable="true" />
+          <Property Type="Int32" Name="EmpID" Nullable="true" />
+          <Property Type="String" Name="EmpNo" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="EffectiveDate" Nullable="true" />
+          <Property Type="DateTime" Name="SalaryChangeDate" Nullable="true" />
+          <Property Type="Int32" Name="id" Nullable="true" />
+        </ComplexType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -12818,6 +13421,76 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Employee_Personnel_Movement">
+            <EntityTypeMapping TypeName="apwdbModel.Employee_Personnel_Movement">
+              <MappingFragment StoreEntitySet="Employee_Personnel_Movement">
+                <ScalarProperty Name="process_date" ColumnName="process_date" />
+                <ScalarProperty Name="process_status" ColumnName="process_status" />
+                <ScalarProperty Name="Date_Modified" ColumnName="Date_Modified" />
+                <ScalarProperty Name="User_Modified" ColumnName="User_Modified" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="User_Created" ColumnName="User_Created" />
+                <ScalarProperty Name="Salary_Change_Date" ColumnName="Salary_Change_Date" />
+                <ScalarProperty Name="EffectiveDate_To" ColumnName="EffectiveDate_To" />
+                <ScalarProperty Name="EffectiveDate_From" ColumnName="EffectiveDate_From" />
+                <ScalarProperty Name="Allowance_To" ColumnName="Allowance_To" />
+                <ScalarProperty Name="Allowance_From" ColumnName="Allowance_From" />
+                <ScalarProperty Name="MonthlySalary_To" ColumnName="MonthlySalary_To" />
+                <ScalarProperty Name="MonthlySalary_From" ColumnName="MonthlySalary_From" />
+                <ScalarProperty Name="PayType_To" ColumnName="PayType_To" />
+                <ScalarProperty Name="PayType_From" ColumnName="PayType_From" />
+                <ScalarProperty Name="EmpRankID_To" ColumnName="EmpRankID_To" />
+                <ScalarProperty Name="EmpRankID_From" ColumnName="EmpRankID_From" />
+                <ScalarProperty Name="Position_To" ColumnName="Position_To" />
+                <ScalarProperty Name="Position_From" ColumnName="Position_From" />
+                <ScalarProperty Name="EmpTypeID_To" ColumnName="EmpTypeID_To" />
+                <ScalarProperty Name="EmpTypeID_From" ColumnName="EmpTypeID_From" />
+                <ScalarProperty Name="DepartmentID_To" ColumnName="DepartmentID_To" />
+                <ScalarProperty Name="DepartmentID_From" ColumnName="DepartmentID_From" />
+                <ScalarProperty Name="BranchID_To" ColumnName="BranchID_To" />
+                <ScalarProperty Name="BranchID_From" ColumnName="BranchID_From" />
+                <ScalarProperty Name="ClientID_To" ColumnName="ClientID_To" />
+                <ScalarProperty Name="ClientID_From" ColumnName="ClientID_From" />
+                <ScalarProperty Name="PM_CategoryID" ColumnName="PM_CategoryID" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personnel_Movement_Category">
+            <EntityTypeMapping TypeName="apwdbModel.Personnel_Movement_Category">
+              <MappingFragment StoreEntitySet="Personnel_Movement_Category">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Category_Description" ColumnName="Category_Description" />
+                <ScalarProperty Name="PM_CategoryID" ColumnName="PM_CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_GET_PERSONNEL_MOVEMENT_MONITORING" FunctionName="apwdbModel.Store.USP_H_GET_PERSONNEL_MOVEMENT_MONITORING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_PERSONNEL_MOVEMENT_MONITORING_Result">
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="EmpRank" ColumnName="EmpRank" />
+                <ScalarProperty Name="EmpType" ColumnName="EmpType" />
+                <ScalarProperty Name="Paytype" ColumnName="Paytype" />
+                <ScalarProperty Name="Cnt" ColumnName="Cnt" />
+                <ScalarProperty Name="UserEncoded" ColumnName="UserEncoded" />
+                <ScalarProperty Name="DateEncoded" ColumnName="DateEncoded" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="SalaryChangeDate" ColumnName="SalaryChangeDate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

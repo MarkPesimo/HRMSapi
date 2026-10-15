@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static HRModel.ViewModel.Employees.EmployeeAdjustment;
 
 namespace HRModel.ViewModel.Employees
 {
@@ -497,6 +498,8 @@ namespace HRModel.ViewModel.Employees
         public DateTime DateCreated { get; set; }
         
         public int Mode { get; set; }
+
+        public List<SalaryRemarksTypeDropdown> SalaryRemarksDropdown { get; set; }
     }
     //------------------------------SALARY REMARKS----------------------------------------
 
@@ -540,6 +543,12 @@ namespace HRModel.ViewModel.Employees
             public int Id { get; set; }
             public string RestDay { get; set; }
             public string Description{ get; set; }
+        }
+
+        public class SalaryRemarksTypeDropdown
+        {
+            public int Id { get; set; }
+            public string RemarksType { get; set; }
         }
     }
     //------------------------------PAYROLL ADJUSTMENT----------------------------------------
