@@ -155,13 +155,19 @@ namespace HRMS_API.Controllers
 
         [Route("api/Access/ManageAccess")]
         [HttpPost]
-        public HttpResponseMessage ManageSalaryRemarks([FromBody] AccessableModule_model model)
+        public HttpResponseMessage ManageAccessRights([FromBody] AccessableModule_model model)
         {
             try
             {
                 int result = _accessrepository.ManageAccessRights(model);
-                if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Ok."); }
-                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record."); }
+                if (result > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record.");
+                }
             }
             catch (Exception ex)
             {

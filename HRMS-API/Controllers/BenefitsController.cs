@@ -23,23 +23,27 @@ namespace HRMS_API.Controllers
             if (_benefitsrepository == null) { _benefitsrepository = new BenefitsRepository(); }
         }
 
-        [Route("api/Benefits/GetBenefitsMonitoring/{Keyword}/{ByClient}/{ClientID}/{ByDate}/{DateFrom}/{DateTo}/{PageNo}/{PageSize}/{CompanyID}")]
+        [Route("api/Benefits/GetBenefitsMonitoring")]
         [HttpGet]
         public HttpResponseMessage GetBenefitsMonitoring(string Keyword, bool ByClient, int ClientID, bool ByDate, DateTime DateFrom, DateTime DateTo, int PageNo, int PageSize, int CompanyID)
         {
             try
             {
-                List<BenefitsMonitoring_model> _model = _benefitsrepository.GetBenefitsMonitoring(Keyword, ByClient, ClientID, ByDate, DateFrom, DateTo, PageNo, PageSize, CompanyID);
+                string searchKeyword = Keyword == "NULL" ? "" : (Keyword ?? "");
+
+                List<BenefitsMonitoring_model> _model = _benefitsrepository.GetBenefitsMonitoring(searchKeyword, ByClient, ClientID, ByDate, DateFrom, DateTo, PageNo, PageSize, CompanyID);
                 if (_model != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, _model);
                 }
                 else
-                { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException != null ? ex.InnerException.Message : ex.Message);
             }
         }
 

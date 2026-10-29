@@ -39,6 +39,7 @@ namespace HRMS_API.Repository
                   .Select(x => new MovementMonitoring_model()
                   {
                       Id = int.Parse(x.id.ToString()),
+                      CategoryName = x.Category,
                       EmpId = int.Parse(x.EmpID.ToString()),
                       EmployeeName = x.EmployeeName,
                       ClientName = x.ClientName,

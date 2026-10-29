@@ -24,9 +24,9 @@ namespace HRMS_API.Controllers
             //if (EmployeeRepository == null) { EmployeeRepository = new EmployeeRepository(); }
         }
 
-        [Route("api/Reactivation/GetMonitoring/{ByStatus}/{Status}/{Keyword}")]
+        [Route("api/Reactivation/GetMonitoring/{ByStatus}/{Status}/{Keyword?}")]
         [HttpGet]
-        public HttpResponseMessage GetMonitoring(bool   ByStatus , bool Status, string Keyword)
+        public HttpResponseMessage GetMonitoring(bool ByStatus, bool Status, string Keyword = "")
         {
             try
             {
@@ -43,7 +43,7 @@ namespace HRMS_API.Controllers
         }
 
         [Route("api/Reactivation/Manage")]
-        [HttpGet]
+        [HttpPost]
         public HttpResponseMessage Manage([FromBody] EmployeeReactivation_model model)
         {
             try
@@ -57,5 +57,7 @@ namespace HRMS_API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
             }
         }
+
+
     }
 }

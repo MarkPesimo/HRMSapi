@@ -29,7 +29,9 @@ namespace HRMS.REPO.Repository
                 {
                     Id = int.Parse( x.id.ToString()),
                     DateCreated = DateTime.Parse(x.date_created.ToString()),
+                    ClientId = x.client_id ?? 0,
                     ClientName = x.client_name,
+                    CandId = x.cand_id ?? 0,
                     EmpId = int.Parse(x.emp_id.ToString()),
                     EmployeeGUID = x.employee_guid,
                     EmployeeName = x.employee_name,

@@ -15,8 +15,11 @@ namespace HRMS.DB
     {
         public Nullable<int> id { get; set; }
         public Nullable<System.DateTime> date_created { get; set; }
+        public Nullable<int> client_id { get; set; }
         public string client_name { get; set; }
+        public Nullable<int> cand_id { get; set; }
         public Nullable<int> emp_id { get; set; }
+        public string employee_guid { get; set; }
         public string employee_name { get; set; }
         public string requested_by { get; set; }
         public string reason { get; set; }
@@ -24,5 +27,6 @@ namespace HRMS.DB
         public string created_by { get; set; }
         public Nullable<System.DateTime> date_closed { get; set; }
         public Nullable<int> tran_id { get; set; }
+        public string client_guid { get; set; }
     }
 }

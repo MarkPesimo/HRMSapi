@@ -75,6 +75,8 @@ namespace HRModel.ViewModel.Employees.Movement
         {
             public int Id { get; set; }
             public int EmpId { get; set; }
+            public int ByCategory { get; set; }
+            public string CategoryName{ get; set; }
             public string EmployeeName { get; set; }
             public string ClientName { get; set; }
             public string Department { get; set; }

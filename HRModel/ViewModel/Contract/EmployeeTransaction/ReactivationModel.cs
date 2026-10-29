@@ -23,7 +23,9 @@ namespace HRModel.ViewModel.Contract.EmployeeTransaction
         {
             public int Id { get; set; }
             public DateTime DateCreated { get; set; }
+            public int ClientId { get; set; }
             public string ClientName { get; set; }
+            public int CandId{ get; set; }
             public int EmpId { get; set; }
             public string EmployeeGUID { get; set; }
             public string EmployeeName { get; set; }

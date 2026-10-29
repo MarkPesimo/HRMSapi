@@ -568,63 +568,6 @@ namespace HRMS.DB
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_EMPLOYEE_REPLACEMENT_HD", mODEParameter, iDParameter, eMPIDParameter, rEPLACEMENT_DATEParameter, rEMARKSParameter, fLOATING_IDParameter, sEPARATION_IDParameter, uSER_IDParameter, rETURN_ID);
         }
     
-        public virtual ObjectResult<USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result> USP_H_EMPLOYEE_TRANSACTION_MONITORING(Nullable<int> cLIENT_ID, string kEYWORD, Nullable<bool> bY_DATE, string sTAGE, Nullable<System.DateTime> fROM_DATE, Nullable<System.DateTime> tO_DATE, Nullable<bool> bY_CONTRACT_STATUS, Nullable<bool> cONTRACT_STATUS, Nullable<bool> bY_EMPLOYEE_TYPE, Nullable<int> eMPLOYEE_TYPE_ID, Nullable<bool> bY_USER_HIRED, Nullable<int> uSER_ID, Nullable<int> cOMPANY_ID)
-        {
-            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
-                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
-                new ObjectParameter("CLIENT_ID", typeof(int));
-    
-            var kEYWORDParameter = kEYWORD != null ?
-                new ObjectParameter("KEYWORD", kEYWORD) :
-                new ObjectParameter("KEYWORD", typeof(string));
-    
-            var bY_DATEParameter = bY_DATE.HasValue ?
-                new ObjectParameter("BY_DATE", bY_DATE) :
-                new ObjectParameter("BY_DATE", typeof(bool));
-    
-            var sTAGEParameter = sTAGE != null ?
-                new ObjectParameter("STAGE", sTAGE) :
-                new ObjectParameter("STAGE", typeof(string));
-    
-            var fROM_DATEParameter = fROM_DATE.HasValue ?
-                new ObjectParameter("FROM_DATE", fROM_DATE) :
-                new ObjectParameter("FROM_DATE", typeof(System.DateTime));
-    
-            var tO_DATEParameter = tO_DATE.HasValue ?
-                new ObjectParameter("TO_DATE", tO_DATE) :
-                new ObjectParameter("TO_DATE", typeof(System.DateTime));
-    
-            var bY_CONTRACT_STATUSParameter = bY_CONTRACT_STATUS.HasValue ?
-                new ObjectParameter("BY_CONTRACT_STATUS", bY_CONTRACT_STATUS) :
-                new ObjectParameter("BY_CONTRACT_STATUS", typeof(bool));
-    
-            var cONTRACT_STATUSParameter = cONTRACT_STATUS.HasValue ?
-                new ObjectParameter("CONTRACT_STATUS", cONTRACT_STATUS) :
-                new ObjectParameter("CONTRACT_STATUS", typeof(bool));
-    
-            var bY_EMPLOYEE_TYPEParameter = bY_EMPLOYEE_TYPE.HasValue ?
-                new ObjectParameter("BY_EMPLOYEE_TYPE", bY_EMPLOYEE_TYPE) :
-                new ObjectParameter("BY_EMPLOYEE_TYPE", typeof(bool));
-    
-            var eMPLOYEE_TYPE_IDParameter = eMPLOYEE_TYPE_ID.HasValue ?
-                new ObjectParameter("EMPLOYEE_TYPE_ID", eMPLOYEE_TYPE_ID) :
-                new ObjectParameter("EMPLOYEE_TYPE_ID", typeof(int));
-    
-            var bY_USER_HIREDParameter = bY_USER_HIRED.HasValue ?
-                new ObjectParameter("BY_USER_HIRED", bY_USER_HIRED) :
-                new ObjectParameter("BY_USER_HIRED", typeof(bool));
-    
-            var uSER_IDParameter = uSER_ID.HasValue ?
-                new ObjectParameter("USER_ID", uSER_ID) :
-                new ObjectParameter("USER_ID", typeof(int));
-    
-            var cOMPANY_IDParameter = cOMPANY_ID.HasValue ?
-                new ObjectParameter("COMPANY_ID", cOMPANY_ID) :
-                new ObjectParameter("COMPANY_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result>("USP_H_EMPLOYEE_TRANSACTION_MONITORING", cLIENT_IDParameter, kEYWORDParameter, bY_DATEParameter, sTAGEParameter, fROM_DATEParameter, tO_DATEParameter, bY_CONTRACT_STATUSParameter, cONTRACT_STATUSParameter, bY_EMPLOYEE_TYPEParameter, eMPLOYEE_TYPE_IDParameter, bY_USER_HIREDParameter, uSER_IDParameter, cOMPANY_IDParameter);
-        }
-    
         public virtual int USP_H_MANAGE_EMPLOYEE_TRANSACTION(Nullable<int> iD, Nullable<int> cLIENT_ID, Nullable<int> eMP_ID, Nullable<System.DateTime> dATE_HIRED, Nullable<System.DateTime> cONTRACT_START, Nullable<System.DateTime> cONTRACT_END, Nullable<int> uSER_ID, string hIRE_TYPE, Nullable<int> jO_DET_ID, Nullable<bool> iS_HISTORY, Nullable<int> eMPLOYEE_TYPE_ID, string pOSITION, Nullable<System.DateTime> dATE_REGULAR, Nullable<int> dEPARTMENT_ID, Nullable<int> bRANCH_ID, Nullable<System.DateTime> dATE_RESIGNATION_SUBMITTED, Nullable<System.DateTime> dATE_SEPARATED, Nullable<int> sEPARATE_BY, Nullable<int> fLOATING_ID, Nullable<System.DateTime> dATE_INACTIVE, Nullable<System.DateTime> dATE_INACTIVE_CREATED, Nullable<int> iNACTIVE_BY, Nullable<int> sEPARATE_ID, Nullable<int> eMPLOYEE_RANK_ID, Nullable<int> sHIFT_ID, Nullable<int> mODE, ObjectParameter rET_ID)
         {
             var iDParameter = iD.HasValue ?
@@ -1107,23 +1050,6 @@ namespace HRMS.DB
                 new ObjectParameter("FUNC_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_MANAGE_EMPLOYEE", eMPIDParameter, eMPNOParameter, fNAMEParameter, lNAMEParameter, mNAMEParameter, bDATEParameter, gENDERParameter, cIVISSTATUSParameter, hEIGHTParameter, wEIGHTParameter, cITIZENSHIPParameter, bPLACEParameter, aDDRESSParameter, pROVADDRESSParameter, rELIGIONParameter, hOMEMOBILENOParameter, eMAILParameter, cONTACTPERSONParameter, cONTACTNOParameter, cONTACTRELATIONParameter, cONTACTADDRESSParameter, sPOUSENAMEParameter, sPOUSECOMPANYParameter, sPOUSECOMADDRESSParameter, cOMPIDParameter, dEPTIDParameter, pOSITIONParameter, eMPRANKIDParameter, eMPTYPEIDParameter, sHIFTIDParameter, bRANCHIDParameter, sALARYTYPEIDParameter, pHILHEALTHNOParameter, pAGIBIGNOParameter, tINNOParameter, dATEHIREDParameter, dATEREGULARParameter, dATERESIGNEDParameter, aCTIVEINACTIVEParameter, sSSNOParameter, mODEParameter, uSERIDParameter, rETURN_ID, iMAGEFILEParameter, rESIGNEDREMARKSParameter, hOBBIESParameter, cONTRACTSTARTParameter, cONTRACTENDParameter, cITYIDParameter, pROVINCEIDParameter, cLIENT_IDParameter, pAY_TYPEParameter, bANK_IDParameter, cONTRACTTYPEIDParameter, eMPLOYEE_PROCESSINGTYPEParameter, mONTHLYSALARYParameter, rICE_ALLOWANCEParameter, mEALALLOWANCEParameter, aLLOWANCEParameter, cAR_ALLOWANCEParameter, cOMMISSIONParameter, pAGIBIGCONTParameter, eMPLOYER_IDParameter, iS_MINIMUMParameter, iS_CONFIDENTIALParameter, wITH_VATParameter, tAX_PERCENTAGEParameter, fUNC_IDParameter);
-        }
-    
-        public virtual ObjectResult<USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result1> USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING(Nullable<bool> bY_STATUS, Nullable<bool> sTATUS, string kEYWORD)
-        {
-            var bY_STATUSParameter = bY_STATUS.HasValue ?
-                new ObjectParameter("BY_STATUS", bY_STATUS) :
-                new ObjectParameter("BY_STATUS", typeof(bool));
-    
-            var sTATUSParameter = sTATUS.HasValue ?
-                new ObjectParameter("STATUS", sTATUS) :
-                new ObjectParameter("STATUS", typeof(bool));
-    
-            var kEYWORDParameter = kEYWORD != null ?
-                new ObjectParameter("KEYWORD", kEYWORD) :
-                new ObjectParameter("KEYWORD", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result1>("USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING", bY_STATUSParameter, sTATUSParameter, kEYWORDParameter);
         }
     
         public virtual int USP_H_MANAGE_EMPLOYEE_SEPARATION_REOPEN(Nullable<int> iD, Nullable<int> tRAN_ID, Nullable<int> sEPARATION_ID, Nullable<int> rEQUESTED_BY, string rEASON, Nullable<int> cREATED_BY, Nullable<int> mODE)
@@ -4139,55 +4065,6 @@ namespace HRMS.DB
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_EMPLOYEE_MONITORING_Result1>("USP_H_GET_EMPLOYEE_MONITORING", kEYWORDParameter, bY_CLIENTParameter, cLIENT_IDParameter, pageNumberParameter, pageSizeParameter, cOMPANY_IDParameter);
         }
     
-        public virtual ObjectResult<USP_H_GET_PERSONNEL_MOVEMENT_MONITORING_Result> USP_H_GET_PERSONNEL_MOVEMENT_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<bool> bY_CATEGORY, Nullable<int> cATEGORY_ID, Nullable<bool> bY_DATE, Nullable<System.DateTime> dATE_FROM, Nullable<System.DateTime> dATE_TO, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
-        {
-            var kEYWORDParameter = kEYWORD != null ?
-                new ObjectParameter("KEYWORD", kEYWORD) :
-                new ObjectParameter("KEYWORD", typeof(string));
-    
-            var bY_CLIENTParameter = bY_CLIENT.HasValue ?
-                new ObjectParameter("BY_CLIENT", bY_CLIENT) :
-                new ObjectParameter("BY_CLIENT", typeof(bool));
-    
-            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
-                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
-                new ObjectParameter("CLIENT_ID", typeof(int));
-    
-            var bY_CATEGORYParameter = bY_CATEGORY.HasValue ?
-                new ObjectParameter("BY_CATEGORY", bY_CATEGORY) :
-                new ObjectParameter("BY_CATEGORY", typeof(bool));
-    
-            var cATEGORY_IDParameter = cATEGORY_ID.HasValue ?
-                new ObjectParameter("CATEGORY_ID", cATEGORY_ID) :
-                new ObjectParameter("CATEGORY_ID", typeof(int));
-    
-            var bY_DATEParameter = bY_DATE.HasValue ?
-                new ObjectParameter("BY_DATE", bY_DATE) :
-                new ObjectParameter("BY_DATE", typeof(bool));
-    
-            var dATE_FROMParameter = dATE_FROM.HasValue ?
-                new ObjectParameter("DATE_FROM", dATE_FROM) :
-                new ObjectParameter("DATE_FROM", typeof(System.DateTime));
-    
-            var dATE_TOParameter = dATE_TO.HasValue ?
-                new ObjectParameter("DATE_TO", dATE_TO) :
-                new ObjectParameter("DATE_TO", typeof(System.DateTime));
-    
-            var pageNumberParameter = pageNumber.HasValue ?
-                new ObjectParameter("PageNumber", pageNumber) :
-                new ObjectParameter("PageNumber", typeof(int));
-    
-            var pageSizeParameter = pageSize.HasValue ?
-                new ObjectParameter("PageSize", pageSize) :
-                new ObjectParameter("PageSize", typeof(int));
-    
-            var cOMPANY_IDParameter = cOMPANY_ID.HasValue ?
-                new ObjectParameter("COMPANY_ID", cOMPANY_ID) :
-                new ObjectParameter("COMPANY_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_PERSONNEL_MOVEMENT_MONITORING_Result>("USP_H_GET_PERSONNEL_MOVEMENT_MONITORING", kEYWORDParameter, bY_CLIENTParameter, cLIENT_IDParameter, bY_CATEGORYParameter, cATEGORY_IDParameter, bY_DATEParameter, dATE_FROMParameter, dATE_TOParameter, pageNumberParameter, pageSizeParameter, cOMPANY_IDParameter);
-        }
-    
         public virtual int USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT(Nullable<int> iD, Nullable<int> mODE, Nullable<int> eMP_ID, Nullable<int> cATEGORY_ID, Nullable<int> cLIENT_ID_FROM, Nullable<int> cLIENT_ID_TO, Nullable<int> bRANCH_ID_FROM, Nullable<int> bRANCH_ID_TO, Nullable<int> dEPARTMENT_ID_FROM, Nullable<int> dEPARTMENT_ID_TO, Nullable<int> eMPTYPE_ID_FROM, Nullable<int> eMPTYPE_ID_TO, Nullable<int> eMPRANK_ID_FROM, Nullable<int> eMPRANK_ID_TO, string pOSITION_FROM, string pOSITION_TO, string pAYTYPE_FROM, string pAYTYPE_TO, Nullable<decimal> mONTHLYSALARY_FROM, Nullable<decimal> mONTHLYSALARY_TO, Nullable<decimal> aLLOWANCE_FROM, Nullable<decimal> aLLOWANCE_TO, Nullable<System.DateTime> eFFECTIVE_DATE_FROM, Nullable<System.DateTime> eFFECTIVE_DATE_TO, Nullable<System.DateTime> sALARY_CHANGE_DATE, Nullable<int> uSERID, ObjectParameter rET_ID)
         {
             var iDParameter = iD.HasValue ?
@@ -4295,6 +4172,129 @@ namespace HRMS.DB
                 new ObjectParameter("USERID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT", iDParameter, mODEParameter, eMP_IDParameter, cATEGORY_IDParameter, cLIENT_ID_FROMParameter, cLIENT_ID_TOParameter, bRANCH_ID_FROMParameter, bRANCH_ID_TOParameter, dEPARTMENT_ID_FROMParameter, dEPARTMENT_ID_TOParameter, eMPTYPE_ID_FROMParameter, eMPTYPE_ID_TOParameter, eMPRANK_ID_FROMParameter, eMPRANK_ID_TOParameter, pOSITION_FROMParameter, pOSITION_TOParameter, pAYTYPE_FROMParameter, pAYTYPE_TOParameter, mONTHLYSALARY_FROMParameter, mONTHLYSALARY_TOParameter, aLLOWANCE_FROMParameter, aLLOWANCE_TOParameter, eFFECTIVE_DATE_FROMParameter, eFFECTIVE_DATE_TOParameter, sALARY_CHANGE_DATEParameter, uSERIDParameter, rET_ID);
+        }
+    
+        public virtual ObjectResult<USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result> USP_H_EMPLOYEE_TRANSACTION_MONITORING(Nullable<int> cLIENT_ID, string kEYWORD, Nullable<bool> bY_DATE, string sTAGE, Nullable<System.DateTime> fROM_DATE, Nullable<System.DateTime> tO_DATE, Nullable<bool> bY_CONTRACT_STATUS, Nullable<bool> cONTRACT_STATUS, Nullable<bool> bY_EMPLOYEE_TYPE, Nullable<int> eMPLOYEE_TYPE_ID, Nullable<bool> bY_USER_HIRED, Nullable<int> uSER_ID, Nullable<int> cOMPANY_ID)
+        {
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var kEYWORDParameter = kEYWORD != null ?
+                new ObjectParameter("KEYWORD", kEYWORD) :
+                new ObjectParameter("KEYWORD", typeof(string));
+    
+            var bY_DATEParameter = bY_DATE.HasValue ?
+                new ObjectParameter("BY_DATE", bY_DATE) :
+                new ObjectParameter("BY_DATE", typeof(bool));
+    
+            var sTAGEParameter = sTAGE != null ?
+                new ObjectParameter("STAGE", sTAGE) :
+                new ObjectParameter("STAGE", typeof(string));
+    
+            var fROM_DATEParameter = fROM_DATE.HasValue ?
+                new ObjectParameter("FROM_DATE", fROM_DATE) :
+                new ObjectParameter("FROM_DATE", typeof(System.DateTime));
+    
+            var tO_DATEParameter = tO_DATE.HasValue ?
+                new ObjectParameter("TO_DATE", tO_DATE) :
+                new ObjectParameter("TO_DATE", typeof(System.DateTime));
+    
+            var bY_CONTRACT_STATUSParameter = bY_CONTRACT_STATUS.HasValue ?
+                new ObjectParameter("BY_CONTRACT_STATUS", bY_CONTRACT_STATUS) :
+                new ObjectParameter("BY_CONTRACT_STATUS", typeof(bool));
+    
+            var cONTRACT_STATUSParameter = cONTRACT_STATUS.HasValue ?
+                new ObjectParameter("CONTRACT_STATUS", cONTRACT_STATUS) :
+                new ObjectParameter("CONTRACT_STATUS", typeof(bool));
+    
+            var bY_EMPLOYEE_TYPEParameter = bY_EMPLOYEE_TYPE.HasValue ?
+                new ObjectParameter("BY_EMPLOYEE_TYPE", bY_EMPLOYEE_TYPE) :
+                new ObjectParameter("BY_EMPLOYEE_TYPE", typeof(bool));
+    
+            var eMPLOYEE_TYPE_IDParameter = eMPLOYEE_TYPE_ID.HasValue ?
+                new ObjectParameter("EMPLOYEE_TYPE_ID", eMPLOYEE_TYPE_ID) :
+                new ObjectParameter("EMPLOYEE_TYPE_ID", typeof(int));
+    
+            var bY_USER_HIREDParameter = bY_USER_HIRED.HasValue ?
+                new ObjectParameter("BY_USER_HIRED", bY_USER_HIRED) :
+                new ObjectParameter("BY_USER_HIRED", typeof(bool));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var cOMPANY_IDParameter = cOMPANY_ID.HasValue ?
+                new ObjectParameter("COMPANY_ID", cOMPANY_ID) :
+                new ObjectParameter("COMPANY_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result>("USP_H_EMPLOYEE_TRANSACTION_MONITORING", cLIENT_IDParameter, kEYWORDParameter, bY_DATEParameter, sTAGEParameter, fROM_DATEParameter, tO_DATEParameter, bY_CONTRACT_STATUSParameter, cONTRACT_STATUSParameter, bY_EMPLOYEE_TYPEParameter, eMPLOYEE_TYPE_IDParameter, bY_USER_HIREDParameter, uSER_IDParameter, cOMPANY_IDParameter);
+        }
+    
+        public virtual ObjectResult<USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result> USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING(Nullable<bool> bY_STATUS, Nullable<bool> sTATUS, string kEYWORD)
+        {
+            var bY_STATUSParameter = bY_STATUS.HasValue ?
+                new ObjectParameter("BY_STATUS", bY_STATUS) :
+                new ObjectParameter("BY_STATUS", typeof(bool));
+    
+            var sTATUSParameter = sTATUS.HasValue ?
+                new ObjectParameter("STATUS", sTATUS) :
+                new ObjectParameter("STATUS", typeof(bool));
+    
+            var kEYWORDParameter = kEYWORD != null ?
+                new ObjectParameter("KEYWORD", kEYWORD) :
+                new ObjectParameter("KEYWORD", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result>("USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING", bY_STATUSParameter, sTATUSParameter, kEYWORDParameter);
+        }
+    
+        public virtual ObjectResult<USP_H_GET_PERSONNEL_MOVEMENT_MONITORING_Result> USP_H_GET_PERSONNEL_MOVEMENT_MONITORING(string kEYWORD, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<bool> bY_CATEGORY, Nullable<int> cATEGORY_ID, Nullable<bool> bY_DATE, Nullable<System.DateTime> dATE_FROM, Nullable<System.DateTime> dATE_TO, Nullable<int> pageNumber, Nullable<int> pageSize, Nullable<int> cOMPANY_ID)
+        {
+            var kEYWORDParameter = kEYWORD != null ?
+                new ObjectParameter("KEYWORD", kEYWORD) :
+                new ObjectParameter("KEYWORD", typeof(string));
+    
+            var bY_CLIENTParameter = bY_CLIENT.HasValue ?
+                new ObjectParameter("BY_CLIENT", bY_CLIENT) :
+                new ObjectParameter("BY_CLIENT", typeof(bool));
+    
+            var cLIENT_IDParameter = cLIENT_ID.HasValue ?
+                new ObjectParameter("CLIENT_ID", cLIENT_ID) :
+                new ObjectParameter("CLIENT_ID", typeof(int));
+    
+            var bY_CATEGORYParameter = bY_CATEGORY.HasValue ?
+                new ObjectParameter("BY_CATEGORY", bY_CATEGORY) :
+                new ObjectParameter("BY_CATEGORY", typeof(bool));
+    
+            var cATEGORY_IDParameter = cATEGORY_ID.HasValue ?
+                new ObjectParameter("CATEGORY_ID", cATEGORY_ID) :
+                new ObjectParameter("CATEGORY_ID", typeof(int));
+    
+            var bY_DATEParameter = bY_DATE.HasValue ?
+                new ObjectParameter("BY_DATE", bY_DATE) :
+                new ObjectParameter("BY_DATE", typeof(bool));
+    
+            var dATE_FROMParameter = dATE_FROM.HasValue ?
+                new ObjectParameter("DATE_FROM", dATE_FROM) :
+                new ObjectParameter("DATE_FROM", typeof(System.DateTime));
+    
+            var dATE_TOParameter = dATE_TO.HasValue ?
+                new ObjectParameter("DATE_TO", dATE_TO) :
+                new ObjectParameter("DATE_TO", typeof(System.DateTime));
+    
+            var pageNumberParameter = pageNumber.HasValue ?
+                new ObjectParameter("PageNumber", pageNumber) :
+                new ObjectParameter("PageNumber", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            var cOMPANY_IDParameter = cOMPANY_ID.HasValue ?
+                new ObjectParameter("COMPANY_ID", cOMPANY_ID) :
+                new ObjectParameter("COMPANY_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_GET_PERSONNEL_MOVEMENT_MONITORING_Result>("USP_H_GET_PERSONNEL_MOVEMENT_MONITORING", kEYWORDParameter, bY_CLIENTParameter, cLIENT_IDParameter, bY_CATEGORYParameter, cATEGORY_IDParameter, bY_DATEParameter, dATE_FROMParameter, dATE_TOParameter, pageNumberParameter, pageSizeParameter, cOMPANY_IDParameter);
         }
     }
 }

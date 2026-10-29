@@ -351,5 +351,35 @@ namespace HRMS.REPO.Repository
 
             return _benefitscategory;
         }
+
+        public List<FunctionsDropdownModel> GetFunctionMasterList()
+        {
+            var query = from f in _conn.REC_FUNCTION_MASTER_FILE
+                        where f.status == true
+                        orderby f.function_name ascending
+                        select f;
+
+            return query.AsEnumerable().Select(x => new FunctionsDropdownModel
+            {
+                FunctionId = x.id,       
+                FunctionName = x.function_name,   
+                Status = Convert.ToInt32(x.status)
+            }).ToList();
+        }
+
+        public List<SalaryTypeDropdownModel> GetSalaryTypes()
+        {
+            var query = from f in _conn.Salarytypes
+                        where f.Status == true
+                        orderby f.Salarytype_Desc ascending
+                        select f;
+
+            return query.AsEnumerable().Select(x => new SalaryTypeDropdownModel
+            {
+                SalaryTypeId = x.Salarytype_ID,
+                SalaryTypeName = x.Salarytype_Desc,
+                Status = Convert.ToInt32(x.Status)
+            }).ToList();
+        }
     }
 }

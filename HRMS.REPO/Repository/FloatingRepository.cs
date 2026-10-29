@@ -51,12 +51,12 @@ namespace HRMS.REPO.Repository
                    EmpId = x.emp_id,
                    EmployeeName = _employeerepository.GetEmployeeName(x.emp_id),
                    IsFloating = x.isfloating,
-                   FloatingDate = x.floating_date,
+                   FloatingDate = x.floating_date, //effectivity date
                    WithSeparationPay = x.with_separation_pay,
                    Remarks = x.remarks,
                    UserId = x.user_id,
                    CreatedBy = _userrepository.GetUser(x.user_id).UserName,
-                   DateCreated = x.date_updated.ToShortDateString()
+                   DateCreated = x.date_updated.ToShortDateString() //Date Resignation
                }).SingleOrDefault();
 
 
