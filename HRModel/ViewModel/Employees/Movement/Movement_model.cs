@@ -86,5 +86,21 @@ namespace HRModel.ViewModel.Employees.Movement
             public DateTime EffectiveDate { get; set; }
             public DateTime SalaryChangeDate { get; set; }
         }
+
+        public class SalaryDetailsUpload_model 
+        {
+            public int Id { get; set; }
+            public int EmpId { get; set; }
+            public string EmployeeName { get; set; }
+            public string ClientName { get; set; }
+            public int CategoryId { get; set; } 
+            public decimal SalaryAmount { get; set; } 
+            public decimal Allowance { get; set; }             
+            public DateTime EffectiveDate { get; set; }
+            public DateTime SalaryChangeDate { get; set; } 
+            public string Remarks { get; set; }
+            public int UserId { get; set; }
+            public string ErrorMessage { get; set; }            
+        }
     }
 }

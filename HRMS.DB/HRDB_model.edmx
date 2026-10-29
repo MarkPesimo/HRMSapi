@@ -559,8 +559,8 @@
           <Property Name="FromAMPM" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ToAMPM" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LeaveDays" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Reason" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
           <Property Name="IsHalfDay" Type="bit" Nullable="false" />
           <Property Name="Status" Type="bit" />
           <Property Name="FileStatus" Type="int" Nullable="false" />
@@ -4366,6 +4366,40 @@
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_H_UPLOAD_BANK_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="BANK_ID" Type="int" Mode="In" />
+          <Parameter Name="ACCOUNTNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="CARD_NO" Type="nvarchar" Mode="In" />
+          <Parameter Name="CARD_VALIDITY_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_UPLOAD_EMPLOYEE_BENEFITS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="BENEFIT_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="BENEFIT_CLASS" Type="nvarchar" Mode="In" />
+          <Parameter Name="BENEFIT_CATEGORY" Type="nvarchar" Mode="In" />
+          <Parameter Name="ADJUSTMENT" Type="nvarchar" Mode="In" />
+          <Parameter Name="AMOUNT" Type="decimal" Mode="In" />
+          <Parameter Name="TAXABLE" Type="nvarchar" Mode="In" />
+          <Parameter Name="BILLABLE" Type="nvarchar" Mode="In" />
+          <Parameter Name="EFFECTIVE_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="BENEFIT_START_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_UPLOAD_SALARY_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="SALARY_AMOUNT" Type="decimal" Mode="In" />
+          <Parameter Name="ALLOWANCE" Type="decimal" Mode="In" />
+          <Parameter Name="EFFECTIVE_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="SALARY_CHANGE_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="CATEGORY_ID" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_I_MANAGE_CANDIDATE_SKILL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="CANDIDATE_ID" Type="int" Mode="In" />
@@ -5512,6 +5546,21 @@
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="Employee_Replacement_HD" EntitySet="Employee_Replacement_HD" />
           </AssociationSet>
+          <FunctionImport Name="USP_H_EMPLOYEE_TRANSACTION_MONITORING" ReturnType="Collection(apwdbModel.USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result)">
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
+            <Parameter Name="BY_DATE" Mode="In" Type="Boolean" />
+            <Parameter Name="STAGE" Mode="In" Type="String" />
+            <Parameter Name="FROM_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="TO_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="BY_CONTRACT_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="CONTRACT_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="BY_EMPLOYEE_TYPE" Mode="In" Type="Boolean" />
+            <Parameter Name="EMPLOYEE_TYPE_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_USER_HIRED" Mode="In" Type="Boolean" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="COMPANY_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="USP_H_MANAGE_EMPLOYEE_TRANSACTION">
             <Parameter Name="ID" Mode="In" Type="Int32" />
             <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
@@ -5754,6 +5803,11 @@
             <Parameter Name="WITH_VAT" Mode="In" Type="Boolean" />
             <Parameter Name="TAX_PERCENTAGE" Mode="In" Type="Decimal" />
             <Parameter Name="FUNC_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING" ReturnType="Collection(apwdbModel.USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result1)">
+            <Parameter Name="BY_STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="STATUS" Mode="In" Type="Boolean" />
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="USP_H_MANAGE_EMPLOYEE_SEPARATION_REOPEN">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -7113,6 +7167,19 @@
             <End Role="REC_CLIENT" EntitySet="REC_CLIENT" />
             <End Role="Employee_Personnel_Movement" EntitySet="Employee_Personnel_Movement" />
           </AssociationSet>
+          <FunctionImport Name="USP_H_GET_PERSONNEL_MOVEMENT_MONITORING" ReturnType="Collection(apwdbModel.USP_H_GET_PERSONNEL_MOVEMENT_MONITORING_Result)">
+            <Parameter Name="KEYWORD" Mode="In" Type="String" />
+            <Parameter Name="BY_CLIENT" Mode="In" Type="Boolean" />
+            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_CATEGORY" Mode="In" Type="Boolean" />
+            <Parameter Name="CATEGORY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="BY_DATE" Mode="In" Type="Boolean" />
+            <Parameter Name="DATE_FROM" Mode="In" Type="DateTime" />
+            <Parameter Name="DATE_TO" Mode="In" Type="DateTime" />
+            <Parameter Name="PageNumber" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="COMPANY_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT">
             <Parameter Name="ID" Mode="In" Type="Int32" />
             <Parameter Name="MODE" Mode="In" Type="Int32" />
@@ -7142,38 +7209,39 @@
             <Parameter Name="USERID" Mode="In" Type="Int32" />
             <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="USP_H_EMPLOYEE_TRANSACTION_MONITORING" ReturnType="Collection(apwdbModel.USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result)">
-            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
-            <Parameter Name="KEYWORD" Mode="In" Type="String" />
-            <Parameter Name="BY_DATE" Mode="In" Type="Boolean" />
-            <Parameter Name="STAGE" Mode="In" Type="String" />
-            <Parameter Name="FROM_DATE" Mode="In" Type="DateTime" />
-            <Parameter Name="TO_DATE" Mode="In" Type="DateTime" />
-            <Parameter Name="BY_CONTRACT_STATUS" Mode="In" Type="Boolean" />
-            <Parameter Name="CONTRACT_STATUS" Mode="In" Type="Boolean" />
-            <Parameter Name="BY_EMPLOYEE_TYPE" Mode="In" Type="Boolean" />
-            <Parameter Name="EMPLOYEE_TYPE_ID" Mode="In" Type="Int32" />
-            <Parameter Name="BY_USER_HIRED" Mode="In" Type="Boolean" />
+          <FunctionImport Name="USP_H_UPLOAD_BANK_DETAILS">
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="BANK_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ACCOUNTNO" Mode="In" Type="String" />
+            <Parameter Name="CARD_NO" Mode="In" Type="String" />
+            <Parameter Name="CARD_VALIDITY_DATE" Mode="In" Type="DateTime" />
             <Parameter Name="USER_ID" Mode="In" Type="Int32" />
-            <Parameter Name="COMPANY_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING" ReturnType="Collection(apwdbModel.USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result)">
-            <Parameter Name="BY_STATUS" Mode="In" Type="Boolean" />
-            <Parameter Name="STATUS" Mode="In" Type="Boolean" />
-            <Parameter Name="KEYWORD" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="USP_H_GET_PERSONNEL_MOVEMENT_MONITORING" ReturnType="Collection(apwdbModel.USP_H_GET_PERSONNEL_MOVEMENT_MONITORING_Result)">
-            <Parameter Name="KEYWORD" Mode="In" Type="String" />
-            <Parameter Name="BY_CLIENT" Mode="In" Type="Boolean" />
-            <Parameter Name="CLIENT_ID" Mode="In" Type="Int32" />
-            <Parameter Name="BY_CATEGORY" Mode="In" Type="Boolean" />
+          <FunctionImport Name="USP_H_UPLOAD_SALARY_DETAILS">
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="SALARY_AMOUNT" Mode="In" Type="Decimal" />
+            <Parameter Name="ALLOWANCE" Mode="In" Type="Decimal" />
+            <Parameter Name="EFFECTIVE_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="SALARY_CHANGE_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
             <Parameter Name="CATEGORY_ID" Mode="In" Type="Int32" />
-            <Parameter Name="BY_DATE" Mode="In" Type="Boolean" />
-            <Parameter Name="DATE_FROM" Mode="In" Type="DateTime" />
-            <Parameter Name="DATE_TO" Mode="In" Type="DateTime" />
-            <Parameter Name="PageNumber" Mode="In" Type="Int32" />
-            <Parameter Name="PageSize" Mode="In" Type="Int32" />
-            <Parameter Name="COMPANY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RETURN_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_UPLOAD_EMPLOYEE_BENEFITS">
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="BENEFIT_TYPE" Mode="In" Type="String" />
+            <Parameter Name="BENEFIT_CLASS" Mode="In" Type="String" />
+            <Parameter Name="BENEFIT_CATEGORY" Mode="In" Type="String" />
+            <Parameter Name="ADJUSTMENT" Mode="In" Type="String" />
+            <Parameter Name="AMOUNT" Mode="In" Type="Decimal" />
+            <Parameter Name="TAXABLE" Mode="In" Type="String" />
+            <Parameter Name="BILLABLE" Mode="In" Type="String" />
+            <Parameter Name="EFFECTIVE_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="BENEFIT_START_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RETURN_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="Employee">
@@ -7669,8 +7737,8 @@
           <Property Name="FromAMPM" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ToAMPM" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LeaveDays" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Reason" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Reason" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="IsHalfDay" Type="Boolean" Nullable="false" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="FileStatus" Type="Int32" Nullable="false" />
@@ -8103,6 +8171,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="Int32" Name="emp_id" Nullable="true" />
+          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="hire_type" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="date_hired" Nullable="true" />
+          <Property Type="DateTime" Name="contract_start" Nullable="true" />
+          <Property Type="DateTime" Name="contract_end" Nullable="true" />
+          <Property Type="String" Name="hired_by" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="jo_det_id" Nullable="true" />
+          <Property Type="DateTime" Name="date_resignation_submitted" Nullable="true" />
+          <Property Type="DateTime" Name="date_separated" Nullable="true" />
+          <Property Type="DateTime" Name="date_inactive" Nullable="true" />
+          <Property Type="DateTime" Name="date_inactive_created" Nullable="true" />
+          <Property Type="Int32" Name="floating_id" Nullable="true" />
+          <Property Type="Int32" Name="separated_id" Nullable="true" />
+          <Property Type="String" Name="contract_status" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="connected_to_isearch" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="employee_type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="position" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="date_regular" Nullable="true" />
+          <Property Type="Int32" Name="client_id" Nullable="true" />
+          <Property Type="Boolean" Name="contract_extended" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="USP_H_GET_CLIENTS_BY_COMPANY_Result">
           <Property Type="Int32" Name="id" Nullable="true" />
           <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
@@ -8643,6 +8736,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="DateTime" Name="date_created" Nullable="true" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="emp_id" Nullable="true" />
+          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="requested_by" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="reason" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="created_by" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_closed" Nullable="true" />
+          <Property Type="Int32" Name="tran_id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result1">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="DateTime" Name="date_created" Nullable="true" />
+          <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="emp_id" Nullable="true" />
+          <Property Type="String" Name="employee_guid" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="requested_by" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="reason" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="created_by" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date_closed" Nullable="true" />
+          <Property Type="Int32" Name="tran_id" Nullable="true" />
+        </ComplexType>
         <EntityType Name="REC_NEW_HIRED_EMPLOYEE_REMARKS">
           <Key>
             <PropertyRef Name="id" />
@@ -11323,51 +11443,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result">
-          <Property Type="Int32" Name="id" Nullable="true" />
-          <Property Type="Int32" Name="emp_id" Nullable="true" />
-          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="hire_type" Nullable="true" MaxLength="20" />
-          <Property Type="DateTime" Name="date_hired" Nullable="true" />
-          <Property Type="DateTime" Name="contract_start" Nullable="true" />
-          <Property Type="DateTime" Name="contract_end" Nullable="true" />
-          <Property Type="String" Name="hired_by" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="jo_det_id" Nullable="true" />
-          <Property Type="DateTime" Name="date_resignation_submitted" Nullable="true" />
-          <Property Type="DateTime" Name="date_separated" Nullable="true" />
-          <Property Type="DateTime" Name="date_inactive" Nullable="true" />
-          <Property Type="DateTime" Name="date_inactive_created" Nullable="true" />
-          <Property Type="Int32" Name="floating_id" Nullable="true" />
-          <Property Type="Int32" Name="separated_id" Nullable="true" />
-          <Property Type="String" Name="contract_status" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="connected_to_isearch" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="employee_type" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="position" Nullable="true" MaxLength="150" />
-          <Property Type="DateTime" Name="date_regular" Nullable="true" />
-          <Property Type="Int32" Name="client_id" Nullable="true" />
-          <Property Type="Boolean" Name="contract_extended" Nullable="true" />
-          <Property Type="String" Name="emp_guid" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="client_guid" Nullable="true" MaxLength="150" />
-          <Property Type="Int32" Name="candidate_id" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result">
-          <Property Type="Int32" Name="id" Nullable="true" />
-          <Property Type="DateTime" Name="date_created" Nullable="true" />
-          <Property Type="Int32" Name="client_id" Nullable="true" />
-          <Property Type="String" Name="client_name" Nullable="true" MaxLength="150" />
-          <Property Type="Int32" Name="cand_id" Nullable="true" />
-          <Property Type="Int32" Name="emp_id" Nullable="true" />
-          <Property Type="String" Name="employee_guid" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="150" />
-          <Property Type="String" Name="requested_by" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="reason" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="status" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="created_by" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="date_closed" Nullable="true" />
-          <Property Type="Int32" Name="tran_id" Nullable="true" />
-          <Property Type="String" Name="client_guid" Nullable="true" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="USP_H_GET_PERSONNEL_MOVEMENT_MONITORING_Result">
           <Property Type="String" Name="Category" Nullable="true" MaxLength="150" />
           <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="250" />
@@ -11888,6 +11963,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_EMPLOYEE_TRANSACTION_MONITORING" FunctionName="apwdbModel.Store.USP_H_EMPLOYEE_TRANSACTION_MONITORING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="hire_type" ColumnName="hire_type" />
+                <ScalarProperty Name="date_hired" ColumnName="date_hired" />
+                <ScalarProperty Name="contract_start" ColumnName="contract_start" />
+                <ScalarProperty Name="contract_end" ColumnName="contract_end" />
+                <ScalarProperty Name="hired_by" ColumnName="hired_by" />
+                <ScalarProperty Name="jo_det_id" ColumnName="jo_det_id" />
+                <ScalarProperty Name="date_resignation_submitted" ColumnName="date_resignation_submitted" />
+                <ScalarProperty Name="date_separated" ColumnName="date_separated" />
+                <ScalarProperty Name="date_inactive" ColumnName="date_inactive" />
+                <ScalarProperty Name="date_inactive_created" ColumnName="date_inactive_created" />
+                <ScalarProperty Name="floating_id" ColumnName="floating_id" />
+                <ScalarProperty Name="separated_id" ColumnName="separated_id" />
+                <ScalarProperty Name="contract_status" ColumnName="contract_status" />
+                <ScalarProperty Name="connected_to_isearch" ColumnName="connected_to_isearch" />
+                <ScalarProperty Name="employee_type" ColumnName="employee_type" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="date_regular" ColumnName="date_regular" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="contract_extended" ColumnName="contract_extended" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_TRANSACTION" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_TRANSACTION" />
           <FunctionImportMapping FunctionImportName="USP_H_GET_CLIENTS_BY_COMPANY" FunctionName="apwdbModel.Store.USP_H_GET_CLIENTS_BY_COMPANY">
             <ResultMapping>
@@ -12095,6 +12199,24 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_MANAGE_EMPLOYEE_SEPARATION" FunctionName="apwdbModel.Store.SP_MANAGE_EMPLOYEE_SEPARATION" />
           <FunctionImportMapping FunctionImportName="SP_MANAGE_EMPLOYEE" FunctionName="apwdbModel.Store.SP_MANAGE_EMPLOYEE" />
+          <FunctionImportMapping FunctionImportName="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING" FunctionName="apwdbModel.Store.USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="client_name" ColumnName="client_name" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="employee_guid" ColumnName="employee_guid" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="requested_by" ColumnName="requested_by" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="date_closed" ColumnName="date_closed" />
+                <ScalarProperty Name="tran_id" ColumnName="tran_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_SEPARATION_REOPEN" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_SEPARATION_REOPEN" />
           <EntitySetMapping Name="REC_NEW_HIRED_EMPLOYEE_REMARKS">
             <EntityTypeMapping TypeName="apwdbModel.REC_NEW_HIRED_EMPLOYEE_REMARKS">
@@ -13413,60 +13535,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT" />
-          <FunctionImportMapping FunctionImportName="USP_H_EMPLOYEE_TRANSACTION_MONITORING" FunctionName="apwdbModel.Store.USP_H_EMPLOYEE_TRANSACTION_MONITORING">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="apwdbModel.USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
-                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
-                <ScalarProperty Name="client_name" ColumnName="client_name" />
-                <ScalarProperty Name="hire_type" ColumnName="hire_type" />
-                <ScalarProperty Name="date_hired" ColumnName="date_hired" />
-                <ScalarProperty Name="contract_start" ColumnName="contract_start" />
-                <ScalarProperty Name="contract_end" ColumnName="contract_end" />
-                <ScalarProperty Name="hired_by" ColumnName="hired_by" />
-                <ScalarProperty Name="jo_det_id" ColumnName="jo_det_id" />
-                <ScalarProperty Name="date_resignation_submitted" ColumnName="date_resignation_submitted" />
-                <ScalarProperty Name="date_separated" ColumnName="date_separated" />
-                <ScalarProperty Name="date_inactive" ColumnName="date_inactive" />
-                <ScalarProperty Name="date_inactive_created" ColumnName="date_inactive_created" />
-                <ScalarProperty Name="floating_id" ColumnName="floating_id" />
-                <ScalarProperty Name="separated_id" ColumnName="separated_id" />
-                <ScalarProperty Name="contract_status" ColumnName="contract_status" />
-                <ScalarProperty Name="connected_to_isearch" ColumnName="connected_to_isearch" />
-                <ScalarProperty Name="employee_type" ColumnName="employee_type" />
-                <ScalarProperty Name="position" ColumnName="position" />
-                <ScalarProperty Name="date_regular" ColumnName="date_regular" />
-                <ScalarProperty Name="client_id" ColumnName="client_id" />
-                <ScalarProperty Name="contract_extended" ColumnName="contract_extended" />
-                <ScalarProperty Name="emp_guid" ColumnName="emp_guid" />
-                <ScalarProperty Name="client_guid" ColumnName="client_guid" />
-                <ScalarProperty Name="candidate_id" ColumnName="candidate_id" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING" FunctionName="apwdbModel.Store.USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="apwdbModel.USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="date_created" ColumnName="date_created" />
-                <ScalarProperty Name="client_id" ColumnName="client_id" />
-                <ScalarProperty Name="client_name" ColumnName="client_name" />
-                <ScalarProperty Name="cand_id" ColumnName="cand_id" />
-                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
-                <ScalarProperty Name="employee_guid" ColumnName="employee_guid" />
-                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
-                <ScalarProperty Name="requested_by" ColumnName="requested_by" />
-                <ScalarProperty Name="reason" ColumnName="reason" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="created_by" ColumnName="created_by" />
-                <ScalarProperty Name="date_closed" ColumnName="date_closed" />
-                <ScalarProperty Name="tran_id" ColumnName="tran_id" />
-                <ScalarProperty Name="client_guid" ColumnName="client_guid" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_H_GET_PERSONNEL_MOVEMENT_MONITORING" FunctionName="apwdbModel.Store.USP_H_GET_PERSONNEL_MOVEMENT_MONITORING">
             <ResultMapping>
               <ComplexTypeMapping TypeName="apwdbModel.USP_H_GET_PERSONNEL_MOVEMENT_MONITORING_Result">
@@ -13490,6 +13558,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT" />
+          <FunctionImportMapping FunctionImportName="USP_H_UPLOAD_BANK_DETAILS" FunctionName="apwdbModel.Store.USP_H_UPLOAD_BANK_DETAILS" />
+          <FunctionImportMapping FunctionImportName="USP_H_UPLOAD_SALARY_DETAILS" FunctionName="apwdbModel.Store.USP_H_UPLOAD_SALARY_DETAILS" />
+          <FunctionImportMapping FunctionImportName="USP_H_UPLOAD_EMPLOYEE_BENEFITS" FunctionName="apwdbModel.Store.USP_H_UPLOAD_EMPLOYEE_BENEFITS" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

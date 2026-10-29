@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Http;
 using static HRModel.ViewModel.Employees.Benefits.Benefits_model;
 using HRMS_API.Repository;
+using static HRModel.ViewModel.Employees.Benefits.BankDetails_model;
 
 namespace HRMS_API.Controllers
 {
@@ -146,6 +147,39 @@ namespace HRMS_API.Controllers
                 int result = _benefitsrepository.ManageBenefitsRecord(model);
                 if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Ok."); }
                 else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Benefits/UploadBankDetails")]
+        [HttpPost]
+        public HttpResponseMessage UploadBankDetails([FromBody] BankDetailsUpload_model model) 
+        {
+            try
+            {
+                string bankdetails = _benefitsrepository.UploadBankDetails(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, bankdetails);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Benefits/UploadBenefits")]
+        [HttpPost]
+        public HttpResponseMessage UploadBenefits([FromBody] BenefitsRecord_model model)
+        {
+            try
+            {
+                string result = _benefitsrepository.UploadBenefits(model);
+                return Request.CreateResponse(HttpStatusCode.OK, result);
             }
             catch (Exception ex)
             {
