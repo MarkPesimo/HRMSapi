@@ -4366,6 +4366,40 @@
           <Parameter Name="USER_ID" Type="int" Mode="In" />
           <Parameter Name="RET_ID" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="USP_H_UPLOAD_BANK_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="BANK_ID" Type="int" Mode="In" />
+          <Parameter Name="ACCOUNTNO" Type="nvarchar" Mode="In" />
+          <Parameter Name="CARD_NO" Type="nvarchar" Mode="In" />
+          <Parameter Name="CARD_VALIDITY_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_H_UPLOAD_EMPLOYEE_BENEFITS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="BENEFIT_TYPE" Type="nvarchar" Mode="In" />
+          <Parameter Name="BENEFIT_CLASS" Type="nvarchar" Mode="In" />
+          <Parameter Name="BENEFIT_CATEGORY" Type="nvarchar" Mode="In" />
+          <Parameter Name="ADJUSTMENT" Type="nvarchar" Mode="In" />
+          <Parameter Name="AMOUNT" Type="decimal" Mode="In" />
+          <Parameter Name="TAXABLE" Type="nvarchar" Mode="In" />
+          <Parameter Name="BILLABLE" Type="nvarchar" Mode="In" />
+          <Parameter Name="EFFECTIVE_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="BENEFIT_START_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="USP_H_UPLOAD_SALARY_DETAILS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPID" Type="int" Mode="In" />
+          <Parameter Name="SALARY_AMOUNT" Type="decimal" Mode="In" />
+          <Parameter Name="ALLOWANCE" Type="decimal" Mode="In" />
+          <Parameter Name="EFFECTIVE_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="SALARY_CHANGE_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+          <Parameter Name="CATEGORY_ID" Type="int" Mode="In" />
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="RETURN_ID" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="USP_I_MANAGE_CANDIDATE_SKILL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="CANDIDATE_ID" Type="int" Mode="In" />
@@ -7174,6 +7208,40 @@
             <Parameter Name="SALARY_CHANGE_DATE" Mode="In" Type="DateTime" />
             <Parameter Name="USERID" Mode="In" Type="Int32" />
             <Parameter Name="RET_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_UPLOAD_BANK_DETAILS">
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="BANK_ID" Mode="In" Type="Int32" />
+            <Parameter Name="ACCOUNTNO" Mode="In" Type="String" />
+            <Parameter Name="CARD_NO" Mode="In" Type="String" />
+            <Parameter Name="CARD_VALIDITY_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_UPLOAD_SALARY_DETAILS">
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="SALARY_AMOUNT" Mode="In" Type="Decimal" />
+            <Parameter Name="ALLOWANCE" Mode="In" Type="Decimal" />
+            <Parameter Name="EFFECTIVE_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="SALARY_CHANGE_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="CATEGORY_ID" Mode="In" Type="Int32" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RETURN_ID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_H_UPLOAD_EMPLOYEE_BENEFITS">
+            <Parameter Name="EMPID" Mode="In" Type="Int32" />
+            <Parameter Name="BENEFIT_TYPE" Mode="In" Type="String" />
+            <Parameter Name="BENEFIT_CLASS" Mode="In" Type="String" />
+            <Parameter Name="BENEFIT_CATEGORY" Mode="In" Type="String" />
+            <Parameter Name="ADJUSTMENT" Mode="In" Type="String" />
+            <Parameter Name="AMOUNT" Mode="In" Type="Decimal" />
+            <Parameter Name="TAXABLE" Mode="In" Type="String" />
+            <Parameter Name="BILLABLE" Mode="In" Type="String" />
+            <Parameter Name="EFFECTIVE_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="BENEFIT_START_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="RETURN_ID" Mode="InOut" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="Employee">
@@ -13491,6 +13559,9 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT" FunctionName="apwdbModel.Store.USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT" />
+          <FunctionImportMapping FunctionImportName="USP_H_UPLOAD_BANK_DETAILS" FunctionName="apwdbModel.Store.USP_H_UPLOAD_BANK_DETAILS" />
+          <FunctionImportMapping FunctionImportName="USP_H_UPLOAD_SALARY_DETAILS" FunctionName="apwdbModel.Store.USP_H_UPLOAD_SALARY_DETAILS" />
+          <FunctionImportMapping FunctionImportName="USP_H_UPLOAD_EMPLOYEE_BENEFITS" FunctionName="apwdbModel.Store.USP_H_UPLOAD_EMPLOYEE_BENEFITS" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

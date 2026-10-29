@@ -95,5 +95,24 @@ namespace HRMS_API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
             }
         }
+
+        [Route("api/Movement/UploadSalaryDetails")]
+        [HttpPost]
+        public HttpResponseMessage UploadSalaryDetails([FromBody] SalaryDetailsUpload_model model)
+        {
+            try
+            {
+                string result = _movementrepository.UploadSalaryDetails(model);
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+                //int result = _movementrepository.UploadSalaryDetails(model);
+                //if (result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Ok."); }
+                //else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Salary details uploading complete."); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
     }
 }

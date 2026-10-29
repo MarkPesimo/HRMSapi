@@ -158,5 +158,37 @@ namespace HRMS_API.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public string UploadSalaryDetails(SalaryDetailsUpload_model _model) 
+        {
+            try
+            {
+                string _return = "";
+
+                System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RET_ID", typeof(int));
+
+                _conn.USP_H_UPLOAD_SALARY_DETAILS(
+                    _model.EmpId,
+                    _model.SalaryAmount,
+                    _model.Allowance,
+                    _model.EffectiveDate,
+                    _model.SalaryChangeDate,
+                    _model.Remarks,
+                    _model.CategoryId,
+                    _model.UserId,
+                    _return_value);
+
+                _return = Convert.ToString(_return_value.Value);
+
+                if (int.Parse(_return.ToString()) > 0) { return "OK"; }
+                else { return "Error"; }
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null) { throw new Exception(ex.InnerException.Message); }
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

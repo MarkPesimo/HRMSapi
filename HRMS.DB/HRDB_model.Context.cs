@@ -4296,5 +4296,124 @@ namespace HRMS.DB
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_MANAGE_EMPLOYEE_PERSONNEL_MOVEMENT", iDParameter, mODEParameter, eMP_IDParameter, cATEGORY_IDParameter, cLIENT_ID_FROMParameter, cLIENT_ID_TOParameter, bRANCH_ID_FROMParameter, bRANCH_ID_TOParameter, dEPARTMENT_ID_FROMParameter, dEPARTMENT_ID_TOParameter, eMPTYPE_ID_FROMParameter, eMPTYPE_ID_TOParameter, eMPRANK_ID_FROMParameter, eMPRANK_ID_TOParameter, pOSITION_FROMParameter, pOSITION_TOParameter, pAYTYPE_FROMParameter, pAYTYPE_TOParameter, mONTHLYSALARY_FROMParameter, mONTHLYSALARY_TOParameter, aLLOWANCE_FROMParameter, aLLOWANCE_TOParameter, eFFECTIVE_DATE_FROMParameter, eFFECTIVE_DATE_TOParameter, sALARY_CHANGE_DATEParameter, uSERIDParameter, rET_ID);
         }
+    
+        public virtual int USP_H_UPLOAD_BANK_DETAILS(Nullable<int> eMPID, Nullable<int> bANK_ID, string aCCOUNTNO, string cARD_NO, Nullable<System.DateTime> cARD_VALIDITY_DATE, Nullable<int> uSER_ID)
+        {
+            var eMPIDParameter = eMPID.HasValue ?
+                new ObjectParameter("EMPID", eMPID) :
+                new ObjectParameter("EMPID", typeof(int));
+    
+            var bANK_IDParameter = bANK_ID.HasValue ?
+                new ObjectParameter("BANK_ID", bANK_ID) :
+                new ObjectParameter("BANK_ID", typeof(int));
+    
+            var aCCOUNTNOParameter = aCCOUNTNO != null ?
+                new ObjectParameter("ACCOUNTNO", aCCOUNTNO) :
+                new ObjectParameter("ACCOUNTNO", typeof(string));
+    
+            var cARD_NOParameter = cARD_NO != null ?
+                new ObjectParameter("CARD_NO", cARD_NO) :
+                new ObjectParameter("CARD_NO", typeof(string));
+    
+            var cARD_VALIDITY_DATEParameter = cARD_VALIDITY_DATE.HasValue ?
+                new ObjectParameter("CARD_VALIDITY_DATE", cARD_VALIDITY_DATE) :
+                new ObjectParameter("CARD_VALIDITY_DATE", typeof(System.DateTime));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_UPLOAD_BANK_DETAILS", eMPIDParameter, bANK_IDParameter, aCCOUNTNOParameter, cARD_NOParameter, cARD_VALIDITY_DATEParameter, uSER_IDParameter);
+        }
+    
+        public virtual int USP_H_UPLOAD_SALARY_DETAILS(Nullable<int> eMPID, Nullable<decimal> sALARY_AMOUNT, Nullable<decimal> aLLOWANCE, Nullable<System.DateTime> eFFECTIVE_DATE, Nullable<System.DateTime> sALARY_CHANGE_DATE, string rEMARKS, Nullable<int> cATEGORY_ID, Nullable<int> uSER_ID, ObjectParameter rETURN_ID)
+        {
+            var eMPIDParameter = eMPID.HasValue ?
+                new ObjectParameter("EMPID", eMPID) :
+                new ObjectParameter("EMPID", typeof(int));
+    
+            var sALARY_AMOUNTParameter = sALARY_AMOUNT.HasValue ?
+                new ObjectParameter("SALARY_AMOUNT", sALARY_AMOUNT) :
+                new ObjectParameter("SALARY_AMOUNT", typeof(decimal));
+    
+            var aLLOWANCEParameter = aLLOWANCE.HasValue ?
+                new ObjectParameter("ALLOWANCE", aLLOWANCE) :
+                new ObjectParameter("ALLOWANCE", typeof(decimal));
+    
+            var eFFECTIVE_DATEParameter = eFFECTIVE_DATE.HasValue ?
+                new ObjectParameter("EFFECTIVE_DATE", eFFECTIVE_DATE) :
+                new ObjectParameter("EFFECTIVE_DATE", typeof(System.DateTime));
+    
+            var sALARY_CHANGE_DATEParameter = sALARY_CHANGE_DATE.HasValue ?
+                new ObjectParameter("SALARY_CHANGE_DATE", sALARY_CHANGE_DATE) :
+                new ObjectParameter("SALARY_CHANGE_DATE", typeof(System.DateTime));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            var cATEGORY_IDParameter = cATEGORY_ID.HasValue ?
+                new ObjectParameter("CATEGORY_ID", cATEGORY_ID) :
+                new ObjectParameter("CATEGORY_ID", typeof(int));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_UPLOAD_SALARY_DETAILS", eMPIDParameter, sALARY_AMOUNTParameter, aLLOWANCEParameter, eFFECTIVE_DATEParameter, sALARY_CHANGE_DATEParameter, rEMARKSParameter, cATEGORY_IDParameter, uSER_IDParameter, rETURN_ID);
+        }
+    
+        public virtual int USP_H_UPLOAD_EMPLOYEE_BENEFITS(Nullable<int> eMPID, string bENEFIT_TYPE, string bENEFIT_CLASS, string bENEFIT_CATEGORY, string aDJUSTMENT, Nullable<decimal> aMOUNT, string tAXABLE, string bILLABLE, Nullable<System.DateTime> eFFECTIVE_DATE, Nullable<System.DateTime> bENEFIT_START_DATE, string rEMARKS, Nullable<int> uSER_ID, ObjectParameter rETURN_ID)
+        {
+            var eMPIDParameter = eMPID.HasValue ?
+                new ObjectParameter("EMPID", eMPID) :
+                new ObjectParameter("EMPID", typeof(int));
+    
+            var bENEFIT_TYPEParameter = bENEFIT_TYPE != null ?
+                new ObjectParameter("BENEFIT_TYPE", bENEFIT_TYPE) :
+                new ObjectParameter("BENEFIT_TYPE", typeof(string));
+    
+            var bENEFIT_CLASSParameter = bENEFIT_CLASS != null ?
+                new ObjectParameter("BENEFIT_CLASS", bENEFIT_CLASS) :
+                new ObjectParameter("BENEFIT_CLASS", typeof(string));
+    
+            var bENEFIT_CATEGORYParameter = bENEFIT_CATEGORY != null ?
+                new ObjectParameter("BENEFIT_CATEGORY", bENEFIT_CATEGORY) :
+                new ObjectParameter("BENEFIT_CATEGORY", typeof(string));
+    
+            var aDJUSTMENTParameter = aDJUSTMENT != null ?
+                new ObjectParameter("ADJUSTMENT", aDJUSTMENT) :
+                new ObjectParameter("ADJUSTMENT", typeof(string));
+    
+            var aMOUNTParameter = aMOUNT.HasValue ?
+                new ObjectParameter("AMOUNT", aMOUNT) :
+                new ObjectParameter("AMOUNT", typeof(decimal));
+    
+            var tAXABLEParameter = tAXABLE != null ?
+                new ObjectParameter("TAXABLE", tAXABLE) :
+                new ObjectParameter("TAXABLE", typeof(string));
+    
+            var bILLABLEParameter = bILLABLE != null ?
+                new ObjectParameter("BILLABLE", bILLABLE) :
+                new ObjectParameter("BILLABLE", typeof(string));
+    
+            var eFFECTIVE_DATEParameter = eFFECTIVE_DATE.HasValue ?
+                new ObjectParameter("EFFECTIVE_DATE", eFFECTIVE_DATE) :
+                new ObjectParameter("EFFECTIVE_DATE", typeof(System.DateTime));
+    
+            var bENEFIT_START_DATEParameter = bENEFIT_START_DATE.HasValue ?
+                new ObjectParameter("BENEFIT_START_DATE", bENEFIT_START_DATE) :
+                new ObjectParameter("BENEFIT_START_DATE", typeof(System.DateTime));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_H_UPLOAD_EMPLOYEE_BENEFITS", eMPIDParameter, bENEFIT_TYPEParameter, bENEFIT_CLASSParameter, bENEFIT_CATEGORYParameter, aDJUSTMENTParameter, aMOUNTParameter, tAXABLEParameter, bILLABLEParameter, eFFECTIVE_DATEParameter, bENEFIT_START_DATEParameter, rEMARKSParameter, uSER_IDParameter, rETURN_ID);
+        }
     }
 }
