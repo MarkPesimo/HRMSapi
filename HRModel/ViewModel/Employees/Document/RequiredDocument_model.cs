@@ -36,6 +36,7 @@ namespace HRModel.ViewModel.Employees.Document
         {
             public int Id { get; set; }
             public string Description { get; set; }
+            public string DocCount { get; set; }
             public string WithSimilarDocument { get; set; }
             public bool IsRequired { get; set; }
             public int UserId { get; set; }
@@ -54,5 +55,16 @@ namespace HRModel.ViewModel.Employees.Document
             public int Mode { get; set; }
             public DateTime DateCreated { get; set; }
         }
+
+        public class DocumentDropdownModel
+        {
+            public int Id { get; set; }
+            public string Description { get; set; }
+            public string DocumentClass { get; set; }
+            public int Status { get; set; }
+            public int UserId{ get; set; }
+        }
     }
+
+  
 }

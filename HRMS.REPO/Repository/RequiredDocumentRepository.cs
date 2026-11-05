@@ -76,7 +76,8 @@ namespace HRMS.REPO.Repository
             _conn.USP_H_MANAGE_REQUIRED_DOCUMENT(
                 _model.Id,
                 _model.Description,
-                _model.WithSimilarDocument,
+                _model.DocCount,
+                //_model.WithSimilarDocument,
                 _model.IsRequired,
                 _model.UserId,
                 _model.Mode,
@@ -137,6 +138,21 @@ namespace HRMS.REPO.Repository
             );
 
             return Convert.ToInt32(_return_value.Value);
+        }
+
+        public List<DocumentDropdownModel> GetDocumentDropdown()
+        {
+            return (from x in _conn.Documents
+                    where x.Document_class == "Employee"
+                    select x
+                  ).AsEnumerable()
+                  .Select(d => new DocumentDropdownModel()
+                  {
+                      Id = int.Parse(d.DocId.ToString()),
+                      Description = d.Description,
+                      DocumentClass = d.Document_class,
+                      UserId = d.user_id
+                  }).ToList();
         }
     }
 }

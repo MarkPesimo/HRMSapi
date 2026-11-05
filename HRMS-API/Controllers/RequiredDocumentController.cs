@@ -141,5 +141,22 @@ namespace HRMS_API.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
             }
         }
+
+        [Route("api/RequiredDocument/GetDocumentDropdown")]
+        [HttpGet]
+        public HttpResponseMessage GetDocumentDropdown()
+        {
+            try
+            {
+                List<DocumentDropdownModel> _model = _requireddocumentrepository.GetDocumentDropdown();
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
     }
 }
