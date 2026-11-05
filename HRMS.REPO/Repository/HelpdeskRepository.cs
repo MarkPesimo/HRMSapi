@@ -19,6 +19,24 @@ namespace HRMS.REPO.Repository
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
         }
 
+
+        public List<ConcernTypeModel> GetConcernTypeDropdown()
+        {
+            var query = from et in _conn.HELPDESK_CONCERN_TYPE
+                        select et;
+
+            return query.AsEnumerable().Select(x => new ConcernTypeModel
+            {
+                Id = int.Parse(x.id.ToString()),
+                SortNo = x.sort_no,
+                ConcernDescription = x.concern_description,
+                Department = x.department,
+                Status = Convert.ToBoolean(x.status),
+                UserId = int.Parse(x.user_id.ToString()),
+                DateCreated = Convert.ToDateTime(x.date_created)
+            }).ToList();
+        }
+
         public List<HelpdeskMonitoring_model> GetHelpdeskMonitoring(HelpdeskMonitoringFilter_model _filter)
         {
             return (from d in _conn.USP_H_GET_HELPDESK_MONITORING(
@@ -38,7 +56,7 @@ namespace HRMS.REPO.Repository
                     select d).AsEnumerable()
                .Select(x => new HelpdeskMonitoring_model()
                {
-                   Id = int.Parse(x.id.ToString()),
+                   Id = x.id != null ? int.Parse(x.id.ToString()) : 0,
                    ConcernDate = DateTime.Parse( x.concern_date.ToString()),
                    ClientName = x.client,
                    ConcernType = x.concern_type,
@@ -47,7 +65,7 @@ namespace HRMS.REPO.Repository
                    ConcernStatus = x.concern_status,
                    CreatedBy = x.created_by,
                    DateCompleted = x.date_completed ,
-                   Age = int.Parse(x.age.ToString()),
+                   Age = x.age != null && int.TryParse(x.age.ToString(), out int parsedAge) ? parsedAge : 0,
                    DatePosted = x.date_posted
                }).ToList();
         }

@@ -10,6 +10,7 @@ using System.Web.Http;
 using static HRModel.ViewModel.Employees.Benefits.Benefits_model;
 using HRMS_API.Repository;
 using static HRModel.ViewModel.Employees.Benefits.BankDetails_model;
+using HRModel.ViewModel.Employees;
 
 namespace HRMS_API.Controllers
 {
@@ -18,10 +19,12 @@ namespace HRMS_API.Controllers
     public class BenefitsController : ApiController
     {
         private BenefitsRepository _benefitsrepository { get; set; }
+        private GlobalRepository _globalrepository{ get; set; }
 
         public BenefitsController()
         {
             if (_benefitsrepository == null) { _benefitsrepository = new BenefitsRepository(); }
+            if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
         }
 
         [Route("api/Benefits/GetBenefitsMonitoring")]
@@ -185,6 +188,55 @@ namespace HRMS_API.Controllers
             {
                 string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+
+        [Route("api/Benefits/GetEmployeeNoChecker/{_empno}")]
+        [HttpGet]
+        public HttpResponseMessage GetEmployeeNoChecker(string _empno)
+        {
+            try
+            {
+                EmployeeKeys _model = _globalrepository.GetEmployeeNoChecker(_empno);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Benefits/GetBankTypeChecker/{_banktype}")]
+        [HttpGet]
+        public HttpResponseMessage GetBankTypeChecker(string _banktype)
+        {
+            try
+            {
+                EmployeeKeys _model = _globalrepository.GetBankTypeChecker(_banktype);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Benefits/GetPersonnelMovementCategory/{_description}")]
+        [HttpGet]
+        public HttpResponseMessage GetPersonnelMovementCategory(string _description)
+        {
+            try
+            {
+                EmployeeKeys _model = _globalrepository.GetPersonnelMovementCategory(_description);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
             }
         }
     }

@@ -201,12 +201,18 @@ namespace HRMS_API.Controllers
             try
             {
                 int _result = _accessrepository.ManageClientPortalAccess(_model);
-                if (_result > 0) { return Request.CreateResponse(HttpStatusCode.OK, "Ok."); }
-                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record."); }
+                if (_result > 0 || _model.Mode == 2)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, new { Id = _result });
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Failed to save record.");
+                }
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException != null ? ex.InnerException.ToString() : ex.Message);
             }
         }
         //===============================================CLIENT PORTAL ACCESS================================================

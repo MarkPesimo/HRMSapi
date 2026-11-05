@@ -1,24 +1,149 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+﻿
+<style>
+    .api-container {
+        max-width: 900px;
+        margin: 2.5rem auto;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .api-hero {
+        background: linear-gradient(135deg, #0a192f 0%, #1e3c72 100%);
+        color: #ffffff;
+        padding: 3rem;
+        border-radius: 12px 12px 0 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    .apw-logo-box {
+        background: #ffffff;
+        display: inline-block;
+        padding: 8px 18px;
+        border-radius: 6px;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .apw-logo-box img {
+        max-height: 42px;
+        width: auto;
+        display: block;
+    }
+
+    .api-hero h1 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        letter-spacing: -0.5px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .api-status-badge {
+        background: rgba(40, 167, 69, 0.2);
+        color: #28a745;
+        border: 1px solid rgba(40, 167, 69, 0.4);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .api-hero p {
+        color: #cbd5e1;
+        font-size: 1.1rem;
+        margin-bottom: 0;
+        line-height: 1.6;
+        max-width: 750px;
+    }
+
+    .api-details-panel {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-top: none;
+        border-radius: 0 0 12px 12px;
+        padding: 2.5rem 3rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .api-details-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    .detail-item {
+        border-left: 3px solid #007bff;
+        padding-left: 1rem;
+    }
+
+    .detail-item .label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: #94a3b8;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+
+    .detail-item .value {
+        font-size: 1rem;
+        color: #1e293b;
+        font-weight: 500;
+    }
+
+    .api-footer-note {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px dashed #e2e8f0;
+        font-size: 0.85rem;
+        color: #64748b;
+        text-align: center;
+    }
+
+    @@media (max-width: 768px) {
+        .api-details-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="api-container">
+    <div class="api-hero">
+        <div class="apw-logo-box">
+            <img src="https://asiapeopleworks.com.ph/wp-content/uploads/2021/03/APW_Logo-300x67.png" alt="Asia Peopleworks Inc. Logo" />
+        </div>
+        <h1>HRMS.NET API <span class="api-status-badge">ONLINE</span></h1>
+        <p>
+            Centralized core backend gateway for Asia Peopleworks Inc. Providing high-performance data orchestration, authentication services, and system integrations across enterprise web applications.
+        </p>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+
+    <div class="api-details-panel">
+        <div class="api-details-grid">
+            <div class="detail-item">
+                <span class="label">Organization</span>
+                <span class="value">Asia Peopleworks Inc.</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Maintained By</span>
+                <span class="value">APW System & Development Team</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Service Engine</span>
+                <span class="value">ASP.NET Web API (.NET Framework)</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Database</span>
+                <span class="value">Microsoft SQL Server (T-SQL Engine)</span>
+            </div>
+        </div>
+
+        <div class="api-footer-note">
+            Internal Service Interface • Authorized APW Application Consumption Only
+        </div>
     </div>
 </div>

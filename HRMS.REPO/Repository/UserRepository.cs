@@ -103,7 +103,6 @@ namespace HRMS.REPO.Repository
                         while (reader.Read())
                         {
                             result.RecountCount = reader["TotalRecord"] == DBNull.Value ? 0 : Convert.ToInt32(reader["TotalRecord"]);
-                          
                         }
 
                         if (reader.NextResult())
@@ -113,18 +112,17 @@ namespace HRMS.REPO.Repository
                                 result.PortalUsers.Add(new PortalUser_model
                                 {
                                     Id = reader["id"] == DBNull.Value ? 0 : Convert.ToInt32(reader["id"]),
-                                    ClientName = reader["client_name"].ToString(),
-                                    EmployeeName = reader["employee_name"].ToString(),
-                                    Username = reader["username"].ToString(),
-                                    EmailAddress = reader["email_address"].ToString(),
-                                    UserStatus = reader["User_Status"].ToString(),
-                                    DateRegistered = reader["Date_Registered"] == DBNull.Value ? "" : Convert.ToDateTime(reader["Date_Registered"]).ToShortDateString(),
+                                    ClientName = reader["client_name"] == DBNull.Value ? string.Empty : reader["client_name"].ToString(),
+                                    EmpId = reader["empid"] == DBNull.Value ? 0 : Convert.ToInt32(reader["empid"]), 
+                                    EmployeeName = reader["employee_name"] == DBNull.Value ? string.Empty : reader["employee_name"].ToString(),
+                                    Username = reader["username"] == DBNull.Value ? string.Empty : reader["username"].ToString(),
+                                    EmailAddress = reader["email_address"] == DBNull.Value ? string.Empty : reader["email_address"].ToString(),
+                                    UserStatus = reader["user_status"] == DBNull.Value ? string.Empty : reader["user_status"].ToString(),
+                                    DateRegistered = reader["date_registered"] == DBNull.Value ? string.Empty : Convert.ToDateTime(reader["date_registered"]).ToShortDateString(),
                                 });
                             }
                         }
                     }
-
-                    
                 }
             }
 

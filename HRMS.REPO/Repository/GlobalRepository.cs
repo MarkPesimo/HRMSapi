@@ -31,6 +31,54 @@ namespace HRMS.REPO.Repository
             return _path ?? string.Empty;
         }
 
+        public EmployeeKeys GetEmployeeNoChecker(string _empno)
+        {
+            EmployeeKeys _obj = new EmployeeKeys();
+
+            _obj = (from d in _conn.Employees
+                    where d.Emp_No == _empno
+                    select new EmployeeKeys
+                    {
+                        EmpId = d.Emp_ID,
+                        EmpNo = d.Emp_No,
+                    }).SingleOrDefault();
+
+            return _obj;
+
+        }
+
+        public EmployeeKeys GetBankTypeChecker(string _banktype)
+        {
+            EmployeeKeys _obj = new EmployeeKeys();
+
+            _obj = (from d in _conn.SYS_BANK
+                    where d.Bank_code == _banktype
+                    select new EmployeeKeys
+                    {
+                        BankId = d.id,
+                        BankCode = d.Bank_code
+                    }).SingleOrDefault();
+
+            return _obj;
+
+        }
+
+        public EmployeeKeys GetPersonnelMovementCategory(string _description)
+        {
+            EmployeeKeys _obj = new EmployeeKeys();
+
+            _obj = (from d in _conn.Personnel_Movement_Category
+                    where d.Category_Description == _description
+                    select new EmployeeKeys
+                    {
+                        CategoryId = d.PM_CategoryID,
+                        CategoryDescription= d.Category_Description,
+                    }).SingleOrDefault();
+
+            return _obj;
+
+        }
+
         public EmployeeKeys GetEmployeeKey(string _guid)
         {
             EmployeeKeys _obj = new EmployeeKeys();
