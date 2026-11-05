@@ -51,22 +51,36 @@ namespace HRMS.REPO.Repository.Employee
                     }).OrderBy(x => x.SkillDescription).ToList();
         }
 
-        public SkillModel GetSkill(int _id)
+        public SkillModel GetSkill(int _id, int _canid)
         {
-            return (from x in _conn.REC_CANDIDATE_SKILL
-                    where x.id == _id
-                    select x
-                ).AsEnumerable()
-                .Select(d => new SkillModel()
-                {
-                    Id = int.Parse(d.id.ToString()),
-                    CandidateId = d.candidate_id,
-                    SkillId = d.skill_id,
-                    SkillName = d.REC_Skill.Skill_description,                    
-                    UserId = d.user_id,
-                    CreatedBy = d.SYS_USER.username,
-                    DateCreated = d.date_created
-                }).SingleOrDefault();
+            SkillModel _model = new SkillModel();
+
+            if (_id == 0) {
+                _model.Id = 0;
+                _model.CandidateId = _canid;
+                _model.Mode = 0;
+            }
+            else
+            {
+
+                _model = (from x in _conn.REC_CANDIDATE_SKILL
+                          where x.id == _id
+                          select x
+               ).AsEnumerable()
+               .Select(d => new SkillModel()
+               {
+                   Id = int.Parse(d.id.ToString()),
+                   CandidateId = d.candidate_id,
+                   SkillId = d.skill_id,
+                   SkillName = d.REC_Skill.Skill_description,
+                   UserId = d.user_id,
+                   CreatedBy = d.SYS_USER.username,
+                   DateCreated = d.date_created
+               }).SingleOrDefault();
+            }
+           
+
+            return _model;
         }
 
         public List<SkillViewModel> GetSkills(int _empid)

@@ -21,35 +21,49 @@ namespace HRMS.REPO.Repository.Employee
         }
 
         //============================EXTERNAL EMPLOYMENT================================================
-        public PreviousEmploymentModel GetExternalEmployment(int _id)
+        public PreviousEmploymentModel GetExternalEmployment(int _id, int _canid)
         {
-            return (from d in _conn.REC_CANDIDATE_EMPLOYMENT
+            PreviousEmploymentModel _obj = new PreviousEmploymentModel();
+            if (_id == 0)
+            {
+                _obj.Id = 0;
+                _obj.CandidateId = _canid;
+                _obj.Mode = 0;
+            }
+            else
+            {
 
-                    where d.Employ_ID == _id
-                    select d).AsEnumerable()
-                  .Select(x => new PreviousEmploymentModel()
-                  {
-                      Id = x.Employ_ID,
-                      CandidateId = x.candidate_id,
-                      CompanyId = x.company_id,
-                      CompanyName = x.Company_name,
-                      CompanyAddress = x.Company_Address,
-                      Salary = x.Company_Salary,
+                _obj = (from d in _conn.REC_CANDIDATE_EMPLOYMENT
 
-                      IndustryId = x.industry_id,
-                      IndustryName = x.INDUSTRY.industry_name,
+                        where d.Employ_ID == _id
+                        select d).AsEnumerable()
+                     .Select(x => new PreviousEmploymentModel()
+                     {
+                         Id = x.Employ_ID,
+                         CandidateId = x.candidate_id,
+                         CompanyId = x.company_id,
+                         CompanyName = x.Company_name,
+                         CompanyAddress = x.Company_Address,
+                         Salary = x.Company_Salary,
 
-                      FunctionId = x.function_id,
-                      FunctionName = "",
-                      RoleId = x.role_id,
-                      RoleName = "",
-                      ReasonForLeaving = x.Reason_for_leaving,
+                         IndustryId = x.industry_id,
+                         IndustryName = x.INDUSTRY.industry_name,
 
-                      Position = x.Company_position,
-                      StartDate = x.Company_from,
-                      EndDate = x.Company_to,                      
+                         FunctionId = x.function_id,
+                         FunctionName = "",
+                         RoleId = x.role_id,
+                         RoleName = "",
+                         ReasonForLeaving = x.Reason_for_leaving,
 
-                  }).SingleOrDefault();
+                         Position = x.Company_position,
+                         StartDate = x.Company_from,
+                         EndDate = x.Company_to,
+
+                     }).SingleOrDefault();
+            }
+           
+
+            return _obj;
         }
 
         public List<PreviousEmploymentViewModel> GetExternalEmployments(int _canid)

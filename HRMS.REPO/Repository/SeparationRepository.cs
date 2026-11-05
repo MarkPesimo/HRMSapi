@@ -78,6 +78,24 @@ namespace HRMS.REPO.Repository
             return _obj;
         }
 
+        public Separation GetContractSeparationRecord(int _id)
+        {
+            return (from d in _conn.REC_NEW_HIRED_EMPLOYEE
+                    where d.id == _id
+                    select d).AsEnumerable()
+             .Select(x => new Separation()
+             {
+                 Id = x.id,
+                 ClientName = x.REC_CLIENT.client_name,
+                 EmployeeName = x.Employee.Lastname + ", " + x.Employee.Firstname,
+                 DateInactive = x.date_inactive,
+                 DateCreated = x.date_inactive_created,
+                 InactiveById = x.inactive_by,
+                 InactiveBy = _userrepository.GetUser(x.inactive_by).UserName,
+                 SeparationId = x.separated_id
+             }).SingleOrDefault();
+        }
+
         public int ManageEmployeeSeparationRecord(EmployeeSeparationRecord_model _model)
         {
             try

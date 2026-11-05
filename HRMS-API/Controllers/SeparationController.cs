@@ -127,6 +127,25 @@ namespace HRMS_API.Controllers
 
         }
 
+
+        [Route("api/Separation/GetContractSeparationRecord/{ContractId}")]
+        [HttpGet]
+        public HttpResponseMessage GetContractSeparationRecord(int ContractId)
+        {
+            try
+            {
+                Separation _obj = _separationrepository.GetContractSeparationRecord(ContractId);
+
+                return _obj != null
+                    ? Request.CreateResponse(HttpStatusCode.OK, _obj)
+                    : Request.CreateErrorResponse(HttpStatusCode.NotFound, "No records found.");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
         [Route("api/Separation/UpdateSeparationDate")]
         [HttpPost]
         public HttpResponseMessage UpdateSeparationDate([FromBody] Separation model)

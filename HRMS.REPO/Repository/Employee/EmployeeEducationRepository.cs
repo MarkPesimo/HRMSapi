@@ -19,29 +19,40 @@ namespace HRMS.REPO.Repository.Employee
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
         }
 
-        public EducationalBackgroundModel GetEducation(int _id)
+        public EducationalBackgroundModel GetEducation(int _id, int _canid)
         {
-       
-            return (from d in _conn.REC_CANDIDATE_EDUCATION
-                    where d.School_Id == _id
-                    select d).AsEnumerable()
-                  .Select(x => new EducationalBackgroundModel()
-                  {
-                      Id = x.School_Id,
-                      CandidateId = x.candidate_id,
-                      SchoolId = x.SchoolLibID,
-                      SchoolName = x.School.SchoolName,
-                      SchoolLevelId = x.SchoolLevelID,
-                      SchoolLevel = x.SchoolLevel.SchoolLevelDescn,
-                      DegreeId = int.Parse( x.DegreeID.ToString()),
-                      DegreeName = x.Degree.DegreeName,
-                      Awards = x.Awards,
-                      FromDate = x.School_From,
-                      ToDate = x.School_To,
-                      Remarks = x.School_Remarks,
-                      IsGraduated = bool.Parse( x.Graduated.ToString())
-                  }).SingleOrDefault();
-           
+            EducationalBackgroundModel _model = new EducationalBackgroundModel();
+
+            if (_id == 0)
+            {
+                _model.Mode = 1;
+                _model.CandidateId = _canid;
+            }
+            else
+            {
+                _model = (from d in _conn.REC_CANDIDATE_EDUCATION
+                        where d.School_Id == _id
+                        select d).AsEnumerable()
+                 .Select(x => new EducationalBackgroundModel()
+                 {
+                     Id = x.School_Id,
+                     CandidateId = x.candidate_id,
+                     SchoolId = x.SchoolLibID,
+                     SchoolName = x.School.SchoolName,
+                     SchoolLevelId = x.SchoolLevelID,
+                     SchoolLevel = x.SchoolLevel.SchoolLevelDescn,
+                     DegreeId = int.Parse(x.DegreeID.ToString()),
+                     DegreeName = x.Degree.DegreeName,
+                     Awards = x.Awards,
+                     FromDate = x.School_From,
+                     ToDate = x.School_To,
+                     Remarks = x.School_Remarks,
+                     IsGraduated = bool.Parse(x.Graduated.ToString())
+                 }).SingleOrDefault();
+
+            }
+
+            return _model;
         }
 
         public List<EducationalBackgroundViewModel> GetEducations(int _empid)
