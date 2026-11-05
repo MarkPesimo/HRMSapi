@@ -66,14 +66,27 @@ namespace HRMS.REPO.Repository
                   }).ToList();
         }
 
+        public BasicInformation SetEmployeeBasicInfo( int _empid, int _candidateid, string _status )
+        {
+
+            BasicInformation _obj = new BasicInformation();
+             
+            _obj.EmpId = _empid;
+            _obj.CandidateId = _candidateid;
+            //_obj.Status = _status;
+
+            return _obj;
+
+        }
         //=============================PROFILE / PERSONAL============================================
-        public EmployeeProfile GetEmployeeProfile(int _empid, int _candid)
+        public EmployeeProfile GetEmployeeProfile(int _empid, int _candid, string _guid)
         {
             EmployeeProfile _profile = new EmployeeProfile
             {
                 //GUid = _guid,
                 EmployeeStatus              = GetEmployeeStatus(_empid),
                 Personal                    = GetPersonalInfo(_empid),
+                BasicInfo                   = GetBasicInformation(_empid, _candid, _guid),
                 Spouse                      = GetSpouseInfo(_empid),
                 EmergencyContact            = GetEmergencyContact(_empid),
                 CurrentEmployment           = GetCurrentEmployment(_empid),
@@ -83,6 +96,8 @@ namespace HRMS.REPO.Repository
                 SkillList                   = _skillrepository.GetSkills(_empid),
                 ExternalEmployments         = _employmentrepository.GetExternalEmployments(_candid)
             };
+
+          
 
             return _profile;
         }
@@ -163,8 +178,39 @@ namespace HRMS.REPO.Repository
                         Province        = x.AreaLibrary1.AreaDescription,
                         Hobbies          =x.Hobbies,
                         CityId          = x.CityID,
-                        ProvinceId      = x.ProvinceID
+                        ProvinceId      = x.ProvinceID,
                     }).SingleOrDefault();
+
+            return _obj;
+        }
+
+        public BasicInformation GetBasicInformation(int _empid, int _canid, string _guid)
+        {
+            BasicInformation _obj = new BasicInformation();
+
+            _obj = (from d in _conn.Employees
+                        join el in _conn.REC_CANDIDATE_EMPLOYEE_LINK on d.Emp_ID equals el.emp_id
+                        join c in _conn.REC_CANDIDATE on el.candidate_id equals c.id
+                    where d.Emp_ID == _empid
+                    select d).AsEnumerable()
+                  .Select(x => new BasicInformation()
+                  {
+                      Guid = _guid,
+                      EmpId = x.Emp_ID,
+                      EmpNo = x.Emp_No,
+                      CandidateId = _canid,
+                      Status = bool.Parse( x.IsIncludePayroll.ToString()),
+                      Gender = x.Gender,
+                      LastName = x.Lastname ,
+                      FirstName = x.Firstname,
+                      ClientId = x.client_id,
+                      ClientName = x.REC_CLIENT.client_name,
+                      Department = x.Department.Dept_Name,
+                      Position = x.Position,
+                      DateHired = x.Datehired.Value,
+                      EmailAddress = x.EmailAddress,
+                      ContactNo = x.Contact_No
+                  }).SingleOrDefault();
 
             return _obj;
         }
@@ -206,6 +252,8 @@ namespace HRMS.REPO.Repository
                     where d.Emp_ID == _empid
                     select new SpouseInfo
                     {
+                        EmpId = _empid,
+                        Mode = 1,
                         SpouseName = d.Spouse,
                         SpouseCompany = d.Spouse_comp,
                         SpouseCompanyAdd = d.Spouse_address
@@ -237,6 +285,8 @@ namespace HRMS.REPO.Repository
                     where d.Emp_ID == _empid
                     select new EmergencyContactInfo
                     {
+                        EmpId           = d.Emp_ID,
+                        Mode            = 1,
                         ContactPerson   = d.Contact_person,
                         ContactAdd      = d.Contact_Address,
                         ContactNo       = d.Contact_No,

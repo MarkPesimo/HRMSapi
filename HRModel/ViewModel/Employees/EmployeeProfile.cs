@@ -31,6 +31,25 @@ namespace HRModel.ViewModel.Employees
         public int UserId { get; set; }
     }
 
+    public class BasicInformation
+    {
+        public string Guid { get; set; }
+        public int EmpId { get; set; }
+        public string  EmpNo { get; set; }
+        public int CandidateId { get; set; }
+        public bool Status { get; set; }
+        public string Gender { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int ClientId { get; set; }
+        public string ClientName { get; set; }
+        public string Department { get; set; }
+        public string Position { get; set; }
+        public DateTime DateHired { get; set; }
+        public string EmailAddress { get; set; }
+        public string ContactNo { get; set; }
+    }
+
     public class AreaLibraryModel
     {
         public int AreaID { get; set; }
@@ -407,7 +426,9 @@ namespace HRModel.ViewModel.Employees
         public int CandId { get; set; }
         public string GUid { get; set; }
         public string EmployeeStatus { get; set; }
+        
         public PersonalInfo Personal { get; set; }
+        public BasicInformation BasicInfo { get; set; }
         public SpouseInfo Spouse { get; set; }
         public EmergencyContactInfo EmergencyContact { get; set; }
         public EmploymentInfo CurrentEmployment { get; set; }

@@ -19,21 +19,33 @@ namespace HRMS.REPO.Repository.Employee
             if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
         }
 
-        public EmployeeDocumentModel GetDocument(int _id)
+        public EmployeeDocumentModel GetDocument(int _id, int _candidateid)
         {
-            return ( from d in _conn.REC_CANDIDATE_DOCUMENT
-                     where d.id == _id
-                     select d).AsEnumerable()
-                     .Select(x => new EmployeeDocumentModel()
-                    {
-                        Id   = x.id,
-                        CandidateId = x.candidate_id,
-                        DocumentId = x.doc_id,
-                        DocumentName = x.Document.Description,
-                        ReferenceNo = x.DocNo,
-                        DateIssued = x.date_added,
-                        FileLocation = x.file_location,
-                    }).SingleOrDefault();
+            EmployeeDocumentModel _model = new EmployeeDocumentModel();
+            if (_id == 0)
+            {
+                _model.Id = 0;
+                _model.CandidateId = _candidateid;
+                _model.Mode = 0;
+            }
+            else
+            {            
+                _model =  ( from d in _conn.REC_CANDIDATE_DOCUMENT
+                         where d.id == _id
+                         select d).AsEnumerable()
+                         .Select(x => new EmployeeDocumentModel()
+                        {
+                            Id   = x.id,
+                            CandidateId = x.candidate_id,
+                            DocumentId = x.doc_id,
+                            DocumentName = x.Document.Description,
+                            ReferenceNo = x.DocNo,
+                            DateIssued = x.date_added,
+                            FileLocation = x.file_location,
+                            Mode = 1,
+                        }).SingleOrDefault();
+            }
+            return _model;
         }
 
         public List<DocumentDropdownModel> GetDropdownDocuments()

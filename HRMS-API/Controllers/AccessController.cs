@@ -39,9 +39,9 @@ namespace HRMS_API.Controllers
             }
         }
 
-        [Route("api/Access/ModuleAccess/{ModuleName}/{ModuleTypeId}/{UserId}/{AppId}")]
+        [Route("api/Access/ModuleAccess/{ModuleName}/{ModuleTypeId}/{UserId}/{UserType}/{AppId}")]
         [HttpGet]
-        public HttpResponseMessage ModuleAccess(string ModuleName, int ModuleTypeId, int UserId, int AppId)
+        public HttpResponseMessage ModuleAccess(string ModuleName, int ModuleTypeId, int UserId, string UserType, int AppId)
         {
             try
             {
@@ -50,7 +50,8 @@ namespace HRMS_API.Controllers
                     ModuleName = ModuleName,
                     ModuleTypeId = ModuleTypeId,
                     UserId = UserId,
-                    AppId = AppId
+                    AppId = AppId,
+                    UserType = UserType
                 };
 
                 bool _hasaccess = _accessrepository.ModuleAccess(_model);
@@ -63,9 +64,9 @@ namespace HRMS_API.Controllers
             }
         }
 
-        [Route("api/Access/FunctionAccess/{ModuleName}/{FunctionAction}/{AppName}/{UserId}")]
+        [Route("api/Access/FunctionAccess/{ModuleName}/{FunctionAction}/{AppName}/{UserId}/{UserType}")]
         [HttpGet]
-        public HttpResponseMessage FunctionAccess(string ModuleName, string FunctionAction, string AppName, int UserId)
+        public HttpResponseMessage FunctionAccess(string ModuleName, string FunctionAction, string AppName, int UserId, string UserType)
         {
             try
             {
@@ -74,7 +75,8 @@ namespace HRMS_API.Controllers
                     ModuleName = ModuleName,
                     FunctionAction = FunctionAction,
                     AppName = AppName,
-                    UserId = UserId 
+                    UserId = UserId ,
+                    UserType = UserType
                 };
 
                 bool _hasaccess = _accessrepository.FunctionAccess(_model);

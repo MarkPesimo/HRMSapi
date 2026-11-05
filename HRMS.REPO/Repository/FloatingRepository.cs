@@ -78,6 +78,24 @@ namespace HRMS.REPO.Repository
             return _obj;
         }
 
+        public Floating GetContractFloatingRecord(int _id)
+        {
+            return (from d in _conn.REC_NEW_HIRED_EMPLOYEE
+                    where d.id == _id
+                    select d).AsEnumerable()
+               .Select(x => new Floating()
+               {
+                   Id = x.id,
+                   ClientName = x.REC_CLIENT.client_name,
+                   EmployeeName = x.Employee.Lastname + ", " + x.Employee.Firstname,
+                   DateResignationSubmitted = x.date_resignation_submitted,
+                   DateSeparated = x.date_separated,
+                   SeparatedById = x.separated_by,
+                   SeparatedBy = _userrepository.GetUser(x.separated_by).UserName,
+                   FloatingId = x.floating_id
+               }).SingleOrDefault();
+        }
+
         public int ManageEmployeeFloatingRecord(EmployeeFloatingRecord_model _model)
         {
             try

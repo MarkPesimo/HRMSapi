@@ -413,7 +413,7 @@ namespace HRMS_API.Controllers
             {
                 int _empid = _globalrepository.GetEmployeeKey(GUID).EmpId;
                 int _candid = _globalrepository.GetEmployeeKey(GUID).CandidateId;
-                EmployeeProfile _model = Employeerepository.GetEmployeeProfile(_empid, _candid);
+                EmployeeProfile _model = Employeerepository.GetEmployeeProfile(_empid, _candid, GUID);
                 if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model);}
                 else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
             }
@@ -619,13 +619,13 @@ namespace HRMS_API.Controllers
 
 
         //=================================EDUCATION==========================================
-        [Route("api/Employee/GetEducation/{Id}")]
+        [Route("api/Employee/GetEducation/{Id}/{CanId}")]
         [HttpGet]
-        public HttpResponseMessage GetEducation(int Id)
+        public HttpResponseMessage GetEducation(int Id, int CanId)
         {
             try
             {
-                EducationalBackgroundModel _model = _employeeeducationrepository.GetEducation(Id);
+                EducationalBackgroundModel _model = _employeeeducationrepository.GetEducation(Id, CanId);
                 if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
                 else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
             }
@@ -770,13 +770,13 @@ namespace HRMS_API.Controllers
             }
         }
 
-        [Route("api/Employee/GetExternalEmployment/{Id}")]
+        [Route("api/Employee/GetExternalEmployment/{Id}/{CanId}")]
         [HttpGet]
-        public HttpResponseMessage GetExternalEmployment(int Id)
+        public HttpResponseMessage GetExternalEmployment(int Id, int CanId)
         {
             try
             {
-                PreviousEmploymentModel _model = _externalrepository.GetExternalEmployment(Id);
+                PreviousEmploymentModel _model = _externalrepository.GetExternalEmployment(Id, CanId);
                 if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
                 else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
             }
@@ -869,13 +869,13 @@ namespace HRMS_API.Controllers
         }
 
 
-        [Route("api/Employee/GetSkill/{Id}")]
+        [Route("api/Employee/GetSkill/{Id}/{CanId}")]
         [HttpGet]
-        public HttpResponseMessage GetSkill(int Id)
+        public HttpResponseMessage GetSkill(int Id, int CanId)
         {
             try
             {                
-                SkillModel _model = _skillrepository.GetSkill(Id);
+                SkillModel _model = _skillrepository.GetSkill(Id, CanId);
                 if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
                 else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
             }
@@ -937,13 +937,13 @@ namespace HRMS_API.Controllers
             }
         }
 
-        [Route("api/Employee/GetDocument/{Id}")]
+        [Route("api/Employee/GetDocument/{Id}/{CanId}")]
         [HttpGet]
-        public HttpResponseMessage GetDocument(int Id)
+        public HttpResponseMessage GetDocument(int Id, int CanId)
         {
             try
             {
-                EmployeeDocumentModel _model = _employeedocumentrepository.GetDocument(Id);
+                EmployeeDocumentModel _model = _employeedocumentrepository.GetDocument(Id, CanId);
                 if (_model != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, _model);
