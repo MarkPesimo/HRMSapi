@@ -98,5 +98,24 @@ namespace HRModel.ViewModel.Global
             public int UserId { get; set; }
             public int Mode { get; set; }
         }
+
+        public static class ModuleName
+        {
+            public static class HRMS
+            {
+                public static class MasterFile
+                {
+                    public const string Department = "Department Master File";
+                    public const string EmployeeType = "Employee Type Master File";
+                    
+                }
+
+
+                public static class Transaction
+                {
+                    public const string ContractManagement = "Employee Transaction Monitoring";
+                }
+            }
+        }
     }
 }
