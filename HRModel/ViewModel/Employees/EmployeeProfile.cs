@@ -634,6 +634,10 @@ namespace HRModel.ViewModel.Employees
         public string EmpNo { get; set; }
         public string EmployeeGUID { get; set; }
         public int CandidateId { get; set; }
+        public int BankId{ get; set; }
+        public string BankCode{ get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryDescription { get; set; }
     }
 
     public class LoanTypeModel

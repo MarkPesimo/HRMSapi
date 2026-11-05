@@ -86,7 +86,9 @@ namespace HRModel.ViewModel.Global
             public DateTime? DateRegularized { get; set; }
             public string HireType { get; set; }
             public int EmployeeTypeId { get; set; }
+            public string EmployeeeType{ get; set; }
             public int EmployeeRankId { get; set; }
+            public string EmployeeRank { get; set; }
             public string Position { get; set; }
             public bool CurrentContract { get; set; }
             public int HiredById { get; set; }
@@ -130,6 +132,20 @@ namespace HRModel.ViewModel.Global
             public string EmailAddress { get; set; }
             public DateTime? DateHired { get; set; }
             public bool ActiveInactive { get; set; }
+        }
+
+        public class FunctionsDropdownModel
+        {
+            public int FunctionId { get; set; }
+            public string FunctionName { get; set; }
+            public int Status { get; set; }
+        }
+
+        public class SalaryTypeDropdownModel
+        {
+            public int SalaryTypeId { get; set; }
+            public string SalaryTypeName { get; set; }
+            public int Status { get; set; }
         }
     }
 }

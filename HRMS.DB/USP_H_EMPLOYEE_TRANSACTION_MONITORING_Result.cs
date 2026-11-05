@@ -36,5 +36,8 @@ namespace HRMS.DB
         public Nullable<System.DateTime> date_regular { get; set; }
         public Nullable<int> client_id { get; set; }
         public Nullable<bool> contract_extended { get; set; }
+        public string emp_guid { get; set; }
+        public string client_guid { get; set; }
+        public Nullable<int> candidate_id { get; set; }
     }
 }

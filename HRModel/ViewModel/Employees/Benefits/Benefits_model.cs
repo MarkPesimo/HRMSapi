@@ -57,7 +57,9 @@ namespace HRModel.ViewModel.Employees.Benefits
             public DateTime EffectiveDate { get; set; }
             public DateTime StartDate { get; set; }
             public bool IsTaxable { get; set; }
+            public string Taxable { get; set; } 
             public bool IsBillable { get; set; }
+            public string Billable { get; set; } 
             public bool Status { get; set; }
             public string Remarks { get; set; }
 
@@ -68,6 +70,7 @@ namespace HRModel.ViewModel.Employees.Benefits
             public string ModifiedBy { get; set; }
             public string DateModified { get; set; }
             public int Mode { get; set; }
+            public string ErrorMessage { get; set; } 
         }
 
         public class BenefitsMonitoring_model

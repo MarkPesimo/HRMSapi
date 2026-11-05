@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Http;
 using static HRModel.ViewModel.Employees.Benefits.Benefits_model;
 using HRMS_API.Repository;
+using static HRModel.ViewModel.Employees.Benefits.BankDetails_model;
+using HRModel.ViewModel.Employees;
 
 namespace HRMS_API.Controllers
 {
@@ -17,29 +19,35 @@ namespace HRMS_API.Controllers
     public class BenefitsController : ApiController
     {
         private BenefitsRepository _benefitsrepository { get; set; }
+        private GlobalRepository _globalrepository{ get; set; }
 
         public BenefitsController()
         {
             if (_benefitsrepository == null) { _benefitsrepository = new BenefitsRepository(); }
+            if (_globalrepository == null) { _globalrepository = new GlobalRepository(); }
         }
 
-        [Route("api/Benefits/GetBenefitsMonitoring/{Keyword}/{ByClient}/{ClientID}/{ByDate}/{DateFrom}/{DateTo}/{PageNo}/{PageSize}/{CompanyID}")]
+        [Route("api/Benefits/GetBenefitsMonitoring")]
         [HttpGet]
         public HttpResponseMessage GetBenefitsMonitoring(string Keyword, bool ByClient, int ClientID, bool ByDate, DateTime DateFrom, DateTime DateTo, int PageNo, int PageSize, int CompanyID)
         {
             try
             {
-                List<BenefitsMonitoring_model> _model = _benefitsrepository.GetBenefitsMonitoring(Keyword, ByClient, ClientID, ByDate, DateFrom, DateTo, PageNo, PageSize, CompanyID);
+                string searchKeyword = Keyword == "NULL" ? "" : (Keyword ?? "");
+
+                List<BenefitsMonitoring_model> _model = _benefitsrepository.GetBenefitsMonitoring(searchKeyword, ByClient, ClientID, ByDate, DateFrom, DateTo, PageNo, PageSize, CompanyID);
                 if (_model != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, _model);
                 }
                 else
-                { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException != null ? ex.InnerException.Message : ex.Message);
             }
         }
 
@@ -147,6 +155,88 @@ namespace HRMS_API.Controllers
             {
                 string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Benefits/UploadBankDetails")]
+        [HttpPost]
+        public HttpResponseMessage UploadBankDetails([FromBody] BankDetailsUpload_model model) 
+        {
+            try
+            {
+                string bankdetails = _benefitsrepository.UploadBankDetails(model);
+
+                return Request.CreateResponse(HttpStatusCode.OK, bankdetails);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Benefits/UploadBenefits")]
+        [HttpPost]
+        public HttpResponseMessage UploadBenefits([FromBody] BenefitsRecord_model model)
+        {
+            try
+            {
+                string result = _benefitsrepository.UploadBenefits(model);
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+
+        [Route("api/Benefits/GetEmployeeNoChecker/{_empno}")]
+        [HttpGet]
+        public HttpResponseMessage GetEmployeeNoChecker(string _empno)
+        {
+            try
+            {
+                EmployeeKeys _model = _globalrepository.GetEmployeeNoChecker(_empno);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Benefits/GetBankTypeChecker/{_banktype}")]
+        [HttpGet]
+        public HttpResponseMessage GetBankTypeChecker(string _banktype)
+        {
+            try
+            {
+                EmployeeKeys _model = _globalrepository.GetBankTypeChecker(_banktype);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
+
+        [Route("api/Benefits/GetPersonnelMovementCategory/{_description}")]
+        [HttpGet]
+        public HttpResponseMessage GetPersonnelMovementCategory(string _description)
+        {
+            try
+            {
+                EmployeeKeys _model = _globalrepository.GetPersonnelMovementCategory(_description);
+                if (_model != null) { return Request.CreateResponse(HttpStatusCode.OK, _model); }
+                else { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
             }
         }
     }

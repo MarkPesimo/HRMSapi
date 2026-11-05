@@ -34,7 +34,9 @@ namespace HRMS.REPO.Repository
 
         public string GetEmployeeName(int _empid)
         {
-            return (from d in _conn.Employees where d.Emp_ID == _empid select d.Lastname + ", " + d.Firstname).ToString();
+            return (from d in _conn.Employees
+                    where d.Emp_ID == _empid
+                    select d.Lastname + ", " + d.Firstname).FirstOrDefault() ?? "";
         }
 
         public List<EmployeeMonitoringViewModel> GetEmployeeMonitoring(string Keyword, bool ByClient, int ClientID, int PageNo, int PageSize, int CompanyID)

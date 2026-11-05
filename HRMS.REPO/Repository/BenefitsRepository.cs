@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using static HRModel.ViewModel.Employees.Benefits.BankDetails_model;
 using static HRModel.ViewModel.Employees.Benefits.Benefits_model;
 
 namespace HRMS_API.Repository
@@ -223,6 +224,60 @@ namespace HRMS_API.Repository
                 if (ex.InnerException != null) { throw new Exception(ex.InnerException.Message); }
 
                 throw new Exception(ex.Message);
+            }
+        }
+
+        public string UploadBankDetails(BankDetailsUpload_model _model)
+        {
+            try
+            {
+                _conn.USP_H_UPLOAD_BANK_DETAILS(
+                    _model.EmpId, 
+                    _model.BankId, 
+                    _model.AccountNo, 
+                    _model.CardNo, 
+                    _model.CardValidityDate, 
+                    _model.UserId);
+
+                return "OK";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        public string UploadBenefits(BenefitsRecord_model _model)
+        {
+            try
+            {
+                string _return = "";
+
+                System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RET_ID", typeof(int));
+
+                _conn.USP_H_UPLOAD_EMPLOYEE_BENEFITS(
+                    _model.EmpId,
+                    _model.BenefitType,
+                    _model.BenefitClass,
+                    _model.BenefitCategory,
+                    _model.AdjustmentDescription,
+                    _model.Amount,
+                    _model.Taxable,
+                    _model.Billable,
+                    _model.EffectiveDate,
+                    _model.StartDate,
+                    _model.Remarks,
+                    _model.UserCreatedId,
+                    _return_value);
+
+                _return = Convert.ToString(_return_value.Value);
+
+                if (int.Parse(_return.ToString()) > 0) { return "OK"; }
+                else { return "Error"; }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
             }
         }
     }

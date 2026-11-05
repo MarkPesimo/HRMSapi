@@ -45,6 +45,8 @@ namespace HRModel.ViewModel.Helpdesk
             public int Id { get; set; }
             public int PortalUserId { get; set; }
             public string UserType { get; set; }
+            public string ClientName { get; set; }
+            public string EmployeeName { get; set; }
             public int ConcernTypeId { get; set; }
             public string ConcernDescription { get; set; }
             public DateTime DateCreated { get; set; }
@@ -76,6 +78,17 @@ namespace HRModel.ViewModel.Helpdesk
             public string Remarks { get; set; }
             public string Usertype { get; set; }
             public string TimeCreated { get; set; }
+        }
+
+        public class ConcernTypeModel
+        {
+            public int Id { get; set; }
+            public decimal? SortNo { get; set; }
+            public string ConcernDescription { get; set; }
+            public string Department { get; set; }
+            public bool Status { get; set; }
+            public int UserId { get; set; }
+            public DateTime DateCreated { get; set; }
         }
     }
 }

@@ -73,7 +73,10 @@ namespace HRMS.REPO.Repository
                     Position = x.position ?? "",
                     DateRegularized = x.date_regular?.ToShortDateString() ?? "",
                     ClientId = x.client_id ?? 0,
-                    ContractExtended = x.contract_extended == true ? "Yes" : "No"
+                    ContractExtended = x.contract_extended == true ? "Yes" : "No",
+                    EmpGUID = x.emp_guid,
+                    ClientGUID = x.client_guid,
+                    CandidateId = x.candidate_id ?? 0,
                 }).ToList();
 
             return _obj;
@@ -298,7 +301,7 @@ namespace HRMS.REPO.Repository
         {
             string _return = "";
 
-            System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RETURN_ID", typeof(int));
+            System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RET_ID", typeof(int));
 
             _conn.USP_H_MANAGE_EMPLOYEE_TRANSACTION_REMARKS(_model.Id,
                 _model.TranId,

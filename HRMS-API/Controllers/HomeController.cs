@@ -10,7 +10,7 @@ namespace HRMS_API.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "HRMS.NET API";
 
             return View();
         }

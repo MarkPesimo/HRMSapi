@@ -39,6 +39,7 @@ namespace HRMS_API.Repository
                   .Select(x => new MovementMonitoring_model()
                   {
                       Id = int.Parse(x.id.ToString()),
+                      CategoryName = x.Category,
                       EmpId = int.Parse(x.EmpID.ToString()),
                       EmployeeName = x.EmployeeName,
                       ClientName = x.ClientName,
@@ -150,6 +151,38 @@ namespace HRMS_API.Repository
                 _return = Convert.ToString(_return_value.Value);
 
                 return int.Parse(_return.ToString());
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null) { throw new Exception(ex.InnerException.Message); }
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public string UploadSalaryDetails(SalaryDetailsUpload_model _model) 
+        {
+            try
+            {
+                string _return = "";
+
+                System.Data.Entity.Core.Objects.ObjectParameter _return_value = new System.Data.Entity.Core.Objects.ObjectParameter("RET_ID", typeof(int));
+
+                _conn.USP_H_UPLOAD_SALARY_DETAILS(
+                    _model.EmpId,
+                    _model.SalaryAmount,
+                    _model.Allowance,
+                    _model.EffectiveDate,
+                    _model.SalaryChangeDate,
+                    _model.Remarks,
+                    _model.CategoryId,
+                    _model.UserId,
+                    _return_value);
+
+                _return = Convert.ToString(_return_value.Value);
+
+                if (int.Parse(_return.ToString()) > 0) { return "OK"; }
+                else { return "Error"; }
             }
             catch (Exception ex)
             {

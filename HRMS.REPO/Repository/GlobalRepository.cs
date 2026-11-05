@@ -31,6 +31,54 @@ namespace HRMS.REPO.Repository
             return _path ?? string.Empty;
         }
 
+        public EmployeeKeys GetEmployeeNoChecker(string _empno)
+        {
+            EmployeeKeys _obj = new EmployeeKeys();
+
+            _obj = (from d in _conn.Employees
+                    where d.Emp_No == _empno
+                    select new EmployeeKeys
+                    {
+                        EmpId = d.Emp_ID,
+                        EmpNo = d.Emp_No,
+                    }).SingleOrDefault();
+
+            return _obj;
+
+        }
+
+        public EmployeeKeys GetBankTypeChecker(string _banktype)
+        {
+            EmployeeKeys _obj = new EmployeeKeys();
+
+            _obj = (from d in _conn.SYS_BANK
+                    where d.Bank_code == _banktype
+                    select new EmployeeKeys
+                    {
+                        BankId = d.id,
+                        BankCode = d.Bank_code
+                    }).SingleOrDefault();
+
+            return _obj;
+
+        }
+
+        public EmployeeKeys GetPersonnelMovementCategory(string _description)
+        {
+            EmployeeKeys _obj = new EmployeeKeys();
+
+            _obj = (from d in _conn.Personnel_Movement_Category
+                    where d.Category_Description == _description
+                    select new EmployeeKeys
+                    {
+                        CategoryId = d.PM_CategoryID,
+                        CategoryDescription= d.Category_Description,
+                    }).SingleOrDefault();
+
+            return _obj;
+
+        }
+
         public EmployeeKeys GetEmployeeKey(string _guid)
         {
             EmployeeKeys _obj = new EmployeeKeys();
@@ -350,6 +398,36 @@ namespace HRMS.REPO.Repository
             else { _benefitscategory = "NA"; }
 
             return _benefitscategory;
+        }
+
+        public List<FunctionsDropdownModel> GetFunctionMasterList()
+        {
+            var query = from f in _conn.REC_FUNCTION_MASTER_FILE
+                        where f.status == true
+                        orderby f.function_name ascending
+                        select f;
+
+            return query.AsEnumerable().Select(x => new FunctionsDropdownModel
+            {
+                FunctionId = x.id,       
+                FunctionName = x.function_name,   
+                Status = Convert.ToInt32(x.status)
+            }).ToList();
+        }
+
+        public List<SalaryTypeDropdownModel> GetSalaryTypes()
+        {
+            var query = from f in _conn.Salarytypes
+                        where f.Status == true
+                        orderby f.Salarytype_Desc ascending
+                        select f;
+
+            return query.AsEnumerable().Select(x => new SalaryTypeDropdownModel
+            {
+                SalaryTypeId = x.Salarytype_ID,
+                SalaryTypeName = x.Salarytype_Desc,
+                Status = Convert.ToInt32(x.Status)
+            }).ToList();
         }
     }
 }

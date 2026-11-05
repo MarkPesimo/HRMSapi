@@ -366,9 +366,6 @@
     <Compile Include="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
-    <Compile Include="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result1.cs">
-      <DependentUpon>HRDB_model.tt</DependentUpon>
-    </Compile>
     <Compile Include="USP_H_EMPLOYEE_TRANSACTION_MONITORING_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>

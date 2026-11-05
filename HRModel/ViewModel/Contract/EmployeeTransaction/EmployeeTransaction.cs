@@ -34,11 +34,15 @@ namespace HRModel.ViewModel.Contract.EmployeeTransaction
             public string DateRegularized { get; set; }
             public int ClientId { get; set; }
             public string ContractExtended { get; set; }
+            public string EmpGUID{ get; set; }
+            public string ClientGUID { get; set; }
+            public int CandidateId{ get; set; }
         }
 
         public class ClientList
         {
             public int Id { get; set; }
+            public int ClientId { get; set; }
             public string ClientName { get; set; }
             public string ClientAddress { get; set; }
             public string ContactNo { get; set; }

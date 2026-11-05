@@ -22,7 +22,23 @@ namespace HRMS_API.Controllers
             if (_helpdeskrepository == null) { _helpdeskrepository = new HelpdeskRepository(); }
         }
 
+        [Route("api/Helpdesk/GetConcernTypeDropdown")]
+        [HttpGet]
+        public HttpResponseMessage GetConcernTypeDropdown()
+        {
+            try
+            {
+                List<ConcernTypeModel> _obj = _helpdeskrepository.GetConcernTypeDropdown();
 
+                return _obj != null && _obj.Count > 0
+                    ? Request.CreateResponse(HttpStatusCode.OK, _obj)
+                    : Request.CreateErrorResponse(HttpStatusCode.NotFound, "No records found.");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
 
         [Route("api/Helpdesk/GetHelpdeskRecord/{Id}")]
         [HttpGet]
@@ -43,18 +59,20 @@ namespace HRMS_API.Controllers
         }
 
 
-        [Route("api/Helpdesk/GetHelpdeskRecordMonitoring/{UserId}/{UserType}/{ByConcernType}/{ConcernTypeId}/{ByConcernStatus}/{ConcernStatus}/{ByDate}/{DateFrom}/{DateTo}/{Keyword}/{ByClient}/{ClientId}/{CompanyId}")]
+        [Route("api/Helpdesk/GetHelpdeskRecordMonitoring/{UserId}/{UserType}/{ByConcernType}/{ConcernTypeId}/{ByConcernStatus}/{ConcernStatus}/{ByDate}/{DateFrom}/{DateTo}/{Keyword?}/{ByClient}/{ClientId}/{CompanyId}")]
         [HttpGet]
         public HttpResponseMessage GetHelpdeskRecordMonitoring(int UserId, string UserType,
-             bool ByConcernType,  int ConcernTypeId,
-             bool ByConcernStatus, string ConcernStatus, 
-                bool ByDate, DateTime DateFrom, DateTime DateTo,
-                string Keyword,
-                bool ByClient, int ClientId, 
-                int CompanyId)
+            bool ByConcernType, int ConcernTypeId,
+            bool ByConcernStatus, string ConcernStatus,
+            bool ByDate, DateTime DateFrom, DateTime DateTo,
+            string Keyword,
+            bool ByClient, int ClientId,
+            int CompanyId)
         {
             try
             {
+                string processedKeyword = string.IsNullOrWhiteSpace(Keyword) || Keyword == "NULL" ? " " : Keyword;
+
                 HelpdeskMonitoringFilter_model _filter = new HelpdeskMonitoringFilter_model
                 {
                     UserId = UserId,
@@ -66,14 +84,13 @@ namespace HRMS_API.Controllers
                     ByDate = ByDate,
                     DateFrom = DateFrom,
                     DateTo = DateTo,
-                    Keyword = Keyword,
+                    Keyword = processedKeyword,
                     ByClient = ByClient,
                     ClientId = ClientId,
                     CompanyId = CompanyId
                 };
 
-
-                List< HelpdeskMonitoring_model> _obj = _helpdeskrepository.GetHelpdeskMonitoring(_filter);
+                List<HelpdeskMonitoring_model> _obj = _helpdeskrepository.GetHelpdeskMonitoring(_filter);
 
                 return _obj != null
                     ? Request.CreateResponse(HttpStatusCode.OK, _obj)
@@ -132,15 +149,20 @@ namespace HRMS_API.Controllers
             {
                 int _id = _helpdeskrepository.ManageHelpdeskConcernThread(model);
 
-                if (_id != 0) { return Request.CreateResponse(HttpStatusCode.OK, model.Id); }
-                else { return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error"); }
+                if (_id != 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _id);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
+                }
             }
             catch (Exception ex)
             {
                 var errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
             }
-
         }
 
     }

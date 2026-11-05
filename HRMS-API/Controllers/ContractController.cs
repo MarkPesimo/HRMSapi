@@ -247,6 +247,53 @@ namespace HRMS_API.Controllers
             }
         }
 
+        [Route("api/Contract/GetFunctionMasterList")]
+        [HttpGet]
+        public HttpResponseMessage GetFunctionMasterList()
+        {
+            try
+            {
+                List<FunctionsDropdownModel> _model = GlobalRepository.GetFunctionMasterList();
+
+                if (_model != null && _model.Count > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
+
+        [Route("api/Contract/GetSalaryTypes")]
+        [HttpGet]
+        public HttpResponseMessage GetSalaryTypes()
+        {
+            try
+            {
+                List<SalaryTypeDropdownModel> _model = GlobalRepository.GetSalaryTypes();
+
+                if (_model != null && _model.Count > 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _model);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!");
+                }
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+        }
 
         //==========================CONTRACT EXTENSION==============================
         [Route("api/Contract/Extension")]
