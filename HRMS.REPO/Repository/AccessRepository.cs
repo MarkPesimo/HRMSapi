@@ -25,50 +25,67 @@ namespace HRMS.REPO.Repository
 
         public List<AppMenu> GetAppMenus(int _userid, int _appid)
         {
-            string _usertype = _userrepository.GetUser(_userid).UserType;
-
-            //USERTYPE IS [EMPLOYEE | APPROVER | HR | ADMIN]
-            if (_usertype.ToUpper() == "ADMIN")
-            {
-                return (from d in _accessconn.app_main_menu
-                        where d.app_id == _appid
-                        orderby d.sort_no
-                        select d).AsEnumerable()
-                                 .Select(x => new AppMenu()
-                                 {
-                                     MenuType = x.menu_type,
-                                     SortNo = x.sort_no,
-                                     ControllerName = x.controller_name,
-                                     Actionname = x.action_name,
-                                     MenuName = x.menu_name,
-                                     ClassName = x.class_name,
-                                     ImageClassName = x.img_class_name,
-                                     SubMenus = GetAppSubMenus(x.id)
-                                 }).ToList();
-            }
-            else
-            {
-                return (from d in _accessconn.app_main_menu
-                        join ac in _accessconn.app_menu_access on d.id equals ac.menu_id
-                        where ac.user_type == _usertype
-                        && d.app_id == _appid
-                        orderby d.sort_no
-                        select d).AsEnumerable()
-                                 .Select(x => new AppMenu()
-                                 {
-                                     MenuType = x.menu_type,
-                                     SortNo = x.sort_no,
-                                     ControllerName = x.controller_name,
-                                     Actionname = x.action_name,
-                                     MenuName = x.menu_name,
-                                     ClassName = x.class_name,
-                                     ImageClassName = x.img_class_name,
-                                     SubMenus = GetAppSubMenus(x.id)
-                                 }).ToList();
-
-            }
-
+            return (from d in _accessconn.USP_G_GET_APP_MENU(_userid, _appid)
+                    select d).AsEnumerable()
+                                             .Select(x => new AppMenu()
+                                             {
+                                                 MenuType = x.MenuType,
+                                                 SortNo = int.Parse(x.SortNo.ToString()),
+                                                 ControllerName = x.ControllerName,
+                                                 Actionname = x.ActionName,
+                                                 MenuName = x.MenuName,
+                                                 ClassName = x.ClassName,
+                                                 ImageClassName = x.ImageClassName,
+                                                 SubMenus = GetAppSubMenus(int.Parse(x.Id.ToString()))
+                                             }).ToList();
         }
+
+        //public List<AppMenu> GetAppMenus(int _userid, int _appid)
+        //{
+        //    string _usertype = _userrepository.GetUser(_userid).UserType;
+
+        //    //USERTYPE IS [EMPLOYEE | APPROVER | HR | ADMIN]
+        //    if (_usertype.ToUpper() == "ADMIN")
+        //    {
+        //        return (from d in _accessconn.app_main_menu
+        //                where d.app_id == _appid
+        //                orderby d.sort_no
+        //                select d).AsEnumerable()
+        //                         .Select(x => new AppMenu()
+        //                         {
+        //                             MenuType = x.menu_type,
+        //                             SortNo = x.sort_no,
+        //                             ControllerName = x.controller_name,
+        //                             Actionname = x.action_name,
+        //                             MenuName = x.menu_name,
+        //                             ClassName = x.class_name,
+        //                             ImageClassName = x.img_class_name,
+        //                             SubMenus = GetAppSubMenus(x.id)
+        //                         }).ToList();
+        //    }
+        //    else
+        //    {
+        //        return (from d in _accessconn.app_main_menu
+        //                join ac in _accessconn.app_menu_access on d.id equals ac.menu_id
+        //                where ac.user_type == _usertype
+        //                && d.app_id == _appid
+        //                orderby d.sort_no
+        //                select d).AsEnumerable()
+        //                         .Select(x => new AppMenu()
+        //                         {
+        //                             MenuType = x.menu_type,
+        //                             SortNo = x.sort_no,
+        //                             ControllerName = x.controller_name,
+        //                             Actionname = x.action_name,
+        //                             MenuName = x.menu_name,
+        //                             ClassName = x.class_name,
+        //                             ImageClassName = x.img_class_name,
+        //                             SubMenus = GetAppSubMenus(x.id)
+        //                         }).ToList();
+
+        //    }
+
+        //}
 
         public List<SubMenu> GetAppSubMenus(int _menuid)
         {
@@ -128,10 +145,10 @@ namespace HRMS.REPO.Repository
             else {
                 System.Data.Entity.Core.Objects.ObjectParameter _access_value = new System.Data.Entity.Core.Objects.ObjectParameter("ACCESS", typeof(int));
 
-                _model.ModuleTypeId = GetModule(_model.ModuleName, _model.AppId, _model.ModuleTypeId).MODULEID;
+               int _moduleid = GetModule(_model.ModuleName, _model.AppId, _model.ModuleTypeId).MODULEID;
 
                 _accessconn.SP_FUNCTION_ACCESS(
-                    _model.ModuleName,
+                    _moduleid.ToString(),
                     _model.FunctionAction,
                     _model.AppName,
                     _model.UserId,

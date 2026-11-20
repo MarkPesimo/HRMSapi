@@ -17,7 +17,7 @@ namespace HRModel.ViewModel.Global
         public string EmailAddress { get; set; }
 
         public int AppModuleId { get; set; }
-
+        public string EmployeeGUID { get; set; }
         public string EmployeeName { get; set; }
         public int ShiftId { get; set; }
         public string RestDay { get; set; }
