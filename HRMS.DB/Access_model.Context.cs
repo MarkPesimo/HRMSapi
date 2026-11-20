@@ -224,5 +224,18 @@ namespace HRMS.DB
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_G_MAANGE_PORTAL_ACCESS", iDParameter, cLIENT_IDParameter, mODULE_NAMEParameter, mODULE_IDParameter, mODEParameter, uSER_IDParameter, rET_ID);
         }
+    
+        public virtual ObjectResult<USP_G_GET_APP_MENU_Result> USP_G_GET_APP_MENU(Nullable<int> uSER_ID, Nullable<int> aPP_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var aPP_IDParameter = aPP_ID.HasValue ?
+                new ObjectParameter("APP_ID", aPP_ID) :
+                new ObjectParameter("APP_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_G_GET_APP_MENU_Result>("USP_G_GET_APP_MENU", uSER_IDParameter, aPP_IDParameter);
+        }
     }
 }
