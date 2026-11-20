@@ -46,12 +46,14 @@ namespace HRMS.REPO.Repository
             .Select(d => new ClientDocument_vw_model()
             {
                 Id = int.Parse(d.id.ToString()),
+                ClientId = d.client_id,
                 DocumentType = d.Document.Description,
                 DateIssued = d.date_issued.ToString(),
                 ExpiryDate = d.date_expired.ToString(),
                 Remarks = d.remarks,
                 CreatedBy = d.SYS_USER.username,
-                DateCreated = d.date_created.ToShortDateString()
+                DateCreated = d.date_created.ToShortDateString(),
+                FileExtension = d.file_extension
             }).ToList();
         }
 

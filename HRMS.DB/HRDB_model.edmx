@@ -3881,6 +3881,10 @@
           <Parameter Name="EMAILADDRESS" Type="nvarchar" Mode="In" />
           <Parameter Name="USER_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="USP_G_GET_APP_MENU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="USER_ID" Type="int" Mode="In" />
+          <Parameter Name="APP_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_H_ADD_CANDIDATE_DOCUMENT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmpID" Type="int" Mode="In" />
           <Parameter Name="AddedByID" Type="int" Mode="In" />
@@ -7242,6 +7246,10 @@
             <Parameter Name="BY_STATUS" Mode="In" Type="Boolean" />
             <Parameter Name="STATUS" Mode="In" Type="Boolean" />
             <Parameter Name="KEYWORD" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_G_GET_APP_MENU" ReturnType="Collection(apwdbModel.USP_G_GET_APP_MENU_Result)">
+            <Parameter Name="USER_ID" Mode="In" Type="Int32" />
+            <Parameter Name="APP_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="Employee">
@@ -11455,6 +11463,16 @@
           <Property Type="Int32" Name="tran_id" Nullable="true" />
           <Property Type="String" Name="client_guid" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="USP_G_GET_APP_MENU_Result">
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="String" Name="MenuType" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SortNo" Nullable="true" />
+          <Property Type="String" Name="ControllerName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ActionName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="MenuName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ClassName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ImageClassName" Nullable="true" MaxLength="500" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13558,6 +13576,20 @@
                 <ScalarProperty Name="date_closed" ColumnName="date_closed" />
                 <ScalarProperty Name="tran_id" ColumnName="tran_id" />
                 <ScalarProperty Name="client_guid" ColumnName="client_guid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_G_GET_APP_MENU" FunctionName="apwdbModel.Store.USP_G_GET_APP_MENU">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_G_GET_APP_MENU_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MenuType" ColumnName="MenuType" />
+                <ScalarProperty Name="SortNo" ColumnName="SortNo" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="ImageClassName" ColumnName="ImageClassName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

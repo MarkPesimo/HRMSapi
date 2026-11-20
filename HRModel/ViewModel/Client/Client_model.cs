@@ -99,12 +99,14 @@ namespace HRModel.ViewModel.Client
         public class ClientDocument_vw_model
         {
             public int Id { get; set; }
+            public int ClientId{ get; set; }
             public string DocumentType { get; set; }
             public string DateIssued { get; set; }
             public string ExpiryDate { get; set; }
             public string Remarks { get; set; }
             public string CreatedBy { get; set; }
             public string DateCreated { get; set; }
+            public string FileExtension { get; set; }
         }
 
         //========================CLIENT DEPARTMENT========================

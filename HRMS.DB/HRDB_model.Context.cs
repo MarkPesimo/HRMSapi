@@ -4415,5 +4415,18 @@ namespace HRMS.DB
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result>("USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING", bY_STATUSParameter, sTATUSParameter, kEYWORDParameter);
         }
+    
+        public virtual ObjectResult<USP_G_GET_APP_MENU_Result> USP_G_GET_APP_MENU(Nullable<int> uSER_ID, Nullable<int> aPP_ID)
+        {
+            var uSER_IDParameter = uSER_ID.HasValue ?
+                new ObjectParameter("USER_ID", uSER_ID) :
+                new ObjectParameter("USER_ID", typeof(int));
+    
+            var aPP_IDParameter = aPP_ID.HasValue ?
+                new ObjectParameter("APP_ID", aPP_ID) :
+                new ObjectParameter("APP_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_G_GET_APP_MENU_Result>("USP_G_GET_APP_MENU", uSER_IDParameter, aPP_IDParameter);
+        }
     }
 }
