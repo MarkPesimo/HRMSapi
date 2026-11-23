@@ -345,6 +345,15 @@
           <Property Name="date_is_history_updated" Type="datetime" />
           <Property Name="user_id_is_history_updated" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="employee_user_link">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="emp_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="EmployeeLeaveMonitoring">
           <Key>
             <PropertyRef Name="ID" />
@@ -4600,6 +4609,7 @@
           <EntitySet Name="Employee_Personnel_Movement" EntityType="Self.Employee_Personnel_Movement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Replacement_HD" EntityType="Self.Employee_Replacement_HD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Separation" EntityType="Self.Employee_Separation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee_user_link" EntityType="Self.employee_user_link" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeLeaveMonitoring" EntityType="Self.EmployeeLeaveMonitoring" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeLoanMaster" EntityType="Self.EmployeeLoanMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeRank" EntityType="Self.EmployeeRank" Schema="dbo" store:Type="Tables" />
@@ -7251,6 +7261,7 @@
             <Parameter Name="USER_ID" Mode="In" Type="Int32" />
             <Parameter Name="APP_ID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="employee_user_link" EntityType="apwdbModel.employee_user_link" />
           </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -11473,6 +11484,15 @@
           <Property Type="String" Name="ClassName" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="ImageClassName" Nullable="true" MaxLength="500" />
         </ComplexType>
+        <EntityType Name="employee_user_link">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="emp_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13593,6 +13613,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="employee_user_link">
+            <EntityTypeMapping TypeName="apwdbModel.employee_user_link">
+              <MappingFragment StoreEntitySet="employee_user_link">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -134,6 +134,9 @@
     <Compile Include="Employee_Separation.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="employee_user_link.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EMPLOYER.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
@@ -361,10 +364,10 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_G_GET_APP_MENU_Result.cs">
-      <DependentUpon>Access_model.tt</DependentUpon>
+      <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_G_GET_CLIENT_MODULES_Result.cs">
-      <DependentUpon>Access_model.tt</DependentUpon>
+      <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_H_EMPLOYEE_SEPARATION_REOPEN_MONITORING_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
@@ -433,7 +436,7 @@
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_S_GET_ASSIGNED_MODULES_Result.cs">
-      <DependentUpon>Access_model.tt</DependentUpon>
+      <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_S_GET_ASSIGNED_MODULES_Result1.cs">
       <DependentUpon>Access_model.tt</DependentUpon>
@@ -442,7 +445,7 @@
       <DependentUpon>Access_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_S_GET_AVAILABLE_MODULES_Result.cs">
-      <DependentUpon>Access_model.tt</DependentUpon>
+      <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="USP_S_GET_PORTAL_USER_Result.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>

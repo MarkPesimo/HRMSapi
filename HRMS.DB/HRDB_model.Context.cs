@@ -110,6 +110,7 @@ namespace HRMS.DB
         public virtual DbSet<REC_FUNCTION_ROLE> REC_FUNCTION_ROLE { get; set; }
         public virtual DbSet<Employee_Personnel_Movement> Employee_Personnel_Movement { get; set; }
         public virtual DbSet<Personnel_Movement_Category> Personnel_Movement_Category { get; set; }
+        public virtual DbSet<employee_user_link> employee_user_link { get; set; }
     
         public virtual ObjectResult<USP_H_GET_LEAVE_BALANCE_MONITORING_Result> USP_H_GET_LEAVE_BALANCE_MONITORING(Nullable<int> yEAR_ENTITLED, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<bool> bY_LEAVE_TYPE, Nullable<int> lEAVE_TYPE_ID, string kEYWORD, Nullable<int> cOMPANY_ID, Nullable<int> eMP_ID)
         {
