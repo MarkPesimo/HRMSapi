@@ -40,7 +40,7 @@ namespace HRMS.REPO.Repository
                              EmailAddress = x.email_address,
                              AppModuleId = x.appmodule_id,
                              EmployeeName = x.emp_name,
-                             //EmployeeGUID = GetEmployeeGUID(int.Parse( x.emp_id.ToString())),
+                             EmployeeGUID = GetEmployeeGUID(int.Parse( x.emp_id.ToString())),
                              Password = x.password,
                              Status = x.status,
                              Guid = "",

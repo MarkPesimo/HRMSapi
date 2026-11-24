@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace HRModel.ViewModel.Employees
 {
+    public class EmployeeMonitoring_vw_model
+    {
+        public int RecountCount { get; set; }
+        public int ActiveCount { get; set; }
+        public int InactiveCount { get; set; }
+        public List<EmployeeMonitoringViewModel> Employees { get; set; }
+    }
+
     public class EmployeeMonitoringViewModel
     {
         public int RowNo { get; set; }
