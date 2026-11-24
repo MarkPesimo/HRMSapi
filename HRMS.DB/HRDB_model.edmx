@@ -74,37 +74,6 @@
           <Property Name="region_latitude" Type="decimal" Precision="18" Scale="8" />
           <Property Name="allowed_radius_meter" Type="int" />
         </EntityType>
-        <EntityType Name="ChatGroupMembers">
-          <Key>
-            <PropertyRef Name="GroupMemberId" />
-          </Key>
-          <Property Name="GroupMemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GroupName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="JoinedAt" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ChatGroups">
-          <Key>
-            <PropertyRef Name="GroupId" />
-          </Key>
-          <Property Name="GroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GroupName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ChatMessages">
-          <Key>
-            <PropertyRef Name="MessageId" />
-          </Key>
-          <Property Name="MessageId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ChatType" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="SenderUsername" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="RecipientUsername" Type="nvarchar" MaxLength="100" />
-          <Property Name="GroupName" Type="nvarchar" MaxLength="100" />
-          <Property Name="MessageText" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="IsSystem" Type="bit" Nullable="false" />
-          <Property Name="SentAt" Type="datetime" Nullable="false" />
-        </EntityType>
         <EntityType Name="Deductions">
           <Key>
             <PropertyRef Name="Ded_id" />
@@ -375,6 +344,15 @@
           <Property Name="client_id" Type="int" Nullable="false" />
           <Property Name="date_is_history_updated" Type="datetime" />
           <Property Name="user_id_is_history_updated" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="employee_user_link">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="emp_id" Type="int" Nullable="false" />
+          <Property Name="date_created" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeLeaveMonitoring">
           <Key>
@@ -3904,33 +3882,6 @@
           <Parameter Name="is_client_approved_dtr" Type="bit" Mode="In" />
           <Parameter Name="is_location_required" Type="bit" Mode="In" />
         </Function>
-        <Function Name="USP_CHAT_CREATE_GROUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="GroupName" Type="nvarchar" Mode="In" />
-          <Parameter Name="CreatedBy" Type="nvarchar" Mode="In" />
-          <Parameter Name="MembersCsv" Type="nvarchar(max)" Mode="In" />
-        </Function>
-        <Function Name="USP_CHAT_GET_DIRECT_HISTORY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserA" Type="nvarchar" Mode="In" />
-          <Parameter Name="UserB" Type="nvarchar" Mode="In" />
-          <Parameter Name="Top" Type="int" Mode="In" />
-        </Function>
-        <Function Name="USP_CHAT_GET_GROUP_HISTORY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="GroupName" Type="nvarchar" Mode="In" />
-          <Parameter Name="Top" Type="int" Mode="In" />
-        </Function>
-        <Function Name="USP_CHAT_MANAGE_GROUP_MEMBER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Action" Type="varchar" Mode="In" />
-          <Parameter Name="GroupName" Type="nvarchar" Mode="In" />
-          <Parameter Name="Username" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="USP_CHAT_SAVE_MESSAGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ChatType" Type="varchar" Mode="In" />
-          <Parameter Name="SenderUsername" Type="nvarchar" Mode="In" />
-          <Parameter Name="RecipientUsername" Type="nvarchar" Mode="In" />
-          <Parameter Name="GroupName" Type="nvarchar" Mode="In" />
-          <Parameter Name="MessageText" Type="nvarchar(max)" Mode="In" />
-          <Parameter Name="IsSystem" Type="bit" Mode="In" />
-        </Function>
         <Function Name="USP_E_MANAGE_ACCOUNT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="USERNAME" Type="nvarchar" Mode="In" />
           <Parameter Name="PASSWORD" Type="nvarchar" Mode="In" />
@@ -4647,9 +4598,6 @@
           <EntitySet Name="AdjustmentFile" EntityType="Self.AdjustmentFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AreaLibrary" EntityType="Self.AreaLibrary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ChatGroupMembers" EntityType="Self.ChatGroupMembers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ChatGroups" EntityType="Self.ChatGroups" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ChatMessages" EntityType="Self.ChatMessages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Deductions" EntityType="Self.Deductions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Degree" EntityType="Self.Degree" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
@@ -4661,6 +4609,7 @@
           <EntitySet Name="Employee_Personnel_Movement" EntityType="Self.Employee_Personnel_Movement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Replacement_HD" EntityType="Self.Employee_Replacement_HD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Separation" EntityType="Self.Employee_Separation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee_user_link" EntityType="Self.employee_user_link" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeLeaveMonitoring" EntityType="Self.EmployeeLeaveMonitoring" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeLoanMaster" EntityType="Self.EmployeeLoanMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeRank" EntityType="Self.EmployeeRank" Schema="dbo" store:Type="Tables" />
@@ -7312,36 +7261,7 @@
             <Parameter Name="USER_ID" Mode="In" Type="Int32" />
             <Parameter Name="APP_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="ChatGroupMembers" EntityType="apwdbModel.ChatGroupMember" />
-          <EntitySet Name="ChatGroups" EntityType="apwdbModel.ChatGroup" />
-          <EntitySet Name="ChatMessages" EntityType="apwdbModel.ChatMessage" />
-          <FunctionImport Name="USP_CHAT_CREATE_GROUP">
-            <Parameter Name="GroupName" Mode="In" Type="String" />
-            <Parameter Name="CreatedBy" Mode="In" Type="String" />
-            <Parameter Name="MembersCsv" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="USP_CHAT_GET_DIRECT_HISTORY" ReturnType="Collection(apwdbModel.USP_CHAT_GET_DIRECT_HISTORY_Result)">
-            <Parameter Name="UserA" Mode="In" Type="String" />
-            <Parameter Name="UserB" Mode="In" Type="String" />
-            <Parameter Name="Top" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="USP_CHAT_GET_GROUP_HISTORY" ReturnType="Collection(apwdbModel.USP_CHAT_GET_GROUP_HISTORY_Result)">
-            <Parameter Name="GroupName" Mode="In" Type="String" />
-            <Parameter Name="Top" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="USP_CHAT_MANAGE_GROUP_MEMBER" ReturnType="Collection(apwdbModel.USP_CHAT_MANAGE_GROUP_MEMBER_Result)">
-            <Parameter Name="Action" Mode="In" Type="String" />
-            <Parameter Name="GroupName" Mode="In" Type="String" />
-            <Parameter Name="Username" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="USP_CHAT_SAVE_MESSAGE">
-            <Parameter Name="ChatType" Mode="In" Type="String" />
-            <Parameter Name="SenderUsername" Mode="In" Type="String" />
-            <Parameter Name="RecipientUsername" Mode="In" Type="String" />
-            <Parameter Name="GroupName" Mode="In" Type="String" />
-            <Parameter Name="MessageText" Mode="In" Type="String" />
-            <Parameter Name="IsSystem" Mode="In" Type="Boolean" />
-          </FunctionImport>
+          <EntitySet Name="employee_user_link" EntityType="apwdbModel.employee_user_link" />
           </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -11564,61 +11484,15 @@
           <Property Type="String" Name="ClassName" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="ImageClassName" Nullable="true" MaxLength="500" />
         </ComplexType>
-        <EntityType Name="ChatGroupMember">
+        <EntityType Name="employee_user_link">
           <Key>
-            <PropertyRef Name="GroupMemberId" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="GroupMemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="JoinedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="emp_id" Type="Int32" Nullable="false" />
+          <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="ChatGroup">
-          <Key>
-            <PropertyRef Name="GroupId" />
-          </Key>
-          <Property Name="GroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="ChatMessage">
-          <Key>
-            <PropertyRef Name="MessageId" />
-          </Key>
-          <Property Name="MessageId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ChatType" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="SenderUsername" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="RecipientUsername" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="GroupName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MessageText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsSystem" Type="Boolean" Nullable="false" />
-          <Property Name="SentAt" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <ComplexType Name="USP_CHAT_GET_DIRECT_HISTORY_Result">
-          <Property Type="Int64" Name="MessageId" Nullable="false" />
-          <Property Type="String" Name="ChatType" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="SenderUsername" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="RecipientUsername" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="MessageText" Nullable="false" />
-          <Property Type="Boolean" Name="IsSystem" Nullable="false" />
-          <Property Type="DateTime" Name="SentAt" Nullable="false" Precision="23" />
-        </ComplexType>
-        <ComplexType Name="USP_CHAT_GET_GROUP_HISTORY_Result">
-          <Property Type="Int64" Name="MessageId" Nullable="false" />
-          <Property Type="String" Name="ChatType" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="SenderUsername" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="RecipientUsername" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="MessageText" Nullable="false" />
-          <Property Type="Boolean" Name="IsSystem" Nullable="false" />
-          <Property Type="DateTime" Name="SentAt" Nullable="false" Precision="23" />
-        </ComplexType>
-        <ComplexType Name="USP_CHAT_MANAGE_GROUP_MEMBER_Result">
-          <Property Type="String" Name="GroupName" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="Username" Nullable="false" MaxLength="100" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13739,78 +13613,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="ChatGroupMembers">
-            <EntityTypeMapping TypeName="apwdbModel.ChatGroupMember">
-              <MappingFragment StoreEntitySet="ChatGroupMembers">
-                <ScalarProperty Name="JoinedAt" ColumnName="JoinedAt" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="GroupMemberId" ColumnName="GroupMemberId" />
+          <EntitySetMapping Name="employee_user_link">
+            <EntityTypeMapping TypeName="apwdbModel.employee_user_link">
+              <MappingFragment StoreEntitySet="employee_user_link">
+                <ScalarProperty Name="date_created" ColumnName="date_created" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ChatGroups">
-            <EntityTypeMapping TypeName="apwdbModel.ChatGroup">
-              <MappingFragment StoreEntitySet="ChatGroups">
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ChatMessages">
-            <EntityTypeMapping TypeName="apwdbModel.ChatMessage">
-              <MappingFragment StoreEntitySet="ChatMessages">
-                <ScalarProperty Name="SentAt" ColumnName="SentAt" />
-                <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
-                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
-                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="RecipientUsername" ColumnName="RecipientUsername" />
-                <ScalarProperty Name="SenderUsername" ColumnName="SenderUsername" />
-                <ScalarProperty Name="ChatType" ColumnName="ChatType" />
-                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="USP_CHAT_CREATE_GROUP" FunctionName="apwdbModel.Store.USP_CHAT_CREATE_GROUP" />
-          <FunctionImportMapping FunctionImportName="USP_CHAT_GET_DIRECT_HISTORY" FunctionName="apwdbModel.Store.USP_CHAT_GET_DIRECT_HISTORY">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="apwdbModel.USP_CHAT_GET_DIRECT_HISTORY_Result">
-                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
-                <ScalarProperty Name="ChatType" ColumnName="ChatType" />
-                <ScalarProperty Name="SenderUsername" ColumnName="SenderUsername" />
-                <ScalarProperty Name="RecipientUsername" ColumnName="RecipientUsername" />
-                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
-                <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
-                <ScalarProperty Name="SentAt" ColumnName="SentAt" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_CHAT_GET_GROUP_HISTORY" FunctionName="apwdbModel.Store.USP_CHAT_GET_GROUP_HISTORY">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="apwdbModel.USP_CHAT_GET_GROUP_HISTORY_Result">
-                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
-                <ScalarProperty Name="ChatType" ColumnName="ChatType" />
-                <ScalarProperty Name="SenderUsername" ColumnName="SenderUsername" />
-                <ScalarProperty Name="RecipientUsername" ColumnName="RecipientUsername" />
-                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
-                <ScalarProperty Name="IsSystem" ColumnName="IsSystem" />
-                <ScalarProperty Name="SentAt" ColumnName="SentAt" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_CHAT_MANAGE_GROUP_MEMBER" FunctionName="apwdbModel.Store.USP_CHAT_MANAGE_GROUP_MEMBER">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="apwdbModel.USP_CHAT_MANAGE_GROUP_MEMBER_Result">
-                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="USP_CHAT_SAVE_MESSAGE" FunctionName="apwdbModel.Store.USP_CHAT_SAVE_MESSAGE" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

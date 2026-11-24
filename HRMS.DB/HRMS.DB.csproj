@@ -143,6 +143,9 @@
     <Compile Include="Employee_Separation.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="employee_user_link.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EMPLOYER.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>

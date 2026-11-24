@@ -40,6 +40,7 @@ namespace HRMS.REPO.Repository
                              EmailAddress = x.email_address,
                              AppModuleId = x.appmodule_id,
                              EmployeeName = x.emp_name,
+                             //EmployeeGUID = GetEmployeeGUID(int.Parse( x.emp_id.ToString())),
                              Password = x.password,
                              Status = x.status,
                              Guid = "",
@@ -53,6 +54,16 @@ namespace HRMS.REPO.Repository
             
 
             return _obj;
+        }
+
+        public string GetEmployeeGUID(int _userid)
+        {
+            return (from eul in _conn.employee_user_link 
+                    join cl in _conn.REC_CANDIDATE_EMPLOYEE_LINK on eul.emp_id equals cl.emp_id
+                    join c in _conn.REC_CANDIDATE on cl.candidate_id equals c.id
+                    where eul.user_id == _userid    
+                    select c.guid
+                    ).SingleOrDefault();
         }
 
         public LoginUser_model Get(string _username, int _appmoduleid)
@@ -81,6 +92,7 @@ namespace HRMS.REPO.Repository
                 _obj.Companyid = GetIsearchUserCompany(_obj.UserId);
                 _obj.CountryId = GetIsearchUserCountry(_obj.UserId);
                 _obj.CompanyGuid = GetUserCompany(_obj.UserId);
+                _obj.EmployeeGUID = GetEmployeeGUID(_obj.UserId);
             }
            
             return _obj;

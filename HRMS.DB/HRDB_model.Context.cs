@@ -110,9 +110,7 @@ namespace HRMS.DB
         public virtual DbSet<REC_FUNCTION_ROLE> REC_FUNCTION_ROLE { get; set; }
         public virtual DbSet<Employee_Personnel_Movement> Employee_Personnel_Movement { get; set; }
         public virtual DbSet<Personnel_Movement_Category> Personnel_Movement_Category { get; set; }
-        public virtual DbSet<ChatGroupMember> ChatGroupMembers { get; set; }
-        public virtual DbSet<ChatGroup> ChatGroups { get; set; }
-        public virtual DbSet<ChatMessage> ChatMessages { get; set; }
+        public virtual DbSet<employee_user_link> employee_user_link { get; set; }
     
         public virtual ObjectResult<USP_H_GET_LEAVE_BALANCE_MONITORING_Result> USP_H_GET_LEAVE_BALANCE_MONITORING(Nullable<int> yEAR_ENTITLED, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<bool> bY_LEAVE_TYPE, Nullable<int> lEAVE_TYPE_ID, string kEYWORD, Nullable<int> cOMPANY_ID, Nullable<int> eMP_ID)
         {
@@ -4430,99 +4428,6 @@ namespace HRMS.DB
                 new ObjectParameter("APP_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_G_GET_APP_MENU_Result>("USP_G_GET_APP_MENU", uSER_IDParameter, aPP_IDParameter);
-        }
-    
-        public virtual int USP_CHAT_CREATE_GROUP(string groupName, string createdBy, string membersCsv)
-        {
-            var groupNameParameter = groupName != null ?
-                new ObjectParameter("GroupName", groupName) :
-                new ObjectParameter("GroupName", typeof(string));
-    
-            var createdByParameter = createdBy != null ?
-                new ObjectParameter("CreatedBy", createdBy) :
-                new ObjectParameter("CreatedBy", typeof(string));
-    
-            var membersCsvParameter = membersCsv != null ?
-                new ObjectParameter("MembersCsv", membersCsv) :
-                new ObjectParameter("MembersCsv", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_CHAT_CREATE_GROUP", groupNameParameter, createdByParameter, membersCsvParameter);
-        }
-    
-        public virtual ObjectResult<USP_CHAT_GET_DIRECT_HISTORY_Result> USP_CHAT_GET_DIRECT_HISTORY(string userA, string userB, Nullable<int> top)
-        {
-            var userAParameter = userA != null ?
-                new ObjectParameter("UserA", userA) :
-                new ObjectParameter("UserA", typeof(string));
-    
-            var userBParameter = userB != null ?
-                new ObjectParameter("UserB", userB) :
-                new ObjectParameter("UserB", typeof(string));
-    
-            var topParameter = top.HasValue ?
-                new ObjectParameter("Top", top) :
-                new ObjectParameter("Top", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_CHAT_GET_DIRECT_HISTORY_Result>("USP_CHAT_GET_DIRECT_HISTORY", userAParameter, userBParameter, topParameter);
-        }
-    
-        public virtual ObjectResult<USP_CHAT_GET_GROUP_HISTORY_Result> USP_CHAT_GET_GROUP_HISTORY(string groupName, Nullable<int> top)
-        {
-            var groupNameParameter = groupName != null ?
-                new ObjectParameter("GroupName", groupName) :
-                new ObjectParameter("GroupName", typeof(string));
-    
-            var topParameter = top.HasValue ?
-                new ObjectParameter("Top", top) :
-                new ObjectParameter("Top", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_CHAT_GET_GROUP_HISTORY_Result>("USP_CHAT_GET_GROUP_HISTORY", groupNameParameter, topParameter);
-        }
-    
-        public virtual ObjectResult<USP_CHAT_MANAGE_GROUP_MEMBER_Result> USP_CHAT_MANAGE_GROUP_MEMBER(string action, string groupName, string username)
-        {
-            var actionParameter = action != null ?
-                new ObjectParameter("Action", action) :
-                new ObjectParameter("Action", typeof(string));
-    
-            var groupNameParameter = groupName != null ?
-                new ObjectParameter("GroupName", groupName) :
-                new ObjectParameter("GroupName", typeof(string));
-    
-            var usernameParameter = username != null ?
-                new ObjectParameter("Username", username) :
-                new ObjectParameter("Username", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_CHAT_MANAGE_GROUP_MEMBER_Result>("USP_CHAT_MANAGE_GROUP_MEMBER", actionParameter, groupNameParameter, usernameParameter);
-        }
-    
-        public virtual int USP_CHAT_SAVE_MESSAGE(string chatType, string senderUsername, string recipientUsername, string groupName, string messageText, Nullable<bool> isSystem)
-        {
-            var chatTypeParameter = chatType != null ?
-                new ObjectParameter("ChatType", chatType) :
-                new ObjectParameter("ChatType", typeof(string));
-    
-            var senderUsernameParameter = senderUsername != null ?
-                new ObjectParameter("SenderUsername", senderUsername) :
-                new ObjectParameter("SenderUsername", typeof(string));
-    
-            var recipientUsernameParameter = recipientUsername != null ?
-                new ObjectParameter("RecipientUsername", recipientUsername) :
-                new ObjectParameter("RecipientUsername", typeof(string));
-    
-            var groupNameParameter = groupName != null ?
-                new ObjectParameter("GroupName", groupName) :
-                new ObjectParameter("GroupName", typeof(string));
-    
-            var messageTextParameter = messageText != null ?
-                new ObjectParameter("MessageText", messageText) :
-                new ObjectParameter("MessageText", typeof(string));
-    
-            var isSystemParameter = isSystem.HasValue ?
-                new ObjectParameter("IsSystem", isSystem) :
-                new ObjectParameter("IsSystem", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_CHAT_SAVE_MESSAGE", chatTypeParameter, senderUsernameParameter, recipientUsernameParameter, groupNameParameter, messageTextParameter, isSystemParameter);
         }
     }
 }
