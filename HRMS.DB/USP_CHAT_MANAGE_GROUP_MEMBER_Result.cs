@@ -13,7 +13,7 @@ namespace HRMS.DB
     
     public partial class USP_CHAT_MANAGE_GROUP_MEMBER_Result
     {
-        public string GroupName { get; set; }
-        public string Username { get; set; }
+        public int GroupChatId { get; set; }
+        public int UserId { get; set; }
     }
 }

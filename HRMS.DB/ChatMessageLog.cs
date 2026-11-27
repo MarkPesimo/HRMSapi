@@ -12,15 +12,19 @@ namespace HRMS.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class ChatMessage
+    public partial class ChatMessageLog
     {
-        public long MessageId { get; set; }
+        public int MessageId { get; set; }
         public string ChatType { get; set; }
-        public string SenderUsername { get; set; }
-        public string RecipientUsername { get; set; }
-        public string GroupName { get; set; }
+        public int SenderUserId { get; set; }
+        public Nullable<int> RecipientUserId { get; set; }
+        public Nullable<int> GroupChatId { get; set; }
         public string MessageText { get; set; }
-        public bool IsSystem { get; set; }
+        public bool isRead { get; set; }
         public System.DateTime SentAt { get; set; }
+    
+        public virtual ChatGroup ChatGroup { get; set; }
+        public virtual SYS_USER SYS_USER { get; set; }
+        public virtual SYS_USER SYS_USER1 { get; set; }
     }
 }

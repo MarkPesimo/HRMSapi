@@ -111,6 +111,10 @@ namespace HRMS.DB
         public virtual DbSet<Employee_Personnel_Movement> Employee_Personnel_Movement { get; set; }
         public virtual DbSet<Personnel_Movement_Category> Personnel_Movement_Category { get; set; }
         public virtual DbSet<employee_user_link> employee_user_link { get; set; }
+        public virtual DbSet<ChatGroupMember> ChatGroupMembers { get; set; }
+        public virtual DbSet<ChatGroup> ChatGroups { get; set; }
+        public virtual DbSet<ChatMessageLog> ChatMessageLogs { get; set; }
+        public virtual DbSet<ChatRecipientsHistory> ChatRecipientsHistories { get; set; }
     
         public virtual ObjectResult<USP_H_GET_LEAVE_BALANCE_MONITORING_Result> USP_H_GET_LEAVE_BALANCE_MONITORING(Nullable<int> yEAR_ENTITLED, Nullable<bool> bY_CLIENT, Nullable<int> cLIENT_ID, Nullable<bool> bY_LEAVE_TYPE, Nullable<int> lEAVE_TYPE_ID, string kEYWORD, Nullable<int> cOMPANY_ID, Nullable<int> eMP_ID)
         {
@@ -4428,6 +4432,103 @@ namespace HRMS.DB
                 new ObjectParameter("APP_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_G_GET_APP_MENU_Result>("USP_G_GET_APP_MENU", uSER_IDParameter, aPP_IDParameter);
+        }
+    
+        public virtual int USP_CHAT_CREATE_GROUP(string groupName, Nullable<int> createdBy, string membersCsv)
+        {
+            var groupNameParameter = groupName != null ?
+                new ObjectParameter("GroupName", groupName) :
+                new ObjectParameter("GroupName", typeof(string));
+    
+            var createdByParameter = createdBy.HasValue ?
+                new ObjectParameter("CreatedBy", createdBy) :
+                new ObjectParameter("CreatedBy", typeof(int));
+    
+            var membersCsvParameter = membersCsv != null ?
+                new ObjectParameter("MembersCsv", membersCsv) :
+                new ObjectParameter("MembersCsv", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_CHAT_CREATE_GROUP", groupNameParameter, createdByParameter, membersCsvParameter);
+        }
+    
+        public virtual ObjectResult<USP_CHAT_GET_DIRECT_HISTORY_Result> USP_CHAT_GET_DIRECT_HISTORY(Nullable<int> userA, Nullable<int> userB, Nullable<int> top)
+        {
+            var userAParameter = userA.HasValue ?
+                new ObjectParameter("UserA", userA) :
+                new ObjectParameter("UserA", typeof(int));
+    
+            var userBParameter = userB.HasValue ?
+                new ObjectParameter("UserB", userB) :
+                new ObjectParameter("UserB", typeof(int));
+    
+            var topParameter = top.HasValue ?
+                new ObjectParameter("Top", top) :
+                new ObjectParameter("Top", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_CHAT_GET_DIRECT_HISTORY_Result>("USP_CHAT_GET_DIRECT_HISTORY", userAParameter, userBParameter, topParameter);
+        }
+    
+        public virtual ObjectResult<USP_CHAT_GET_GROUP_HISTORY_Result> USP_CHAT_GET_GROUP_HISTORY(Nullable<int> groupChatId, Nullable<int> top)
+        {
+            var groupChatIdParameter = groupChatId.HasValue ?
+                new ObjectParameter("GroupChatId", groupChatId) :
+                new ObjectParameter("GroupChatId", typeof(int));
+    
+            var topParameter = top.HasValue ?
+                new ObjectParameter("Top", top) :
+                new ObjectParameter("Top", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_CHAT_GET_GROUP_HISTORY_Result>("USP_CHAT_GET_GROUP_HISTORY", groupChatIdParameter, topParameter);
+        }
+    
+        public virtual ObjectResult<USP_CHAT_MANAGE_GROUP_MEMBER_Result> USP_CHAT_MANAGE_GROUP_MEMBER(string action, Nullable<int> groupChatId, Nullable<int> userId)
+        {
+            var actionParameter = action != null ?
+                new ObjectParameter("Action", action) :
+                new ObjectParameter("Action", typeof(string));
+    
+            var groupChatIdParameter = groupChatId.HasValue ?
+                new ObjectParameter("GroupChatId", groupChatId) :
+                new ObjectParameter("GroupChatId", typeof(int));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_CHAT_MANAGE_GROUP_MEMBER_Result>("USP_CHAT_MANAGE_GROUP_MEMBER", actionParameter, groupChatIdParameter, userIdParameter);
+        }
+    
+        public virtual int USP_CHAT_SAVE_MESSAGE(string chatType, Nullable<int> mESSAGEID, Nullable<int> sENDERUSERID, Nullable<int> rECIPIENTUSERID, Nullable<int> gROUPCHATID, string messageText, Nullable<int> mODE)
+        {
+            var chatTypeParameter = chatType != null ?
+                new ObjectParameter("ChatType", chatType) :
+                new ObjectParameter("ChatType", typeof(string));
+    
+            var mESSAGEIDParameter = mESSAGEID.HasValue ?
+                new ObjectParameter("MESSAGEID", mESSAGEID) :
+                new ObjectParameter("MESSAGEID", typeof(int));
+    
+            var sENDERUSERIDParameter = sENDERUSERID.HasValue ?
+                new ObjectParameter("SENDERUSERID", sENDERUSERID) :
+                new ObjectParameter("SENDERUSERID", typeof(int));
+    
+            var rECIPIENTUSERIDParameter = rECIPIENTUSERID.HasValue ?
+                new ObjectParameter("RECIPIENTUSERID", rECIPIENTUSERID) :
+                new ObjectParameter("RECIPIENTUSERID", typeof(int));
+    
+            var gROUPCHATIDParameter = gROUPCHATID.HasValue ?
+                new ObjectParameter("GROUPCHATID", gROUPCHATID) :
+                new ObjectParameter("GROUPCHATID", typeof(int));
+    
+            var messageTextParameter = messageText != null ?
+                new ObjectParameter("MessageText", messageText) :
+                new ObjectParameter("MessageText", typeof(string));
+    
+            var mODEParameter = mODE.HasValue ?
+                new ObjectParameter("MODE", mODE) :
+                new ObjectParameter("MODE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_CHAT_SAVE_MESSAGE", chatTypeParameter, mESSAGEIDParameter, sENDERUSERIDParameter, rECIPIENTUSERIDParameter, gROUPCHATIDParameter, messageTextParameter, mODEParameter);
         }
     }
 }

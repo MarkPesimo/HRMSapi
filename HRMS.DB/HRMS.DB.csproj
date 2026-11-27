@@ -95,7 +95,10 @@
     <Compile Include="ChatGroupMember.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
-    <Compile Include="ChatMessage.cs">
+    <Compile Include="ChatMessageLog.cs">
+      <DependentUpon>HRDB_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChatRecipientsHistory.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="Deduction.cs">
@@ -175,6 +178,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HRDB_model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="HRDB_model3.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HRDB_model.tt</DependentUpon>
     </Compile>
     <Compile Include="INDUSTRY.cs">
       <DependentUpon>HRDB_model.tt</DependentUpon>
@@ -516,7 +524,7 @@
     <Content Include="HRDB_model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HRDB_model.edmx</DependentUpon>
-      <LastGenOutput>HRDB_model.cs</LastGenOutput>
+      <LastGenOutput>HRDB_model3.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

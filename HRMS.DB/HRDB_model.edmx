@@ -74,6 +74,49 @@
           <Property Name="region_latitude" Type="decimal" Precision="18" Scale="8" />
           <Property Name="allowed_radius_meter" Type="int" />
         </EntityType>
+        <EntityType Name="ChatGroupMembers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupChatId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="DateJoined" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChatGroups">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChatMessageLogs">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChatType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SenderUserId" Type="int" Nullable="false" />
+          <Property Name="RecipientUserId" Type="int" />
+          <Property Name="GroupChatId" Type="int" />
+          <Property Name="MessageText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="isRead" Type="bit" Nullable="false" />
+          <Property Name="SentAt" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChatRecipientsHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChatType" Type="nvarchar" MaxLength="50" />
+          <Property Name="SenderUserId" Type="int" />
+          <Property Name="RecipientUserId" Type="int" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="GroupChatId" Type="int" />
+        </EntityType>
         <EntityType Name="Deductions">
           <Key>
             <PropertyRef Name="Ded_id" />
@@ -2071,6 +2114,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ChatGroupMembers_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="ChatGroupMembers" Type="Self.ChatGroupMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ChatGroupMembers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatGroups_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="ChatGroups" Type="Self.ChatGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ChatGroups">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatMessageLogs_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
+          <End Role="ChatMessageLogs" Type="Self.ChatMessageLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ChatMessageLogs">
+              <PropertyRef Name="SenderUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatMessageLogs_SYS_USER1">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="0..1" />
+          <End Role="ChatMessageLogs" Type="Self.ChatMessageLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ChatMessageLogs">
+              <PropertyRef Name="RecipientUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatRecipientsHistory_SYS_USER">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="0..1" />
+          <End Role="ChatRecipientsHistory" Type="Self.ChatRecipientsHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ChatRecipientsHistory">
+              <PropertyRef Name="SenderUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatRecipientsHistory_SYS_USER1">
+          <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="0..1" />
+          <End Role="ChatRecipientsHistory" Type="Self.ChatRecipientsHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ChatRecipientsHistory">
+              <PropertyRef Name="RecipientUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Deductions_SYS_USER">
           <End Role="SYS_USER" Type="Self.SYS_USER" Multiplicity="1" />
           <End Role="Deductions" Type="Self.Deductions" Multiplicity="*" />
@@ -3882,6 +3997,34 @@
           <Parameter Name="is_client_approved_dtr" Type="bit" Mode="In" />
           <Parameter Name="is_location_required" Type="bit" Mode="In" />
         </Function>
+        <Function Name="USP_CHAT_CREATE_GROUP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GroupName" Type="nvarchar" Mode="In" />
+          <Parameter Name="CreatedBy" Type="int" Mode="In" />
+          <Parameter Name="MembersCsv" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="USP_CHAT_GET_DIRECT_HISTORY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserA" Type="int" Mode="In" />
+          <Parameter Name="UserB" Type="int" Mode="In" />
+          <Parameter Name="Top" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_CHAT_GET_GROUP_HISTORY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GroupChatId" Type="int" Mode="In" />
+          <Parameter Name="Top" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_CHAT_MANAGE_GROUP_MEMBER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Action" Type="varchar" Mode="In" />
+          <Parameter Name="GroupChatId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="USP_CHAT_SAVE_MESSAGE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ChatType" Type="nvarchar" Mode="In" />
+          <Parameter Name="MESSAGEID" Type="int" Mode="In" />
+          <Parameter Name="SENDERUSERID" Type="int" Mode="In" />
+          <Parameter Name="RECIPIENTUSERID" Type="int" Mode="In" />
+          <Parameter Name="GROUPCHATID" Type="int" Mode="In" />
+          <Parameter Name="MessageText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="MODE" Type="int" Mode="In" />
+        </Function>
         <Function Name="USP_E_MANAGE_ACCOUNT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="USERNAME" Type="nvarchar" Mode="In" />
           <Parameter Name="PASSWORD" Type="nvarchar" Mode="In" />
@@ -4598,6 +4741,10 @@
           <EntitySet Name="AdjustmentFile" EntityType="Self.AdjustmentFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AreaLibrary" EntityType="Self.AreaLibrary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatGroupMembers" EntityType="Self.ChatGroupMembers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatGroups" EntityType="Self.ChatGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatMessageLogs" EntityType="Self.ChatMessageLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatRecipientsHistory" EntityType="Self.ChatRecipientsHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Deductions" EntityType="Self.Deductions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Degree" EntityType="Self.Degree" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
@@ -4872,6 +5019,30 @@
           <AssociationSet Name="FK_AreaLibrary_SYS_USER" Association="Self.FK_AreaLibrary_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
             <End Role="AreaLibrary" EntitySet="AreaLibrary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatGroupMembers_SYS_USER" Association="Self.FK_ChatGroupMembers_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="ChatGroupMembers" EntitySet="ChatGroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatGroups_SYS_USER" Association="Self.FK_ChatGroups_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="ChatGroups" EntitySet="ChatGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessageLogs_SYS_USER" Association="Self.FK_ChatMessageLogs_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="ChatMessageLogs" EntitySet="ChatMessageLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessageLogs_SYS_USER1" Association="Self.FK_ChatMessageLogs_SYS_USER1">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="ChatMessageLogs" EntitySet="ChatMessageLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatRecipientsHistory_SYS_USER" Association="Self.FK_ChatRecipientsHistory_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="ChatRecipientsHistory" EntitySet="ChatRecipientsHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatRecipientsHistory_SYS_USER1" Association="Self.FK_ChatRecipientsHistory_SYS_USER1">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="ChatRecipientsHistory" EntitySet="ChatRecipientsHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_Deductions_SYS_USER" Association="Self.FK_Deductions_SYS_USER">
             <End Role="SYS_USER" EntitySet="SYS_USER" />
@@ -7262,6 +7433,70 @@
             <Parameter Name="APP_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="employee_user_link" EntityType="apwdbModel.employee_user_link" />
+          <EntitySet Name="ChatGroupMembers" EntityType="apwdbModel.ChatGroupMember" />
+          <EntitySet Name="ChatGroups" EntityType="apwdbModel.ChatGroup" />
+          <EntitySet Name="ChatMessageLogs" EntityType="apwdbModel.ChatMessageLog" />
+          <AssociationSet Name="FK_ChatGroupMembers_ChatGroups" Association="apwdbModel.FK_ChatGroupMembers_ChatGroups">
+            <End Role="ChatGroup" EntitySet="ChatGroups" />
+            <End Role="ChatGroupMember" EntitySet="ChatGroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatGroupMembers_SYS_USER" Association="apwdbModel.FK_ChatGroupMembers_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="ChatGroupMember" EntitySet="ChatGroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatGroups_SYS_USER" Association="apwdbModel.FK_ChatGroups_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="ChatGroup" EntitySet="ChatGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessageLogs_ChatGroups" Association="apwdbModel.FK_ChatMessageLogs_ChatGroups">
+            <End Role="ChatGroup" EntitySet="ChatGroups" />
+            <End Role="ChatMessageLog" EntitySet="ChatMessageLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessageLogs_SYS_USER" Association="apwdbModel.FK_ChatMessageLogs_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="ChatMessageLog" EntitySet="ChatMessageLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatMessageLogs_SYS_USER1" Association="apwdbModel.FK_ChatMessageLogs_SYS_USER1">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="ChatMessageLog" EntitySet="ChatMessageLogs" />
+          </AssociationSet>
+          <FunctionImport Name="USP_CHAT_CREATE_GROUP">
+            <Parameter Name="GroupName" Mode="In" Type="String" />
+            <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+            <Parameter Name="MembersCsv" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_CHAT_GET_DIRECT_HISTORY" ReturnType="Collection(apwdbModel.USP_CHAT_GET_DIRECT_HISTORY_Result)">
+            <Parameter Name="UserA" Mode="In" Type="Int32" />
+            <Parameter Name="UserB" Mode="In" Type="Int32" />
+            <Parameter Name="Top" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_CHAT_GET_GROUP_HISTORY" ReturnType="Collection(apwdbModel.USP_CHAT_GET_GROUP_HISTORY_Result)">
+            <Parameter Name="GroupChatId" Mode="In" Type="Int32" />
+            <Parameter Name="Top" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="USP_CHAT_MANAGE_GROUP_MEMBER" ReturnType="Collection(apwdbModel.USP_CHAT_MANAGE_GROUP_MEMBER_Result)">
+            <Parameter Name="Action" Mode="In" Type="String" />
+            <Parameter Name="GroupChatId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="ChatRecipientsHistories" EntityType="apwdbModel.ChatRecipientsHistory" />
+          <AssociationSet Name="FK_ChatRecipientsHistory_SYS_USER" Association="apwdbModel.FK_ChatRecipientsHistory_SYS_USER">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="ChatRecipientsHistory" EntitySet="ChatRecipientsHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatRecipientsHistory_SYS_USER1" Association="apwdbModel.FK_ChatRecipientsHistory_SYS_USER1">
+            <End Role="SYS_USER" EntitySet="SYS_USER" />
+            <End Role="ChatRecipientsHistory" EntitySet="ChatRecipientsHistories" />
+          </AssociationSet>
+          <FunctionImport Name="USP_CHAT_SAVE_MESSAGE">
+            <Parameter Name="ChatType" Mode="In" Type="String" />
+            <Parameter Name="MESSAGEID" Mode="In" Type="Int32" />
+            <Parameter Name="SENDERUSERID" Mode="In" Type="Int32" />
+            <Parameter Name="RECIPIENTUSERID" Mode="In" Type="Int32" />
+            <Parameter Name="GROUPCHATID" Mode="In" Type="Int32" />
+            <Parameter Name="MessageText" Mode="In" Type="String" />
+            <Parameter Name="MODE" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -7465,6 +7700,12 @@
           <NavigationProperty Name="SYS_REGION" Relationship="apwdbModel.FK_SYS_REGION_SYS_USER" FromRole="SYS_USER" ToRole="SYS_REGION" />
           <NavigationProperty Name="REC_FUNCTION_MASTER_FILE" Relationship="apwdbModel.FK_REC_FUNCTION_MASTER_FILE_SYS_USER" FromRole="SYS_USER" ToRole="REC_FUNCTION_MASTER_FILE" />
           <NavigationProperty Name="REC_FUNCTION_ROLE" Relationship="apwdbModel.FK_REC_FUNCTION_ROLE_SYS_USER" FromRole="SYS_USER" ToRole="REC_FUNCTION_ROLE" />
+          <NavigationProperty Name="ChatGroupMembers" Relationship="apwdbModel.FK_ChatGroupMembers_SYS_USER" FromRole="SYS_USER" ToRole="ChatGroupMember" />
+          <NavigationProperty Name="ChatGroups" Relationship="apwdbModel.FK_ChatGroups_SYS_USER" FromRole="SYS_USER" ToRole="ChatGroup" />
+          <NavigationProperty Name="ChatMessageLogs" Relationship="apwdbModel.FK_ChatMessageLogs_SYS_USER" FromRole="SYS_USER" ToRole="ChatMessageLog" />
+          <NavigationProperty Name="ChatMessageLogs1" Relationship="apwdbModel.FK_ChatMessageLogs_SYS_USER1" FromRole="SYS_USER" ToRole="ChatMessageLog" />
+          <NavigationProperty Name="ChatRecipientsHistories" Relationship="apwdbModel.FK_ChatRecipientsHistory_SYS_USER" FromRole="SYS_USER" ToRole="ChatRecipientsHistory" />
+          <NavigationProperty Name="ChatRecipientsHistories1" Relationship="apwdbModel.FK_ChatRecipientsHistory_SYS_USER1" FromRole="SYS_USER" ToRole="ChatRecipientsHistory" />
         </EntityType>
         <EntityType Name="SYS_USER_GROUP">
           <Key>
@@ -11493,6 +11734,177 @@
           <Property Name="emp_id" Type="Int32" Nullable="false" />
           <Property Name="date_created" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="ChatGroupMember">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupChatId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="DateJoined" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ChatGroup" Relationship="apwdbModel.FK_ChatGroupMembers_ChatGroups" FromRole="ChatGroupMember" ToRole="ChatGroup" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_ChatGroupMembers_SYS_USER" FromRole="ChatGroupMember" ToRole="SYS_USER" />
+        </EntityType>
+        <EntityType Name="ChatGroup">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ChatGroupMembers" Relationship="apwdbModel.FK_ChatGroupMembers_ChatGroups" FromRole="ChatGroup" ToRole="ChatGroupMember" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_ChatGroups_SYS_USER" FromRole="ChatGroup" ToRole="SYS_USER" />
+          <NavigationProperty Name="ChatMessageLogs" Relationship="apwdbModel.FK_ChatMessageLogs_ChatGroups" FromRole="ChatGroup" ToRole="ChatMessageLog" />
+        </EntityType>
+        <EntityType Name="ChatMessageLog">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChatType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SenderUserId" Type="Int32" Nullable="false" />
+          <Property Name="RecipientUserId" Type="Int32" />
+          <Property Name="GroupChatId" Type="Int32" />
+          <Property Name="MessageText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isRead" Type="Boolean" Nullable="false" />
+          <Property Name="SentAt" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ChatGroup" Relationship="apwdbModel.FK_ChatMessageLogs_ChatGroups" FromRole="ChatMessageLog" ToRole="ChatGroup" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_ChatMessageLogs_SYS_USER" FromRole="ChatMessageLog" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_USER1" Relationship="apwdbModel.FK_ChatMessageLogs_SYS_USER1" FromRole="ChatMessageLog" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_ChatGroupMembers_ChatGroups">
+          <End Type="apwdbModel.ChatGroup" Role="ChatGroup" Multiplicity="1" />
+          <End Type="apwdbModel.ChatGroupMember" Role="ChatGroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChatGroup">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="ChatGroupMember">
+              <PropertyRef Name="GroupChatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatGroupMembers_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.ChatGroupMember" Role="ChatGroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ChatGroupMember">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatGroups_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.ChatGroup" Role="ChatGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ChatGroup">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatMessageLogs_ChatGroups">
+          <End Type="apwdbModel.ChatGroup" Role="ChatGroup" Multiplicity="0..1" />
+          <End Type="apwdbModel.ChatMessageLog" Role="ChatMessageLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChatGroup">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="ChatMessageLog">
+              <PropertyRef Name="GroupChatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatMessageLogs_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="1" />
+          <End Type="apwdbModel.ChatMessageLog" Role="ChatMessageLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ChatMessageLog">
+              <PropertyRef Name="SenderUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatMessageLogs_SYS_USER1">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="0..1" />
+          <End Type="apwdbModel.ChatMessageLog" Role="ChatMessageLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ChatMessageLog">
+              <PropertyRef Name="RecipientUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_CHAT_GET_DIRECT_HISTORY_Result">
+          <Property Type="Int32" Name="MessageId" Nullable="false" />
+          <Property Type="String" Name="ChatType" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="SenderUserId" Nullable="false" />
+          <Property Type="Int32" Name="RecipientUserId" Nullable="true" />
+          <Property Type="Int32" Name="GroupChatId" Nullable="true" />
+          <Property Type="String" Name="MessageText" Nullable="false" />
+          <Property Type="DateTime" Name="SentAt" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="USP_CHAT_GET_GROUP_HISTORY_Result">
+          <Property Type="Int32" Name="MessageId" Nullable="false" />
+          <Property Type="String" Name="ChatType" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="SenderUserId" Nullable="false" />
+          <Property Type="Int32" Name="RecipientUserId" Nullable="true" />
+          <Property Type="Int32" Name="GroupChatId" Nullable="true" />
+          <Property Type="String" Name="MessageText" Nullable="false" />
+          <Property Type="DateTime" Name="SentAt" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="USP_CHAT_MANAGE_GROUP_MEMBER_Result">
+          <Property Type="Int32" Name="GroupChatId" Nullable="false" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="ChatRecipientsHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChatType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SenderUserId" Type="Int32" />
+          <Property Name="RecipientUserId" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GroupChatId" Type="Int32" />
+          <NavigationProperty Name="SYS_USER" Relationship="apwdbModel.FK_ChatRecipientsHistory_SYS_USER" FromRole="ChatRecipientsHistory" ToRole="SYS_USER" />
+          <NavigationProperty Name="SYS_USER1" Relationship="apwdbModel.FK_ChatRecipientsHistory_SYS_USER1" FromRole="ChatRecipientsHistory" ToRole="SYS_USER" />
+        </EntityType>
+        <Association Name="FK_ChatRecipientsHistory_SYS_USER">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="0..1" />
+          <End Type="apwdbModel.ChatRecipientsHistory" Role="ChatRecipientsHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ChatRecipientsHistory">
+              <PropertyRef Name="SenderUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatRecipientsHistory_SYS_USER1">
+          <End Type="apwdbModel.SYS_USER" Role="SYS_USER" Multiplicity="0..1" />
+          <End Type="apwdbModel.ChatRecipientsHistory" Role="ChatRecipientsHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_USER">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ChatRecipientsHistory">
+              <PropertyRef Name="RecipientUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13623,6 +14035,89 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ChatGroupMembers">
+            <EntityTypeMapping TypeName="apwdbModel.ChatGroupMember">
+              <MappingFragment StoreEntitySet="ChatGroupMembers">
+                <ScalarProperty Name="DateJoined" ColumnName="DateJoined" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="GroupChatId" ColumnName="GroupChatId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatGroups">
+            <EntityTypeMapping TypeName="apwdbModel.ChatGroup">
+              <MappingFragment StoreEntitySet="ChatGroups">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatMessageLogs">
+            <EntityTypeMapping TypeName="apwdbModel.ChatMessageLog">
+              <MappingFragment StoreEntitySet="ChatMessageLogs">
+                <ScalarProperty Name="SentAt" ColumnName="SentAt" />
+                <ScalarProperty Name="isRead" ColumnName="isRead" />
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="GroupChatId" ColumnName="GroupChatId" />
+                <ScalarProperty Name="RecipientUserId" ColumnName="RecipientUserId" />
+                <ScalarProperty Name="SenderUserId" ColumnName="SenderUserId" />
+                <ScalarProperty Name="ChatType" ColumnName="ChatType" />
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_CHAT_CREATE_GROUP" FunctionName="apwdbModel.Store.USP_CHAT_CREATE_GROUP" />
+          <FunctionImportMapping FunctionImportName="USP_CHAT_GET_DIRECT_HISTORY" FunctionName="apwdbModel.Store.USP_CHAT_GET_DIRECT_HISTORY">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_CHAT_GET_DIRECT_HISTORY_Result">
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+                <ScalarProperty Name="ChatType" ColumnName="ChatType" />
+                <ScalarProperty Name="SenderUserId" ColumnName="SenderUserId" />
+                <ScalarProperty Name="RecipientUserId" ColumnName="RecipientUserId" />
+                <ScalarProperty Name="GroupChatId" ColumnName="GroupChatId" />
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="SentAt" ColumnName="SentAt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_CHAT_GET_GROUP_HISTORY" FunctionName="apwdbModel.Store.USP_CHAT_GET_GROUP_HISTORY">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_CHAT_GET_GROUP_HISTORY_Result">
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+                <ScalarProperty Name="ChatType" ColumnName="ChatType" />
+                <ScalarProperty Name="SenderUserId" ColumnName="SenderUserId" />
+                <ScalarProperty Name="RecipientUserId" ColumnName="RecipientUserId" />
+                <ScalarProperty Name="GroupChatId" ColumnName="GroupChatId" />
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="SentAt" ColumnName="SentAt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_CHAT_MANAGE_GROUP_MEMBER" FunctionName="apwdbModel.Store.USP_CHAT_MANAGE_GROUP_MEMBER">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="apwdbModel.USP_CHAT_MANAGE_GROUP_MEMBER_Result">
+                <ScalarProperty Name="GroupChatId" ColumnName="GroupChatId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ChatRecipientsHistories">
+            <EntityTypeMapping TypeName="apwdbModel.ChatRecipientsHistory">
+              <MappingFragment StoreEntitySet="ChatRecipientsHistory">
+                <ScalarProperty Name="GroupChatId" ColumnName="GroupChatId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="RecipientUserId" ColumnName="RecipientUserId" />
+                <ScalarProperty Name="SenderUserId" ColumnName="SenderUserId" />
+                <ScalarProperty Name="ChatType" ColumnName="ChatType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_CHAT_SAVE_MESSAGE" FunctionName="apwdbModel.Store.USP_CHAT_SAVE_MESSAGE" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

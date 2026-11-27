@@ -13,13 +13,12 @@ namespace HRMS.DB
     
     public partial class USP_CHAT_GET_GROUP_HISTORY_Result
     {
-        public long MessageId { get; set; }
+        public int MessageId { get; set; }
         public string ChatType { get; set; }
-        public string SenderUsername { get; set; }
-        public string RecipientUsername { get; set; }
-        public string GroupName { get; set; }
+        public int SenderUserId { get; set; }
+        public Nullable<int> RecipientUserId { get; set; }
+        public Nullable<int> GroupChatId { get; set; }
         public string MessageText { get; set; }
-        public bool IsSystem { get; set; }
         public System.DateTime SentAt { get; set; }
     }
 }

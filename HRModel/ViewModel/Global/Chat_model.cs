@@ -10,14 +10,17 @@ namespace HRModel.ViewModel.Global
 {
     public class ChatMessageModel
     {
-        public long MessageId { get; set; }
+        public int Id{ get; set; }
+        public int MessageId { get; set; }
         public string ChatType { get; set; } // "direct" or "group"
-        public string SenderUsername { get; set; }
-        public string RecipientUsername { get; set; }
-        public string GroupName { get; set; }
+        public int SenderUserId { get; set; }
+        public int RecipientUserId { get; set; }
+        public string RecipientName{ get; set; }
+        public int GroupChatId { get; set; }
         public string MessageText { get; set; }
-        public bool IsSystem { get; set; }
+        public bool isRead { get; set; }
         public DateTime SentAt { get; set; }
+        public int Mode { get; set; }
     }
 
     public class ChatGroupInfoModel

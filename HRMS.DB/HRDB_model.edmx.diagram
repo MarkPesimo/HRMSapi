@@ -251,6 +251,18 @@
         <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_REC_CLIENT" />
         <AssociationConnector Association="apwdbModel.FK_Employee_Personnel_Movement_REC_CLIENT1" />
         <EntityTypeShape EntityType="apwdbModel.employee_user_link" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="apwdbModel.ChatGroupMember" Width="1.5" PointX="9.75" PointY="34.25" />
+        <EntityTypeShape EntityType="apwdbModel.ChatGroup" Width="1.5" PointX="7.5" PointY="45" />
+        <EntityTypeShape EntityType="apwdbModel.ChatMessageLog" Width="1.5" PointX="15.75" PointY="31.75" />
+        <AssociationConnector Association="apwdbModel.FK_ChatGroupMembers_ChatGroups" />
+        <AssociationConnector Association="apwdbModel.FK_ChatGroupMembers_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_ChatGroups_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_ChatMessageLogs_ChatGroups" />
+        <AssociationConnector Association="apwdbModel.FK_ChatMessageLogs_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_ChatMessageLogs_SYS_USER1" />
+        <EntityTypeShape EntityType="apwdbModel.ChatRecipientsHistory" Width="1.5" PointX="7.5" PointY="49" />
+        <AssociationConnector Association="apwdbModel.FK_ChatRecipientsHistory_SYS_USER" />
+        <AssociationConnector Association="apwdbModel.FK_ChatRecipientsHistory_SYS_USER1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

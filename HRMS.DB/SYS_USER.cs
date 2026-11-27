@@ -71,6 +71,12 @@ namespace HRMS.DB
             this.SYS_REGION = new HashSet<SYS_REGION>();
             this.REC_FUNCTION_MASTER_FILE = new HashSet<REC_FUNCTION_MASTER_FILE>();
             this.REC_FUNCTION_ROLE = new HashSet<REC_FUNCTION_ROLE>();
+            this.ChatGroupMembers = new HashSet<ChatGroupMember>();
+            this.ChatGroups = new HashSet<ChatGroup>();
+            this.ChatMessageLogs = new HashSet<ChatMessageLog>();
+            this.ChatMessageLogs1 = new HashSet<ChatMessageLog>();
+            this.ChatRecipientsHistories = new HashSet<ChatRecipientsHistory>();
+            this.ChatRecipientsHistories1 = new HashSet<ChatRecipientsHistory>();
         }
     
         public int id { get; set; }
@@ -192,5 +198,17 @@ namespace HRMS.DB
         public virtual ICollection<REC_FUNCTION_MASTER_FILE> REC_FUNCTION_MASTER_FILE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REC_FUNCTION_ROLE> REC_FUNCTION_ROLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatGroupMember> ChatGroupMembers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatGroup> ChatGroups { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatMessageLog> ChatMessageLogs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatMessageLog> ChatMessageLogs1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatRecipientsHistory> ChatRecipientsHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatRecipientsHistory> ChatRecipientsHistories1 { get; set; }
     }
 }

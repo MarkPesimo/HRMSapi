@@ -81,6 +81,25 @@ namespace HRMS_API.Controllers
             }
         }
 
+        [Route("api/Account/GetSysUsers")]
+        [HttpGet]
+        public HttpResponseMessage GetSysUsers()
+        {
+            try
+            {
+                List<LoginUser_model> _loginuser_model = accountrepository.GetSysUsers();
+                if (_loginuser_model != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, _loginuser_model);
+                }
+                else
+                { return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found!"); }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.InnerException.ToString());
+            }
+        }
 
         //===========================PORTAL ACCOUNT=============================================
         [Route("api/Account/GetEmployeesWithNoPortalAccount/{Clientid}")]

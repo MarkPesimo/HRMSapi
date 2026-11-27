@@ -14,9 +14,23 @@ namespace HRMS.DB
     
     public partial class ChatGroup
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ChatGroup()
+        {
+            this.ChatGroupMembers = new HashSet<ChatGroupMember>();
+            this.ChatMessageLogs = new HashSet<ChatMessageLog>();
+        }
+    
         public int GroupId { get; set; }
         public string GroupName { get; set; }
-        public string CreatedBy { get; set; }
-        public System.DateTime CreatedAt { get; set; }
+        public bool Status { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime DateCreated { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatGroupMember> ChatGroupMembers { get; set; }
+        public virtual SYS_USER SYS_USER { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatMessageLog> ChatMessageLogs { get; set; }
     }
 }

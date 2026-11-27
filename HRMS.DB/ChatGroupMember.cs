@@ -14,9 +14,12 @@ namespace HRMS.DB
     
     public partial class ChatGroupMember
     {
-        public int GroupMemberId { get; set; }
-        public string GroupName { get; set; }
-        public string Username { get; set; }
-        public System.DateTime JoinedAt { get; set; }
+        public int id { get; set; }
+        public int GroupChatId { get; set; }
+        public int UserId { get; set; }
+        public System.DateTime DateJoined { get; set; }
+    
+        public virtual ChatGroup ChatGroup { get; set; }
+        public virtual SYS_USER SYS_USER { get; set; }
     }
 }

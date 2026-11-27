@@ -19,6 +19,31 @@ namespace HRMS.REPO.Repository
         }
 
         //===========================USER=============================================
+        public List<LoginUser_model> GetSysUsers()
+        {
+            List<LoginUser_model> _list = new List<LoginUser_model>();
+
+            _list = (from d in _conn.SYS_USER
+                     where d.appmodule_id == 3 && d.status == true
+                     select d
+                     ).AsEnumerable()
+                     .Select(x => new LoginUser_model()
+                     {
+                         UserId = x.id,
+                         Username = x.username,
+                         Usertype = x.user_type,
+                         EmailAddress = x.email_address,
+                         AppModuleId = x.appmodule_id,
+                         EmployeeName = x.emp_name,
+                         Password = x.password,
+                         Status = x.status,
+                         Guid = "",
+                         CandidateStatus = "",
+                     }).ToList();
+
+            return _list;
+        }
+
         public LoginUser_model Get(string _username, string _password, int _appmoduleid)
         {
             LoginUser_model _obj = new LoginUser_model();
