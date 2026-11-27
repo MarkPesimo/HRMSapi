@@ -60,6 +60,7 @@
     <Compile Include="ViewModel\Floating\EmployeeTransaction_model.cs" />
     <Compile Include="ViewModel\Floating\Separation_model.cs" />
     <Compile Include="ViewModel\Global\AccessModel.cs" />
+    <Compile Include="ViewModel\Global\Chat_model.cs" />
     <Compile Include="ViewModel\Global\ContextLoginUser_model.cs" />
     <Compile Include="ViewModel\Global\GlobalSearch_models.cs" />
     <Compile Include="ViewModel\Global\ICustomPrincipal.cs" />

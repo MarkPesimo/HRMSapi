@@ -63,6 +63,7 @@
     <Compile Include="Repository\AccessRepository.cs" />
     <Compile Include="Repository\AccountRepository.cs" />
     <Compile Include="Repository\BenefitsRepository.cs" />
+    <Compile Include="Repository\ChatRepository.cs" />
     <Compile Include="Repository\Client\ClientAdjustmentRepository.cs" />
     <Compile Include="Repository\Client\ClientBankRepository.cs" />
     <Compile Include="Repository\Client\ClientBranchRepository.cs" />
